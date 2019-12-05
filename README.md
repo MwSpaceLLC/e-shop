@@ -1,8 +1,9 @@
-<p align="center"><img src="public/assets/favicon/apple-icon-180x180.png" width="400"></p>
+<p><img src="public/assets/favicon/apple-icon-180x180.png" width="250"></p>
 
-## About Laravel's e-shop
+## About e-shop Package
 
 Why develop ecommerce backend scratch? This package is very powerfull for dev a veautifull ecommerce app for awesome frontend developer!
+
 ## Contributing
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [e-shop documentation](https://laravel.com/docs/contributions).
