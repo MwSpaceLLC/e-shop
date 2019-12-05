@@ -1,37 +1,43 @@
 <template>
-    <vs-row vs-justify="center">
-        <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="6">
-            <vs-card>
-                <div slot="header">
-                    <h3>
-                        Hello world !
-                    </h3>
-                </div>
-                <div>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
-                </div>
-                <div slot="footer">
-                    <vs-row vs-justify="flex-end">
-                        <vs-button type="gradient" color="danger" icon="favorite"></vs-button>
-                        <vs-button color="primary" icon="turned_in_not"></vs-button>
-                        <vs-button color="rgb(230,230,230)" color-text="rgb(50,50,50)" icon="settings"></vs-button>
-                    </vs-row>
-                </div>
-            </vs-card>
-        </vs-col>
-    </vs-row>
+    <section>
+        <b-field :label="$t('g.LoginMail')" label-position="on-border">
+            <b-input v-model="email" type="email" maxlength="30"></b-input>
+        </b-field>
+        <b-button size="is-small" type="is-info">{{$t('g.LoginCheck')}}</b-button>
+    </section>
 </template>
 
 <script>
     export default {
         name: "Login",
+        data() {
+            return {
+                email: null
+            }
+        },
 
         mounted() {
-            alert('')
+
         }
     }
 </script>
 
 <style scoped>
+    section {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding: 0;
+        margin: 0;
+    }
 
+    .control.has-icons-left .icon,
+    .control.has-icons-right .icon {
+        pointer-events: auto !important;
+    }
 </style>

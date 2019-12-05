@@ -33,7 +33,6 @@ We made this e-commerce Laravel Plugin with Love ❤ -->
     <meta name="theme-color" content="#ffffff">
     <meta name="robots" content="noindex, nofollow">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="{{ asset(mix('app.css', 'vendor/eshop')) }}" rel="stylesheet" type="text/css">
 </head>
 <body>

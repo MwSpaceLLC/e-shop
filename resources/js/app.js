@@ -1,13 +1,10 @@
 import Vue from 'vue';
 import axios from 'axios';
-import Vuesax from 'vuesax'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
 import App from './App.vue'
 import router from './routes'
 import i18n from './i18n'
-
-/**
- * Import all Vue File */
-import 'vuesax/dist/vuesax.css' //Vuesax styles
 
 /**
  * @type {*|lodash} */
@@ -23,8 +20,8 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[nam
 Vue.prototype.$http = axios;
 
 /**
- * Beautiful Theme */
-Vue.use(Vuesax);
+ * Beautiful Ui for Vuejs */
+Vue.use(Buefy);
 
 /**
  * Uncomment below when compiling to production */
