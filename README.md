@@ -1,4 +1,4 @@
-<p><img src="public/assets/favicon/apple-icon-180x180.png" width="250"></p>
+<p><img src="public/assets/favicon/apple-icon-180x180.png" width="150"></p>
 
 ## About e-shop Package
 
