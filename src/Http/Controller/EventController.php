@@ -73,7 +73,7 @@ class EventController extends Controller
     }
 
     /**
-     * Display the Telescope view.
+     * Display the e-shop view.
      *
      * @return \Illuminate\Http\Response
      */

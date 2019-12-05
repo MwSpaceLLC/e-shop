@@ -53,7 +53,7 @@ class EshopServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get the Telescope route group configuration array.
+     * Get the e-shop route group configuration array.
      *
      * @return array
      */
