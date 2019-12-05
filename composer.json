@@ -1,0 +1,43 @@
+{
+    "name": "mwspace/eshop",
+    "description": "Perfect e-commerce package for the Laravel framework.",
+    "keywords": [
+        "laravel",
+        "monitoring",
+        "debugging",
+        "ecommerce"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aleksandr Ivanovitch",
+            "email": "eshop@mwspace.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "ext-json": "*",
+        "laravel/framework": "~5.8.0|^6.0|^7.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "MwSpace\\Eshop\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MwSpace\\Eshop\\EshopServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
