@@ -3,15 +3,14 @@
     "description": "Perfect e-commerce package for the Laravel framework.",
     "keywords": [
         "laravel",
-        "monitoring",
-        "debugging",
+        "eshop",
         "ecommerce"
     ],
     "license": "MIT",
     "authors": [
         {
             "name": "Aleksandr Ivanovitch",
-            "email": "eshop@mwspace.com"
+            "email": "alex@mwspace.com"
         }
     ],
     "require": {
