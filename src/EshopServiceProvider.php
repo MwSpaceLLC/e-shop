@@ -22,12 +22,11 @@ class EshopServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        Route::middlewareGroup('eshop', config('eshop.middleware', []));
-
         $this->registerCommands();
         $this->registerRoutes();
         $this->registerMigrations();
         $this->registerPublishing();
+        $this->registerMiddleware();
 
         $this->loadViewsFrom(
             __DIR__ . '/../resources/views', 'eshop'
@@ -69,8 +68,16 @@ class EshopServiceProvider extends ServiceProvider
         return [
             'namespace' => 'MwSpace\Eshop\Http\Controller',
             'prefix' => 'eshop',
-            'middleware' => 'eshop',
         ];
+    }
+
+    /**
+     * Set the e-shop Middleware.
+     *
+     * @return array
+     */
+    private function registerMiddleware(){
+        Route::middlewareGroup('eshop', config('eshop.middleware', []));
     }
 
     /**

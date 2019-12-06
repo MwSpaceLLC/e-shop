@@ -18,10 +18,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "eshop" middleware group. Now create something great!
 |
 */
-Route::post('/login', 'EventController@login')->name('eshop-login');
 
-Route::get('/{view?}', 'EventController@index')->where('view', '(.*)')->name('v-eshop');
+Route::get('/login', 'EventController@login')->name('eshop-login');
 
-Route::post('/model/{model}', 'EventController@insert')->name('eshop-insert');
+Route::post('/login', 'EventController@login')->name('eshop-post-login');
 
-Route::post('/logout', 'EventController@logout')->name('eshop-logout');
+Route::group(['middleware' => 'eshop'], function () {
+    // User needs to be authenticated to enter here.
+    Route::get('/{view?}', 'EventController@index')->where('view', '(.*)')->name('v-eshop');
+
+    Route::post('/model/{model}', 'EventController@insert')->name('eshop-insert');
+
+    Route::post('/logout', 'EventController@logout')->name('eshop-logout');
+
+});

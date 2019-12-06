@@ -70,21 +70,22 @@ class EventController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * Display the e-shop view.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function login()
+    public function index()
     {
-        Auth::guard('eshop')->logout();
-        return response()->json('success', 200);
+        return view('eshop::app');
     }
 
     /**
      * Display the e-shop view.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function index()
+    public function login()
     {
-        return view('eshop::app');
+        return view('eshop::login');
     }
 }

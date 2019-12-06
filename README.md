@@ -1,4 +1,4 @@
-<p><img src="public/assets/favicon/apple-icon-180x180.png" width="100"></p>
+<p><img src="./public/assets/favicon/apple-icon-180x180.png" width="100"></p>
 
 ## About e-shop Package 🐣
 
@@ -15,6 +15,8 @@ simple, launching a command: coposer require mwspace / eshop
 Here magically my laravel application becomes a powerful ecommerce! Now I just have to load my products and make the site pages dynamic so that they take the products from the database.
 
 preconfigured with stripe, you'll be ready to make money with your Front End!
+
+<p><img src="./preview.png" width="100%"></p>
 
 ## Contributing 🐙
 
