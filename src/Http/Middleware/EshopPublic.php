@@ -8,7 +8,7 @@
 
 namespace MwSpace\Eshop\Http\Middleware;
 
-class EshopAuth
+class EshopPublic
 {
     /**
      * Handle the incoming request.
@@ -19,6 +19,6 @@ class EshopAuth
      */
     public function handle($request, $next)
     {
-        return auth()->guard('eshop')->check() ? $next($request) : abort(404);
+        return $next($request);
     }
 }

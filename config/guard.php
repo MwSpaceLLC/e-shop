@@ -7,8 +7,8 @@
  */
 
 return [
-    'eshop' => [
+    'eshop:admin' => [
         'driver' => 'session',
-        'provider' => 'eshop_admins',
+        'provider' => 'eshop:admins',
     ]
 ];

@@ -7,7 +7,7 @@
  */
 
 return [
-    'eshop_admins' => [
+    'eshop:admins' => [
         'driver' => 'eloquent',
         'model' => MwSpace\Eshop\Model\AdminEshop::class,
     ]

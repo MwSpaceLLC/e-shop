@@ -69,22 +69,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | e-shop Route Middleware
-    |--------------------------------------------------------------------------
-    |
-    | These middleware will be assigned to every e-shop route, giving you
-    | the chance to add your own middleware to this list or change any of
-    | the existing middleware. Or, you can simply stick with this list.
-    |
-    */
-
-    'middleware' => [
-        'web',
-        MwSpace\Eshop\Http\Middleware\EshopAuth::class,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Ignored Paths & Commands
     |--------------------------------------------------------------------------
     |

@@ -21,16 +21,18 @@ class EshopServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerRoutes();
 
         $this->registerCommands();
-        $this->registerRoutes();
-        $this->registerMigrations();
-        $this->registerPublishing();
-        $this->registerMiddleware();
 
-        $this->loadViewsFrom(
-            __DIR__ . '/../resources/views', 'eshop'
-        );
+        $this->registerMigrations();
+
+        $this->registerPublishing();
+
+        $this->registerLanguages();
+
+        $this->registerViews();
+
     }
 
     /**
@@ -40,8 +42,20 @@ class EshopServiceProvider extends ServiceProvider
      */
     private function registerRoutes()
     {
-        Route::group($this->routeConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/Routes/eshop.php');
+        Route::group([
+            'namespace' => 'MwSpace\Eshop\Http\Controller',
+            'prefix' => 'eshop',
+            'middleware' => 'MwSpace\Eshop\Http\Middleware\EshopPublic',
+        ], function () {
+            $this->loadRoutesFrom(__DIR__ . '/Routes/public.php');
+        });
+
+        Route::group([
+            'namespace' => 'MwSpace\Eshop\Http\Controller',
+            'prefix' => 'eshop',
+            'middleware' => 'MwSpace\Eshop\Http\Middleware\EshopPrivate',
+        ], function () {
+            $this->loadRoutesFrom(__DIR__ . '/Routes/private.php');
         });
     }
 
@@ -59,28 +73,6 @@ class EshopServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get the e-shop route group configuration array.
-     *
-     * @return array
-     */
-    private function routeConfiguration()
-    {
-        return [
-            'namespace' => 'MwSpace\Eshop\Http\Controller',
-            'prefix' => 'eshop',
-        ];
-    }
-
-    /**
-     * Set the e-shop Middleware.
-     *
-     * @return array
-     */
-    private function registerMiddleware(){
-        Route::middlewareGroup('eshop', config('eshop.middleware', []));
-    }
-
-    /**
      * Register the package's migrations.
      *
      * @return void
@@ -93,6 +85,18 @@ class EshopServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the view's e-shop.
+     *
+     * @return void
+     */
+    private function registerViews()
+    {
+        $this->loadViewsFrom(
+            __DIR__ . '/../resources/views', 'eshop'
+        );
+    }
+
+    /**
      * Register the package's migrations.
      *
      * @return void
@@ -100,6 +104,53 @@ class EshopServiceProvider extends ServiceProvider
     private function registerLanguages()
     {
         $this->loadTranslationsFrom(__DIR__ . '/../resources/la', 'courier');
+    }
+
+    /**
+     * Register any package services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerConfig();
+
+        $this->registerStorageDriver();
+
+    }
+
+    /**
+     * registerConfig function (Important)
+     */
+    private function registerConfig()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/eshop.php', 'eshop'
+        );
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/guard.php', 'auth.guards'
+        );
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/provider.php', 'auth.providers'
+        );
+
+//        dd($this->app['config']); // Check config (if not work clear config cache)
+    }
+
+    /**
+     * Register the package storage driver.
+     *
+     * @return void
+     */
+    private function registerStorageDriver()
+    {
+        $driver = config('eshop.driver');
+
+        if (method_exists($this, $method = 'register' . ucfirst($driver) . 'Driver')) {
+            $this->$method();
+        }
     }
 
     /**
@@ -129,51 +180,6 @@ class EshopServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../resources/lang' => resource_path('lang/vendor/eshop'),
             ], 'eshop-lang');
-        }
-    }
-
-    /**
-     * Register any package services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->registerConfig();
-
-        $this->registerStorageDriver();
-
-    }
-
-    /**
-     * registerConfig function (Important)
-     */
-    protected function registerConfig()
-    {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/eshop.php', 'eshop'
-        );
-
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/guard.php', 'auth.guards'
-        );
-
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/provider.php', 'auth.providers'
-        );
-    }
-
-    /**
-     * Register the package storage driver.
-     *
-     * @return void
-     */
-    protected function registerStorageDriver()
-    {
-        $driver = config('eshop.driver');
-
-        if (method_exists($this, $method = 'register' . ucfirst($driver) . 'Driver')) {
-            $this->$method();
         }
     }
 
