@@ -12,7 +12,7 @@ But if I have already done the website and just want to turn it from Statico to 
 
 simple, launching a command: 
 
-    coposer require mwspace/eshop
+    composer require mwspace/eshop
 
 Here magically my laravel application becomes a powerful ecommerce! Now I just have to load my products and make the site pages dynamic so that they take the products from the database.
 
