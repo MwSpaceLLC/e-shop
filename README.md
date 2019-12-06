@@ -10,7 +10,9 @@ I should start writing the classes for the models in the database, the migration
 
 But if I have already done the website and just want to turn it from Statico to an actual Shop how can I do?
 
-simple, launching a command: coposer require mwspace / eshop
+simple, launching a command: 
+
+    coposer require mwspace/eshop
 
 Here magically my laravel application becomes a powerful ecommerce! Now I just have to load my products and make the site pages dynamic so that they take the products from the database.
 

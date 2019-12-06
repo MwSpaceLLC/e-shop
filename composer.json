@@ -31,6 +31,16 @@
         "psr-4": {
         }
     },
+    "scripts": {
+        "post-install-cmd": [
+            "@php artisan eshop:install",
+            "@php artisan config:clear"
+        ],
+        "post-update-cmd": [
+            "@php artisan eshop:update",
+            "@php artisan config:clear"
+        ]
+    },
     "extra": {
         "laravel": {
             "providers": [
