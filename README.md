@@ -1,6 +1,6 @@
 <p><img src="./public/assets/favicon/apple-icon-180x180.png" width="100"></p>
 
-## About e-shop Package 🐣 (<a href="https://mwspace.com/store" target="_blank">Demo</a>)
+## About e-shop Package 🐣 ([Demo](https://mwspace.com/store){:target="_blank"})
 
 Let's say I want to turn my simple site made with laravel into a shop.
 
