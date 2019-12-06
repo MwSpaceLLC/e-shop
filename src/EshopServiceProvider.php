@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * e-shop - A PHP Package for Laravel Framework start (6.x)
+ *
+ * @package  eshop
+ * @author   Aleksandr Ivanovitch <alex@mwspace.com>
+ */
+
 namespace MwSpace\Eshop;
 
 use Illuminate\Support\Facades\Route;
@@ -125,11 +132,28 @@ class EshopServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerConfig();
+
+        $this->registerStorageDriver();
+
+    }
+
+    /**
+     * registerConfig function (Important)
+     */
+    protected function registerConfig()
+    {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/eshop.php', 'eshop'
         );
 
-        $this->registerStorageDriver();
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/guard.php', 'auth.guards'
+        );
+
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/provider.php', 'auth.providers'
+        );
     }
 
     /**

@@ -1,11 +1,16 @@
 <?php
+/**
+ * e-shop - A PHP Package for Laravel Framework start (6.x)
+ *
+ * @package  eshop
+ * @author   Aleksandr Ivanovitch <alex@mwspace.com>
+ */
 
 namespace MwSpace\Eshop\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Payment
  *
  * @property int $id
  * @property int $user_id
@@ -13,15 +18,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $payload
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop wherePayload($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\PaymentEshop whereUserId($value)
  * @mixin \Eloquent
  */
 class PaymentEshop extends Model

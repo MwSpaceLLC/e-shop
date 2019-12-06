@@ -1,25 +1,22 @@
 <?php
+/**
+ * e-shop - A PHP Package for Laravel Framework start (6.x)
+ *
+ * @package  eshop
+ * @author   Aleksandr Ivanovitch <alex@mwspace.com>
+ */
 
 namespace MwSpace\Eshop\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Category
  *
  * @property int $id
  * @property int $parent_id
  * @property string|null $payload
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\CategoryEshop newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\CategoryEshop newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\CategoryEshop query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\CategoryEshop whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\CategoryEshop whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\CategoryEshop whereParentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\CategoryEshop wherePayload($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\CategoryEshop whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class CategoryEshop extends Model

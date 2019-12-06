@@ -1,13 +1,18 @@
 <?php
 
 namespace MwSpace\Eshop\Model;
+/**
+ * e-shop - A PHP Package for Laravel Framework start (6.x)
+ *
+ * @package  eshop
+ * @author   Aleksandr Ivanovitch <alex@mwspace.com>
+ */
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * App\User
  *
  * @property int $id
  * @property string $role
@@ -19,17 +24,6 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop wherePayload($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop whereRole($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop whereToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\ClientEshop whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class ClientEshop extends Authenticatable

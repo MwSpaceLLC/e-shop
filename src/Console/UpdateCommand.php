@@ -1,4 +1,10 @@
 <?php
+/**
+ * e-shop - A PHP Package for Laravel Framework start (6.x)
+ *
+ * @package  eshop
+ * @author   Aleksandr Ivanovitch <alex@mwspace.com>
+ */
 
 namespace MwSpace\Eshop\Console;
 
@@ -33,6 +39,12 @@ class UpdateCommand extends Command
         $this->comment('Updating e-shop Assets...');
         $this->callSilent('vendor:publish', [
             '--tag' => 'eshop-assets',
+            '--force' => true,
+        ]);
+
+        $this->comment('Publishing e-shop Configuration...');
+        $this->callSilent('vendor:publish', [
+            '--tag' => 'eshop-config',
             '--force' => true,
         ]);
 
