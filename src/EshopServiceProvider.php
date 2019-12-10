@@ -53,7 +53,7 @@ class EshopServiceProvider extends ServiceProvider
         Route::group([
             'namespace' => 'MwSpace\Eshop\Http\Controller',
             'prefix' => 'eshop',
-            'middleware' => 'MwSpace\Eshop\Http\Middleware\EshopPrivate',
+            'middleware' => 'MwSpace\Eshop\Http\Middleware\EndPoint',
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/Routes/private.php');
         });
@@ -103,7 +103,7 @@ class EshopServiceProvider extends ServiceProvider
      */
     private function registerLanguages()
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/la', 'courier');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/la', 'eshop');
     }
 
     /**

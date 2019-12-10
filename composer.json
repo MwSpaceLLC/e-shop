@@ -1,9 +1,10 @@
 {
-    "name": "mwspace/eshop",
+    "name": "mwspace/e-shop",
     "description": "Perfect e-commerce package for the Laravel framework.",
     "keywords": [
         "laravel",
         "eshop",
+        "e-shop",
         "ecommerce"
     ],
     "license": "MIT",
