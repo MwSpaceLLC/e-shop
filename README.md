@@ -22,7 +22,7 @@ preconfigured with stripe, you'll be ready to make money with your Front End!
 
 ## Contributing 🐙
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [e-shop documentation](https://laravel.com/docs/contributions).
+Thank you for considering contributing to the e-shop Laravel Package framework!
 
 ## Security Vulnerabilities 🦑
 
