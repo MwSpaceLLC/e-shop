@@ -22,11 +22,11 @@ preconfigured with stripe, you'll be ready to make money with your Front End!
 
 ## Contributing 🐙
 
-Thank you for considering contributing to the e-shop Laravel Package framework!
+Thank you for considering contributing to the e-shop Laravel Package!
 
 ## Security Vulnerabilities 🦑
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Support via [e-shop@mwspace.com](mailto:e-shop@mwspace.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within e-shop, please send an e-mail to Support via [e-shop@mwspace.com](mailto:e-shop@mwspace.com). All security vulnerabilities will be promptly addressed.
 
 ## License 🦐
 
