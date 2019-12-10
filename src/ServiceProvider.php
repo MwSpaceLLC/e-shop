@@ -10,9 +10,9 @@
 namespace MwSpace\Eshop;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as MineServiceProvider;
 
-class EshopServiceProvider extends ServiceProvider
+class ServiceProvider extends MineServiceProvider
 {
     /**
      * Bootstrap any package services.
