@@ -44,7 +44,7 @@ class ServiceProvider extends MineServiceProvider
     {
         Route::group([
             'namespace' => 'MwSpace\Eshop\Http\Controller',
-            'prefix' => 'eshop',
+            'prefix' => config('e-shop.prefix') ?? 'e-shop',
             'middleware' => 'MwSpace\Eshop\Http\Middleware\EshopPublic',
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/Routes/public.php');
@@ -52,8 +52,8 @@ class ServiceProvider extends MineServiceProvider
 
         Route::group([
             'namespace' => 'MwSpace\Eshop\Http\Controller',
-            'prefix' => 'eshop',
-            'middleware' => 'MwSpace\Eshop\Http\Middleware\EndPoint',
+            'prefix' => config('e-shop.prefix') ?? 'e-shop',
+            'middleware' => 'MwSpace\Eshop\Http\Middleware\EshopPrivate',
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/Routes/private.php');
         });
@@ -125,7 +125,7 @@ class ServiceProvider extends MineServiceProvider
     private function registerConfig()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/eshop.php', 'eshop'
+            __DIR__ . '/../config/eshop.php', 'e-shop'
         );
 
         $this->mergeConfigFrom(
@@ -170,7 +170,7 @@ class ServiceProvider extends MineServiceProvider
             ], 'eshop-assets');
 
             $this->publishes([
-                __DIR__ . '/../config/eshop.php' => config_path('eshop.php'),
+                __DIR__ . '/../config/eshop.php' => config_path('e-shop.php'),
             ], 'eshop-config');
 
             $this->publishes([

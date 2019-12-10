@@ -19,6 +19,6 @@ class EshopPrivate
      */
     public function handle($request, $next)
     {
-        return auth()->guard('eshop:admin')->check() ? $next($request) : redirect(url('eshop/login'));
+        return auth()->guard('eshop:admin')->check() ? $next($request) : redirect(route('eshop-login'));
     }
 }
