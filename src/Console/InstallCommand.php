@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class InstallCommand extends Command
 {
@@ -36,6 +37,15 @@ class InstallCommand extends Command
      */
     public function handle()
     {
+        try {
+            DB::connection()->getPdo();
+        } catch (\Exception $e) {
+            return $this->error("Set Database (postgres) Before Instal e-shop");
+        }
+
+        do $email = $this->ask('Insert email for e-shop root');
+        while ($email == null || !filter_var($email, FILTER_VALIDATE_EMAIL));
+
         $this->comment('Publishing e-shop Service Provider...');
         $this->callSilent('vendor:publish', ['--tag' => 'eshop-provider']);
 
@@ -45,6 +55,20 @@ class InstallCommand extends Command
         $this->comment('Publishing e-shop Configuration...');
         $this->callSilent('vendor:publish', ['--tag' => 'eshop-config']);
 
-        $this->info('e-shop scaffolding installed successfully.');
+        $this->comment('Perform e-shop Migration...');
+        $this->callSilent('migrate');
+
+        $this->info("
+                        .__                   
+  ____             _____|  |__   ____ ______  
+_/ __ \   ______  /  ___/  |  \ /  _ \\____ \ 
+\  ___/  /_____/  \___ \|   Y  (  <_> )  |_> >
+ \___  >         /____  >___|  /\____/|   __/ 
+     \/               \/     \/       |__|    
+
+Installed successfully.
+
+Please see backend at: " . route('eshop-login') . "
+        ");
     }
 }

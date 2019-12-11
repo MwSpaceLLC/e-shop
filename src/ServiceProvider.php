@@ -45,7 +45,10 @@ class ServiceProvider extends MineServiceProvider
         Route::group([
             'namespace' => 'MwSpace\Eshop\Http\Controller',
             'prefix' => config('e-shop.prefix') ?? 'e-shop',
-            'middleware' => 'MwSpace\Eshop\Http\Middleware\EshopPublic',
+            'middleware' => [
+                'web',
+                'MwSpace\Eshop\Http\Middleware\EshopPublic'
+            ],
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/Routes/public.php');
         });
@@ -53,7 +56,10 @@ class ServiceProvider extends MineServiceProvider
         Route::group([
             'namespace' => 'MwSpace\Eshop\Http\Controller',
             'prefix' => config('e-shop.prefix') ?? 'e-shop',
-            'middleware' => 'MwSpace\Eshop\Http\Middleware\EshopPrivate',
+            'middleware' => [
+                'web',
+                'MwSpace\Eshop\Http\Middleware\EshopPrivate'
+            ],
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/Routes/private.php');
         });

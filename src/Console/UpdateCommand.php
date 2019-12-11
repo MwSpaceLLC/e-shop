@@ -36,13 +36,16 @@ class UpdateCommand extends Command
      */
     public function handle()
     {
+        $this->comment('Updating e-shop Package...');
+        $this->shellSilent('composer require mwspace/e-shop');
+
         $this->comment('Updating e-shop Assets...');
         $this->callSilent('vendor:publish', [
             '--tag' => 'eshop-assets',
             '--force' => true,
         ]);
 
-        $this->comment('Publishing e-shop Configuration...');
+        $this->comment('Updating e-shop Configuration...');
         $this->callSilent('vendor:publish', [
             '--tag' => 'eshop-config',
             '--force' => true,
@@ -54,6 +57,18 @@ class UpdateCommand extends Command
             '--force' => true,
         ]);
 
-        $this->info('e-shop scaffolding updated successfully.');
+        $this->comment('Updating e-shop Migration...');
+        $this->callSilent('migrate');
+
+        $this->info('e-shop updated successfully.');
+    }
+
+    /**
+     * @param $command
+     * @return string|null
+     */
+    private function shellSilent($command)
+    {
+        return shell_exec("$command 2>&1");
     }
 }

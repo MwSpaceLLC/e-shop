@@ -22,14 +22,13 @@ class CreateEshopProductsTable extends Migration
         Schema::create('eshop_products', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
 
-            $table->foreign('category_id')
+            $table->foreign('admin_id')
                 ->references('id')
-                ->on('categories')
-                ->onDelete('cascade');
+                ->on('eshop_admins');
 
-            $table->bigInteger('pos_id')->nullable();
+            $table->bigInteger('position')->nullable();
 
             $table->json('payload')->nullable();
 
@@ -44,6 +43,6 @@ class CreateEshopProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('eshop_products');
     }
 }

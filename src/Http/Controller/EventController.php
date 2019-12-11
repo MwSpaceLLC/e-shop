@@ -10,11 +10,10 @@ namespace MwSpace\Eshop\Http\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class EventController extends Controller
+class EventController extends BaseController
 {
 
     private $paginator = 8;
@@ -87,5 +86,10 @@ class EventController extends Controller
     public function login()
     {
         return view('eshop::login');
+    }
+
+    public function postLogin()
+    {
+        dd($this->request->all());
     }
 }

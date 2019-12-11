@@ -22,18 +22,16 @@ class CreateEshopPaymentsTable extends Migration
         Schema::create('eshop_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->biginteger('user_id')->unsigned();
-            $table->biginteger('product_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+                ->on('eshop_users');
 
             $table->foreign('product_id')
                 ->references('id')
-                ->on('products')
-                ->onDelete('cascade');
+                ->on('eshop_products');
 
             $table->json('payload')->nullable();
 
@@ -48,6 +46,6 @@ class CreateEshopPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('eshop_payments');
     }
 }
