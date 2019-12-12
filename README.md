@@ -18,8 +18,20 @@ Here magically my laravel application becomes a powerful ecommerce! Now I just h
 
 preconfigured with stripe, you'll be ready to make money with your Front End!
 
+For Install & Popolate Database,Users, Admin etc u can run:
+
+    php artisan eshop:install
+
+For Use e-shop future queue (Best Performance & Cron) [must activate Cron Job]
+
+    * * * * * cd /path-to-your-project && php artisan eshop:que >> /dev/null 2>&1    
+    
 <p><img src="./preview.png" width="100%"></p>
 
+For Update e-shop repository u can simply run as follow (!!!Please, backup your app first!!!)
+
+    php artisan eshop:update
+    
 ## Contributing 🐙
 
 Thank you for considering contributing to the e-shop Laravel Package!

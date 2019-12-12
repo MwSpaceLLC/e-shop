@@ -72,9 +72,17 @@ We made this e-commerce Laravel Plugin with Love ❤ -->
                 <div class="form-items">
                     <div class="page-links">
                         <a class="active">Login</a>
+                        @error('email')
+                        <a style="pointer-events: none" class="text-danger">{{ $message }}</a>
+                        @enderror
+                        @if($message = Session::get('success'))
+                            <a style="pointer-events: none" class="text-success">{{ $message }}</a>
+                        @endif
                     </div>
                     <form method="post" action="{{route('eshop-post-login')}}"> @csrf
-                        <input class="form-control" type="email" name="email" placeholder="E-mail Address" required>
+                        <input value="{{old('email')}}" class="form-control invalid" type="email" name="email"
+                               placeholder="E-mail Address"
+                               required>
                         <div class="form-button">
                             <button id="submit" type="submit" class="ibtn">Send Token</button>
                         </div>
@@ -82,9 +90,10 @@ We made this e-commerce Laravel Plugin with Love ❤ -->
                     <div class="other-links">
                         <span>Share Please! 🙊 </span>
                         <div class="fb-share-button" data-href="https://github.com/MwSpaceLLC/eshop"
-                             data-layout="button" data-size="small"><a target="_blank"
-                                                                       href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgithub.com%2FMwSpaceLLC%2Feshop&amp;src=sdkpreparse"
-                                                                       class="fb-xfbml-parse-ignore">Condividi</a></div>
+                             data-layout="button" data-size="small">
+                            <a target="_blank"
+                               href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgithub.com%2FMwSpaceLLC%2Feshop&amp;src=sdkpreparse"
+                               class="fb-xfbml-parse-ignore">Condividi</a></div>
                     </div>
                 </div>
             </div>

@@ -8,56 +8,17 @@
 
 namespace MwSpace\Eshop\Http\Controller;
 
+use Illuminate\Console\Command;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use MwSpace\Eshop\Mail\AdminLogin;
+use MwSpace\Eshop\Model\AdminEshop;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends BaseController
 {
-
-    private $paginator = 8;
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
-     */
-    public function tables(Request $request)
-    {
-        $Model = ucfirst($request->model);
-        $Class = "App\\$Model";
-        if (!class_exists($Class))
-            return abort(403, "Model $Class not exis");
-
-        return view('eshop.pages.table')->with('items', $Class::paginate($this->paginator));
-    }
-
-    public function insert(Request $request)
-    {
-
-        $request->obj = new \stdClass();
-        $date = date('dmy');
-        $Model = ucfirst($request->model);
-        $Class = "App\\$Model";
-        if (!class_exists($Class))
-            return abort(403, "Model $Class not exis");
-
-        /**
-         * Save image if exist */
-        foreach ($request->payload as $key => $payload) {
-            if ($payload instanceof UploadedFile)
-                $request->obj->$key = '/eshop/i/' . Storage::disk('public')->put("$Model/$date", $payload);
-            else
-                $request->obj->$key = $payload;
-        }
-
-        $save = new $Class;
-        $save->payload = json_encode($request->obj);
-        $save->save();
-
-        return back()->with('success', "$Model succesful addedd");
-
-    }
 
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -88,8 +49,26 @@ class EventController extends BaseController
         return view('eshop::login');
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postLogin()
     {
-        dd($this->request->all());
+        $this->request->validate([
+            'email' => 'email|required|exists:eshop_admins|max:255',
+        ]);
+
+        $this->silentAdminToken($this->request->email);
+
+        return back()->with(['success' => 'Token has been sent to email!']);
+
+    }
+
+    /**
+     * @param $email
+     */
+    private function silentAdminToken($email)
+    {
+        Mail::to($email)->later(1, new AdminLogin($email));
     }
 }

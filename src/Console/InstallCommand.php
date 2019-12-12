@@ -8,11 +8,9 @@
 
 namespace MwSpace\Eshop\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use MwSpace\Eshop\Model\AdminEshop;
 
 class InstallCommand extends Command
 {
@@ -46,6 +44,15 @@ class InstallCommand extends Command
         do $email = $this->ask('Insert email for e-shop root');
         while ($email == null || !filter_var($email, FILTER_VALIDATE_EMAIL));
 
+        if (AdminEshop::where('email', $email)->first())
+            return $this->error("Super User already exist in e-shop");
+
+        $this->comment('Popolate e-shop root Superuser...');
+        $this->createRoot($email);
+
+        $this->comment('Perform e-shop queues Provider...');
+        $this->callSilent('queue:table');
+
         $this->comment('Publishing e-shop Service Provider...');
         $this->callSilent('vendor:publish', ['--tag' => 'eshop-provider']);
 
@@ -70,5 +77,17 @@ Installed successfully.
 
 Please see backend at: " . route('eshop-login') . "
         ");
+    }
+
+    /**
+     * @param $email
+     */
+    protected function createRoot($email)
+    {
+        $admin = new AdminEshop();
+        $admin->role = 'root';
+        $admin->email = $email;
+        $admin->token = $admin->generateToken();
+        $admin->save();
     }
 }

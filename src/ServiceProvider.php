@@ -32,7 +32,6 @@ class ServiceProvider extends MineServiceProvider
         $this->registerLanguages();
 
         $this->registerViews();
-
     }
 
     /**
@@ -73,6 +72,7 @@ class ServiceProvider extends MineServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Console\InstallCommand::class,
+                Console\QueueCommand::class,
                 Console\UpdateCommand::class,
             ]);
         }
@@ -119,10 +119,21 @@ class ServiceProvider extends MineServiceProvider
      */
     public function register()
     {
+        $this->configRuntime();
+
         $this->registerConfig();
 
         $this->registerStorageDriver();
 
+    }
+
+    /**
+     * set queue at runtime for e-shop (Important)
+     * e-shop php run with queue jobs
+     */
+    private function configRuntime()
+    {
+        config(['queue.default' => 'database']);
     }
 
     /**

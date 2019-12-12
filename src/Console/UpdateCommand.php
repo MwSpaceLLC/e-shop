@@ -8,10 +8,7 @@
 
 namespace MwSpace\Eshop\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 
 class UpdateCommand extends Command
 {

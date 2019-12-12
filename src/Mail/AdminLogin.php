@@ -24,9 +24,9 @@ class AdminLogin extends Mailable
      * AdminLogin constructor.
      * @param Admin $admin
      */
-    public function __construct(AdminEshop $admin)
+    public function __construct($email)
     {
-        $this->admin = $admin;
+        $this->admin = AdminEshop::where('email', $email)->first();
     }
 
     /**
@@ -36,7 +36,8 @@ class AdminLogin extends Mailable
      */
     public function build()
     {
-        return $this->from('www@ladietaperfetta.com')
-            ->markdown('emails.admin.login')->with('admin', $this->admin);
+        return $this
+            ->from('www@ladietaperfetta.com')
+            ->markdown('eshop::mail.token')->with('admin', $this->admin);
     }
 }
