@@ -10,7 +10,10 @@ I should start writing the classes for the models in the database, the migration
 
 But if I have already done the website and just want to turn it from Statico to an actual Shop how can I do?
 
-simple, launching a command: 
+### Requirement
+- Laravel >=6.x
+
+Simple, launching command as Follow in your Laravel Application: 
 
     composer require mwspace/e-shop
 
