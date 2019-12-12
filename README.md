@@ -24,7 +24,7 @@ For Install & Popolate Database,Users, Admin etc u can run:
 
 For Use e-shop future queue (Best Performance & Cron) [must activate Cron Job]
 
-    * * * * * cd /path-to-your-project && php artisan eshop:que >> /dev/null 2>&1    
+    * * * * * cd /path-to-your-project && php artisan eshop:queue >> /dev/null 2>&1    
     
 <p><img src="./preview.png" width="100%"></p>
 
