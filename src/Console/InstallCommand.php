@@ -10,7 +10,9 @@ namespace MwSpace\Eshop\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use MwSpace\Eshop\Model\AdminEshop;
+use Illuminate\Support\Facades\Schema;
 
 class InstallCommand extends Command
 {
@@ -50,8 +52,10 @@ class InstallCommand extends Command
         $this->comment('Popolate e-shop root Superuser...');
         $this->createRoot($email);
 
-        $this->comment('Perform e-shop queues Provider...');
-        $this->callSilent('queue:table');
+        if (!Schema::hasTable('jobs')) {
+            $this->comment('Perform e-shop queues Provider...');
+            $this->callSilent('queue:table');
+        }
 
         $this->comment('Publishing e-shop Service Provider...');
         $this->callSilent('vendor:publish', ['--tag' => 'eshop-provider']);
@@ -85,9 +89,24 @@ Please see backend at: " . route('eshop-login') . "
     protected function createRoot($email)
     {
         $admin = new AdminEshop();
+
         $admin->role = 'root';
+        if (AdminEshop::where('role', 'root')->first())
+            $admin->role = 'admin';
+
         $admin->email = $email;
         $admin->token = $admin->generateToken();
         $admin->save();
+    }
+
+    /**
+     * Get the class name of a migration name.
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function getClassName($name)
+    {
+        return Str::studly($name);
     }
 }

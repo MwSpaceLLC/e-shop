@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{view?}', 'EventController@index')->where('view', '(.*)')->name('v-eshop');
+Route::get('/', 'AuthController@index')->name('v-eshop');
 
-Route::post('/model/{model}', 'EventController@insert')->name('eshop-insert');
-
-Route::post('/logout', 'EventController@logout')->name('eshop-logout');
+Route::get('/logout', 'AuthController@logout')->name('eshop-logout');

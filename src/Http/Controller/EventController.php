@@ -17,27 +17,8 @@ use MwSpace\Eshop\Mail\AdminLogin;
 use MwSpace\Eshop\Model\AdminEshop;
 use Illuminate\Support\Facades\Mail;
 
-class EventController extends BaseController
+class EventController extends Base
 {
-
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function logout()
-    {
-        Auth::guard('eshop')->logout();
-        return response()->json('success', 200);
-    }
-
-    /**
-     * Display the e-shop view.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
-    public function index()
-    {
-        return view('eshop::app');
-    }
 
     /**
      * Display the e-shop view.
@@ -65,10 +46,23 @@ class EventController extends BaseController
     }
 
     /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function auth()
+    {
+        $admin = AdminEshop::where('token', $this->request->token)->firstOrFail();
+
+        Auth::guard('eshop:admin')->login($admin);
+
+        return redirect()->route('v-eshop')->with('Welcome Back!');
+    }
+
+    /**
      * @param $email
      */
     private function silentAdminToken($email)
     {
+//        Mail::to($email)->send(new AdminLogin($email));
         Mail::to($email)->later(1, new AdminLogin($email));
     }
 }

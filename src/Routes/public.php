@@ -21,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', 'EventController@login')->name('eshop-login');
 
 Route::post('/login', 'EventController@postLogin')->name('eshop-post-login');
+
+Route::get('/auth/{token}', 'EventController@auth')->name('eshop-auth-admin');

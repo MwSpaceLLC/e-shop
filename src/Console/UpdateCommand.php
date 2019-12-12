@@ -33,18 +33,13 @@ class UpdateCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Updating e-shop Package...');
-        $this->shellSilent('composer require mwspace/e-shop');
+
+//        $this->comment('Updating e-shop Package...');
+//        $this->shellSilent('composer require mwspace/e-shop');
 
         $this->comment('Updating e-shop Assets...');
         $this->callSilent('vendor:publish', [
             '--tag' => 'eshop-assets',
-            '--force' => true,
-        ]);
-
-        $this->comment('Updating e-shop Configuration...');
-        $this->callSilent('vendor:publish', [
-            '--tag' => 'eshop-config',
             '--force' => true,
         ]);
 
