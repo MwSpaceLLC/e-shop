@@ -37,7 +37,6 @@ class AdminLogin extends Mailable
     public function build()
     {
         return $this
-            ->from('www@ladietaperfetta.com')
             ->markdown('eshop::mail.token')->with('admin', $this->admin);
     }
 }

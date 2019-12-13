@@ -109,7 +109,7 @@ class ServiceProvider extends MineServiceProvider
      */
     private function registerLanguages()
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/la', 'eshop');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'eshop');
     }
 
     /**
