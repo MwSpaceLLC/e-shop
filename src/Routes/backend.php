@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'AuthController@index')->name('v-eshop');
+Route::get('/', 'BackendController@index')->name('eshop-backend');
 
-Route::get('/logout', 'AuthController@logout')->name('eshop-logout');
+Route::get('/model/{model}', 'BackendController@models')->name('eshop-models');
+
+Route::get('/model/insert/{model}', 'BackendController@insertModel')->name('eshop-model-insert');
+
+Route::post('/model/post/{model}', 'BackendController@postModel')->name('eshop-post-model');
+
+Route::get('/logout', 'BackendController@logout')->name('eshop-logout');

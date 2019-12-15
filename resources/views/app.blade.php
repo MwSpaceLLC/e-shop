@@ -12,9 +12,11 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
     <title>@yield('title') | e-shop</title>
     <meta charset="utf-8">
     <link rel="dns-prefetch" href="//oss.maxcdn.com">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//oss.maxcdn.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
     <link rel="dns-prefetch" href="//{{request()->getHost()}}">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ asset('/vendor/eshop/assets/favicon/app.ico') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{asset('/vendor/eshop/assets/favicon/apple-icon-57x57.png')}}">
@@ -66,18 +68,32 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
     <script src="{{asset('vendor/eshop/assets/plugins/chartjs/chart.min.js')}}"></script>
     <script src="{{asset('vendor/eshop/assets/plugins/apexcharts/dist/apexcharts.min.js')}}"></script>
     <script src="{{asset('vendor/eshop/assets/js/lime.min.js')}}"></script>
-    <script src="{{asset('vendor/eshop/assets/js/pages/dashboard.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 
 <body class="e-shop">
 
-@include('eshop::sidebar')
+@include('eshop::part.sidebar')
 
-@include('eshop::modules')
+@include('eshop::part.modules')
 
-@include('eshop::header')
+@include('eshop::part.header')
 
 @yield('content')
 
+@if($message = session()->get('success'))
+    <div class="toast fade show alert-success" style=" position: absolute; width: 300px; top: 10px; right: 10px; " role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="mr-auto">Notification</strong>
+            <small>11 mins ago</small>
+            <button type="button" onclick="this.closest('.toast').remove()" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <i class="material-icons">close</i>
+            </button>
+        </div>
+        <div class="toast-body">
+            {{ $message }}
+        </div>
+    </div>
+@endif
 </body>
 </html>

@@ -5,7 +5,7 @@
                 <span class="material-design-hamburger__layer"></span>
             </a>
         </section>
-        <a class="navbar-brand" href="#!">
+        <a class="navbar-brand" style="pointer-events: none">
             <img src="{{asset('/vendor/eshop/assets/favicon/apple-icon-180x180.png')}}" width="25"> e-shop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="form-inline my-2 my-lg-0 search">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search for projects, apps, pages..."
+                <input class="form-sent mr-sm-2" type="search" placeholder="@lang('eshop::index.Search')"
                        aria-label="Search">
             </form>
             <ul class="navbar-nav ml-auto">

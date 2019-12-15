@@ -1,1 +1,46 @@
 /* Write your custom CSS here */
+
+.float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes float {
+    0% {
+        transform: translatey(0px);
+    }
+    50% {
+        transform: translatey(-10px);
+    }
+    100% {
+        transform: translatey(0px);
+    }
+}
+
+/* Standard syntax */
+@keyframes float {
+    0% {
+        transform: translatey(0px);
+    }
+    50% {
+        transform: translatey(-10px);
+    }
+    100% {
+        transform: translatey(0px);
+    }
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle,
+.btn.btn-primary.active,
+.btn.btn-primary:active,
+.btn.btn-primary:focus,
+.btn, .form-control, textarea, button {
+    box-shadow: 0 3px 10px rgba(62, 85, 120, .045) !important;
+    padding: 5px !important;
+}

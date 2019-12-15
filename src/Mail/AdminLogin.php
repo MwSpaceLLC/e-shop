@@ -26,7 +26,7 @@ class AdminLogin extends Mailable
      */
     public function __construct($email)
     {
-        $this->admin = AdminEshop::where('email', $email)->first();
+        $this->admin = AdminEshop::where('payload->email', $email)->first();
     }
 
     /**

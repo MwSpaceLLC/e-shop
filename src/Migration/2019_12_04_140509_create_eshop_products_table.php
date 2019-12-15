@@ -28,8 +28,6 @@ class CreateEshopProductsTable extends Migration
                 ->references('id')
                 ->on('eshop_admins');
 
-            $table->bigInteger('position')->nullable();
-
             $table->json('payload')->nullable();
 
             $table->timestamps();

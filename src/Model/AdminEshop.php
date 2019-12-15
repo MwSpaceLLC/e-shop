@@ -51,6 +51,8 @@ class AdminEshop extends Authenticatable
         'token',
     ];
 
+    public $insert = true;
+
     /**
      * Login Validate (304 str:count)
      * https://www.php.net/manual/en/function.hash.php
@@ -63,6 +65,14 @@ class AdminEshop extends Authenticatable
         $hash_str .= hash('sha256', date('H:i:s'));
 
         return $hash_str;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function payload()
+    {
+        return json_decode($this->payload);
     }
 
 }

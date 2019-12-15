@@ -20,14 +20,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @mixin \Eloquent
  */
-class PaymentEshop extends Model
+class OrderEshop extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'eshop_payments';
+    protected $table = 'eshop_orders';
 
     /**
      * The attributes that are mass assignable.

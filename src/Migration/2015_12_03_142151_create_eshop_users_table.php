@@ -22,10 +22,6 @@ class CreateEshopUsersTable extends Migration
         Schema::create('eshop_users', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('role')->default('default');
-            $table->string('email')->unique();
-            $table->longText('token')->unique();
-
             $table->json('payload')->nullable();
 
             $table->rememberToken();

@@ -36,4 +36,14 @@ class ProductEshop extends Model
     protected $fillable = [
         'payload',
     ];
+
+    public $insert = true;
+
+    /**
+     * @return mixed
+     */
+    public function payload()
+    {
+        return json_decode($this->payload);
+    }
 }

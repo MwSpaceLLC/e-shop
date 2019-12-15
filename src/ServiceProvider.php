@@ -21,6 +21,8 @@ class ServiceProvider extends MineServiceProvider
      */
     public function boot()
     {
+        $this->registerHelpers();
+
         $this->registerRoutes();
 
         $this->registerCommands();
@@ -32,6 +34,17 @@ class ServiceProvider extends MineServiceProvider
         $this->registerLanguages();
 
         $this->registerViews();
+    }
+
+    /**
+     * Register the helpers routes.
+     *
+     */
+    private function registerHelpers()
+    {
+        if (file_exists($file = __DIR__ . '/Helper/global.php')) {
+            require $file;
+        }
     }
 
     /**
@@ -60,7 +73,7 @@ class ServiceProvider extends MineServiceProvider
                 'MwSpace\Eshop\Http\Middleware\EshopPrivate'
             ],
         ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/Routes/private.php');
+            $this->loadRoutesFrom(__DIR__ . '/Routes/backend.php');
         });
     }
 

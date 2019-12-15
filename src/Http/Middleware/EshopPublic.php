@@ -19,6 +19,6 @@ class EshopPublic
      */
     public function handle($request, $next)
     {
-        return auth()->guard('eshop:admin')->check() ? redirect()->route('v-eshop'): $next($request);
+        return auth()->guard('eshop:admin')->check() ? redirect()->route('eshop-backend'): $next($request);
     }
 }

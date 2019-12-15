@@ -72,7 +72,7 @@
                                                 <v:textbox inset="0,0,0,0">
                                                     <center
                                                         style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px">
-                                <![endif]--><a href="{{route('eshop-auth-admin',['token' => $admin->token])}}"
+                                <![endif]--><a href="{{route('eshop-auth-admin',['token' => $admin->payload()->token])}}"
                                                style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #C059FF; border-radius: 50px; -webkit-border-radius: 50px; -moz-border-radius: 50px; width: auto; width: auto; border-top: 1px solid #C059FF; border-right: 1px solid #C059FF; border-bottom: 1px solid #C059FF; border-left: 1px solid #C059FF; padding-top: 5px; padding-bottom: 5px; font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;"
                                                target="_blank"><span
                                         style="padding-left:50px;padding-right:50px;font-size:16px;display:inline-block;"><span

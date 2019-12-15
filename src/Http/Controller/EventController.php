@@ -8,11 +8,7 @@
 
 namespace MwSpace\Eshop\Http\Controller;
 
-use Illuminate\Console\Command;
-use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use MwSpace\Eshop\Mail\AdminLogin;
 use MwSpace\Eshop\Model\AdminEshop;
 use Illuminate\Support\Facades\Mail;
@@ -35,9 +31,8 @@ class EventController extends Base
      */
     public function postLogin()
     {
-        $this->request->validate([
-            'email' => 'email|required|exists:eshop_admins|max:255',
-        ]);
+        if (!AdminEshop::where('payload->email', $this->request->email)->first())
+            return back()->withErrors(['email' => 'Email admin not found']);
 
         $this->silentAdminToken($this->request->email);
 
@@ -50,11 +45,11 @@ class EventController extends Base
      */
     public function auth()
     {
-        $admin = AdminEshop::where('token', $this->request->token)->firstOrFail();
+        $admin = AdminEshop::where('payload->token', $this->request->token)->firstOrFail();
 
         Auth::guard('eshop:admin')->login($admin);
 
-        return redirect()->route('v-eshop')->with('Welcome Back!');
+        return redirect()->route('eshop-backend')->with('Welcome Back!');
     }
 
     /**

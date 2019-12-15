@@ -10,7 +10,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEshopAdminsTable extends Migration
+class CreateEshopNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,12 +19,17 @@ class CreateEshopAdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('eshop_admins', function (Blueprint $table) {
+        Schema::create('eshop_notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->unsignedBigInteger('admin_id')->nullable();
+
+            $table->foreign('admin_id')
+                ->references('id')
+                ->on('eshop_admins');
 
             $table->json('payload')->nullable();
 
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -36,6 +41,6 @@ class CreateEshopAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eshop_admins');
+        Schema::dropIfExists('eshop_notifications');
     }
 }

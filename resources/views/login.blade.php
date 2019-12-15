@@ -80,7 +80,7 @@ We made this e-commerce Laravel Plugin with Love ❤ -->
                         @error('email')
                         <a style="pointer-events: none" class="text-danger">{{ $message }}</a>
                         @enderror
-                        @if($message = Session::get('success'))
+                        @if($message = session()->get('success'))
                             <a style="pointer-events: none" class="text-success">{{ $message }}</a>
                         @endif
                     </div>

@@ -65,4 +65,11 @@ class UserEshop extends Authenticatable
         return $hash_str;
     }
 
+    /**
+     * @return mixed
+     */
+    public function payload()
+    {
+        return json_decode($this->payload);
+    }
 }
