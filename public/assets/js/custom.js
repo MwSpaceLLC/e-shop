@@ -1,6 +1,6 @@
 // Write your custom JS here
 
-function addPayload() {
+const addPayload = () => {
     var li = document.createElement("li");
     li.innerHTML = `
              <li class="m-1 bg-light p-2">
@@ -18,3 +18,19 @@ function addPayload() {
             `;
     payload.appendChild(li);
 }
+
+$(document).ready(() => {
+    let i = $('.img-popover');
+    i.popover({
+        //trigger: 'focus',
+        trigger: 'hover',
+        html: true,
+        content: () => {
+            var image = new Image();
+            image.src = i.val();
+            image.width = '250';
+            return image;
+        },
+        title: 'Preview'
+    })
+});

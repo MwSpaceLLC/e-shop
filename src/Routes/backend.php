@@ -25,6 +25,10 @@ Route::get('/model/{model}', 'BackendController@models')->name('eshop-models');
 
 Route::get('/model/insert/{model}', 'BackendController@insertModel')->name('eshop-model-insert');
 
+Route::get('/model/{model}/{parent}', 'BackendController@parentModels')->name('eshop-parent-models');
+
+Route::get('/model/delete/{model}/{id}', 'BackendController@deleteModel')->name('eshop-delete-model');
+
 Route::post('/model/post/{model}', 'BackendController@postModel')->name('eshop-post-model');
 
 Route::get('/logout', 'BackendController@logout')->name('eshop-logout');

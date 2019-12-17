@@ -35,6 +35,14 @@ class BackendController extends Base
      */
     public function models()
     {
+        return view("eshop::backend.model.index")->with('model', $this->getModel());
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function parentModels()
+    {
         return view("eshop::backend.model")->with('model', $this->getModel());
     }
 
@@ -43,7 +51,7 @@ class BackendController extends Base
      */
     public function insertModel()
     {
-        return view("eshop::backend.add-model")->with('model', $this->getModel());
+        return view("eshop::backend.model.insert.{$this->request->model}")->with('model', $this->getModel());
     }
 
     /**
@@ -51,8 +59,12 @@ class BackendController extends Base
      */
     public function postModel()
     {
+
+        dd($this->request->all());
+
         $model = $this->createModel();
-        return back()->with('success', "{$this->request->model} has been insert succesfull!");
+        $name = isset($model->payload()->name) ?? '';
+        return back()->with('success', "$name | has been insert succesfull!");
     }
 
     /**
@@ -72,6 +84,18 @@ class BackendController extends Base
 
         $model->save();
         return $model;
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteModel()
+    {
+        $model = ($this->getModel())::findOrFail($this->request->id);
+        $name = isset($model->payload()->name) ?? '';
+        $model->delete();
+
+        return back()->with('success', "$name | has been deleted succesfull!");
     }
 
     /**

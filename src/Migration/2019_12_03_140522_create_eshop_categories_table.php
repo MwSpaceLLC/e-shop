@@ -21,6 +21,7 @@ class CreateEshopCategoriesTable extends Migration
     {
         Schema::create('eshop_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('index')->nullable();
 
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();

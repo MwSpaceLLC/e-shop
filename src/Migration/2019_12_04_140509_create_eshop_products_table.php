@@ -21,6 +21,7 @@ class CreateEshopProductsTable extends Migration
     {
         Schema::create('eshop_products', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('index')->nullable();
 
             $table->unsignedBigInteger('admin_id')->nullable();
 

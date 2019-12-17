@@ -13,7 +13,8 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
     <meta charset="utf-8">
     <link rel="dns-prefetch" href="//oss.maxcdn.com">
     <link rel="dns-prefetch" href="//oss.maxcdn.com">
-    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.tiny.cloud">
     <link rel="dns-prefetch" href="//{{request()->getHost()}}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -68,7 +69,13 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
     <script src="{{asset('vendor/eshop/assets/plugins/chartjs/chart.min.js')}}"></script>
     <script src="{{asset('vendor/eshop/assets/plugins/apexcharts/dist/apexcharts.min.js')}}"></script>
     <script src="{{asset('vendor/eshop/assets/js/lime.min.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.1/Sortable.min.js"
+            integrity="sha256-9D6DlNlpDfh0C8buQ6NXxrOdLo/wqFUwEB1s70obwfE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
+            integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    @yield('css')
 </head>
 
 <body class="e-shop">
@@ -82,11 +89,13 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
 @yield('content')
 
 @if($message = session()->get('success'))
-    <div class="toast fade show alert-success" style=" position: absolute; width: 300px; top: 10px; right: 10px; " role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast fade show alert-success" style=" position: absolute; width: 300px; top: 10px; right: 10px; "
+         role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
             <strong class="mr-auto">Notification</strong>
             <small>11 mins ago</small>
-            <button type="button" onclick="this.closest('.toast').remove()" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <button type="button" onclick="this.closest('.toast').remove()" class="ml-2 mb-1 close" data-dismiss="toast"
+                    aria-label="Close">
                 <i class="material-icons">close</i>
             </button>
         </div>
@@ -95,5 +104,6 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
         </div>
     </div>
 @endif
+@yield('js')
 </body>
 </html>

@@ -17,12 +17,11 @@ return [
     'Add' => 'Add',
     'Empty' => 'There are no records',
     'Insert' => 'Insert',
-    'CreateNew' => 'Create New',
+    'CreateNew' => 'Create',
 
     'Help' => 'Payload is automatic field on DB record',
     'CreatePayload' => 'Insert new Line',
-    '=========' => '==================',
-    '=========' => '==================',
-    '=========' => '==================',
+    'ModelCategory' => 'Category Selected',
+    'ModelPrice' => 'Price',
     '=========' => '==================',
 ];
