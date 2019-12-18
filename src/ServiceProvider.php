@@ -166,6 +166,10 @@ class ServiceProvider extends MineServiceProvider
             __DIR__ . '/../config/provider.php', 'auth.providers'
         );
 
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/filesystem.php', 'filesystems.disks'
+        );
+
 //        dd($this->app['config']); // Check config (if not work clear config cache)
     }
 

@@ -14,12 +14,28 @@ namespace MwSpace\Eshop\Model;
  */
 class Eshop
 {
-    public $category;
-    public $product;
 
-    public function __construct()
+    /**
+     * @return CategoryEshop
+     */
+    public function category()
     {
-        return $this->category = new CategoryEshop();
-        return $this->product = new ProductEshop();
+        return new CategoryEshop;
+    }
+
+    /**
+     * @return ProductEshop
+     */
+    public function product()
+    {
+        return new ProductEshop;
+    }
+
+    /**
+     * @return TaxEshop
+     */
+    public function tax()
+    {
+        return new TaxEshop;
     }
 }

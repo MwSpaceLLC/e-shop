@@ -53,11 +53,6 @@ class InstallCommand extends Command
         $this->comment('Popolate e-shop root Superuser...');
         $this->createRoot($email);
 
-        if (!Schema::hasTable('jobs')) {
-            $this->comment('Perform e-shop queues Provider...');
-            $this->callSilent('queue:table');
-        }
-
         $this->comment('Publishing e-shop Service Provider...');
         $this->callSilent('vendor:publish', ['--tag' => 'eshop-provider']);
 

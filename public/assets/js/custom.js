@@ -1,36 +1,42 @@
 // Write your custom JS here
+$(document).ready(function () {
+    initPlugin();
+    initImageAveter();
+});
 
-const addPayload = () => {
-    var li = document.createElement("li");
-    li.innerHTML = `
-             <li class="m-1 bg-light p-2">
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" name="key[]" class="form-control"
-                               placeholder="payload_key">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" name="data[]" class="form-control"
-                               placeholder="String Content">
-                    </div>
-                </div>
-            </li>
-            `;
-    payload.appendChild(li);
+function initPlugin() {
+    $('select').select2({
+        placeholder: "Select Category"
+    });
+    tinymce.init({
+        selector: 'textarea',
+        height: "380"
+    });
+    $('.price').mask("#.##0,00", {reverse: true});
+    $('.tax').mask('##0,00%', {reverse: true});
+    tippy('[data-tippy-content]');
+
+    $(".elevateZoom").elevateZoom();
 }
 
-$(document).ready(() => {
-    let i = $('.img-popover');
-    i.popover({
-        //trigger: 'focus',
-        trigger: 'hover',
-        html: true,
-        content: () => {
-            var image = new Image();
-            image.src = i.val();
-            image.width = '250';
-            return image;
-        },
-        title: 'Preview'
-    })
-});
+function initImageAveter() {
+    var readURL = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(".file-upload").on('change', function () {
+        readURL(this);
+    });
+
+    $(".upload-button").on('click', function () {
+        $(".file-upload").click();
+    });
+}

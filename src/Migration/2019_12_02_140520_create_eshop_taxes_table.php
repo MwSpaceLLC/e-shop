@@ -10,7 +10,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEshopCategoriesTable extends Migration
+class CreateEshopTaxesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,26 +19,14 @@ class CreateEshopCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('eshop_categories', function (Blueprint $table) {
+        Schema::create('eshop_taxes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('index')->nullable();
 
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->unsignedBigInteger('tax_id')->nullable();
-
 
             $table->foreign('admin_id')
                 ->references('id')
                 ->on('eshop_admins');
-
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('eshop_categories');
-
-            $table->foreign('tax_id')
-                ->references('id')
-                ->on('eshop_taxes');
 
             $table->json('payload')->nullable();
 
@@ -53,6 +41,6 @@ class CreateEshopCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eshop_categories');
+        Schema::dropIfExists('eshop_taxes');
     }
 }

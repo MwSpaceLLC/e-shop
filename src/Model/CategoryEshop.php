@@ -34,7 +34,7 @@ class CategoryEshop extends Model
      * @var array
      */
     protected $fillable = [
-        'payload',
+        'index', 'admin_id', 'parent_id', 'tax_id', 'payload'
     ];
 
     public $insert = true;
@@ -45,5 +45,43 @@ class CategoryEshop extends Model
     public function payload()
     {
         return json_decode($this->payload);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function child()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+
+    /**
+     * Get Image Of Product
+     * @return string
+     */
+    public function image()
+    {
+        if (isset($this->payload()->image))
+            return asset("vendor/eshop/drive/{$this->payload()->image}");
+
+        return asset("vendor/eshop/assets/img/file.png");
+    }
+
+    /**
+     * @param $payload
+     * @return |null
+     */
+    public function get($payload)
+    {
+        if (isset($this->payload()->$payload))
+            return $this->payload()->$payload;
+
+        return null;
     }
 }

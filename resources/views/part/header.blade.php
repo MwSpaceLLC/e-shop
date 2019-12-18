@@ -32,6 +32,7 @@
                         <li><a class="dropdown-item" href="#">Account</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li class="divider"></li>
+                        <li><a class="dropdown-item" href="{{url('')}}" target="_blank">View Front End</a></li>
                         <li><a class="dropdown-item" href="{{route('eshop-logout')}}">Log Out</a></li>
 
                     </ul>

@@ -34,7 +34,7 @@ class ProductEshop extends Model
      * @var array
      */
     protected $fillable = [
-        'payload',
+        'index', 'admin_id', 'category_id', 'tax_id', 'payload'
     ];
 
     public $insert = true;
@@ -46,4 +46,37 @@ class ProductEshop extends Model
     {
         return json_decode($this->payload);
     }
+
+    /**
+     * @return mixed
+     */
+    public function categories()
+    {
+        return json_decode($this->category_id);
+    }
+
+    /**
+     * Get Image Of Product
+     * @return string
+     */
+    public function image()
+    {
+        if (isset($this->payload()->image))
+            return asset("vendor/eshop/drive/{$this->payload()->image}");
+
+        return asset("vendor/eshop/assets/img/file.png");
+    }
+
+    /**
+     * @param $payload
+     * @return |null
+     */
+    public function get($payload)
+    {
+        if (isset($this->payload()->$payload))
+            return $this->payload()->$payload;
+
+        return null;
+    }
+
 }

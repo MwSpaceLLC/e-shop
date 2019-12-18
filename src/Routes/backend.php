@@ -25,10 +25,16 @@ Route::get('/model/{model}', 'BackendController@models')->name('eshop-models');
 
 Route::get('/model/insert/{model}', 'BackendController@insertModel')->name('eshop-model-insert');
 
+Route::get('/model/update/{model}/{parent}', 'BackendController@updateModel')->name('eshop-update-model');
+
+Route::get('/model/insert/{model}/{parent}', 'BackendController@insertModelParent')->name('eshop-model-insert-parent');
+
 Route::get('/model/{model}/{parent}', 'BackendController@parentModels')->name('eshop-parent-models');
 
 Route::get('/model/delete/{model}/{id}', 'BackendController@deleteModel')->name('eshop-delete-model');
 
-Route::post('/model/post/{model}', 'BackendController@postModel')->name('eshop-post-model');
+Route::get('/model/remove/image/{model}/{current}', 'BackendController@removeImageModel')->name('eshop-remove-image-model');
+
+Route::post('/model/post/{model}/{current?}', 'BackendController@postModel')->name('eshop-post-model');
 
 Route::get('/logout', 'BackendController@logout')->name('eshop-logout');

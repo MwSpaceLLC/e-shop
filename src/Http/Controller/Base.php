@@ -13,6 +13,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Controller
@@ -25,7 +26,12 @@ class Base extends Controller
     /**
      * @var Request $request
      */
-    protected $request;
+    public $request;
+
+    /**
+     * @var Storage
+     */
+    public $storage;
 
     /**
      * Controller constructor.
@@ -34,6 +40,7 @@ class Base extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
+        $this->storage = Storage::disk('eshop');
     }
 
 }

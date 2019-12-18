@@ -9,9 +9,14 @@
 namespace MwSpace\Eshop\Http\Controller;
 
 use Illuminate\Support\Facades\Auth;
+use MwSpace\Eshop\Model\CategoryEshop;
 
 class BackendController extends Base
 {
+    /**
+     * @var
+     */
+    private $model;
 
     /**
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -43,7 +48,7 @@ class BackendController extends Base
      */
     public function parentModels()
     {
-        return view("eshop::backend.model")->with('model', $this->getModel());
+        return view("eshop::backend.model.index")->with('model', $this->getModel());
     }
 
     /**
@@ -51,7 +56,25 @@ class BackendController extends Base
      */
     public function insertModel()
     {
-        return view("eshop::backend.model.insert.{$this->request->model}")->with('model', $this->getModel());
+        return view("eshop::backend.model.{$this->request->model}.insert")->with('model', $this->getModel());
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function updateModel()
+    {
+        return view("eshop::backend.model.{$this->request->model}.update")
+            ->with('model', $current = $this->getModel())
+            ->with('current', $current->find($this->request->parent));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function insertModelParent()
+    {
+        return view("eshop::backend.model.{$this->request->model}.insert")->with('model', $this->getModel());
     }
 
     /**
@@ -59,11 +82,12 @@ class BackendController extends Base
      */
     public function postModel()
     {
+        $instance = $this->createModel();
+        $name = $instance->payload()->name ?? '';
 
-        dd($this->request->all());
+        if ($this->request->current)
+            return back()->with('success', "$name | has been updated succesfull!");
 
-        $model = $this->createModel();
-        $name = isset($model->payload()->name) ?? '';
         return back()->with('success', "$name | has been insert succesfull!");
     }
 
@@ -72,18 +96,57 @@ class BackendController extends Base
      */
     private function createModel()
     {
-        $model = $this->getModel();
-        $model->payload = $this->createModelPayload();
+        $this->model = $this->getModel();
 
-        switch ($this->request->model) {
-            case 'UserEshop';
-                $model->payload = $this->margePayload($model->payload, ['token' => $model->generateToken()]);
-                break;
+        $this->requestCheckModel();
 
+        $this->model->payload = $this->createModelPayload();
+
+//        dd($this->model);
+
+        $this->model->save();
+
+        if (isset($this->request->parent_id)) {
+            // Fix bug - not have Home Category (switch with selected)
+            if (!$this->model::where('parent_id', null)->first()) {
+                $home = $this->model->parent()->first();
+                $home->parent_id = null;
+                $home->save();
+            }
         }
 
-        $model->save();
-        return $model;
+        return $this->model;
+    }
+
+    /**
+     * @return model
+     */
+    private function requestCheckModel()
+    {
+        // Override for search in update
+        if ($this->request->current)
+            $this->model = $this->searchModel();
+
+        if (isset($this->request->parent_id)) {
+            if ((int)$this->request->parent_id > 0)
+                $this->model->parent_id = $this->request->parent_id;
+            else
+                $this->model->parent_id = null;
+        }
+
+        if ($this->request->category_id)
+            $this->model->category_id = json_encode($this->request->category_id);
+
+        if (!$this->request->category_id && $this->request->current)
+            $this->model->category_id = null;
+
+        if ($this->request->tax_id)
+            $this->model->tax_id = $this->request->tax_id;
+
+//        dd(isset($this->request->parent_id));
+
+        return $this->model;
+
     }
 
     /**
@@ -92,10 +155,21 @@ class BackendController extends Base
     public function deleteModel()
     {
         $model = ($this->getModel())::findOrFail($this->request->id);
-        $name = isset($model->payload()->name) ?? '';
+        $name = $model->payload()->name ?? '';
         $model->delete();
 
         return back()->with('success', "$name | has been deleted succesfull!");
+    }
+
+    public function removeImageModel()
+    {
+        $this->model = ($this->getModel())::findOrFail($this->request->current);
+
+        $this->model->payload = $this->removeFromPayload('image');
+
+        $this->model->save();
+
+        return back()->with('success', "Image has been deleted succesfull!");
     }
 
     /**
@@ -103,19 +177,42 @@ class BackendController extends Base
      */
     private function createModelPayload()
     {
-        $payload = new \stdClass();
+        $payload = (object)$this->request->payload;
 
-        foreach ($this->request->key as $l => $i) {
-            $i = preg_replace('/[^\w-]/', '', $i);
-            $payload->$i = $this->request->data[$l];
+        foreach ($payload as $key => $item) {
+
+            // check syntax of string
+            $key = strtolower(preg_replace('/[^\w-]/', '', $key));
+
+            $payload->$key = $item;
+
+            // override images if instance of Uploader
+            if ($item instanceof \illuminate\http\UploadedFile)
+                $payload->$key = $this->storage->put("{$this->request->model}/" . time(), $item);
+
         }
+
+//        dd($payload);
 
         return json_encode($payload);
     }
 
-    private function margePayload($payload, $array)
+    /**
+     * @param $index
+     * @return false|string
+     */
+    private function removeFromPayload($index)
     {
-        return json_encode(array_merge(json_decode($payload, true), $array));
+        $payload = $this->model->payload();
+
+        foreach ($payload as $key => $item) {
+            if ($index == $key)
+                unset($payload->$key);
+        }
+
+//        dd($payload);
+
+        return json_encode($payload);
     }
 
     /**
@@ -123,18 +220,18 @@ class BackendController extends Base
      */
     private function getModel()
     {
-        if (!class_exists($model = "MwSpace\\Eshop\\Model\\{$this->refactorModel()}"))
+        if (!class_exists($model = "MwSpace\\Eshop\\Model\\" . ucfirst("{$this->request->model}Eshop")))
             return abort(403, "model {$this->request->model} not exist");
 
         return new $model;
     }
 
-    /**
-     * @return string
-     */
-    private function refactorModel()
+    private function searchModel()
     {
-        return $this->request->model = ucfirst("{$this->request->model}Eshop");
+        if (!class_exists($model = "MwSpace\\Eshop\\Model\\" . ucfirst("{$this->request->model}Eshop")))
+            return abort(403, "model {$this->request->model} not exist");
+
+        return $model::find($this->request->current);
     }
 
 }

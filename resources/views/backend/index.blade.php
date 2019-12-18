@@ -1,4 +1,4 @@
-@extends('eshop::app')
+@extends('eshop::backend')
 
 @section('title', 'Dashboard')
 
@@ -227,5 +227,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
     <script src="{{asset('vendor/eshop/assets/js/pages/dashboard.js')}}"></script>
 @endsection

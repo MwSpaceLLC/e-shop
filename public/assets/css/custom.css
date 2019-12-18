@@ -34,6 +34,10 @@
     cursor: pointer !important;
 }
 
+input, select {
+    padding: 15px;
+}
+
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
 .show > .btn-primary.dropdown-toggle,
@@ -43,4 +47,84 @@
 .btn, .form-control, textarea, button {
     box-shadow: 0 3px 10px rgba(62, 85, 120, .045) !important;
     padding: 5px !important;
+    transform: scale(1.05);
+}
+
+
+span.select2-selection, .select2-selection.select2-selection--multiple {
+    padding: 5px !important;
+    font-size: 1rem !important;
+    line-height: 0.8 !important;
+    box-shadow: 0 3px 10px rgba(62, 85, 120, .045) !important;
+}
+
+.tox-notifications-container {
+    display: none;
+}
+
+.tox-tinymce {
+    border: 2px solid #e6e6e6;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px rgba(62, 85, 120, .045) !important;
+}
+
+/* Uploader Image*/
+.avatar-wrapper {
+    position: relative;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(62, 85, 120, .045);
+    border: 2px solid #e4e4e4;
+    transition: all .3s ease;
+    border-radius: 4px;
+    margin-bottom: 25px;
+}
+
+.avatar-wrapper:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.avatar-wrapper:hover .profile-pic {
+    opacity: .5;
+}
+
+.avatar-wrapper .profile-pic {
+    height: 100%;
+    width: 100%;
+    transition: all .3s ease;
+}
+
+.avatar-wrapper .upload-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.avatar-wrapper .upload-button .fa-arrow-circle-up {
+    position: absolute;
+    font-size: 234px;
+    top: -17px;
+    left: 0;
+    text-align: center;
+    opacity: 0;
+    transition: all .3s ease;
+    color: #34495e;
+}
+
+.avatar-wrapper .upload-button:hover .fa-arrow-circle-up {
+    opacity: .9;
+}
+
+input.file-upload {
+    display: none;
+}
+
+label.pic {
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: unset !important;
 }

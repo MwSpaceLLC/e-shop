@@ -1,4 +1,4 @@
-@extends('eshop::app')
+@extends('eshop::backend')
 
 @section('title', ucfirst($m=get_model($model)))
 
@@ -15,8 +15,14 @@
                             <div class="col" aria-current="page">
                                 <h2>
                                     @if(request()->parent)
-                                        <a href="{{route('eshop-models', $m)}}">{{$m}}</a> / <span
-                                            class="text-danger">{{get_parent($model)->payload()->name??''}}</span>
+                                        <a href="{{route('eshop-models', $m)}}">{{$m}}</a> /
+                                        @foreach(recursive_parent() as $parent)
+                                            <span class="text-danger">
+                                                <a href="{{route('eshop-models', ['model'=>$m,'parent'=>$parent->id])}}">{{$parent->payload()->name}}</a>
+                                            </span> /
+                                        @endforeach
+                                        <span
+                                            class="text-danger">{{get_current()->payload()->name}}</span>
                                     @else
                                         {{$m}}
                                     @endif
@@ -25,7 +31,7 @@
 
                             @if($model->insert)
                                 <div class="col-md-2" aria-current="page">
-                                    <a href="{{route('eshop-model-insert', ['model'=>$m])}}"
+                                    <a href="{{route('eshop-model-insert', ['model'=>$m, 'parent' => request()->parent?? null])}}"
                                        class="btn btn-primary btn-block">@lang('eshop::model.Add') {{$m}}</a>
                                 </div>
                             @endif
@@ -42,21 +48,32 @@
                                                        aria-haspopup="true" aria-expanded="false"><i
                                                             class="material-icons">more_vert</i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#">@lang('eshop::model.Edit')</a>
-                                                        <a class="dropdown-item" href="#">Move To</a>
-                                                        <a class="dropdown-item" href="#">Copy To</a>
-                                                        <a class="dropdown-item" href="#">Rename</a>
-                                                        <a class="dropdown-item" href="#">Download</a>
-                                                        <div class="divider"></div>
-                                                        <a class="dropdown-item text-danger"
-                                                           href="{{route('eshop-delete-model',['model'=>$m,'id'=>$row->id])}}"
-                                                           onclick="return confirm('{{trans('eshop::model.DeleteAlert')}}')">@lang('eshop::model.Delete')</a>
+                                                        <a class="dropdown-item text-info"
+                                                           href="{{route('eshop-update-model',['model'=>$m,'parent'=>$row->id])}}">@lang('eshop::model.Edit')</a>
+
+                                                        @switch($m)
+                                                            @case('Category')
+                                                            @if(!$row->child()->first())
+                                                                <a class="dropdown-item text-danger"
+                                                                   href="{{route('eshop-delete-model',['model'=>$m,'id'=>$row->id])}}"
+                                                                   onclick="return confirm('{{trans('eshop::model.DeleteAlert')}}')">@lang('eshop::model.Delete')</a>
+                                                            @endif
+                                                            @break
+                                                            @case('Product')
+                                                            <a class="dropdown-item text-danger"
+                                                               href="{{route('eshop-delete-model',['model'=>$m,'id'=>$row->id])}}"
+                                                               onclick="return confirm('{{trans('eshop::model.DeleteAlert')}}')">@lang('eshop::model.Delete')</a>
+                                                            @break
+                                                        @endswitch
+
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="folder-icon">
                                                         @if(isset($row->payload()->image))
-                                                            <img src="{{$row->payload()->image}}" width="50">
+                                                            <img src="{{eshop_img($row->payload()->image)}}"
+                                                                 class="elevateZoom" width="50" height="50"
+                                                                 style="object-fit: cover">
                                                         @else
                                                             <i class="material-icons">
                                                                 @switch($m)
@@ -73,10 +90,10 @@
                                                     <div class="folder-info">
                                                         @switch($m)
                                                             @case('Category')
-                                                            <a href="{{route('eshop-parent-models',['model'=>$m,'parent'=>$row->id])}}">{{$row->payload()->name??'name not in payload'}}</a>
+                                                            <a href="{{route('eshop-parent-models',['model'=>$m,'parent'=>$row->id])}}">{{$row->payload()->name}} {{$row->child()->first()?'('.$row->child()->count(). ')':null}}</a>
                                                             @break
                                                             @case('Product')
-                                                            <span>{{$row->payload()->name??'name not in payload'}}</span>
+                                                            <a style="pointer-events: none">{{$row->payload()->name}}</a>
                                                             @break
                                                         @endswitch
 
@@ -95,7 +112,7 @@
                                                                 @lang('eshop::model.Empty')
                                                             </h5>
                                                         </div>
-                                                        <div class="upgrade-image col-md-6"></div>
+                                                        <div class="upgrade-image col-md-6 float"></div>
                                                     </div>
                                                 </div>
                                             </div>

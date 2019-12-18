@@ -11,6 +11,7 @@ We made this e-commerce Laravel Plugin with Love ❤ -->
 <head>
     <link rel="dns-prefetch" href="//connect.facebook.net">
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="//{{request()->getHost()}}">
     <meta charset="utf-8">
     <title>e-shop Login</title>
@@ -19,6 +20,7 @@ We made this e-commerce Laravel Plugin with Love ❤ -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="msapplication-TileImage" content="{{asset('/vendor/eshop/assets/favicon/ms-icon-144x144.png')}}">
     <script async defer crossorigin="anonymous"
             src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v5.0&appId=263631600984157&autoLogAppEvents=1"></script>
     <link rel="shortcut icon" href="{{ asset('/vendor/eshop/assets/favicon/app.ico') }}">
@@ -42,16 +44,24 @@ We made this e-commerce Laravel Plugin with Love ❤ -->
     <link rel="icon" type="image/png" sizes="96x96" href="{{asset('/vendor/eshop/assets/favicon/favicon-96x96.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/vendor/eshop/assets/favicon/favicon-16x16.png')}}">
     <link rel="manifest" href="{{asset('/vendor/eshop/assets/favicon/manifest.json')}}">
-    <meta name="msapplication-TileImage" content="{{asset('/vendor/eshop/assets/favicon/ms-icon-144x144.png')}}">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
+          rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{asset('/vendor/eshop/auth/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('/vendor/eshop/auth/css/fontawesome-all.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('/vendor/eshop/auth/css/iofrm-style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('/vendor/eshop/auth/css/iofrm-theme15.css')}}">
-    <script src="{{asset('/vendor/eshop/auth/js/jquery.min.js')}}"></script>
-    <script src="{{asset('/vendor/eshop/auth/js/popper.min.js')}}"></script>
-    <script src="{{asset('/vendor/eshop/auth/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('/vendor/eshop/auth/js/main.js')}}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+          integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('/vendor/eshop/assets/css/iofrm-style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/vendor/eshop/assets/css/iofrm-theme15.css')}}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"
+            integrity="sha256-x3YZWtRjM8bJqf48dFAv/qmgL68SI4jqNWeSLMZaMGA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+    <script src="{{asset('/vendor/eshop/assets/js/auth.main.js')}}"></script>
 </head>
 <body>
 <div class="form-body">

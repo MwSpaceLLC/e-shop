@@ -46,16 +46,26 @@ if (!function_exists('get_model')) {
     }
 }
 
-if (!function_exists('get_parent')) {
+if (!function_exists('get_current')) {
     /**
-     * Get the Parent Model in Eshop
-     * @param $class
+     * Get the Current Model by request in Eshop
      * @return string
      */
-    function get_parent($model)
+    function get_current()
     {
         if ($id = request()->parent)
-            return $model->find($id);
+            return (\MwSpace\Eshop\Model\CategoryEshop::find(request()->parent))->find($id);
+    }
+}
+
+if (!function_exists('eshop_img')) {
+    /**
+     * @param $path
+     * @return string
+     */
+    function eshop_img($path)
+    {
+        return asset("vendor/eshop/drive/$path");
     }
 }
 
@@ -70,6 +80,34 @@ if (!function_exists('loop_model')) {
         if (request()->parent)
             return $model->where('parent_id', request()->parent)->orderBy('index')->paginate(config('eshop.paginate'));
 
+        if ($model instanceof \MwSpace\Eshop\Model\CategoryEshop)
+            return $model->where('parent_id', null)->orderBy('index')->paginate(config('eshop.paginate'));
+
         return $model->orderBy('index')->paginate(config('eshop.paginate'));
+    }
+}
+
+if (!function_exists('recursive_parent')) {
+    /**
+     * Get the Collection order by index in Eshop
+     * @param $model
+     * @return mixed
+     */
+    function recursive_parent()
+    {
+        $loop = 0;
+        $parent = [];
+        $select = (\MwSpace\Eshop\Model\CategoryEshop::find(request()->parent))->parent()->first();
+
+        do {
+            if ($loop > 0)
+                $select = $select->parent()->first();
+
+            $parent[] = $select;
+            $loop++;
+
+        } while ($select !== null);
+
+        return array_reverse(array_filter($parent));
     }
 }
