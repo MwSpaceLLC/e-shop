@@ -127,6 +127,9 @@ class BackendController extends Base
      */
     private function checkModelBeforePost()
     {
+
+//        dd($this->request->all());
+
         // Override for search in update
         if ($this->request->current)
             $this->model = $this->searchModel();
@@ -138,11 +141,12 @@ class BackendController extends Base
                 $this->model->parent_id = null;
         }
 
-        if ($this->request->category_id)
+        if (isset($this->request->category_id))
             $this->model->category_id = json_encode($this->request->category_id);
 
-        if (!$this->request->category_id && $this->request->current)
-            $this->model->category_id = null;
+        if (!isset($this->request->category_id) && $this->request->current)
+            if (!$this->model instanceof CategoryEshop)
+                $this->model->category_id = null;
 
         if (isset($this->request->tax_id)) {
             if ((int)$this->request->tax_id > 0)
@@ -150,8 +154,6 @@ class BackendController extends Base
             else
                 $this->model->tax_id = null;
         }
-
-//        dd(isset($this->request->parent_id));
 
         return $this->model;
 
