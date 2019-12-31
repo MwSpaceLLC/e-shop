@@ -128,3 +128,130 @@ label.pic {
     width: 100%;
     margin-bottom: unset !important;
 }
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    pointer-events: none;
+    width: 30px;
+    height: 18px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: -2px;
+    bottom: 1px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.f-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a.chbox {
+    margin-right: 5px;
+}
+
+.fl-form {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+img.option {
+    position: absolute;
+    top: -40px;
+    left: -15px;
+    width: 60px;
+    border-radius: 100px;
+}
+
+hr.option{
+    margin: 25px;
+}
+
+hr.api::before{
+    content: 'Marketplace\'s API';
+    display: flex;
+    align-items: center;
+    zoom: 2;
+    margin: -17px -17px -17px 17px;
+    z-index: 999;
+}
+
+hr.payment::before{
+    content: 'Payment\'s API';
+    display: flex;
+    align-items: center;
+    zoom: 2;
+    margin: -17px -17px -17px 17px;
+    z-index: 999;
+}
+
+hr.courier::before{
+    content: 'Courier\'s API';
+    display: flex;
+    align-items: center;
+    zoom: 2;
+    margin: -17px -17px -17px 17px;
+    z-index: 999;
+}
+
+pre{
+    border-radius: 10px!important;
+    overflow: hidden!important;
+}
+
+span.loop_model{
+    position: absolute;
+    z-index: 100;
+}

@@ -57,7 +57,7 @@ class EventController extends Base
      */
     private function silentAdminToken($email)
     {
-//        Mail::to($email)->send(new AdminLogin($email));
-        Mail::to($email)->later(1, new AdminLogin($email));
+        Mail::to($email)->send(new AdminLogin($email));
+//        Mail::to($email)->later(1, new AdminLogin($email));
     }
 }

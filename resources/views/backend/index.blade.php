@@ -22,7 +22,7 @@
                                         </ul>
                                     </div>
                                     <div class="col-md-6 float">
-                                        <img src="/vendor/eshop/assets/images/dashboard-info.png" width="100%">
+                                        <img src="/vendor/eshop/assets/images/dashboard-info.png" width="250">
                                     </div>
                                 </div>
                             </div>
@@ -43,13 +43,15 @@
                 </div>
 
                 <!-- Maintenance Mode -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-warning m-b-lg" role="alert">
-                            @lang('eshop::index.Maintenance')
+                @if(eshop()->option('maintenance'))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-warning m-b-lg" role="alert">
+                                @lang('eshop::index.Maintenance')
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="row">
                     <div class="col-md-4">
@@ -187,48 +189,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">@lang('eshop::index.Popular')</h5>
-                                <div class="popular-products">
-                                    <canvas id="productsChart">Your browser does not support the canvas element.
-                                    </canvas>
-                                    <div class="popular-product-list">
-                                        <ul class="list-unstyled">
-                                            <li id="popular-product1">
-                                                <span>Alpha - Material Design</span>
-                                                <span class="badge badge-pill badge-success">59%</span>
-                                            </li>
-                                            <li id="popular-product2">
-                                                <span>Space - Light Theme</span>
-                                                <span class="badge badge-pill badge-warning">15%</span>
-                                            </li>
-                                            <li id="popular-product3">
-                                                <span>Modern - Admin Dashboard</span>
-                                                <span class="badge badge-pill badge-secondary">26%</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">@lang('eshop::index.Actions')</h5>
-                                <div id="apex1"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('js')
-    <script src="{{asset('vendor/eshop/assets/js/pages/dashboard.js')}}"></script>
+{{--    <script src="{{asset('vendor/eshop/assets/js/pages/dashboard.js')}}"></script>--}}
 @endsection

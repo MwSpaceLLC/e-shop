@@ -38,18 +38,40 @@
                                         </div>
                                         <div class="col-md-9">
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-6">
                                                     <input type="text" name="payload[name]"
                                                            class="form-control"
                                                            value="{{$current->payload()->name}}"
                                                            placeholder="@lang('eshop::model.ProductName')*" required="">
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <input type="text" name="payload[price]"
                                                            data-tippy-content="@lang('eshop::model.ProductPriceTooltip')"
-                                                           class="form-control"
+                                                           class="form-control price"
                                                            value="{{$current->payload()->price??null}}"
                                                            placeholder="@lang('eshop::model.ProductPrice')">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select id="tax" class="js-states form-control"
+                                                            data-placeholder="@lang('eshop::model.CategoryTax')"
+                                                            tabindex="-1"
+                                                            data-minimum-results-for-search="Infinity"
+                                                            name="tax_id" style="display: none; width: 100%">
+                                                        <option value="0">0% / Disabled</option>
+
+                                                        @foreach(eshop()->tax()->all() as $item)
+                                                            @if($item->id == $current->tax_id)
+                                                                <option
+                                                                    selected=""
+                                                                    value="{{$item->id}}">{{$item->payload()->percentage}}
+                                                                    / {{$item->payload()->name}}</option>
+                                                            @else
+                                                                <option
+                                                                    value="{{$item->id}}">{{$item->payload()->percentage}}
+                                                                    / {{$item->payload()->name}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="divider"></div>

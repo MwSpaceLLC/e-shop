@@ -41,6 +41,15 @@
                                 <div class="row" id="sortable">
                                     @forelse(loop_model($model) as $row)
                                         <div class="col-lg-6 col-xl-3">
+
+                                            @switch($m)
+                                                @case('Category')
+                                                @if($row->product()->first())
+                                                    <span data-tippy-content="@lang('eshop::model.IndexProductCount')" class="badge loop_model badge-pill badge-primary">{{$row->product()->count()}}</span>
+                                                @endif
+                                                @break
+                                            @endswitch
+
                                             <div
                                                 class="card folder">
                                                 <div class="file-options dropdown">
@@ -71,8 +80,7 @@
                                                 <div class="card-body">
                                                     <div class="folder-icon">
                                                         @if(isset($row->payload()->image))
-                                                            <img src="{{eshop_img($row->payload()->image)}}"
-                                                                 class="elevateZoom" width="50" height="50"
+                                                            <img src="{{eshop_img($row->payload()->image)}}" width="50" height="50"
                                                                  style="object-fit: cover">
                                                         @else
                                                             <i class="material-icons">
@@ -83,6 +91,9 @@
                                                                     @case('Product')
                                                                     shopping_basket
                                                                     @break
+                                                                    @default
+                                                                    bookmark_border
+                                                                    @break
                                                                 @endswitch
                                                             </i>
                                                         @endif
@@ -92,7 +103,10 @@
                                                             @case('Category')
                                                             <a href="{{route('eshop-parent-models',['model'=>$m,'parent'=>$row->id])}}">{{$row->payload()->name}} {{$row->child()->first()?'('.$row->child()->count(). ')':null}}</a>
                                                             @break
-                                                            @case('Product')
+                                                            @case('Tax')
+                                                            <a style="pointer-events: none">{{$row->payload()->name}} | {{$row->payload()->percentage}}</a>
+                                                            @break
+                                                            @default
                                                             <a style="pointer-events: none">{{$row->payload()->name}}</a>
                                                             @break
                                                         @endswitch

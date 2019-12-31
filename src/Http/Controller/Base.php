@@ -40,7 +40,7 @@ class Base extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->storage = Storage::disk('eshop');
+        $this->storage = Storage::disk(config('e-shop.disk'));
     }
 
 }

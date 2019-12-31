@@ -11,6 +11,17 @@ if (!function_exists('admin')) {
     }
 }
 
+if (!function_exists('eshop_path')) {
+    /**
+     * @param null $path
+     * @return mixed
+     */
+    function eshop_path($path = null)
+    {
+        return __DIR__ . "/../../$path";
+    }
+}
+
 if (!function_exists('eshop')) {
     /**
      * Elper for blade constructor
@@ -83,7 +94,11 @@ if (!function_exists('loop_model')) {
         if ($model instanceof \MwSpace\Eshop\Model\CategoryEshop)
             return $model->where('parent_id', null)->orderBy('index')->paginate(config('eshop.paginate'));
 
-        return $model->orderBy('index')->paginate(config('eshop.paginate'));
+
+        if ($model instanceof \MwSpace\Eshop\Model\ProductEshop)
+            return $model->orderBy('index')->paginate(config('eshop.paginate'));
+
+        return $model->paginate(config('eshop.paginate'));
     }
 }
 

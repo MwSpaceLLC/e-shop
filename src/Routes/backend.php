@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'BackendController@index')->name('eshop-backend');
+Route::get('/{page?}', 'BackendController@index')->name('eshop-backend');
 
 Route::get('/model/{model}', 'BackendController@models')->name('eshop-models');
 
@@ -31,10 +31,21 @@ Route::get('/model/insert/{model}/{parent}', 'BackendController@insertModelParen
 
 Route::get('/model/{model}/{parent}', 'BackendController@parentModels')->name('eshop-parent-models');
 
+Route::post('/model/post/{model}/{current?}', 'BackendController@postModel')->name('eshop-post-model');
+
 Route::get('/model/delete/{model}/{id}', 'BackendController@deleteModel')->name('eshop-delete-model');
 
 Route::get('/model/remove/image/{model}/{current}', 'BackendController@removeImageModel')->name('eshop-remove-image-model');
 
-Route::post('/model/post/{model}/{current?}', 'BackendController@postModel')->name('eshop-post-model');
+
+/*
+| e-shop Option & Config
+|-------------------------------------------------------------------------- */
+Route::get('/options/toggle/{name}', 'BackendController@toggleOption')->name('eshop-options-toggle');
+
+Route::post('/config/update', 'BackendController@configUpdate')->name('eshop-config-update');
+
+
+
 
 Route::get('/logout', 'BackendController@logout')->name('eshop-logout');

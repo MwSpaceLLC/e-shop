@@ -24,5 +24,6 @@ return [
         'LoveText' => 'If you are passionate about development and you like this package you might even think about supporting the technical team with your little coffee',
     ],
 
+    'Save' => 'save update',
     '=========' => '==================',
 ];

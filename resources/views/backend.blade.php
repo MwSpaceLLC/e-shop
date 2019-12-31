@@ -55,6 +55,8 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
           integrity="sha256-kalgQ55Pfy9YBkT+4yYYd5N8Iobe+iWeBuzP7LjVO0o=" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/3.4.1/tippy.css"
           integrity="sha256-ZTyFbdqVmPjY60OWBt0VRtcu76LR9LfdDvkxcnCYjuE=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"
+          integrity="sha256-77qGXu2p8NpfcBpTjw4jsMeQnz0vyh74f5do0cWjQ/Q=" crossorigin="anonymous"/>
 
     <link href="{{asset('vendor/eshop/assets/css/lime.min.css')}}" rel="stylesheet">
     <link href="{{asset('vendor/eshop/assets/css/custom.css')}}" rel="stylesheet">
@@ -93,6 +95,10 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
             integrity="sha256-40Df9zwhwAOyOM6Lp2plp+Czdy2PlVxTuY07maOlXeY=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"
             integrity="sha256-qKR4XxSeNRotDGhz15nIC0JfCha6nLlF9M8GDm7rmx4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-core.js"
+            integrity="sha256-vQ+J5XjegC3urCfaXZtySDzqJOqNxxIA3q1NZbFoOj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/autoloader/prism-autoloader.min.js"
+            integrity="sha256-ht8ay6ZTPZfuixYB99I5oRpCLsCq7Do2LjEYLwbe+X8=" crossorigin="anonymous"></script>
 
     <script src="{{asset('vendor/eshop/assets/js/lime.min.js')}}"></script>
     <script defer src="{{asset('vendor/eshop/assets/js/custom.js')}}"></script>

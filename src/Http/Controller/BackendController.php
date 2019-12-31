@@ -8,13 +8,17 @@
 
 namespace MwSpace\Eshop\Http\Controller;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use MwSpace\Eshop\Model\CategoryEshop;
+use MwSpace\Eshop\Model\ConfigEshop;
+use MwSpace\Eshop\Model\OptionEshop;
+use MwSpace\Eshop\Model\ProductEshop;
 
 class BackendController extends Base
 {
     /**
-     * @var
+     * @var Model
      */
     private $model;
 
@@ -82,7 +86,7 @@ class BackendController extends Base
      */
     public function postModel()
     {
-        $instance = $this->createModel();
+        $instance = $this->performPostModel();
         $name = $instance->payload()->name ?? '';
 
         if ($this->request->current)
@@ -94,11 +98,11 @@ class BackendController extends Base
     /**
      * @return string|void
      */
-    private function createModel()
+    private function performPostModel()
     {
         $this->model = $this->getModel();
 
-        $this->requestCheckModel();
+        $this->checkModelBeforePost();
 
         $this->model->payload = $this->createModelPayload();
 
@@ -121,7 +125,7 @@ class BackendController extends Base
     /**
      * @return model
      */
-    private function requestCheckModel()
+    private function checkModelBeforePost()
     {
         // Override for search in update
         if ($this->request->current)
@@ -140,8 +144,12 @@ class BackendController extends Base
         if (!$this->request->category_id && $this->request->current)
             $this->model->category_id = null;
 
-        if ($this->request->tax_id)
-            $this->model->tax_id = $this->request->tax_id;
+        if (isset($this->request->tax_id)) {
+            if ((int)$this->request->tax_id > 0)
+                $this->model->tax_id = $this->request->tax_id;
+            else
+                $this->model->tax_id = null;
+        }
 
 //        dd(isset($this->request->parent_id));
 
@@ -151,15 +159,87 @@ class BackendController extends Base
 
     /**
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function toggleOption()
+    {
+        if (!$option = OptionEshop::where('name', $this->request->name)->first())
+            $option = new OptionEshop();
+
+        if (!$option->name)
+            $option->name = $this->request->name;
+
+        $option->bool = !(bool)$option->bool;
+
+        if (null === $option->bool)
+            $option->bool = false;
+
+//        dd($option->bool);
+
+        $option->save();
+
+        return back()->with('success', "{$option->name} | has been updated succesfull!");
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function configUpdate()
+    {
+        foreach ($this->request->keys as $key => $value) {
+            if (!$config = ConfigEshop::where('key', $key)->first())
+                $config = new ConfigEshop();
+
+            if (!$config->key)
+                $config->key = $key;
+
+            // override file if instance of Uploader
+            if ($value instanceof \illuminate\http\UploadedFile) {
+                $config->value = $value->get();
+
+            } else $config->value = $value;
+
+//            dd($config);
+
+            $config->save();
+        }
+
+        return back()->with('success', "{$config->key} | has been updated succesfull!");
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteModel()
     {
         $model = ($this->getModel())::findOrFail($this->request->id);
+
+        $this->checkModelBeforeDelete($model);
+
         $name = $model->payload()->name ?? '';
         $model->delete();
 
         return back()->with('success', "$name | has been deleted succesfull!");
     }
+
+    /**
+     * @param $model
+     * @return Model|\Illuminate\Http\RedirectResponse
+     */
+    private function checkModelBeforeDelete($model)
+    {
+        // Override for search in update
+        if ($model instanceof CategoryEshop)
+            if ($model->product()->first())
+                return abort(403, "This Category have many Product. U can't delete it");
+
+//        dd($model);
+
+        return $this->model;
+
+    }
+
 
     public function removeImageModel()
     {

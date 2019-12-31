@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  *
  * @property int $id
+ * @property int $tax_id
  * @property int $parent_id
  * @property string|null $payload
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -60,6 +61,10 @@ class CategoryEshop extends Model
         return $this->belongsTo(self::class, 'parent_id');
     }
 
+    public function product()
+    {
+        return ProductEshop::whereJsonContains('category_id', (string)$this->id);
+    }
 
     /**
      * Get Image Of Product

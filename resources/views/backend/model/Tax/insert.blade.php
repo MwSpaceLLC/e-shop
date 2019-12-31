@@ -20,39 +20,27 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                <form enctype="multipart/form-data" method="post"
-                                      id="Category"
-                                      action="{{route('eshop-post-model', ['model'=>$m])}}"> @csrf
-
-                                    @if(request()->parent)
-                                        <input type="hidden" name="parent_id" value="{{get_current()->id}}">
-                                    @endif
-
+                                <form method="post" id="Tax" action="{{route('eshop-post-model', ['model'=>$m])}}"> @csrf
                                     <div class="row">
                                         <div class="col-md-3">
-                                            @include('eshop::backend.model.avatar')
+                                            <img src="https://image.flaticon.com/icons/svg/584/584057.svg" width="100%">
                                         </div>
                                         <div class="col-md-9">
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-5">
                                                     <input type="text" name="payload[name]"
                                                            class="form-control"
-                                                           placeholder="@lang('eshop::model.CategoryName')*"
-                                                           required="">
+                                                           placeholder="@lang('eshop::model.TaxName')*" required="">
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <select class="js-states form-control"
-                                                            data-placeholder="@lang('eshop::model.CategoryTax')"
-                                                            tabindex="-1"
-                                                            name="category_id" style="display: none; width: 100%"
-                                                            data-minimum-results-for-search="Infinity">
-                                                        <option value="0">0% / Disabled</option>
-                                                        @foreach(eshop()->tax()->all() as $item)
-                                                            <option
-                                                                value="{{$item->id}}">{{$item->payload()->percentage}}
-                                                                / {{$item->payload()->name}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <input type="text" name="payload[country]"
+                                                           class="form-control"
+                                                           placeholder="@lang('eshop::model.TaxCountry')">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" name="payload[percentage]"
+                                                           class="form-control tax"
+                                                           placeholder="@lang('eshop::model.TaxPercentage')">
                                                 </div>
                                             </div>
                                             <div class="divider"></div>
@@ -61,7 +49,7 @@
                                                     <textarea type="text" name="payload[description]"
                                                               class="form-control"
                                                               rows="6"
-                                                              data-placeholder="@lang('eshop::model.CategoryDescription')"></textarea>
+                                                              data-placeholder="@lang('eshop::model.TaxDescription')"></textarea>
                                                 </div>
                                             </div>
                                             <div class="divider"></div>

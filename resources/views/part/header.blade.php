@@ -18,10 +18,14 @@
                        aria-label="Search">
             </form>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle theme-settings-link" href="#">
-                        <i class="material-icons">layers</i>
+                <li class="nav-item dropdown f-center">
+                    <a class="chbox" href="{{route('eshop-options-toggle','maintenance')}}">
+                        @lang('eshop::index.MaintenanceButton')
                     </a>
+                    <label class="switch">
+                        <input disabled type="checkbox" {{eshop()->option('maintenance')?'checked':null}}>
+                        <span class="slider round"></span>
+                    </label>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"

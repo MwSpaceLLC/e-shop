@@ -27,6 +27,16 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             @include('eshop::backend.model.avatar')
+
+                                            @if(isset($current->payload()->image))
+                                                <a href="{{route('eshop-remove-image-model', ['model'=>$m,'current'=>$current->id])}}"
+                                                   onclick="return confirm('@lang('eshop::model.ProductPriceTooltip')')"
+                                                   class="btn btn-danger btn-block btn-sm"
+                                                   type="submit">
+                                                    @lang('eshop::model.RemoveImage')
+                                                </a>
+                                            @endif
+
                                         </div>
                                         <div class="col-md-9">
                                             <div class="row">
@@ -42,9 +52,19 @@
                                                             tabindex="-1"
                                                             data-minimum-results-for-search="Infinity"
                                                             name="tax_id" style="display: none; width: 100%">
+                                                        <option value="0">0% / Disabled</option>
+
                                                         @foreach(eshop()->tax()->all() as $item)
-                                                            <option
-                                                                value="{{$item->id}}">{{$item->payload()->name}}</option>
+                                                            @if($item->id == $current->tax_id)
+                                                                <option
+                                                                    selected=""
+                                                                    value="{{$item->id}}">{{$item->payload()->percentage}}
+                                                                    / {{$item->payload()->name}}</option>
+                                                            @else
+                                                                <option
+                                                                    value="{{$item->id}}">{{$item->payload()->percentage}}
+                                                                    / {{$item->payload()->name}}</option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -57,10 +77,13 @@
                                                             tabindex="-1"
                                                             data-minimum-results-for-search="Infinity"
                                                             name="payload[status]" style="display: none; width: 100%">
-                                                        <option
-                                                            value="false">@lang('eshop::model.CategoryStatusDisable')</option>
-                                                        <option
+
+                                                        <option {{isset($current->payload()->status) && $current->payload()->status === 'true'?'selected':null}}
                                                             value="true">@lang('eshop::model.CategoryStatusEnable')</option>
+
+                                                        <option {{isset($current->payload()->status) && $current->payload()->status === 'true'?null:'selected'}}
+                                                            value="false">@lang('eshop::model.CategoryStatusDisable')</option>
+
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">

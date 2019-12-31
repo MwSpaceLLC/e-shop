@@ -27,6 +27,9 @@
                     <li>
                         <a href="{{backend('model/Category')}}">Categories</a>
                     </li>
+                    <li>
+                        <a href="{{backend('model/Tax')}}">Taxes</a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -49,6 +52,10 @@
             </li>
             <li>
                 <a href="{{backend('api')}}"><i class="material-icons">settings_input_antenna</i>Api System</a>
+            </li>
+
+            <li>
+                <a href="{{backend('options')}}"><i class="material-icons"> build </i>Backend Options</a>
             </li>
 
             {{--            <li>--}}

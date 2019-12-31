@@ -46,9 +46,11 @@
                                                             tabindex="-1"
                                                             data-minimum-results-for-search="Infinity"
                                                             name="tax_id" style="display: none; width: 100%">
+                                                        <option value="0">0% / Disabled</option>
                                                         @foreach(eshop()->tax()->all() as $item)
                                                             <option
-                                                                value="{{$item->id}}">{{$item->payload()->name}}</option>
+                                                                value="{{$item->id}}">{{$item->payload()->percentage}}
+                                                                / {{$item->payload()->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

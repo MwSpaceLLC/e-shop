@@ -21,6 +21,8 @@ class ServiceProvider extends MineServiceProvider
      */
     public function boot()
     {
+        $this->checkRequirements();
+
         $this->registerHelpers();
 
         $this->registerRoutes();
@@ -34,6 +36,14 @@ class ServiceProvider extends MineServiceProvider
         $this->registerLanguages();
 
         $this->registerViews();
+    }
+
+    /**
+     * Check configuration system
+     */
+    private function checkRequirements()
+    {
+     //
     }
 
     /**

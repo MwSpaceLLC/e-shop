@@ -38,4 +38,37 @@ class Eshop
     {
         return new TaxEshop;
     }
+
+    /**
+     * @param null $path
+     * @return mixed
+     */
+    public static function path($path = null)
+    {
+        return eshop_path($path);
+    }
+
+    /**
+     * @param $key
+     * @return bool
+     */
+    public function config($key)
+    {
+        if ($config = ConfigEshop::where('key', $key)->first())
+            return $config->value;
+
+        return false;
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function option($name)
+    {
+        if ($option = OptionEshop::where('name', $name)->first())
+            return $option->bool;
+
+        return false;
+    }
 }

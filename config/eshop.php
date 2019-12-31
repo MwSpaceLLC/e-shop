@@ -22,6 +22,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | e-shop disk default is public_html
+    |--------------------------------------------------------------------------
+    |
+    | Your file system rescue disk. we left this configuration for the possibility
+    | of saving Amazon Bucket or Google on a remote disk
+    |
+    */
+
+    'disk' => env('ESHOP_DISK', 'eshop'),
+
+    /*
+    |--------------------------------------------------------------------------
     | e-shop paginator
     |--------------------------------------------------------------------------
     |

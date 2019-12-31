@@ -29,6 +29,8 @@ class TaxEshop extends Model
      */
     protected $table = 'eshop_taxes';
 
+    public $insert = true;
+
     /**
      * The attributes that are mass assignable.
      *

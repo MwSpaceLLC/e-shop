@@ -14,6 +14,9 @@ function initPlugin() {
     });
     $('.price').mask("#.##0,00", {reverse: true});
     $('.tax').mask('##0,00%', {reverse: true});
+    $('.phone').mask('+00 ### ## ## ###');
+    $('.vat').mask('SS AAAAAAAAAAAA');
+
     tippy('[data-tippy-content]');
 
     $(".elevateZoom").elevateZoom();
@@ -38,5 +41,10 @@ function initImageAveter() {
 
     $(".upload-button").on('click', function () {
         $(".file-upload").click();
+    });
+
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 }
