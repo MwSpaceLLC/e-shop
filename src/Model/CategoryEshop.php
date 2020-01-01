@@ -82,7 +82,7 @@ class CategoryEshop extends Model
      * @param $payload
      * @return |null
      */
-    public function get($payload)
+    public function search($payload)
     {
         if (isset($this->payload()->$payload))
             return $this->payload()->$payload;

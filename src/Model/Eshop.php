@@ -71,4 +71,21 @@ class Eshop
 
         return false;
     }
+
+    /**
+     * @return EshopApi
+     */
+    public function api()
+    {
+        $api = new EshopApi();
+
+//        dd($this->path('src/Api/*'));
+
+        foreach (glob($this->path('src/Api/*')) as $file) {
+            $name = str_replace('.md', '', basename($file));
+            $api->$name = file_get_contents($file);
+        }
+
+        return $api;
+    }
 }

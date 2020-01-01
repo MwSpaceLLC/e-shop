@@ -76,11 +76,18 @@
                                                    aria-describedby="SHOP_VAT" placeholder="Enter Your SHOP_VAT"
                                                    value="{{eshop()->config('SHOP_VAT')}}">
                                         </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-6">
                                             <input type="text" name="keys[SHOP_IBAN]" class="form-control"
                                                    id="SHOP_IBAN" required
                                                    aria-describedby="SHOP_IBAN" placeholder="Enter Your SHOP_IBAN"
                                                    value="{{eshop()->config('SHOP_IBAN')}}">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="text" name="keys[SHOP_CURRENCY]" class="form-control currency"
+                                                   id="SHOP_CURRENCY" required
+                                                   data-tippy-content="@lang('eshop::option.TippyCurrency')"
+                                                   aria-describedby="SHOP_CURRENCY" placeholder="Enter Your SHOP_CURRENCY"
+                                                   value="{{eshop()->config('SHOP_CURRENCY')}}">
                                         </div>
                                     </div>
                                     <button type="submit"

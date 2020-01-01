@@ -43,7 +43,7 @@ class ServiceProvider extends MineServiceProvider
      */
     private function checkRequirements()
     {
-     //
+        //
     }
 
     /**
@@ -85,6 +85,17 @@ class ServiceProvider extends MineServiceProvider
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/Routes/backend.php');
         });
+
+        Route::group([
+            'namespace' => 'MwSpace\Eshop\Http\Controller',
+            'prefix' => config('e-shop.prefix') . '/api' ?? 'e-shop' . '/api',
+            'middleware' => [
+                'web',
+            ],
+        ], function () {
+            $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
+        });
+
     }
 
     /**

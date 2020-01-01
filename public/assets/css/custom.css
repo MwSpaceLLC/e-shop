@@ -237,6 +237,15 @@ hr.payment::before{
     z-index: 999;
 }
 
+hr.endpoint::before{
+    content: 'Endpoint\'s API';
+    display: flex;
+    align-items: center;
+    zoom: 2;
+    margin: -17px -17px -17px 17px;
+    z-index: 999;
+}
+
 hr.courier::before{
     content: 'Courier\'s API';
     display: flex;
