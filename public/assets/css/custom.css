@@ -264,3 +264,8 @@ span.loop_model{
     position: absolute;
     z-index: 100;
 }
+
+:not(pre)>code[class*=language-], pre[class*=language-] {
+    background: #f4f7fc;
+}
+

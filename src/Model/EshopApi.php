@@ -29,12 +29,15 @@ class EshopApi extends \stdClass
 
             $this->value = $value;
 
-            if ($value->getName() === 'eshop-api')
+            $api = request()->route()->parameters['page'];
+
+            if ($value->getName() === "eshop-api-$api")
                 $this->route[] = (object)[
                     'method' => strtolower($value->methods()[0]),
                     'path' => $value->uri(),
 //                    'name' => $value->getName(),
                     'action' => $this->get_class_methods(),
+                    'doc' => $this->get_class_doc(),
                 ];
         }
 
@@ -60,6 +63,23 @@ class EshopApi extends \stdClass
         $body = implode("", array_slice($source, $start_line, $length));
 
         return $body;
+    }
+
+    /**
+     * @return false|string
+     * @throws \ReflectionException
+     */
+    private function get_class_doc()
+    {
+        $Class = explode('@', $this->value->getActionName())[0];
+        $method = explode('@', $this->value->getActionName())[1];
+        $func = new \ReflectionMethod($Class, $method);
+        $func = $func->getDocComment();
+        $func = str_replace('/','',$func);
+        $func = str_replace('*','',$func);
+        $func = trim($func);
+
+        return $func;
     }
 
 }

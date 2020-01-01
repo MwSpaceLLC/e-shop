@@ -19,5 +19,7 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::post('/new/user', 'ApiController@newUser')->name('eshop-api');
+Route::post('/new/user', 'ApiController@newUser')->name('eshop-api-user');
+
+Route::post('/new/payment', 'ApiController@newPayment')->name('eshop-api-payment');
 

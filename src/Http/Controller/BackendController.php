@@ -31,6 +31,22 @@ class BackendController extends Base
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexApi()
+    {
+        return isset($this->request->page) ? view("eshop::backend.api.index") : view('eshop::backend.index');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexApiStatic()
+    {
+        return isset($this->request->page) ? view("eshop::backend.api.{$this->request->page}") : view('eshop::backend.index');
+    }
+
+    /**
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout()
@@ -154,6 +170,8 @@ class BackendController extends Base
             else
                 $this->model->tax_id = null;
         }
+
+//        dd($this->model);
 
         return $this->model;
 

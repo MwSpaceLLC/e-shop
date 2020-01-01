@@ -9,6 +9,7 @@
 namespace MwSpace\Eshop\Http\Controller;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use MwSpace\Eshop\Model\CategoryEshop;
 use MwSpace\Eshop\Model\ConfigEshop;
@@ -22,10 +23,35 @@ use MwSpace\Eshop\Model\ProductEshop;
 class ApiController extends Base
 {
     /**
-     *
+     * Create e-shop user {eshop_users}
      */
     function newUser()
     {
-        eshop()->category()->get();
+        $this->request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+        ]);
+    }
+
+    /**
+     * Auth instance user {eshop_users}
+     */
+    function authUser()
+    {
+        $this->request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+        ]);
+    }
+
+    /**
+     * Create e-shop payment {eshop_payments}
+     */
+    function newPayment()
+    {
+        $this->request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+        ]);
     }
 }

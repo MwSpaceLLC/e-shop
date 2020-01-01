@@ -67,16 +67,4 @@ class ProductEshop extends Model
         return asset("vendor/eshop/assets/img/file.png");
     }
 
-    /**
-     * @param $payload
-     * @return |null
-     */
-    public function get($payload)
-    {
-        if (isset($this->payload()->$payload))
-            return $this->payload()->$payload;
-
-        return null;
-    }
-
 }

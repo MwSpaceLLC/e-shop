@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CategoryEshop extends Model
 {
+
     /**
      * The table associated with the model.
      *
@@ -79,14 +80,28 @@ class CategoryEshop extends Model
     }
 
     /**
-     * @param $payload
-     * @return |null
+     * @return mixed
      */
-    public function search($payload)
+    public function primary()
     {
-        if (isset($this->payload()->$payload))
-            return $this->payload()->$payload;
 
-        return null;
+//        $loop = 0;
+//        $parent = [];
+//        $select = (\MwSpace\Eshop\Model\CategoryEshop::find(request()->parent))->parent()->first();
+//
+//        do {
+//            if ($loop > 0)
+//                $select = $select->parent()->first();
+//
+//            $parent[] = $select;
+//            $loop++;
+//
+//        } while ($select !== null);
+//
+//        return array_reverse(array_filter($parent));
+
+        return self::where('parent_id', null);
+
+
     }
 }

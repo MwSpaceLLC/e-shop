@@ -44,7 +44,7 @@
                                                     <select class="js-states form-control"
                                                             data-placeholder="@lang('eshop::model.CategoryTax')"
                                                             tabindex="-1"
-                                                            name="category_id" style="display: none; width: 100%"
+                                                            name="tax_id" style="display: none; width: 100%"
                                                             data-minimum-results-for-search="Infinity">
                                                         <option value="0">0% / Disabled</option>
                                                         @foreach(eshop()->tax()->all() as $item)

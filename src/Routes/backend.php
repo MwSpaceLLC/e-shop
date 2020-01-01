@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/{page?}', 'BackendController@index')->name('eshop-backend');
 
+Route::get('/api/{page?}', 'BackendController@indexApi')->name('eshop-backend-api');
+
+Route::get('/api/static/{page?}', 'BackendController@indexApiStatic')->name('eshop-backend-api-static');
+
 Route::get('/model/{model}', 'BackendController@models')->name('eshop-models');
 
 Route::get('/model/insert/{model}', 'BackendController@insertModel')->name('eshop-model-insert');
