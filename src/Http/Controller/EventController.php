@@ -9,6 +9,7 @@
 namespace MwSpace\Eshop\Http\Controller;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use MwSpace\Eshop\Mail\AdminLogin;
 use MwSpace\Eshop\Model\AdminEshop;
 use Illuminate\Support\Facades\Mail;
@@ -60,4 +61,5 @@ class EventController extends Base
         Mail::to($email)->send(new AdminLogin($email));
 //        Mail::to($email)->later(1, new AdminLogin($email));
     }
+
 }

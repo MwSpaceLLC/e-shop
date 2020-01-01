@@ -3,7 +3,7 @@
 
         @if(isset($current) && isset($current->payload()->image))
             <img class="profile-pic" alt="pic"
-                 src="{{eshop_img($current->payload()->image)}}"/>
+                 src="{{$current->image()}}"/>
             <input name="payload[image]" type="hidden"
                    value="{{$current->payload()->image}}"/>
         @else

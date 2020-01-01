@@ -4,6 +4,7 @@
         <div class="help-menu">
             <ul class="list-unstyled">
                 <li><a href="{{backend('api/user')}}">User Api</a></li>
+                <li><a href="{{backend('api/cart')}}">Cart Api</a></li>
                 <li><a href="#">Basic Usage</a></li>
                 <li><a href="#">Payments</a></li>
                 <hr>

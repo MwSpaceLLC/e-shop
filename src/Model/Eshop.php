@@ -45,7 +45,7 @@ class Eshop
      */
     public static function path($path = null)
     {
-        return eshop_path($path);
+        return path_eshop($path);
     }
 
     /**
@@ -88,4 +88,13 @@ class Eshop
 
         return $api;
     }
+
+    /**
+     * @return EshopRoute
+     */
+    public function route()
+    {
+        return new EshopRoute();
+    }
+
 }

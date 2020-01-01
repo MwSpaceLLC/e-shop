@@ -54,4 +54,16 @@ class ApiController extends Base
             'body' => 'required',
         ]);
     }
+    /**
+     * Create e-shop cart session {eshop_carts}
+     */
+    function newProductCart()
+    {
+        $this->request->validate([
+            'id' => 'required|exists:eshop_products|max:255',
+            'amount' => 'required|numeric|max:255',
+        ]);
+        dd($this->request->all());
+    }
+
 }

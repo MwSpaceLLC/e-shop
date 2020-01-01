@@ -9,7 +9,7 @@ return [
     'eshop' => [
         'driver' => 'local',
         'root' => public_path('vendor/eshop/drive'),
-        'url' => env('APP_URL') . '/vendor/eshop',
+        'url' => env('APP_URL') . '/vendor/eshop/drive',
         'visibility' => 'public',
     ]
 ];

@@ -9,6 +9,7 @@
 namespace MwSpace\Eshop\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  *
@@ -74,7 +75,7 @@ class CategoryEshop extends Model
     public function image()
     {
         if (isset($this->payload()->image))
-            return asset("vendor/eshop/drive/{$this->payload()->image}");
+            return Storage::disk(config('e-shop.disk'))->url($this->payload()->image);
 
         return asset("vendor/eshop/assets/img/file.png");
     }
@@ -84,24 +85,16 @@ class CategoryEshop extends Model
      */
     public function primary()
     {
-
-//        $loop = 0;
-//        $parent = [];
-//        $select = (\MwSpace\Eshop\Model\CategoryEshop::find(request()->parent))->parent()->first();
-//
-//        do {
-//            if ($loop > 0)
-//                $select = $select->parent()->first();
-//
-//            $parent[] = $select;
-//            $loop++;
-//
-//        } while ($select !== null);
-//
-//        return array_reverse(array_filter($parent));
-
         return self::where('parent_id', null);
-
-
     }
+
+    /**
+     * @param $payload
+     * @return string|string[]|null
+     */
+    public function friendly($payload)
+    {
+        return preg_replace('/\s+/', '-', $payload);
+    }
+
 }

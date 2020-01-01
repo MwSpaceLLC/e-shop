@@ -9,6 +9,7 @@
 namespace MwSpace\Eshop\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  *
@@ -55,16 +56,33 @@ class ProductEshop extends Model
         return json_decode($this->category_id);
     }
 
+    public function category()
+    {
+        if (!isset($this->category_id))
+            return [];
+
+        return CategoryEshop::whereIn('id', json_decode($this->category_id))->get();
+    }
+
     /**
-     * Get Image Of Product
      * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function image()
     {
         if (isset($this->payload()->image))
-            return asset("vendor/eshop/drive/{$this->payload()->image}");
+            return Storage::disk(config('e-shop.disk'))->url($this->payload()->image);
 
         return asset("vendor/eshop/assets/img/file.png");
+    }
+
+    /**
+     * @param $payload
+     * @return string|string[]|null
+     */
+    public function friendly($payload)
+    {
+        return preg_replace('/\s+/', '-', $payload);
     }
 
 }

@@ -23,3 +23,7 @@ Route::post('/new/user', 'ApiController@newUser')->name('eshop-api-user');
 
 Route::post('/new/payment', 'ApiController@newPayment')->name('eshop-api-payment');
 
+
+
+Route::post('/new/product/cart', 'ApiController@newProductCart')->name('eshop-api-cart');
+

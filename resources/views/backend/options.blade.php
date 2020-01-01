@@ -76,18 +76,25 @@
                                                    aria-describedby="SHOP_VAT" placeholder="Enter Your SHOP_VAT"
                                                    value="{{eshop()->config('SHOP_VAT')}}">
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <input type="text" name="keys[SHOP_IBAN]" class="form-control"
                                                    id="SHOP_IBAN" required
                                                    aria-describedby="SHOP_IBAN" placeholder="Enter Your SHOP_IBAN"
                                                    value="{{eshop()->config('SHOP_IBAN')}}">
                                         </div>
                                         <div class="col-sm-2">
-                                            <input type="text" name="keys[SHOP_CURRENCY]" class="form-control currency"
+                                            <input type="text" name="keys[SHOP_CURRENCY]" class="form-control"
                                                    id="SHOP_CURRENCY" required
                                                    data-tippy-content="@lang('eshop::option.TippyCurrency')"
                                                    aria-describedby="SHOP_CURRENCY" placeholder="Enter Your SHOP_CURRENCY"
                                                    value="{{eshop()->config('SHOP_CURRENCY')}}">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="text" name="keys[SHOP_CURRENCY_SYMBOL]" class="form-control"
+                                                   id="SHOP_CURRENCY_SYMBOL" required
+                                                   data-tippy-content="@lang('eshop::option.TippyCurrencySymbol')"
+                                                   aria-describedby="SHOP_CURRENCY_SYMBOL" placeholder="Enter Your SHOP_CURRENCY_SYMBOL"
+                                                   value="{{eshop()->config('SHOP_CURRENCY_SYMBOL')}}">
                                         </div>
                                     </div>
                                     <button type="submit"

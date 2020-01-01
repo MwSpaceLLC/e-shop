@@ -75,4 +75,9 @@ class AdminEshop extends Authenticatable
         return json_decode($this->payload);
     }
 
+    public function root()
+    {
+        return $this->payload()->role == 'root';
+    }
+
 }

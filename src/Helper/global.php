@@ -11,12 +11,12 @@ if (!function_exists('admin')) {
     }
 }
 
-if (!function_exists('eshop_path')) {
+if (!function_exists('path_eshop')) {
     /**
      * @param null $path
      * @return mixed
      */
-    function eshop_path($path = null)
+    function path_eshop($path = null)
     {
         return __DIR__ . "/../../$path";
     }
@@ -66,17 +66,6 @@ if (!function_exists('get_current')) {
     {
         if ($id = request()->parent)
             return (\MwSpace\Eshop\Model\CategoryEshop::find(request()->parent))->find($id);
-    }
-}
-
-if (!function_exists('eshop_img')) {
-    /**
-     * @param $path
-     * @return string
-     */
-    function eshop_img($path)
-    {
-        return asset("vendor/eshop/drive/$path");
     }
 }
 

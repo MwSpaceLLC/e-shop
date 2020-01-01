@@ -47,38 +47,18 @@
             <li>
                 <a href="{{backend('model/Notification')}}"><i class="material-icons">notification_important</i>Notifications</a>
             </li>
-            <li>
-                <a href="{{backend('automation')}}"><i class="material-icons">av_timer</i>Automation</a>
-            </li>
-            <li>
-                <a href="{{backend('api/user')}}"><i class="material-icons">settings_input_antenna</i>Api System</a>
-            </li>
 
-            <li>
-                <a href="{{backend('options')}}"><i class="material-icons"> build </i>Backend Options</a>
-            </li>
-
-            {{--            <li>--}}
-            {{--                <a href=""><i class="material-icons">thumb_up</i>Marketing<i--}}
-            {{--                        class="material-icons has-sub-menu">keyboard_arrow_left</i></a>--}}
-            {{--                <ul class="sub-menu">--}}
-            {{--                    <li>--}}
-            {{--                        <a href="">Facebook Shop</a>--}}
-            {{--                    </li>--}}
-            {{--                    <li>--}}
-            {{--                        <a href="">Google Shopping</a>--}}
-            {{--                    </li>--}}
-            {{--                    <li>--}}
-            {{--                        <a href="">Amazon Connettor</a>--}}
-            {{--                    </li>--}}
-            {{--                    <li>--}}
-            {{--                        <a href="">Ebay Connettor</a>--}}
-            {{--                    </li>--}}
-            {{--                    <li>--}}
-            {{--                        <a href="">Alibaba Connettor</a>--}}
-            {{--                    </li>--}}
-            {{--                </ul>--}}
-            {{--            </li>--}}
+            @if(auth()->guard('eshop:admin')->user()->root())
+                <li>
+                    <a href="{{backend('automation')}}"><i class="material-icons">av_timer</i>Automation</a>
+                </li>
+                <li>
+                    <a href="{{backend('api/user')}}"><i class="material-icons">settings_input_antenna</i>Api System</a>
+                </li>
+                <li>
+                    <a href="{{backend('options')}}"><i class="material-icons"> build </i>Backend Options</a>
+                </li>
+            @endif
 
         </ul>
     </div>

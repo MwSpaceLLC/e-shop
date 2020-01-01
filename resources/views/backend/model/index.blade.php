@@ -80,7 +80,7 @@
                                                 <div class="card-body">
                                                     <div class="folder-icon">
                                                         @if(isset($row->payload()->image))
-                                                            <img src="{{eshop_img($row->payload()->image)}}" width="50" height="50"
+                                                            <img src="{{$row->image()}}" width="50" height="50"
                                                                  style="object-fit: cover">
                                                         @else
                                                             <i class="material-icons">
