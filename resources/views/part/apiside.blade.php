@@ -9,6 +9,7 @@
                 <li><a href="#">Payments</a></li>
                 <hr>
                 <li><a href="{{backend('api/static/blade')}}">Blade Api</a></li>
+                <li><a href="{{backend('api/static/settings')}}">Settings Api</a></li>
                 <li><a href="#">Plugins</a></li>
                 <li><a href="#">Control Panel</a></li>
                 <li><a href="#">Uploading Files</a></li>
