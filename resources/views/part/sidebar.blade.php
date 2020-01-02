@@ -53,7 +53,7 @@
                     <a href="{{backend('automation')}}"><i class="material-icons">av_timer</i>Automation</a>
                 </li>
                 <li>
-                    <a href="{{backend('api/user')}}"><i class="material-icons">settings_input_antenna</i>Api System</a>
+                    <a href="{{backend('endpoint/user')}}"><i class="material-icons">settings_input_antenna</i>Api System</a>
                 </li>
                 <li>
                     <a href="{{backend('options')}}"><i class="material-icons"> build </i>Backend Options</a>

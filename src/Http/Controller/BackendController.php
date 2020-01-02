@@ -249,10 +249,12 @@ class BackendController extends Base
      */
     private function checkModelBeforeDelete($model)
     {
-        // Override for search in update
         if ($model instanceof CategoryEshop)
             if ($model->product()->first())
                 return abort(403, "This Category have many Product. U can't delete it");
+
+        if ($model instanceof ProductEshop)
+            eshop()->cart()->where('product_id', $model->id)->delete();
 
 //        dd($model);
 

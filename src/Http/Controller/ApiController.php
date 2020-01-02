@@ -84,7 +84,7 @@ class ApiController extends Base
 
 
     /**
-     * Delete e-shop cart session {eshop_carts}
+     * Delete e-shop product from cart session {eshop_carts}
      */
     function deleteProductCart()
     {
@@ -94,13 +94,21 @@ class ApiController extends Base
     }
 
     /**
+     * Delete e-shop cart all session {eshop_carts}
+     */
+    public function deleteCart()
+    {
+        eshop()->cart()->this()->delete();
+
+        return back()->with('success');
+    }
+
+    /**
      * Express e-shop cart function {eshop_payments,eshop_products + Stripe Express}
      */
     public function expressCheckout()
     {
-        $product = ProductEshop::findOrFail($this->request->id);
-
-        return view('eshop::cart.expressProduct')->with('stripe', $product->stripeGenerateExpressCart());
+        return view('eshop::cart.expressProduct')->with('stripe', eshop()->cart()->stripeGenerateExpressCart());
     }
 
     /**
@@ -110,17 +118,25 @@ class ApiController extends Base
     {
         $product = ProductEshop::findOrFail($this->request->id);
 
-        return view('eshop::cart.expressProduct')->with('stripe', $product->stripeGenerateExpressProductCart());
+        return view('eshop::cart.expressProduct')->with('stripe', $product->stripeGenerateExpressCart());
     }
 
     public function checkoutSuccess()
     {
-
+        dd($this->request->all());
     }
 
+    /**
+     * Express e-shop cart function {eshop_payments,eshop_products + Stripe Express}
+     */
     public function checkoutCancel()
     {
+        return redirect(eshop()->config('STRIPE_CANCEL') ? eshop()->config('STRIPE_CANCEL') : '/');
+    }
 
+    public function maintenance()
+    {
+        return abort(403, eshop()->config('MAINTENANCE_TEXT'));
     }
 
 }

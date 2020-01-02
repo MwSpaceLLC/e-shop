@@ -64,5 +64,37 @@ class CartEshop extends Model
         return ProductEshop::where('id', $this->product_id)->first();
     }
 
+    /**
+     * @return \Stripe\Checkout\Session
+     * @throws EshopException
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws \Stripe\Exception\ApiErrorException
+     */
+    public function stripeGenerateExpressCart()
+    {
+
+        if (!eshop()->config('STRIPE_SK'))
+            throw new EshopException('Stripe Key required for Express Checkout');
+
+        \Stripe\Stripe::setApiKey(eshop()->config('STRIPE_SK'));
+
+        return \Stripe\Checkout\Session::create([
+            'success_url' => route('eshop-stripe-success'),
+            'cancel_url' => route('eshop-stripe-cancel'),
+            'payment_method_types' => ['card'],
+            'line_items' => $this->this()->get()->map(function ($cart) {
+                return [
+                    'name' => $cart->product()->payload()->name,
+                    'description' => $cart->product()->payload()->info,
+                    'images' => [$cart->product()->image()],
+                    'amount' => $cart->product()->stripeAmount(),
+                    'currency' => strtolower(eshop()->config('SHOP_CURRENCY')),
+                    'quantity' => 1,
+                ];
+            })->toArray()
+        ]);
+
+    }
+
 
 }

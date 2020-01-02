@@ -26,6 +26,8 @@ Route::post('/new/product/cart', 'ApiController@newProductCart')->name('eshop-ap
 
 Route::get('/delete/product/cart/{id}', 'ApiController@deleteProductCart')->name('eshop-api-cart');
 
+Route::get('/delete/cart', 'ApiController@deleteCart')->name('eshop-api-cart');
+
 
 Route::get('/cart/express/checkout', 'ApiController@expressCheckout')->name('eshop-api-payment');
 
@@ -36,4 +38,7 @@ Route::get('/cart/express/product/{id}/checkout', 'ApiController@expressProductC
 |--------------------------------------------------------------------------*/
 Route::get('/cart/express/checkout/success', 'ApiController@checkoutSuccess')->name('eshop-stripe-success');
 
-Route::get('/cart/express/checkout/cancel', 'ApiController@checkoutCancel')->name('eshop-stripe-success');
+Route::get('/cart/express/checkout/cancel', 'ApiController@checkoutCancel')->name('eshop-stripe-cancel');
+
+
+Route::get('/maintenance', 'ApiController@maintenance')->name('eshop-maintenance');

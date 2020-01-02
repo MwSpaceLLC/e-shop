@@ -3,21 +3,13 @@
         <h5 class="card-title">Api Category</h5>
         <div class="help-menu">
             <ul class="list-unstyled">
-                <li><a href="{{backend('api/user')}}">User Api</a></li>
-                <li><a href="{{backend('api/cart')}}">Cart Api</a></li>
-                <li><a href="#">Basic Usage</a></li>
-                <li><a href="{{backend('api/payment')}}">Payment Api</a></li>
+                <li><a href="{{backend('endpoint/user')}}">User Api</a></li>
+                <li><a href="{{backend('endpoint/cart')}}">Cart Api</a></li>
+                <li><a href="{{backend('endpoint/payment')}}">Payment Api</a></li>
                 <hr>
-                <li><a href="{{backend('api/static/blade')}}">Blade Api</a></li>
-                <li><a href="{{backend('api/static/settings')}}">Settings Api</a></li>
-                <li><a href="#">Plugins</a></li>
-                <li><a href="#">Control Panel</a></li>
-                <li><a href="#">Uploading Files</a></li>
+                <li><a href="{{backend('endpoint/static/blade')}}">Blade Api</a></li>
+                <li><a href="{{backend('endpoint/static/settings')}}">Settings Api</a></li>
 
-                <button type="button" class="btn btn-primary m-t-sm" data-toggle="modal"
-                        data-target="#exampleModal">
-                    Subimt Request
-                </button>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                      aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -123,9 +123,11 @@
                                     @csrf
                                     <div class="row icon-list-row">
                                         <div class="col-sm-8 offset-sm-2">
-                                                <input name="keys[MAINTENANCE_TEXT]" class="form-control text-center" required
-                                                          aria-describedby="ace-MAINTENANCE_TEXT"
-                                                          placeholder="Enter MAINTENANCE_TEXT" value="{{eshop()->config('MAINTENANCE_TEXT')}}">
+                                            <input name="keys[MAINTENANCE_TEXT]" class="form-control text-center"
+                                                   required
+                                                   aria-describedby="ace-MAINTENANCE_TEXT"
+                                                   placeholder="Enter MAINTENANCE_TEXT"
+                                                   value="{{eshop()->config('MAINTENANCE_TEXT')}}">
                                         </div>
                                     </div>
                                     <button type="submit"
@@ -184,6 +186,46 @@
                                                        value="{{eshop()->config('STRIPE_SK')}}">
                                             </div>
                                         </div>
+
+                                        <hr>
+                                        <a class="chbox"
+                                           href="{{route('eshop-options-toggle','stripe_endpoint')}}">Enable Stripe
+                                            Custom Endpoint</a>
+                                        <label
+                                            class="switch">
+                                            <input
+                                                type="checkbox" {{eshop()->option('stripe_endpoint')?'checked':null}}>
+                                            <span class="slider round"></span>
+                                        </label>
+
+                                        @if(eshop()->option('stripe_endpoint'))
+                                            <div class="row icon-list-row">
+                                                <div class="col-sm-2">
+                                                    <h4>Success</h4>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input type="text" name="keys[STRIPE_SUCCESS]" class="form-control"
+                                                           id="STRIPE_SUCCESS"
+                                                           data-tippy-content="Stripe Callback url for redirect user after payment"
+                                                           aria-describedby="STRIPE_SUCCESS"
+                                                           placeholder="Enter STRIPE_SUCCESS"
+                                                           value="{{eshop()->config('STRIPE_SUCCESS')}}">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <h4>Cancel</h4>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input type="text"
+                                                           data-tippy-content="Stripe Callback url for redirect user after payment"
+                                                           name="keys[STRIPE_CANCEL]" class="form-control"
+                                                           id="STRIPE_CANCEL"
+                                                           aria-describedby="STRIPE_CANCEL"
+                                                           placeholder="Enter STRIPE_CANCEL"
+                                                           value="{{eshop()->config('STRIPE_CANCEL')}}">
+                                                </div>
+                                            </div>
+                                        @endif
+
                                         <button type="submit"
                                                 class="btn btn-primary btn-xs fl-form">@lang('eshop::global.Save')</button>
                                     </form>

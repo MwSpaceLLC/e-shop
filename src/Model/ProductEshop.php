@@ -94,7 +94,7 @@ class ProductEshop extends Model
      * @throws EshopException
      * @throws \Stripe\Exception\ApiErrorException
      */
-    private function stripeAmount()
+    public function stripeAmount()
     {
 
         $price = str_replace(',', '', $this->payload()->price);
@@ -116,44 +116,12 @@ class ProductEshop extends Model
 
         \Stripe\Stripe::setApiKey(eshop()->config('STRIPE_SK'));
 
-        return \Stripe\Checkout\Session::create([
-            'success_url' => url('/success'),
-            'cancel_url' => url('/cancel'),
-            'payment_method_types' => ['card'],
-            'line_items' => [
-                [
-                    'name' => $this->payload()->name,
-                    'description' => $this->payload()->info,
-                    'images' => [$this->image()],
-                    'amount' => $this->stripeAmount(),
-                    'currency' => strtolower(eshop()->config('SHOP_CURRENCY')),
-                    'quantity' => 1,
-                ],
-            ],
-        ]);
-
-    }
-
-    /**
-     * @return \Stripe\Checkout\Session
-     * @throws EshopException
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     * @throws \Stripe\Exception\ApiErrorException
-     */
-    public function stripeGenerateExpressProductCart()
-    {
-
-        if (!eshop()->config('STRIPE_SK'))
-            throw new EshopException('Stripe Key required for Express Checkout');
-
-        \Stripe\Stripe::setApiKey(eshop()->config('STRIPE_SK'));
-
         $price = str_replace(',', '', $this->payload()->price);
         $price = intval($price);
 
         return \Stripe\Checkout\Session::create([
-            'success_url' => url('/success'),
-            'cancel_url' => url('/cancel'),
+            'success_url' => route('eshop-stripe-success'),
+            'cancel_url' => route('eshop-stripe-cancel'),
             'payment_method_types' => ['card'],
             'line_items' => [
                 [

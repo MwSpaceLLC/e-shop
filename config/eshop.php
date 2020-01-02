@@ -22,11 +22,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | e-shop prefix http://127.0.0.1:8000/e-shop
+    | e-shop api default
     |--------------------------------------------------------------------------
     |
-    | you can use a different alphanumeric value of your choice to
-    | protect the login route of your backend
+    | you can use these configurations Or you can write your own independently
+    | by enabling or disabling this function
     |
     */
 
