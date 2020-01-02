@@ -6,7 +6,7 @@
                 <li><a href="{{backend('api/user')}}">User Api</a></li>
                 <li><a href="{{backend('api/cart')}}">Cart Api</a></li>
                 <li><a href="#">Basic Usage</a></li>
-                <li><a href="#">Payments</a></li>
+                <li><a href="{{backend('api/payment')}}">Payment Api</a></li>
                 <hr>
                 <li><a href="{{backend('api/static/blade')}}">Blade Api</a></li>
                 <li><a href="{{backend('api/static/settings')}}">Settings Api</a></li>

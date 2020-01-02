@@ -9,7 +9,7 @@ function initPlugin() {
         placeholder: "Select Category"
     });
     tinymce.init({
-        selector: 'textarea',
+        selector: 'textarea.tiny',
         height: "380"
     });
     $('.price').mask("#.##0,00", {reverse: true});
@@ -19,7 +19,10 @@ function initPlugin() {
 
     tippy('[data-tippy-content]');
 
-    $(".elevateZoom").elevateZoom();
+    // var html_editor = ace.edit("ace-html");
+    // html_editor.setTheme("ace/theme/twilight");
+    // html_editor.session.setMode("ace/mode/html");
+
 }
 
 function initImageAveter() {

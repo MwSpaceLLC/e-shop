@@ -86,15 +86,46 @@
                                             <input type="text" name="keys[SHOP_CURRENCY]" class="form-control"
                                                    id="SHOP_CURRENCY" required
                                                    data-tippy-content="@lang('eshop::option.TippyCurrency')"
-                                                   aria-describedby="SHOP_CURRENCY" placeholder="Enter Your SHOP_CURRENCY"
+                                                   aria-describedby="SHOP_CURRENCY"
+                                                   placeholder="Enter Your SHOP_CURRENCY"
                                                    value="{{eshop()->config('SHOP_CURRENCY')}}">
                                         </div>
                                         <div class="col-sm-2">
                                             <input type="text" name="keys[SHOP_CURRENCY_SYMBOL]" class="form-control"
                                                    id="SHOP_CURRENCY_SYMBOL" required
                                                    data-tippy-content="@lang('eshop::option.TippyCurrencySymbol')"
-                                                   aria-describedby="SHOP_CURRENCY_SYMBOL" placeholder="Enter Your SHOP_CURRENCY_SYMBOL"
+                                                   aria-describedby="SHOP_CURRENCY_SYMBOL"
+                                                   placeholder="Enter Your SHOP_CURRENCY_SYMBOL"
                                                    value="{{eshop()->config('SHOP_CURRENCY_SYMBOL')}}">
+                                        </div>
+                                    </div>
+                                    <button type="submit"
+                                            class="btn btn-primary btn-xs fl-form">@lang('eshop::global.Save')</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-xl">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">@lang('eshop::option.Maintenance')</h5>
+
+                                <img
+                                    src="https://image.flaticon.com/icons/svg/1077/1077147.svg"
+                                    class="w-xs mr-3 option" alt="...">
+
+                                <form action="{{route('eshop-config-update')}}" method="post">
+                                    @csrf
+                                    <div class="row icon-list-row">
+                                        <div class="col-sm-8 offset-sm-2">
+                                                <input name="keys[MAINTENANCE_TEXT]" class="form-control text-center" required
+                                                          aria-describedby="ace-MAINTENANCE_TEXT"
+                                                          placeholder="Enter MAINTENANCE_TEXT" value="{{eshop()->config('MAINTENANCE_TEXT')}}">
                                         </div>
                                     </div>
                                     <button type="submit"
@@ -252,7 +283,8 @@
                                                     <label class="custom-file-label" for="GOOGLE_MERCHANT_JSON_TOKEN">Choose</label>
                                                 </div>
                                                 @if($json = eshop()->config('GOOGLE_MERCHANT_JSON_TOKEN'))
-                                                    <pre style="margin-top: 25px"><code class="lang-json">{{$json}}</code></pre>
+                                                    <pre style="margin-top: 25px"><code
+                                                            class="lang-json">{{$json}}</code></pre>
                                                 @endif
                                             </div>
                                         </div>

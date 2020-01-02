@@ -102,12 +102,24 @@
                                                 </div>
                                             </div>
                                             <div class="divider"></div>
+                                            <h5>@lang('eshop::model.ProductInfo')</h5>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <textarea type="text" name="payload[info]"
+                                                              class="form-control"
+                                                              rows="3"
+                                                              data-placeholder="@lang('eshop::model.ProductInfo')">{{$current->payload()->info??''}}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="divider"></div>
+                                            <h5>@lang('eshop::model.ProductDescription')</h5>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <textarea type="text" name="payload[description]"
-                                                              class="form-control"
+                                                              class="form-control tiny"
                                                               rows="6"
-                                                              data-placeholder="@lang('eshop::model.ProductDescription')">{{$current->payload()->description}}</textarea>
+                                                              data-placeholder="@lang('eshop::model.ProductDescription')">{{$current->payload()->description??''}}</textarea>
                                                 </div>
                                             </div>
                                             <div class="divider"></div>

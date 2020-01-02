@@ -39,9 +39,9 @@ return [
     'TippyVat' => 'es. IT 12345678901',
     'CompanyShop' => 'Company Shop Details',
 
-    'TippyCurrency' => 'es. EURO',
+    'TippyCurrency' => 'es. USD, EUR (see https://stripe.com/docs/currencies) ',
     'TippyCurrencySymbol' => 'ES. $',
-    '=========' => '==================',
+    'Maintenance' => 'Page Maintenance',
     '=========' => '==================',
     '=========' => '==================',
     '=========' => '==================',

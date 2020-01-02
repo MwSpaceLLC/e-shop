@@ -66,7 +66,7 @@ class ApiController extends Base
         ]);
 
         if (!$this->request->hasCookie('eshop-cart'))
-            return back();
+            return back()->with('error');
 
         $product = ProductEshop::findOrFail($this->request->id);
 
@@ -80,6 +80,46 @@ class ApiController extends Base
         ]);
 
         return back()->with('success');
+    }
+
+
+    /**
+     * Delete e-shop cart session {eshop_carts}
+     */
+    function deleteProductCart()
+    {
+        eshop()->cart()->findOrFail($this->request->id)->delete();
+
+        return back()->with('success');
+    }
+
+    /**
+     * Express e-shop cart function {eshop_payments,eshop_products + Stripe Express}
+     */
+    public function expressCheckout()
+    {
+        $product = ProductEshop::findOrFail($this->request->id);
+
+        return view('eshop::cart.expressProduct')->with('stripe', $product->stripeGenerateExpressCart());
+    }
+
+    /**
+     * Express e-shop cart function {eshop_payments,eshop_products + Stripe Express}
+     */
+    public function expressProductCheckout()
+    {
+        $product = ProductEshop::findOrFail($this->request->id);
+
+        return view('eshop::cart.expressProduct')->with('stripe', $product->stripeGenerateExpressProductCart());
+    }
+
+    public function checkoutSuccess()
+    {
+
+    }
+
+    public function checkoutCancel()
+    {
 
     }
 

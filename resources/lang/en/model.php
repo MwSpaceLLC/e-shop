@@ -40,8 +40,8 @@ return [
     'IndexProductCount' => 'Product Total',
 
     'ApiDesktop' => 'Api Fetch for desktop template',
-    '=========' => '==================',
-    '=========' => '==================',
+    'ProductInfo' => 'Product Info',
+    'ProductDescription' => 'Product Description',
     '=========' => '==================',
     '=========' => '==================',
     '=========' => '==================',

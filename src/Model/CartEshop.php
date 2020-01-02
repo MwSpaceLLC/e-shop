@@ -48,4 +48,21 @@ class CartEshop extends Model
         return json_decode($this->payload);
     }
 
+    /**
+     * @return mixed
+     */
+    public function this()
+    {
+        return $this->where('cart', request()->cookie('eshop-cart'));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function product()
+    {
+        return ProductEshop::where('id', $this->product_id)->first();
+    }
+
+
 }

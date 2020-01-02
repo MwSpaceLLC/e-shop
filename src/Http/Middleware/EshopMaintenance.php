@@ -20,7 +20,7 @@ class EshopMaintenance
     public function handle($request, $next)
     {
         if (eshop()->option('maintenance'))
-            die(eshop()->config('MAINTENANCE_PAGE'));
+            return abort(403, eshop()->config('MAINTENANCE_TEXT'));
 
         return $next($request);
     }

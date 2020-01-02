@@ -78,6 +78,15 @@
                                             <div class="divider"></div>
                                             <div class="row">
                                                 <div class="col-md-12">
+                                                    <textarea type="text" name="payload[info]"
+                                                              class="form-control"
+                                                              rows="6"
+                                                              data-placeholder="@lang('eshop::model.ProductInfoDescription')"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
                                                     <textarea type="text" name="payload[description]"
                                                               class="form-control"
                                                               rows="6"

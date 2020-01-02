@@ -99,6 +99,10 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / stacks) -->
             integrity="sha256-vQ+J5XjegC3urCfaXZtySDzqJOqNxxIA3q1NZbFoOj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/autoloader/prism-autoloader.min.js"
             integrity="sha256-ht8ay6ZTPZfuixYB99I5oRpCLsCq7Do2LjEYLwbe+X8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/ace.js"
+            integrity="sha256-C7DTYRJLG+B/VEzHGeoPMw699nsTQYPAXHKXZb+q04E=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/theme-monokai.js"
+            integrity="sha256-Fc4eJOe8KtF8kDLqSR94vUiJ1ohvKDxznSMxI3RavOw=" crossorigin="anonymous"></script>
 
     <script src="{{asset('vendor/eshop/assets/js/lime.min.js')}}"></script>
     <script defer src="{{asset('vendor/eshop/assets/js/custom.js')}}"></script>

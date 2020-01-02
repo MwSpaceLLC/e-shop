@@ -46,6 +46,10 @@ For customize admin path for your backend, u simple use env var as follow:
 For Use your api system and disable default (Advanced User):
 
     ESHOP_USE_API=false    
+    
+## Payment System api (Stripe access express) 🤑
+
+<p><img src="./overview.gif" width="100%"></p>
 
 ## Contributing 🐙
 

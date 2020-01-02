@@ -48,6 +48,14 @@ class Eshop
     }
 
     /**
+     * @return PaymentEshop
+     */
+    public function payment()
+    {
+        return new PaymentEshop;
+    }
+
+    /**
      * @param null $path
      * @return mixed
      */

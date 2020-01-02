@@ -215,11 +215,11 @@ img.option {
     border-radius: 100px;
 }
 
-hr.option{
+hr.option {
     margin: 25px;
 }
 
-hr.api::before{
+hr.api::before {
     content: 'Marketplace\'s API';
     display: flex;
     align-items: center;
@@ -228,7 +228,7 @@ hr.api::before{
     z-index: 999;
 }
 
-hr.payment::before{
+hr.payment::before {
     content: 'Payment\'s API';
     display: flex;
     align-items: center;
@@ -237,7 +237,16 @@ hr.payment::before{
     z-index: 999;
 }
 
-hr.endpoint::before{
+hr.maintenance::before {
+    content: 'Maintenance\'s Page';
+    display: flex;
+    align-items: center;
+    zoom: 2;
+    margin: -17px -17px -17px 17px;
+    z-index: 999;
+}
+
+hr.endpoint::before {
     content: 'Endpoint\'s API';
     display: flex;
     align-items: center;
@@ -246,7 +255,7 @@ hr.endpoint::before{
     z-index: 999;
 }
 
-hr.courier::before{
+hr.courier::before {
     content: 'Courier\'s API';
     display: flex;
     align-items: center;
@@ -255,17 +264,17 @@ hr.courier::before{
     z-index: 999;
 }
 
-pre{
-    border-radius: 10px!important;
-    overflow: hidden!important;
+pre {
+    border-radius: 10px !important;
+    overflow: hidden !important;
 }
 
-span.loop_model{
+span.loop_model {
     position: absolute;
     z-index: 100;
 }
 
-:not(pre)>code[class*=language-], pre[class*=language-] {
+:not(pre) > code[class*=language-], pre[class*=language-] {
     background: #f4f7fc;
 }
 

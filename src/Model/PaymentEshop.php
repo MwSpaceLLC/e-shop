@@ -45,4 +45,9 @@ class PaymentEshop extends Model
     {
         return json_decode($this->payload);
     }
+
+    public function express()
+    {
+
+    }
 }
