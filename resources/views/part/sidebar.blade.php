@@ -22,6 +22,9 @@
                 <a href="#"><i class="material-icons">developer_board</i>Catalog<i class="material-icons has-sub-menu">keyboard_arrow_left</i></a>
                 <ul class="sub-menu">
                     <li>
+                        <a href="{{backend('model/Service')}}">Services</a>
+                    </li>
+                    <li>
                         <a href="{{backend('model/Product')}}">Products</a>
                     </li>
                     <li>
@@ -53,7 +56,8 @@
                     <a href="{{backend('automation')}}"><i class="material-icons">av_timer</i>Automation</a>
                 </li>
                 <li>
-                    <a href="{{backend('endpoint/user')}}"><i class="material-icons">settings_input_antenna</i>Api System</a>
+                    <a href="{{backend('endpoint/user')}}"><i class="material-icons">settings_input_antenna</i>Api
+                        System</a>
                 </li>
                 <li>
                     <a href="{{backend('options')}}"><i class="material-icons"> build </i>Backend Options</a>
