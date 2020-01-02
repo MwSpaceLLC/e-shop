@@ -86,15 +86,16 @@ class ServiceProvider extends MineServiceProvider
             $this->loadRoutesFrom(__DIR__ . '/Routes/backend.php');
         });
 
-        Route::group([
-            'namespace' => 'MwSpace\Eshop\Http\Controller',
-            'prefix' => config('e-shop.prefix') . '/api' ?? 'e-shop' . '/api',
-            'middleware' => [
-                'web',
-            ],
-        ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
-        });
+        if (config('eshop.api'))
+            Route::group([
+                'namespace' => 'MwSpace\Eshop\Http\Controller',
+                'prefix' => config('e-shop.prefix') . '/api' ?? 'e-shop' . '/api',
+                'middleware' => [
+                    'web',
+                ],
+            ], function () {
+                $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
+            });
 
     }
 

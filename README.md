@@ -35,6 +35,18 @@ For Update e-shop repository u can simply run as follow (!!!Please, backup your 
 
     php artisan eshop:update
     
+## Customize Admin Path 👻
+
+For customize admin path for your backend, u simple use env var as follow:
+
+    ESHOP_PREFIX=myawesomeshop
+    
+## Disable Default Api System 👻
+
+For Use your api system and disable default (Advanced User):
+
+    ESHOP_USE_API=false    
+
 ## Contributing 🐙
 
 Thank you for considering contributing to the e-shop Laravel Package!

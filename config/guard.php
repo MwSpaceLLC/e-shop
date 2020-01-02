@@ -10,5 +10,9 @@ return [
     'eshop:admin' => [
         'driver' => 'session',
         'provider' => 'eshop:admins',
+    ],
+    'eshop:user' => [
+        'driver' => 'session',
+        'provider' => 'eshop:users',
     ]
 ];

@@ -22,6 +22,8 @@ class CreateEshopCartsTable extends Migration
         Schema::create('eshop_carts', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->longText('cart')->nullable();
+
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
 

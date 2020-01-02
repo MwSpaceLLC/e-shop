@@ -29,7 +29,7 @@
                                  class="w-xs mr-3 option" alt="...">
 
                             <div class="card-body m-0">
-                                <h5 class="card-title">Work with Maintenance mode (Use Middleware check) </h5>
+                                <h5 class="card-title">Work with eshop Middleware (Required for correct use) </h5>
                                 <pre><code class="language-php">Replace as follow in app/Providers/RouteServiceProvider.php:
 
 /**
@@ -43,18 +43,14 @@
     {
         Route::middleware([
             'web',
-            'MwSpace\Eshop\Http\Middleware\EshopMaintenance'
+            'MwSpace\Eshop\Http\Middleware\EshopMaintenance',
+            'MwSpace\Eshop\Http\Middleware\EshopCookies'
         ])
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }</code></pre>
 
-
                             </div>
-
-
-
-
 
 
                         </div>

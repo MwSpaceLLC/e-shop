@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use MwSpace\Eshop\Model\CategoryEshop;
 use MwSpace\Eshop\Model\ConfigEshop;
+use MwSpace\Eshop\Model\EshopException;
 use MwSpace\Eshop\Model\OptionEshop;
 use MwSpace\Eshop\Model\ProductEshop;
 
@@ -54,6 +55,7 @@ class ApiController extends Base
             'body' => 'required',
         ]);
     }
+
     /**
      * Create e-shop cart session {eshop_carts}
      */
@@ -61,9 +63,24 @@ class ApiController extends Base
     {
         $this->request->validate([
             'id' => 'required|exists:eshop_products|max:255',
-            'amount' => 'required|numeric|max:255',
         ]);
-        dd($this->request->all());
+
+        if (!$this->request->hasCookie('eshop-cart'))
+            return back();
+
+        $product = ProductEshop::findOrFail($this->request->id);
+
+        eshop()->cart()->create([
+            'cart' => $this->request->cookie('eshop-cart'),
+            'user_id' => \auth()->guard('eshop:user')->id(),
+            'product_id' => $product->id,
+            'payload' => json_encode([
+                $this->request->payload
+            ]),
+        ]);
+
+        return back()->with('success');
+
     }
 
 }

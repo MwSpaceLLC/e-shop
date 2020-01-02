@@ -10,5 +10,9 @@ return [
     'eshop:admins' => [
         'driver' => 'eloquent',
         'model' => MwSpace\Eshop\Model\AdminEshop::class,
+    ],
+    'eshop:users' => [
+        'driver' => 'eloquent',
+        'model' => MwSpace\Eshop\Model\UserEshop::class,
     ]
 ];

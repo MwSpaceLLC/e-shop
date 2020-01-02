@@ -37,7 +37,7 @@ class CartEshop extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'payload'
+        'cart', 'user_id', 'product_id', 'payload'
     ];
 
     /**
@@ -47,6 +47,5 @@ class CartEshop extends Model
     {
         return json_decode($this->payload);
     }
-
 
 }

@@ -40,6 +40,14 @@ class Eshop
     }
 
     /**
+     * @return CartEshop
+     */
+    public function cart()
+    {
+        return new CartEshop;
+    }
+
+    /**
      * @param null $path
      * @return mixed
      */
