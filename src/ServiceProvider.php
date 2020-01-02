@@ -86,7 +86,10 @@ class ServiceProvider extends MineServiceProvider
             $this->loadRoutesFrom(__DIR__ . '/Routes/backend.php');
         });
 
-        if (config('eshop.api'))
+        dd(config('e-shop.api'));
+
+
+        if (config('e-shop.api'))
             Route::group([
                 'namespace' => 'MwSpace\Eshop\Http\Controller',
                 'prefix' => config('e-shop.prefix') . '/api' ?? 'e-shop' . '/api',
@@ -202,11 +205,7 @@ class ServiceProvider extends MineServiceProvider
      */
     private function registerStorageDriver()
     {
-        $driver = config('eshop.driver');
-
-        if (method_exists($this, $method = 'register' . ucfirst($driver) . 'Driver')) {
-            $this->$method();
-        }
+        //
     }
 
     /**
