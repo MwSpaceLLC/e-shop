@@ -103,6 +103,14 @@ class ServiceEshop extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function tax()
+    {
+        return $this->belongsTo(TaxEshop::class, 'tax_id');
+    }
+
+    /**
      * @return \Stripe\Checkout\Session
      * @throws EshopException
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -111,7 +119,7 @@ class ServiceEshop extends Model
     public function stripeGenerateExpressCart()
     {
 
-        if (!eshop()->config('STRIPE_SK'))
+        if (!eshop()->config('STRIPE_SK') || !eshop()->config('STRIPE_PAYMENT_METHODS'))
             throw new EshopException('Stripe Key required for Express Checkout');
 
         \Stripe\Stripe::setApiKey(eshop()->config('STRIPE_SK'));
@@ -120,9 +128,9 @@ class ServiceEshop extends Model
         $price = intval($price);
 
         return \Stripe\Checkout\Session::create([
-            'success_url' => route('eshop-stripe-success'),
+            'success_url' => route('eshop-stripe-success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('eshop-stripe-cancel'),
-            'payment_method_types' => ['card'],
+            'payment_method_types' => json_decode(eshop()->config('STRIPE_PAYMENT_METHODS')),
             'line_items' => [
                 [
                     'name' => $this->payload()->name,

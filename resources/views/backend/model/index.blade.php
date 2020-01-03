@@ -1,8 +1,9 @@
 @extends('eshop::backend')
 
-@section('title', ucfirst($m=get_model($model)))
+@section('title', ucfirst($m=eshop()->blade()->model($model)))
 
 @section('content')
+
     <div class="lime-container">
         <div class="lime-body">
             <div class="container-fluid">
@@ -14,18 +15,17 @@
 
                             <div class="col" aria-current="page">
                                 <h2>
-                                    @if(request()->parent)
-                                        <a href="{{route('eshop-models', $m)}}">{{$m}}</a> /
-                                        @foreach(recursive_parent() as $parent)
-                                            <span class="text-danger">
+                                    <a href="{{route('eshop-models', $m)}}">{{$m}}</a>
+
+                                    @foreach(eshop()->category()->reverse() as $parent)
+                                        / <span class="text-danger">
                                                 <a href="{{route('eshop-models', ['model'=>$m,'parent'=>$parent->id])}}">{{$parent->payload()->name}}</a>
                                             </span> /
-                                        @endforeach
-                                        <span
-                                            class="text-danger">{{get_current()->payload()->name}}</span>
-                                    @else
-                                        {{$m}}
-                                    @endif
+                                    @endforeach
+
+                                    <span class="text-default">
+                                        {{request()->parent? eshop()->blade()->current($model)->payload()->name: null}}
+                                    </span>
                                 </h2>
                             </div>
 
@@ -35,84 +35,29 @@
                                        class="btn btn-primary btn-block">@lang('eshop::model.Add') {{$m}}</a>
                                 </div>
                             @endif
+
                         </div>
                         <div class="card card-transparent file-list recent-files">
                             <div class="card-body">
-                                <div class="row" id="sortable">
-                                    @forelse(loop_model($model) as $row)
-                                        <div class="col-lg-6 col-xl-3">
+                                <div class="row" id="model_sortable"
+                                     data-success="@lang('eshop::model.SortableSuccess')"
+                                     data-path="{{route('eshop-update-position-model',$m)}}">
+                                    @forelse(eshop()->blade()->loop($model) as $row)
+                                        <div id="{{$row->id}}" data-id="{{$row->id}}" class="col-lg-6 col-xl-4">
 
-                                            @switch($m)
-                                                @case('Category')
-                                                @if($row->product()->first())
-                                                    <span data-tippy-content="@lang('eshop::model.IndexProductCount')" class="badge loop_model badge-pill badge-primary">{{$row->product()->count()}}</span>
-                                                @endif
-                                                @break
-                                            @endswitch
+                                            @include('eshop::part.model.badge')
 
-                                            <div
-                                                class="card folder">
+                                            <div class="card folder">
                                                 <div class="file-options dropdown">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false"><i
                                                             class="material-icons">more_vert</i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item text-info"
-                                                           href="{{route('eshop-update-model',['model'=>$m,'parent'=>$row->id])}}">@lang('eshop::model.Edit')</a>
-
-                                                        @switch($m)
-                                                            @case('Category')
-                                                            @if(!$row->child()->first())
-                                                                <a class="dropdown-item text-danger"
-                                                                   href="{{route('eshop-delete-model',['model'=>$m,'id'=>$row->id])}}"
-                                                                   onclick="return confirm('{{trans('eshop::model.DeleteAlert')}}')">@lang('eshop::model.Delete')</a>
-                                                            @endif
-                                                            @break
-                                                            @case('Product')
-                                                            <a class="dropdown-item text-danger"
-                                                               href="{{route('eshop-delete-model',['model'=>$m,'id'=>$row->id])}}"
-                                                               onclick="return confirm('{{trans('eshop::model.DeleteAlert')}}')">@lang('eshop::model.Delete')</a>
-                                                            @break
-                                                        @endswitch
-
+                                                        @include('eshop::part.model.deopdown')
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
-                                                    <div class="folder-icon">
-                                                        @if(isset($row->payload()->image))
-                                                            <img src="{{$row->image()}}" width="50" height="50"
-                                                                 style="object-fit: cover">
-                                                        @else
-                                                            <i class="material-icons">
-                                                                @switch($m)
-                                                                    @case('Category')
-                                                                    folder_open
-                                                                    @break
-                                                                    @case('Product')
-                                                                    shopping_basket
-                                                                    @break
-                                                                    @default
-                                                                    bookmark_border
-                                                                    @break
-                                                                @endswitch
-                                                            </i>
-                                                        @endif
-                                                    </div>
-                                                    <div class="folder-info">
-                                                        @switch($m)
-                                                            @case('Category')
-                                                            <a href="{{route('eshop-parent-models',['model'=>$m,'parent'=>$row->id])}}">{{$row->payload()->name}} {{$row->child()->first()?'('.$row->child()->count(). ')':null}}</a>
-                                                            @break
-                                                            @case('Tax')
-                                                            <a style="pointer-events: none">{{$row->payload()->name}} | {{$row->payload()->percentage}}</a>
-                                                            @break
-                                                            @default
-                                                            <a style="pointer-events: none">{{$row->payload()->name}}</a>
-                                                            @break
-                                                        @endswitch
-
-                                                        <span>{{$row->created_at}}</span>
-                                                    </div>
+                                                    @include('eshop::part.model.card')
                                                 </div>
                                             </div>
                                         </div>
@@ -141,14 +86,23 @@
         </div>
     </div>
     <script>
-        Sortable.create(sortable, {
-            onUpdate: e => {
-                axios.get('/user').then(function (response) {
-                    console.log(response);
-                }).catch(function (error) {
-                    console.log(error);
-                })
-            },
-        });
+        var sortable = document.getElementById('model_sortable');
+        if (sortable)
+            Sortable.create(sortable, {
+                onUpdate: e => {
+                    console.log(e.item.id)
+                    console.log(e.oldIndex)
+                    console.log(e.newIndex)
+
+                    axios.get(`${sortable.dataset.path}/${e.item.id}/${e.oldIndex}/${e.newIndex}`).then(function (response) {
+                        if (response.data.success) {
+                            toastr.info(sortable.dataset.success)
+                        }
+                    }).catch(function (error) {
+                        toastr.error('Have error (f12 => console)');
+                        console.log(error);
+                    })
+                },
+            });
     </script>
 @endsection

@@ -8,6 +8,9 @@
                 <a href="#"><i class="material-icons">shopping_basket</i>Carts<i class="material-icons has-sub-menu">keyboard_arrow_left</i></a>
                 <ul class="sub-menu">
                     <li>
+                        <a href="{{backend('model/Cart')}}">Carts</a>
+                    </li>
+                    <li>
                         <a href="{{backend('model/Order')}}">Orders</a>
                     </li>
                     <li>

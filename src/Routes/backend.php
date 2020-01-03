@@ -31,6 +31,10 @@ Route::get('/model/insert/{model}', 'BackendController@insertModel')->name('esho
 
 Route::get('/model/update/{model}/{parent}', 'BackendController@updateModel')->name('eshop-update-model');
 
+Route::get('/model/update/position/{model}/{id?}/{oldIndex?}/{newIndex?}', 'BackendController@updatePositionModel')->name('eshop-update-position-model');
+
+Route::get('/model/info/{model}/{parent}', 'BackendController@infoModel')->name('eshop-info-model');
+
 Route::get('/model/insert/{model}/{parent}', 'BackendController@insertModelParent')->name('eshop-model-insert-parent');
 
 Route::get('/model/{model}/{parent}', 'BackendController@parentModels')->name('eshop-parent-models');
@@ -48,8 +52,6 @@ Route::get('/model/remove/image/{model}/{current}', 'BackendController@removeIma
 Route::get('/options/toggle/{name}', 'BackendController@toggleOption')->name('eshop-options-toggle');
 
 Route::post('/config/update', 'BackendController@configUpdate')->name('eshop-config-update');
-
-
 
 
 Route::get('/logout', 'BackendController@logout')->name('eshop-logout');

@@ -27,7 +27,7 @@ class BackendController extends Base
      */
     public function index()
     {
-        return isset($this->request->page) ? view("eshop::backend.{$this->request->page}") : view('eshop::backend.index');
+        return isset($this->request->page) ? view("eshop::backend.{$this->request->page}") : view('eshop::backend.dashboard');
     }
 
     /**
@@ -76,7 +76,7 @@ class BackendController extends Base
      */
     public function insertModel()
     {
-        return view("eshop::backend.model.{$this->request->model}.insert")->with('model', $this->getModel());
+        return view("eshop::backend.model.{$this->request->model}.manage")->with('model', $this->getModel());
     }
 
     /**
@@ -84,9 +84,35 @@ class BackendController extends Base
      */
     public function updateModel()
     {
-        return view("eshop::backend.model.{$this->request->model}.update")
+        return view("eshop::backend.model.{$this->request->model}.manage")
             ->with('model', $current = $this->getModel())
-            ->with('current', $current->find($this->request->parent));
+            ->with('current', $current->findOrFail($this->request->parent));
+    }
+
+    public function updatePositionModel()
+    {
+        $current = $this->getModel();
+
+        $current->where('index', $this->request->newIndex)->update([
+            'index' =>
+                (int)$this->request->newIndex > 1 ?
+                    $this->request->newIndex - 1 :
+                    ($this->request->newIndex > 0 ?
+                        1 : $this->request->newIndex)
+        ]);
+
+        $current->where('id', $this->request->id)->update([
+            'index' => (int)$this->request->newIndex
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function infoModel()
+    {
+        return view("eshop::backend.model.{$this->request->model}.info")
+            ->with('model', $current = $this->getModel())
+            ->with('current', $current->findOrFail($this->request->parent));
     }
 
     /**
@@ -144,7 +170,7 @@ class BackendController extends Base
     private function checkModelBeforePost()
     {
 
-//        dd($this->request->all());
+//        dd($this->request->current);
 
         // Override for search in update
         if ($this->request->current)
@@ -162,7 +188,7 @@ class BackendController extends Base
 
         if (!isset($this->request->category_id) && $this->request->current)
             if (!$this->model instanceof CategoryEshop)
-                $this->model->category_id = null;
+                unset($this->model->category_id);
 
         if (isset($this->request->tax_id)) {
             if ((int)$this->request->tax_id > 0)
@@ -207,6 +233,8 @@ class BackendController extends Base
      */
     public function configUpdate()
     {
+//        dd($this->request->all());
+
         foreach ($this->request->keys as $key => $value) {
             if (!$config = ConfigEshop::where('key', $key)->first())
                 $config = new ConfigEshop();
@@ -218,7 +246,7 @@ class BackendController extends Base
             if ($value instanceof \illuminate\http\UploadedFile) {
                 $config->value = $value->get();
 
-            } else $config->value = $value;
+            } else $config->value = is_array($value) ? json_encode($value) : $value;
 
 //            dd($config);
 

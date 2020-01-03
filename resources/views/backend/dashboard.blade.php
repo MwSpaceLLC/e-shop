@@ -13,7 +13,7 @@
                                 <div class="dashboard-info row">
                                     <div class="info-text col-md-6">
                                         <h5 class="card-title">
-                                            @lang('eshop::index.Welcome') {{admin()->email}}!</h5>
+                                            @lang('eshop::index.Welcome') {{eshop()->auth()->admin()->payload()->email}}!</h5>
                                         <p>@lang('eshop::index.Intro')</p>
                                         <ul>
                                             <li>@lang('eshop::index.Intro1')</li>
@@ -48,7 +48,7 @@
                         <div class="col-md-12">
                             <div class="alert alert-warning m-b-lg" role="alert">
                                 @lang('eshop::index.Maintenance')
-                            </div>
+                            </div>l
                         </div>
                     </div>
                 @endif
@@ -57,8 +57,8 @@
                     <div class="col-md-4">
                         <div class="card stat-card">
                             <div class="card-body">
-                                <h5 class="card-title">@lang('eshop::index.Customers')</h5>
-                                <h2 class="float-right">45.6K</h2>
+                                <h5 class="card-title">@lang('eshop::index.ActiveCart')</h5>
+                                    <h2 class="float-right">{{eshop()->cart()->groupBy('cart')->count()}}K</h2>
                                 <div class="progress" style="height: 10px;">
                                     <div class="progress-bar bg-warning" role="progressbar" style="width: 45%"
                                          aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
@@ -195,5 +195,5 @@
 @endsection
 
 @section('js')
-{{--    <script src="{{asset('vendor/eshop/assets/js/pages/dashboard.js')}}"></script>--}}
+    {{--    <script src="{{asset('vendor/eshop/assets/js/pages/dashboard.js')}}"></script>--}}
 @endsection

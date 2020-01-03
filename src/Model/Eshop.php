@@ -61,7 +61,7 @@ class Eshop
      */
     public static function path($path = null)
     {
-        return path_eshop($path);
+        return __DIR__ . "/../../$path";
     }
 
     /**
@@ -111,6 +111,46 @@ class Eshop
     public function route()
     {
         return new EshopRoute();
+    }
+
+    /**
+     * @return EshopBlade
+     */
+    public function blade()
+    {
+        return new EshopBlade();
+    }
+
+    /**
+     * @return EshopAuth
+     */
+    public function auth()
+    {
+        return new EshopAuth();
+    }
+
+    /**
+     * @return AdminEshop
+     */
+    public function admin()
+    {
+        return new AdminEshop();
+    }
+
+    /**
+     * @return UserEshop
+     */
+    public function user()
+    {
+        return new UserEshop();
+    }
+
+    /**
+     * @return OrderEshop
+     */
+    public function order()
+    {
+        return new OrderEshop();
     }
 
 }

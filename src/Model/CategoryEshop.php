@@ -97,4 +97,32 @@ class CategoryEshop extends Model
         return preg_replace('/\s+/', '-', $payload);
     }
 
+    /**
+     * @throws EshopException
+     */
+    public function reverse()
+    {
+        $loop = 0;
+        $parent = [];
+
+        if (!$r = request())
+            throw new EshopException('Request not set');
+
+        if (!$find = self::find(request()->parent))
+            return $parent;
+
+        $select = $find->parent()->first();
+        do {
+            if ($loop > 0)
+                $select = $select->parent()->first();
+
+            $parent[] = $select;
+            $loop++;
+
+        } while ($select !== null);
+
+        return array_reverse(array_filter($parent));
+
+    }
+
 }

@@ -123,7 +123,33 @@ class ApiController extends Base
 
     public function checkoutSuccess()
     {
-        dd($this->request->all());
+
+        \Stripe\Stripe::setApiKey(eshop()->config('STRIPE_SK'));
+
+        $stripe = \Stripe\Checkout\Session::retrieve($this->request->session_id);
+
+        $customer = \Stripe\Customer::retrieve($stripe->customer);
+
+        if (!$user = eshop()->user()->where('payload->email', $customer->email)->first())
+            $user = eshop()->user()->create([
+                'payload' => json_encode([
+                    'role' => 'visitor',
+                    'email' => $customer->email,
+                    'token' => eshop()->user()->generateToken(),
+                    'stripe' => $customer,
+                ])
+            ]);
+
+        if (!$order = eshop()->order()->where('payload->stripe->id', $stripe->id)->first())
+            $order = eshop()->order()->create([
+                'payload' => json_encode([
+                    'user_id' => $user->id,
+                    'stripe' => $stripe,
+                ])
+            ]);
+
+        dd($order);
+
     }
 
     /**

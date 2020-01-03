@@ -16,7 +16,7 @@ return [
 
     'Maintenance' => 'Maintenance mode is active therefore the Shop will not take incoming calls through the front-end',
     'MaintenanceButton' => 'maintenance mode',
-    '=========' => '==================',
+    'ActiveCart' => 'Active Cart',
     '=========' => '==================',
     '=========' => '==================',
     '=========' => '==================',

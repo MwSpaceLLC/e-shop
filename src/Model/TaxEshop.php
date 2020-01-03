@@ -47,4 +47,29 @@ class TaxEshop extends Model
     {
         return json_decode($this->payload);
     }
+
+    /**
+     * @return mixed
+     */
+    public function product()
+    {
+        return $this->hasMany(ProductEshop::class, 'tax_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function service()
+    {
+        return $this->hasMany(ServiceEshop::class, 'tax_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function category()
+    {
+        return $this->hasMany(CategoryEshop::class, 'tax_id');
+    }
+
 }

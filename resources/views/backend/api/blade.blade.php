@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        @include('eshop::part.apiside')
+                        @include('eshop::part.api.side')
                     </div>
 
                 </div>

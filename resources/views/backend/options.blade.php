@@ -167,23 +167,39 @@
                                     <form action="{{route('eshop-config-update')}}" method="post">
                                         @csrf
                                         <div class="row icon-list-row">
-                                            <div class="col-sm-2">
-                                                <h3>@lang('eshop::option.PaymentPublicKey')</h3>
-                                            </div>
                                             <div class="col-sm-4">
                                                 <input type="text" name="keys[STRIPE_PK]" class="form-control" id="pk"
                                                        required
                                                        aria-describedby="pk" placeholder="Enter pk_live/pk_test"
                                                        value="{{eshop()->config('STRIPE_PK')}}">
                                             </div>
-                                            <div class="col-sm-2">
-                                                <h3>@lang('eshop::option.PaymentSecretKey')</h3>
-                                            </div>
                                             <div class="col-sm-4">
                                                 <input type="text" name="keys[STRIPE_SK]" class="form-control" id="sk"
                                                        required
                                                        aria-describedby="sk" placeholder="Enter sk_live/sk_test"
                                                        value="{{eshop()->config('STRIPE_SK')}}">
+                                            </div>
+                                            <div class="col-sm-4"
+                                                 data-tippy-content="Stripe require one payment method">
+
+                                                <select class="js-states form-control"
+                                                        data-placeholder="card, ideal"
+                                                        tabindex="-1" required
+                                                        name="keys[STRIPE_PAYMENT_METHODS][]"
+                                                        style="display: none; width: 100%"
+                                                        multiple="multiple">
+
+                                                    <option
+                                                        {{in_array('card', json_decode(eshop()->config('STRIPE_PAYMENT_METHODS')))?'selected':null}} value="card">
+                                                        Credit Card
+                                                    </option>
+                                                    <option
+                                                        {{in_array('ideal', json_decode(eshop()->config('STRIPE_PAYMENT_METHODS')))?'selected':null}} value="ideal">
+                                                        iDEAL
+                                                    </option>
+
+                                                </select>
+
                                             </div>
                                         </div>
 

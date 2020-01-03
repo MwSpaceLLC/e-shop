@@ -1,6 +1,6 @@
 @extends('eshop::backend')
 
-@section('title', trans('eshop::model.Insert'). ' '.$m=get_model($model))
+@section('title', trans('eshop::model.Insert'). ' '.$m=eshop()->blade()->model($model))
 
 @section('css')
 @endsection
@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="page-title">
-                            @include("eshop::backend.model.nav")
+                            @include("eshop::part.model.nav")
                         </div>
                     </div>
                 </div>
@@ -22,40 +22,30 @@
                             <div class="card-body">
                                 <form enctype="multipart/form-data" method="post"
                                       id="Category"
-                                      action="{{route('eshop-post-model', ['model'=>$m,'current'=>$current->id])}}"> @csrf
+                                      action="{{route('eshop-post-model', ['model'=>$m,'current'=>$i=isset($current)?$current->id:null])}}"> @csrf
 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            @include('eshop::backend.model.avatar')
-
-                                            @if(isset($current->payload()->image))
-                                                <a href="{{route('eshop-remove-image-model', ['model'=>$m,'current'=>$current->id])}}"
-                                                   onclick="return confirm('@lang('eshop::model.ProductPriceTooltip')')"
-                                                   class="btn btn-danger btn-block btn-sm"
-                                                   type="submit">
-                                                    @lang('eshop::model.RemoveImage')
-                                                </a>
-                                            @endif
-
+                                            @include('eshop::part.model.avatar')
                                         </div>
                                         <div class="col-md-9">
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <input type="text" name="payload[name]"
                                                            class="form-control"
-                                                           placeholder="@lang('eshop::model.CategoryName')*"
-                                                           required="" value="{{$current->payload()->name}}">
+                                                           placeholder="@lang('eshop::model.'. $m . 'Name')*"
+                                                           required="" value="{{$i?$current->payload()->name:null}}">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <select id="tax" class="js-states form-control"
-                                                            data-placeholder="@lang('eshop::model.CategoryTax')"
+                                                            data-placeholder="@lang('eshop::model.'. $m . 'Tax')"
                                                             tabindex="-1"
                                                             data-minimum-results-for-search="Infinity"
                                                             name="tax_id" style="display: none; width: 100%">
                                                         <option value="0">0% / Disabled</option>
 
                                                         @foreach(eshop()->tax()->all() as $item)
-                                                            @if($item->id == $current->tax_id)
+                                                            @if($i && $item->id == $current->tax_id)
                                                                 <option
                                                                     selected=""
                                                                     value="{{$item->id}}">{{$item->payload()->percentage}}
@@ -73,29 +63,29 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <select class="js-states form-control"
-                                                            data-placeholder="@lang('eshop::model.CategoryStatus')"
+                                                            data-placeholder="@lang('eshop::model.'. $m . 'Status')"
                                                             tabindex="-1"
                                                             data-minimum-results-for-search="Infinity"
                                                             name="payload[status]" style="display: none; width: 100%">
 
-                                                        <option {{isset($current->payload()->status) && $current->payload()->status === 'true'?'selected':null}}
-                                                            value="true">@lang('eshop::model.CategoryStatusEnable')</option>
+                                                        <option {{$i && isset($current->payload()->status) && $current->payload()->status === 'true'?'selected':null}}
+                                                            value="true">@lang('eshop::model.'. $m . 'StatusEnable')</option>
 
-                                                        <option {{isset($current->payload()->status) && $current->payload()->status === 'true'?null:'selected'}}
-                                                            value="false">@lang('eshop::model.CategoryStatusDisable')</option>
+                                                        <option {{$i && isset($current->payload()->status) && $current->payload()->status === 'true'?null:'selected'}}
+                                                            value="false">@lang('eshop::model.'. $m . 'StatusDisable')</option>
 
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <select id="category" class="js-states form-control"
-                                                            data-placeholder="@lang('eshop::model.CategoryTax')"
+                                                            data-placeholder="@lang('eshop::model.'. $m . 'Tax')"
                                                             tabindex="-1"
                                                             name="parent_id" style="display: none; width: 100%"
                                                             data-minimum-results-for-search="Infinity">
                                                         <option value="0">ID: 0 / Home</option>
 
                                                         @foreach(eshop()->category()->all() as $item)
-                                                            @if($item->id !== $current->id)
+                                                            @if($i && $item->id !== $current->id)
                                                                 @if($item->id == $current->parent_id)
                                                                     <option
                                                                         selected=""
@@ -116,7 +106,7 @@
                                                     <textarea type="text" name="payload[description]"
                                                               class="form-control"
                                                               rows="6"
-                                                              data-placeholder="@lang('eshop::model.CategoryDescription')">{{$current->payload()->description}}</textarea>
+                                                              data-placeholder="@lang('eshop::model.'. $m . 'Description')">{{$i?$current->payload()->name:null}}</textarea>
                                                 </div>
                                             </div>
                                             <div class="divider"></div>
@@ -124,7 +114,7 @@
                                                 <div class="col-md-3 offset-md-9">
                                                     <button class="btn btn-primary btn-block" style="zoom: 1.5"
                                                             type="submit">
-                                                        @lang('eshop::model.Update')
+                                                        @lang($i?'eshop::model.Update':'eshop::model.Insert')
                                                     </button>
                                                 </div>
                                             </div>

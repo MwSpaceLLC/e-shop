@@ -73,15 +73,18 @@ class CartEshop extends Model
     public function stripeGenerateExpressCart()
     {
 
-        if (!eshop()->config('STRIPE_SK'))
+        if (!eshop()->config('STRIPE_SK') || !eshop()->config('STRIPE_PAYMENT_METHODS'))
             throw new EshopException('Stripe Key required for Express Checkout');
 
         \Stripe\Stripe::setApiKey(eshop()->config('STRIPE_SK'));
 
+        if (!$this->this()->first())
+            throw new EshopException('Cart is empty to perform Express Checkout');
+
         return \Stripe\Checkout\Session::create([
-            'success_url' => route('eshop-stripe-success'),
+            'success_url' => route('eshop-stripe-success').'?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('eshop-stripe-cancel'),
-            'payment_method_types' => ['card'],
+            'payment_method_types' => json_decode(eshop()->config('STRIPE_PAYMENT_METHODS')),
             'line_items' => $this->this()->get()->map(function ($cart) {
                 return [
                     'name' => $cart->product()->payload()->name,
