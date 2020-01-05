@@ -32,6 +32,14 @@ class Eshop
     }
 
     /**
+     * @return ServiceEshop
+     */
+    public function service()
+    {
+        return new ServiceEshop();
+    }
+
+    /**
      * @return TaxEshop
      */
     public function tax()
@@ -59,7 +67,7 @@ class Eshop
      * @param null $path
      * @return mixed
      */
-    public static function path($path = null)
+    public function path($path = null)
     {
         return __DIR__ . "/../../$path";
     }

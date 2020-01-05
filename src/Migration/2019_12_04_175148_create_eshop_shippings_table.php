@@ -23,17 +23,17 @@ class CreateEshopShippingsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('payment_id')->nullable();
             $table->unsignedBigInteger('order_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
+
+            $table->foreign('admin_id')
+                ->references('id')
+                ->on('eshop_admins');
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('eshop_users');
-
-            $table->foreign('product_id')
-                ->references('id')
-                ->on('eshop_products');
 
             $table->foreign('payment_id')
                 ->references('id')

@@ -24,16 +24,15 @@ class CreateEshopServicesTable extends Migration
             $table->bigInteger('index')->nullable();
 
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->unsignedBigInteger('tax_id')->nullable();
-            $table->json('category_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
 
             $table->foreign('admin_id')
                 ->references('id')
                 ->on('eshop_admins');
 
-            $table->foreign('tax_id')
+            $table->foreign('category_id')
                 ->references('id')
-                ->on('eshop_taxes');
+                ->on('eshop_categories');
 
             $table->json('payload')->nullable();
 

@@ -19,39 +19,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{page?}', 'BackendController@index')->name('eshop-backend');
+Route::get('/{page?}', 'Backend\Page\ViewController')->name('eshop-backend');
 
-Route::get('/endpoint/{page?}', 'BackendController@indexApi')->name('eshop-backend-api');
+Route::get('/endpoint/{page?}', 'Backend\GlobalController@indexApi')->name('eshop-backend-api');
 
-Route::get('/endpoint/static/{page?}', 'BackendController@indexApiStatic')->name('eshop-backend-api-static');
+Route::get('/endpoint/static/{page?}', 'Backend\GlobalController@indexApiStatic')->name('eshop-backend-api-static');
 
-Route::get('/model/{model}', 'BackendController@models')->name('eshop-models');
+Route::get('/model/{model}', 'Backend\GlobalController@models')->name('eshop-models');
 
-Route::get('/model/insert/{model}', 'BackendController@insertModel')->name('eshop-model-insert');
+Route::get('/model/insert/{model}', 'Backend\GlobalController@insertModel')->name('eshop-model-insert');
 
-Route::get('/model/update/{model}/{parent}', 'BackendController@updateModel')->name('eshop-update-model');
+Route::get('/model/update/{model}/{parent}', 'Backend\GlobalController@updateModel')->name('eshop-update-model');
 
-Route::get('/model/update/position/{model}/{id?}/{oldIndex?}/{newIndex?}', 'BackendController@updatePositionModel')->name('eshop-update-position-model');
+Route::post('/model/update/position/{model}', 'Backend\GlobalController@updatePositionModel')->name('eshop-update-position-model');
 
-Route::get('/model/info/{model}/{parent}', 'BackendController@infoModel')->name('eshop-info-model');
+Route::get('/model/info/{model}/{parent}', 'Backend\GlobalController@infoModel')->name('eshop-info-model');
 
-Route::get('/model/insert/{model}/{parent}', 'BackendController@insertModelParent')->name('eshop-model-insert-parent');
+Route::get('/model/insert/{model}/{parent}', 'Backend\GlobalController@insertModelParent')->name('eshop-model-insert-parent');
 
-Route::get('/model/{model}/{parent}', 'BackendController@parentModels')->name('eshop-parent-models');
+Route::get('/model/{model}/{parent}', 'Backend\GlobalController@parentModels')->name('eshop-parent-models');
 
-Route::post('/model/post/{model}/{current?}', 'BackendController@postModel')->name('eshop-post-model');
+Route::post('/model/post/{model}/{current?}', 'Backend\GlobalController@postModel')->name('eshop-post-model');
 
-Route::get('/model/delete/{model}/{id}', 'BackendController@deleteModel')->name('eshop-delete-model');
+Route::get('/model/delete/{model}/{id}', 'Backend\GlobalController@deleteModel')->name('eshop-delete-model');
 
-Route::get('/model/remove/image/{model}/{current}', 'BackendController@removeImageModel')->name('eshop-remove-image-model');
+Route::get('/model/remove/image/{model}/{current}', 'Backend\GlobalController@removeImageModel')->name('eshop-remove-image-model');
 
 
 /*
 | e-shop Option & Config
 |-------------------------------------------------------------------------- */
-Route::get('/options/toggle/{name}', 'BackendController@toggleOption')->name('eshop-options-toggle');
+Route::get('/options/toggle/{name}', 'Backend\Option\UpdateController')->name('eshop-options-toggle');
 
-Route::post('/config/update', 'BackendController@configUpdate')->name('eshop-config-update');
+Route::post('/config/update', 'Backend\Config\UpdateController')->name('eshop-config-update');
 
 
-Route::get('/logout', 'BackendController@logout')->name('eshop-logout');
+Route::get('/event/logout', 'Event\AdminLogoutController')->name('eshop-logout');

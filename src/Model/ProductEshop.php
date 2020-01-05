@@ -49,19 +49,11 @@ class ProductEshop extends Model
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categories()
-    {
-        return json_decode($this->category_id);
-    }
-
     public function category()
     {
-        if (!isset($this->category_id))
-            return [];
-
-        return CategoryEshop::whereIn('id', json_decode($this->category_id))->get();
+        return $this->belongsTo(CategoryEshop::class);
     }
 
     /**

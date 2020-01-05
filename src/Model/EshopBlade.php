@@ -48,20 +48,21 @@ class EshopBlade extends \stdClass
      */
     public function loop($model)
     {
+
         if ($model instanceof \MwSpace\Eshop\Model\CategoryEshop) {
             if (request()->parent)
-                return $model->where('parent_id', request()->parent)->orderBy('index')->paginate(config('eshop.paginate'));
+                return $model->where('parent_id', request()->parent)->orderBy('index')->simplePaginate(config('e-shop.paginate'));
 
-            return $model->where('parent_id', null)->orderBy('index')->paginate(config('eshop.paginate'));
+            return $model->where('parent_id', null)->orderBy('index')->simplePaginate(config('e-shop.paginate'));
         }
 
         if ($model instanceof \MwSpace\Eshop\Model\ProductEshop)
-            return $model->orderBy('index')->paginate(config('eshop.paginate'));
+            return $model->orderBy('index')->simplePaginate(config('e-shop.paginate'));
 
         if ($model instanceof \MwSpace\Eshop\Model\ServiceEshop)
-            return $model->orderBy('index')->paginate(config('eshop.paginate'));
+            return $model->orderBy('index')->simplePaginate(config('e-shop.paginate'));
 
-        return $model->paginate(config('eshop.paginate'));
+        return $model->simplePaginate(config('e-shop.paginate'));
     }
 
 }

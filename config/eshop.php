@@ -22,7 +22,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | e-shop api default
+    | e-shop dev mode http://127.0.0.1:8000/e-shop/dev
+    |--------------------------------------------------------------------------
+    |
+    | you can use this mode to try enumerate function in dev mode
+    | es. /new/product/150 {generate 150 product}
+    |
+    */
+
+    'dev' => env('ESHOP_DEV', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | e-shop api default http://127.0.0.1:8000/e-shop/api
     |--------------------------------------------------------------------------
     |
     | you can use these configurations Or you can write your own independently
@@ -30,7 +42,7 @@ return [
     |
     */
 
-    'api' => env('ESHOP_USE_API', true),
+    'api' => env('ESHOP_API', true),
 
     /*
     |--------------------------------------------------------------------------

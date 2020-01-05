@@ -18,12 +18,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "eshop" middleware group. Now create something great!
 |
 */
-Route::get('/login', 'EventController@login')->name('eshop-login');
+Route::get('/login', 'Login\ViewController')->name('eshop-login');
 
-Route::post('/login', 'EventController@postLogin')->name('eshop-post-login');
+Route::post('/login', 'Login\PostController')->name('eshop-post-login');
 
-Route::get('/auth/{token}', 'EventController@auth')->name('eshop-auth-admin');
-
-//Route::get('mailable', function () {
-//    return new MwSpace\Eshop\Mail\AdminLogin('app@mwspace.com');
-//});
+Route::get('/auth/{token}', 'Login\TokenController')->name('eshop-auth-admin');

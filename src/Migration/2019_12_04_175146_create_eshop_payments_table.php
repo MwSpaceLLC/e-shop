@@ -24,6 +24,21 @@ class CreateEshopPaymentsTable extends Migration
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('cart_id')->nullable();
+            $table->unsignedBigInteger('service_id')->nullable();
+
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('eshop_services');
+
+            $table->foreign('cart_id')
+                ->references('id')
+                ->on('eshop_carts');
+
+            $table->foreign('admin_id')
+                ->references('id')
+                ->on('eshop_admins');
 
             $table->foreign('user_id')
                 ->references('id')

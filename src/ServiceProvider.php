@@ -86,6 +86,7 @@ class ServiceProvider extends MineServiceProvider
             $this->loadRoutesFrom(__DIR__ . '/Routes/backend.php');
         });
 
+        // enable dev api
         if (config('e-shop.api'))
             Route::group([
                 'namespace' => 'MwSpace\Eshop\Http\Controller',
@@ -95,6 +96,18 @@ class ServiceProvider extends MineServiceProvider
                 ],
             ], function () {
                 $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
+            });
+
+        // enable dev api
+        if (config('e-shop.dev'))
+            Route::group([
+                'namespace' => 'MwSpace\Eshop\Http\Controller',
+                'prefix' => config('e-shop.prefix') . '/dev' ?? 'e-shop' . '/dev',
+                'middleware' => [
+                    'web',
+                ],
+            ], function () {
+                $this->loadRoutesFrom(__DIR__ . '/Routes/dev.php');
             });
 
     }

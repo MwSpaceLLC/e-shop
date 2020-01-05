@@ -24,17 +24,12 @@ class CreateEshopCategoriesTable extends Migration
             $table->bigInteger('index')->nullable();
 
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('tax_id')->nullable();
 
 
             $table->foreign('admin_id')
                 ->references('id')
                 ->on('eshop_admins');
-
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('eshop_categories');
 
             $table->foreign('tax_id')
                 ->references('id')

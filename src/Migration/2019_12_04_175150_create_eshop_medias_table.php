@@ -41,6 +41,6 @@ class CreateEshopMediasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eshop_media');
+        Schema::dropIfExists('eshop_medias');
     }
 }

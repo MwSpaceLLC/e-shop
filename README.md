@@ -11,7 +11,8 @@ I should start writing the classes for the models in the database, the migration
 But if I have already done the website and just want to turn it from Statico to an actual Shop how can I do?
 
 ### Requirement
-- Laravel >=6.x
+- Laravel >= 6.x
+- PostgreSQL >=< 11.3
 
 Simple, launching command as Follow in your Laravel Application: 
 
@@ -40,13 +41,7 @@ For Update e-shop repository u can simply run as follow (!!!Please, backup your 
 For customize admin path for your backend, u simple use env var as follow:
 
     ESHOP_PREFIX=myawesomeshop
-    
-## Disable Default Api System 👻
-
-For Use your api system and disable default (Advanced User):
-
-    ESHOP_USE_API=false    
-    
+       
 ## Payment System api (Stripe access express) 🤑
 
 <p><img src="./overview.gif" width="100%"></p>

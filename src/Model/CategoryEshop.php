@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Storage;
  *
  * @property int $id
  * @property int $tax_id
- * @property int $parent_id
  * @property string|null $payload
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -37,7 +36,7 @@ class CategoryEshop extends Model
      * @var array
      */
     protected $fillable = [
-        'index', 'admin_id', 'parent_id', 'tax_id', 'payload'
+        'index', 'admin_id', 'tax_id', 'payload'
     ];
 
     public $insert = true;
@@ -50,22 +49,9 @@ class CategoryEshop extends Model
         return json_decode($this->payload);
     }
 
-    /**
-     * @return mixed
-     */
-    public function child()
-    {
-        return $this->hasMany(self::class, 'parent_id');
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(self::class, 'parent_id');
-    }
-
     public function product()
     {
-        return ProductEshop::whereJsonContains('category_id', (string)$this->id);
+        return $this->hasMany(ProductEshop::class);
     }
 
     /**
@@ -81,14 +67,6 @@ class CategoryEshop extends Model
     }
 
     /**
-     * @return mixed
-     */
-    public function primary()
-    {
-        return self::where('parent_id', null);
-    }
-
-    /**
      * @param $payload
      * @return string|string[]|null
      */
@@ -98,31 +76,11 @@ class CategoryEshop extends Model
     }
 
     /**
-     * @throws EshopException
+     * @return mixed
      */
-    public function reverse()
+    public function tax()
     {
-        $loop = 0;
-        $parent = [];
-
-        if (!$r = request())
-            throw new EshopException('Request not set');
-
-        if (!$find = self::find(request()->parent))
-            return $parent;
-
-        $select = $find->parent()->first();
-        do {
-            if ($loop > 0)
-                $select = $select->parent()->first();
-
-            $parent[] = $select;
-            $loop++;
-
-        } while ($select !== null);
-
-        return array_reverse(array_filter($parent));
-
+        return $this->belongsTo(TaxEshop::class, 'tax_id');
     }
 
 }
