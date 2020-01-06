@@ -51,7 +51,7 @@ class CategoryEshop extends Model
 
     public function product()
     {
-        return $this->hasMany(ProductEshop::class);
+        return $this->hasMany(ProductEshop::class, 'category_id');
     }
 
     /**

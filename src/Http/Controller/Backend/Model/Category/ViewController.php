@@ -6,7 +6,7 @@
  * @author   Aleksandr Ivanovitch <alex@mwspace.com>
  */
 
-namespace MwSpace\Eshop\Http\Controller\Backend\Page;
+namespace MwSpace\Eshop\Http\Controller\Backend\Model\Category;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -18,23 +18,22 @@ use MwSpace\Eshop\Model\ServiceEshop;
 use \MwSpace\Eshop\Http\Controller\BaseController as Base;
 
 /**
- * Class UpdateController
- * @package MwSpace\Eshop\Http\Controller\Backend\Config
+ * Class ViewController
+ * @package MwSpace\Eshop\Http\Controller\Backend\Option
  */
 class ViewController extends Base
 {
+
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
     public function __invoke()
     {
-        if ($this->request->page) {
-            if (!file_exists(eshop()->path("resources/views/backend/pages/{$this->request->page}.blade.php")))
-                return abort('404');
+        $this->model = CategoryEshop::findOrFail($this->request->id);
 
-            return view("eshop::backend.pages.{$this->request->page}");
-        }
+        return view("eshop::backend.pages.models.category")->with('category', $this->model);
 
-        return view('eshop::backend.pages.dashboard');
     }
+
 }

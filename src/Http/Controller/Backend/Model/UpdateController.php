@@ -6,7 +6,7 @@
  * @author   Aleksandr Ivanovitch <alex@mwspace.com>
  */
 
-namespace MwSpace\Eshop\Http\Controller\Backend\Page;
+namespace MwSpace\Eshop\Http\Controller\Backend\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -19,22 +19,23 @@ use \MwSpace\Eshop\Http\Controller\BaseController as Base;
 
 /**
  * Class UpdateController
- * @package MwSpace\Eshop\Http\Controller\Backend\Config
+ * @package MwSpace\Eshop\Http\Controller\Backend\Option
  */
-class ViewController extends Base
+class UpdateController extends Base
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function __invoke()
     {
-        if ($this->request->page) {
-            if (!file_exists(eshop()->path("resources/views/backend/pages/{$this->request->page}.blade.php")))
-                return abort('404');
+        $this->model = $this->findModel();
 
-            return view("eshop::backend.pages.{$this->request->page}");
-        }
+        $this->model->update([
 
-        return view('eshop::backend.pages.dashboard');
+        ]);
+
+        return back()->with('success', "Il modello è stato aggiornato con successo!");
+
     }
+
 }

@@ -68,6 +68,8 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / quixlab) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/3.4.1/tippy.min.js"
             integrity="sha256-40Df9zwhwAOyOM6Lp2plp+Czdy2PlVxTuY07maOlXeY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
+            integrity="sha256-Kg2zTcFO9LXOc7IwcBx1YeUBJmekycsnTsq2RuFHSZU=" crossorigin="anonymous"></script>
 
     <script defer src="{{asset('vendor/eshop/assets/js/custom.js')}}"></script>
 </head>

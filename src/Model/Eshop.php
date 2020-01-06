@@ -24,6 +24,14 @@ class Eshop
     }
 
     /**
+     * @return MediaEshop
+     */
+    public function media()
+    {
+        return new MediaEshop;
+    }
+
+    /**
      * @return ProductEshop
      */
     public function product()
@@ -36,7 +44,7 @@ class Eshop
      */
     public function service()
     {
-        return new ServiceEshop();
+        return new ServiceEshop;
     }
 
     /**
@@ -118,7 +126,7 @@ class Eshop
      */
     public function route()
     {
-        return new EshopRoute();
+        return new EshopRoute;
     }
 
     /**
@@ -126,7 +134,7 @@ class Eshop
      */
     public function blade()
     {
-        return new EshopBlade();
+        return new EshopBlade;
     }
 
     /**
@@ -134,7 +142,7 @@ class Eshop
      */
     public function auth()
     {
-        return new EshopAuth();
+        return new EshopAuth;
     }
 
     /**
@@ -142,7 +150,7 @@ class Eshop
      */
     public function admin()
     {
-        return new AdminEshop();
+        return new AdminEshop;
     }
 
     /**
@@ -150,7 +158,7 @@ class Eshop
      */
     public function user()
     {
-        return new UserEshop();
+        return new UserEshop;
     }
 
     /**
@@ -158,7 +166,7 @@ class Eshop
      */
     public function order()
     {
-        return new OrderEshop();
+        return new OrderEshop;
     }
 
 }

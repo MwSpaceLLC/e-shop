@@ -21,30 +21,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/{page?}', 'Backend\Page\ViewController')->name('eshop-backend');
 
-Route::get('/endpoint/{page?}', 'Backend\GlobalController@indexApi')->name('eshop-backend-api');
+Route::post('/model/insert/{model}', 'Backend\Model\InsertController')->name('eshop-model-insert');
 
-Route::get('/endpoint/static/{page?}', 'Backend\GlobalController@indexApiStatic')->name('eshop-backend-api-static');
+Route::get('/category/{id}', 'Backend\Model\Category\ViewController')->name('eshop-view-model');
 
-Route::get('/model/{model}', 'Backend\GlobalController@models')->name('eshop-models');
-
-Route::get('/model/insert/{model}', 'Backend\GlobalController@insertModel')->name('eshop-model-insert');
-
-Route::get('/model/update/{model}/{parent}', 'Backend\GlobalController@updateModel')->name('eshop-update-model');
-
-Route::post('/model/update/position/{model}', 'Backend\GlobalController@updatePositionModel')->name('eshop-update-position-model');
-
-Route::get('/model/info/{model}/{parent}', 'Backend\GlobalController@infoModel')->name('eshop-info-model');
-
-Route::get('/model/insert/{model}/{parent}', 'Backend\GlobalController@insertModelParent')->name('eshop-model-insert-parent');
-
-Route::get('/model/{model}/{parent}', 'Backend\GlobalController@parentModels')->name('eshop-parent-models');
-
-Route::post('/model/post/{model}/{current?}', 'Backend\GlobalController@postModel')->name('eshop-post-model');
-
-Route::get('/model/delete/{model}/{id}', 'Backend\GlobalController@deleteModel')->name('eshop-delete-model');
-
-Route::get('/model/remove/image/{model}/{current}', 'Backend\GlobalController@removeImageModel')->name('eshop-remove-image-model');
-
+Route::get('/model/delete/{model}/{id}', 'Backend\Model\DeleteController')->name('eshop-delete-model');
 
 /*
 | e-shop Option & Config

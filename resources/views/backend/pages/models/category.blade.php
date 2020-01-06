@@ -1,23 +1,23 @@
 @extends('eshop::backend.layout')
 
-@section('title', 'Catalogo')
+@section('title', $category->payload()->name)
 
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
             <div class="row">
-                @include("eshop::backend.components.headers.catalogue")
+                @include("eshop::backend.components.headers.category")
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <h4 class="card-title">Categorie Disponibili</h4>
+                            <h4 class="card-title">Prodotti Disponibili</h4>
                         </div>
                         <div class="card-body pt-0">
                             <div class="transaction-table">
                                 <div class="table-responsive">
-                                    @include("eshop::backend.components.tables.catalogue")
+                                    @include("eshop::backend.components.tables.category")
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
     </div>
 
     <script rel="script" type="application/javascript">
-        const catalogoCharts = document.querySelector("#catalogue-chart");
+        const catalogoCharts = document.querySelector("#category-chart");
         if (catalogoCharts) {
             var chart = new ApexCharts(catalogoCharts, {
                 chart: {
