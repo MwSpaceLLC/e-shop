@@ -47,6 +47,9 @@ class InstallCommand extends Command
         do $email = $this->ask('Insert email for e-shop root');
         while ($email == null || !filter_var($email, FILTER_VALIDATE_EMAIL));
 
+        $this->comment('Perform e-shop Migration...');
+        $this->callSilent('migrate');
+
         if (AdminEshop::where('payload->email', $email)->first())
             return $this->error("Super User already exist in e-shop");
 
@@ -62,16 +65,13 @@ class InstallCommand extends Command
         $this->comment('Publishing e-shop Configuration...');
         $this->callSilent('vendor:publish', ['--tag' => 'eshop-config']);
 
-        $this->comment('Perform e-shop Migration...');
-        $this->callSilent('migrate');
-
         $this->info("
-                        .__                   
-  ____             _____|  |__   ____ ______  
-_/ __ \   ______  /  ___/  |  \ /  _ \\____ \ 
+                        .__
+  ____             _____|  |__   ____ ______
+_/ __ \   ______  /  ___/  |  \ /  _ \\____ \
 \  ___/  /_____/  \___ \|   Y  (  <_> )  |_> >
- \___  >         /____  >___|  /\____/|   __/ 
-     \/               \/     \/       |__|    
+ \___  >         /____  >___|  /\____/|   __/
+     \/               \/     \/       |__|
 
 Installed successfully.
 
