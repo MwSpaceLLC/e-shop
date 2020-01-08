@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-<div class="col-xl-2 col-lg-2 col-md-6">
+<div class="col-xl-3 col-lg-3 col-md-6">
     <div class="card acc_balance">
         <div class="card-header">
             <h4 class="card-title">Resoconto</h4>
@@ -41,7 +41,7 @@
         </div>
     </div>
 </div>
-<div class="col-xl-6 col-lg-6">
+<div class="col-xl-5 col-lg-5">
     <div class="card">
         <div class="card-body">
             <div class="buy-sell-widget">

@@ -57,6 +57,14 @@ class ProductEshop extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function media()
+    {
+        return $this->hasMany(MediaEshop::class, 'product_id');
+    }
+
+    /**
      * @return string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
@@ -112,7 +120,7 @@ class ProductEshop extends Model
         $price = intval($price);
 
         return \Stripe\Checkout\Session::create([
-            'success_url' => route('eshop-stripe-success').'?session_id={CHECKOUT_SESSION_ID}',
+            'success_url' => route('eshop-stripe-success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('eshop-stripe-cancel'),
             'payment_method_types' => json_decode(eshop()->config('STRIPE_PAYMENT_METHODS')),
             'line_items' => [

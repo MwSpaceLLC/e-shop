@@ -19,7 +19,8 @@
         "ext-json": "*",
         "laravel/framework": "~5.8.0|^6.0|^7.0",
         "stripe/stripe-php": "^v7.14.0",
-        "guzzlehttp/guzzle": "^6.0"
+        "guzzlehttp/guzzle": "^6.0",
+        "aws/aws-sdk-php": "^3.132"
     },
     "require-dev": {
     },

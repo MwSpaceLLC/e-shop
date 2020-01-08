@@ -12,7 +12,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <h4 class="card-title">Prodotti Disponibili</h4>
+                            <h4 class="card-title">Prodotti Disponibili per <span class="badge badge-info">{{$category->payload()->name}}</span></h4>
                         </div>
                         <div class="card-body pt-0">
                             <div class="transaction-table">

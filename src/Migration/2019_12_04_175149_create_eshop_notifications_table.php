@@ -23,7 +23,12 @@ class CreateEshopNotificationsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
 
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('eshop_users');
+            
             $table->foreign('admin_id')
                 ->references('id')
                 ->on('eshop_admins');

@@ -276,5 +276,12 @@ jQuery(window).on("load", function () {
     $('.percent').mask('##0,00%', {reverse: true});
     $('.money').mask("#.##0,00", {reverse: true});
 
+    tinymce.init({
+        selector: ".tiny",
+    });
+
+    $('input[type="file"]').change(function (e) {
+        $(this).closest('.file-upload-wrapper').attr('data-text', e.target.files[0].name)
+    });
 
 })(jQuery);

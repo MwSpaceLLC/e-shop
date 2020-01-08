@@ -18,3 +18,8 @@ body.login {
 *:focus {
     box-shadow: unset !important;
 }
+
+textarea.form-control {
+    height: auto;
+    padding: 15px;
+}

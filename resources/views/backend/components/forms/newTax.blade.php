@@ -31,8 +31,8 @@
                         class="fa fa-bank"></i></label>
             </div>
             <select class="form-control" name="payload[position]">
-                <option value="inner">Inclusa</option>
-                <option value="out">Esclusa</option>
+                <option value="inclusa">Inclusa</option>
+                <option value="esclusa">Esclusa</option>
             </select>
         </div>
     </div>

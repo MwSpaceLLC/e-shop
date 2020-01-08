@@ -3,18 +3,20 @@
     @foreach(eshop()->category()->all() as $category)
         <tr>
             <td>
-                <span class="sold-thumb"><i class="la la-arrow-down"></i></span>
+                <h4 class="text-black-50">{{$category->payload()->name}}</h4>
+            </td>
+            <td>
+                <span class="sold-thumb bg-dark"><i class="far fa-hdd"></i></span>
             </td>
 
             <td>
-                <span class="badge badge-danger">{{$category->product()->count()}} Prodotti</span>
-            </td>
-            <td>
-                {{$category->payload()->name}}
+                <span class="badge badge-info">{{$category->product()->count()}} Prodotti</span>
             </td>
             <td>
                 @if($tax = $category->tax()->first())
+                    {{$tax->payload()->rate}}
                     {{$tax->payload()->name}}
+                    ({{$tax->payload()->position}})
                 @else
                     Nessuna Tassa
                 @endif

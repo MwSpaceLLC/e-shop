@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-<div class="col-xl-2 col-lg-2 col-md-6">
+<div class="col-xl-3 col-lg-3 col-md-6">
     <div class="card acc_balance">
         <div class="card-header">
             <h4 class="card-title">Resoconto</h4>
@@ -41,25 +41,25 @@
         </div>
     </div>
 </div>
-<div class="col-xl-6 col-lg-6">
+
+<div class="col-xl-5 col-lg-5">
     <div class="card">
         <div class="card-body">
             <div class="buy-sell-widget">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab"
-                           href="#Category">+ Categoria</a>
+                        <a class="nav-link active" data-toggle="tab" href="#Category">+ Prodotto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#Tax">+ Tassa</a>
+                        <a class="nav-link" data-toggle="tab" href="#Tax">+ Media</a>
                     </li>
                 </ul>
                 <div class="tab-content tab-content-default">
                     <div class="tab-pane fade active show" id="Category" role="tabpanel">
-                        @include('eshop::backend.components.forms.newCategory')
+                        @include('eshop::backend.components.forms.newProduct')
                     </div>
                     <div class="tab-pane fade" id="Tax">
-                        @include('eshop::backend.components.forms.newTax')
+                        @include('eshop::backend.components.forms.newProductMedia')
                     </div>
                 </div>
             </div>

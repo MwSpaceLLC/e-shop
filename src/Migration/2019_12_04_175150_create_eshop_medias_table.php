@@ -22,7 +22,29 @@ class CreateEshopMediasTable extends Migration
         Schema::create('eshop_medias', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->bigInteger('index')->nullable();
+
             $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('service_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('eshop_users');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('eshop_categories');
+
+            $table->foreign('product_id')
+                ->references('id')
+                ->on('eshop_products');
+
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('eshop_services');
 
             $table->foreign('admin_id')
                 ->references('id')
