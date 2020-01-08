@@ -9,6 +9,7 @@
 namespace MwSpace\Eshop\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  *
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MediaEshop extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      *

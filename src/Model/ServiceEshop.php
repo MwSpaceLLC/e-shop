@@ -10,6 +10,7 @@ namespace MwSpace\Eshop\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  *
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\Storage;
  */
 class ServiceEshop extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
@@ -66,6 +69,14 @@ class ServiceEshop extends Model
             return Storage::disk(config('e-shop.disk'))->url($this->payload()->image);
 
         return asset("vendor/eshop/assets/img/file.png");
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function media()
+    {
+        return $this->hasMany(MediaEshop::class, 'service_id');
     }
 
     /**

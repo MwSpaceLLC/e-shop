@@ -6,7 +6,7 @@
     <div class="content-body">
         <div class="container-fluid">
             <div class="row">
-                @include("eshop::backend.components.headers.catalogue")
+                @include("eshop::backend.components.headers.catalog")
             </div>
             <div class="row">
                 <div class="col-xl-12">
@@ -17,7 +17,7 @@
                         <div class="card-body pt-0">
                             <div class="transaction-table">
                                 <div class="table-responsive">
-                                    @include("eshop::backend.components.tables.catalogue")
+                                    @include("eshop::backend.components.tables.catalog")
                                 </div>
                             </div>
                         </div>

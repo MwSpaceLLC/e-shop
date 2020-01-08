@@ -81,7 +81,7 @@ class BaseController extends Controller
         if (!class_exists($model = "MwSpace\\Eshop\\Model\\" . ucfirst("{$this->request->model}Eshop")))
             return abort(403, "model {$this->request->model} not exist");
 
-        return $model::find($this->request->id);
+        return $model::findOrFail($this->request->id);
     }
 
     /**

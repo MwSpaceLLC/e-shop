@@ -32,7 +32,7 @@ class ViewController extends Base
     {
         $this->model = CategoryEshop::findOrFail($this->request->id);
 
-        return view("eshop::backend.pages.models.category")->with('category', $this->model);
+        return view("eshop::backend.pages.models.products")->with('category', $this->model);
 
     }
 

@@ -274,7 +274,7 @@ jQuery(window).on("load", function () {
     });
 
     $('.percent').mask('##0,00%', {reverse: true});
-    $('.money').mask("#.##0,00", {reverse: true});
+    $('.price').mask("#.##0,00", {reverse: true});
 
     tinymce.init({
         selector: ".tiny",

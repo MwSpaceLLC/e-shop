@@ -82,7 +82,7 @@ class CartEshop extends Model
             throw new EshopException('Cart is empty to perform Express Checkout');
 
         return \Stripe\Checkout\Session::create([
-            'success_url' => route('eshop-stripe-success').'?session_id={CHECKOUT_SESSION_ID}',
+            'success_url' => route('eshop-stripe-success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('eshop-stripe-cancel'),
             'payment_method_types' => json_decode(eshop()->config('STRIPE_PAYMENT_METHODS')),
             'line_items' => $this->this()->get()->map(function ($cart) {

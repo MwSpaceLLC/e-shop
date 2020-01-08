@@ -38,6 +38,8 @@ class CreateEshopCategoriesTable extends Migration
             $table->json('payload')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

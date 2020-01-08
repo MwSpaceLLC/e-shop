@@ -32,11 +32,13 @@ class CreateEshopServicesTable extends Migration
 
             $table->foreign('category_id')
                 ->references('id')
-                ->on('eshop_categories');
+                ->on('eshop_categories')->onDelete('cascade');
 
             $table->json('payload')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

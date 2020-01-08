@@ -33,7 +33,7 @@ class CreateEshopShippingsTable extends Migration
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('eshop_users');
+                ->on('eshop_users')->onDelete('cascade');
 
             $table->foreign('payment_id')
                 ->references('id')
@@ -46,6 +46,8 @@ class CreateEshopShippingsTable extends Migration
             $table->json('payload')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

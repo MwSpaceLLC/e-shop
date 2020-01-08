@@ -26,6 +26,8 @@ class CreateEshopOptionsTable extends Migration
             $table->boolean('bool')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

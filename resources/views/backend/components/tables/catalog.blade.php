@@ -27,6 +27,11 @@
             <td class="text-warning">{{$category->created_at}}</td>
             <td><a href="{{backend("category/{$category->id}")}}"
                    data-tippy-content="Gestione">
+                    <i class="fas fa-tasks"></i>
+                </a>
+            </td>
+            <td><a href="{{backend("category/edit{$category->id}")}}"
+                   data-tippy-content="Modifica">
                     <i class="far fa-edit"></i>
                 </a>
             </td>

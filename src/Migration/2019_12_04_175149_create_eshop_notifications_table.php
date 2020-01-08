@@ -27,15 +27,17 @@ class CreateEshopNotificationsTable extends Migration
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('eshop_users');
-            
+                ->on('eshop_users')->onDelete('cascade');
+
             $table->foreign('admin_id')
                 ->references('id')
-                ->on('eshop_admins');
+                ->on('eshop_admins')->onDelete('cascade');
 
             $table->json('payload')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

@@ -10,6 +10,7 @@ namespace MwSpace\Eshop\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  *
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\Storage;
  */
 class ProductEshop extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      *

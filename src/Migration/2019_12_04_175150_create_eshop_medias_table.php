@@ -32,19 +32,19 @@ class CreateEshopMediasTable extends Migration
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('eshop_users');
+                ->on('eshop_users')->onDelete('cascade');
 
             $table->foreign('category_id')
                 ->references('id')
-                ->on('eshop_categories');
+                ->on('eshop_categories')->onDelete('cascade');
 
             $table->foreign('product_id')
                 ->references('id')
-                ->on('eshop_products');
+                ->on('eshop_products')->onDelete('cascade');
 
             $table->foreign('service_id')
                 ->references('id')
-                ->on('eshop_services');
+                ->on('eshop_services')->onDelete('cascade');
 
             $table->foreign('admin_id')
                 ->references('id')
@@ -53,6 +53,8 @@ class CreateEshopMediasTable extends Migration
             $table->json('payload')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

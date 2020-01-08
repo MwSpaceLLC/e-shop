@@ -46,6 +46,10 @@
                 <span class="badge badge-info">{{$product->media()->count()}} Media</span>
             </td>
 
+            <td>
+                <h3>{{$product->payload()->price}}</h3>
+            </td>
+
             <td class="text-warning">{{$product->created_at}}</td>
             <td><a href="{{backend("model/Product/{$product->id}")}}"
                    data-tippy-content="Gestione">
