@@ -140,4 +140,16 @@ class ProductEshop extends Model
 
     }
 
+    /**
+     * @param $payload
+     * @return |null
+     */
+    public function getPayload($payload)
+    {
+        if (!isset($this->payload()->$payload))
+            return null;
+
+        return $this->payload()->$payload;
+    }
+
 }

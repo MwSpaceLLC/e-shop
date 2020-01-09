@@ -6,7 +6,7 @@
  * @author   Aleksandr Ivanovitch <alex@mwspace.com>
  */
 
-namespace MwSpace\Eshop\Http\Controller\Backend\Model\Category;
+namespace MwSpace\Eshop\Http\Controller\Backend\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,7 @@ use \MwSpace\Eshop\Http\Controller\BaseController as Base;
  * Class ViewController
  * @package MwSpace\Eshop\Http\Controller\Backend\Option
  */
-class ViewController extends Base
+class EditProductController extends Base
 {
 
     /**
@@ -31,8 +31,9 @@ class ViewController extends Base
     public function __invoke()
     {
         $this->model = CategoryEshop::findOrFail($this->request->id);
+        $this->model = ProductEshop::findOrFail($this->request->idd);
 
-        return view("eshop::backend.pages.models.products")->with('category', $this->model);
+        return view("eshop::backend.pages.models.product")->with('product', $this->model);
 
     }
 

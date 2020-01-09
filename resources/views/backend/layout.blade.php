@@ -13,6 +13,7 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / quixlab) -->
     <meta charset="utf-8">
     <link rel="dns-prefetch" href="//cdn.jsdelivr.net/">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.tiny.cloud">
     <link rel="dns-prefetch" href="//{{request()->getHost()}}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -72,6 +73,8 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / quixlab) -->
             integrity="sha256-Kg2zTcFO9LXOc7IwcBx1YeUBJmekycsnTsq2RuFHSZU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.1.2/tinymce.min.js"
             integrity="sha256-DdWABQXQvgw5MFqHCMQ34eo2D3GTcL6xA36LVz1sAmQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.1.2/themes/silver/theme.min.js"
+            integrity="sha256-R6tqgNv9sxVru+r49uhkXZlReXzULd9bomlZEnxv75Q=" crossorigin="anonymous"></script>
 
     <script defer src="{{asset('vendor/eshop/assets/js/custom.js')}}"></script>
 </head>
@@ -98,5 +101,7 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / quixlab) -->
 </div>
 
 @include('eshop::backend.components.errors')
+
+@include('eshop::backend.components.modals')
 </body>
 </html>

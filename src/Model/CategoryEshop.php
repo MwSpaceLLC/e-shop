@@ -93,4 +93,16 @@ class CategoryEshop extends Model
         return $this->belongsTo(TaxEshop::class, 'tax_id');
     }
 
+    /**
+     * @param $payload
+     * @return |null
+     */
+    public function getPayload($payload)
+    {
+        if (!isset($this->payload()->$payload))
+            return null;
+
+        return $this->payload()->$payload;
+    }
+
 }

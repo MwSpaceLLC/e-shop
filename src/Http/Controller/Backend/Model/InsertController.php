@@ -53,6 +53,8 @@ class InsertController extends Base
 
         if ($this->model instanceof MediaEshop) {
 
+//            dd($this->request->payload);
+
             if ($this->request->payload['path'] instanceof \Illuminate\Http\UploadedFile)
                 $this->request->payload = array_merge($this->request->payload, ['path' => $this->storage->put("media", $this->request->payload['path'])]);
 

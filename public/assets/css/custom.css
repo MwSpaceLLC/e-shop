@@ -23,3 +23,23 @@ textarea.form-control {
     height: auto;
     padding: 15px;
 }
+
+.p-none {
+    pointer-events: none !important;
+}
+
+.nav-link.active {
+    color: #869ab8;
+}
+
+.tox-tinymce {
+    border: unset !important;
+}
+
+img.cover {
+    object-fit: cover !important;
+}
+
+img.contain {
+    object-fit: contain !important;
+}

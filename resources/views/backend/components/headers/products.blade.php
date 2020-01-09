@@ -59,7 +59,7 @@
                         @include('eshop::backend.components.forms.newProduct')
                     </div>
                     <div class="tab-pane fade" id="Tax">
-                        @include('eshop::backend.components.forms.newProductMedia')
+{{-- @include('eshop::backend.components.forms.newProductMedia')--}}
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
     @foreach(eshop()->category()->all() as $category)
         <tr>
             <td>
-                <h4 class="text-black-50">{{$category->payload()->name}}</h4>
+                <h4 class="text-black-50">{{$category->getPayload('name')}}</h4>
             </td>
             <td>
                 <span class="sold-thumb bg-dark"><i class="far fa-hdd"></i></span>
@@ -22,15 +22,15 @@
                 @endif
             </td>
             <td>
-                {{\Illuminate\Support\Str::limit($category->payload()->info)}}
+                {{\Illuminate\Support\Str::limit($category->getPayload('info'))}}
             </td>
             <td class="text-warning">{{$category->created_at}}</td>
-            <td><a href="{{backend("category/{$category->id}")}}"
+            <td><a href="{{backend("category/{$category->id}/products")}}"
                    data-tippy-content="Gestione">
                     <i class="fas fa-tasks"></i>
                 </a>
             </td>
-            <td><a href="{{backend("category/edit{$category->id}")}}"
+            <td><a href="{{backend("category/{$category->id}")}}"
                    data-tippy-content="Modifica">
                     <i class="far fa-edit"></i>
                 </a>

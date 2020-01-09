@@ -10,6 +10,7 @@ namespace MwSpace\Eshop\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  *
@@ -47,5 +48,13 @@ class MediaEshop extends Model
     public function payload()
     {
         return json_decode($this->payload);
+    }
+
+    public function image()
+    {
+        if (!isset($this->payload()->path))
+            return url('vendor/eshop/assets/img/photo.png');
+
+        return Storage::disk(config('e-shop.disk'))->url($this->payload()->path);
     }
 }

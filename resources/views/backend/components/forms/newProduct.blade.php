@@ -1,6 +1,4 @@
-<form action="{{route('eshop-model-insert', 'Product')}}" method="post">
-    @csrf
-    <input type="hidden" name="category_id" value="{{$category->id}}">
+<form action="{{route('eshop-model-insert', 'Product')}}" method="post"> @csrf
 
     <div class="form-group" data-tippy-content="Prezzo di vendita">
         <div class="input-group mb-3">
@@ -32,5 +30,7 @@
         </div>
     </div>
 
+    <input type="hidden" name="category_id" value="{{$category->id}}">
+    <input type="hidden" name="payload[description]" value="">
     <button class="btn btn-primary btn-block">Aggiungi</button>
 </form>

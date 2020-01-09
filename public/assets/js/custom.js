@@ -278,6 +278,10 @@ jQuery(window).on("load", function () {
 
     tinymce.init({
         selector: ".tiny",
+        plugins: "paste",
+        paste_data_images: true,
+        theme: "silver",
+        height: "380",
     });
 
     $('input[type="file"]').change(function (e) {
