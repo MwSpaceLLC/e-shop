@@ -8,56 +8,23 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-4 col-xxl-4">
                     <div class="card balance-widget">
-                        <div class="card-header border-0 py-0">
-                            <h4 class="card-title">Your Portfolio </h4>
+                        <div class="card-header border-0 py-0 mb-5">
+                            <h4 class="card-title">Ultimi Prodotti Inseriti </h4>
                         </div>
                         <div class="card-body pt-0">
                             <div class="balance-widget">
-                                <div class="total-balance">
-                                    <h3>$63411.00</h3>
-                                    <h6>Total Balance</h6>
-                                </div>
                                 <ul class="list-unstyled">
-                                    <li class="media">
-                                        <i class="cc BTC mr-3"></i>
-                                        <div class="media-body">
-                                            <h5 class="m-0">Bitcoin</h5>
-                                        </div>
-                                        <div class="text-right">
-                                            <h5>0.000242 BTC</h5>
-                                            <span>0.125 USD</span>
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <i class="cc LTC mr-3"></i>
-                                        <div class="media-body">
-                                            <h5 class="m-0">Litecoin</h5>
-                                        </div>
-                                        <div class="text-right">
-                                            <h5>0.000242 LTC</h5>
-                                            <span>0.125 USD</span>
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <i class="cc XRP mr-3"></i>
-                                        <div class="media-body">
-                                            <h5 class="m-0">Ripple</h5>
-                                        </div>
-                                        <div class="text-right">
-                                            <h5>0.000242 XRP</h5>
-                                            <span>0.125 USD</span>
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <i class="cc DASH mr-3"></i>
-                                        <div class="media-body">
-                                            <h5 class="m-0">Dash</h5>
-                                        </div>
-                                        <div class="text-right">
-                                            <h5>0.000242 XRP</h5>
-                                            <span>0.125 USD</span>
-                                        </div>
-                                    </li>
+                                    @foreach(eshop()->product()->orderBy('created_at','desc')->take(4)->get() as $product)
+                                        <li class="media">
+                                            <i class="fas fa-box m-3"></i>
+                                            <div class="media-body">
+                                                <h5 class="m-0">{{$product->getPayload('name')}}</h5>
+                                            </div>
+                                            <div class="text-right">
+                                                <span>{{$product->getPayload('price')}} €</span>
+                                            </div>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -136,77 +103,31 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-3 col-lg-12 col-xxl-12">
                     <div class="card">
                         <div class="card-header border-0 py-0">
-                            <h4 class="card-title">Follow</h4>
+                            <h4 class="card-title">Ultime Categorie Inseriti </h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-12 col-lg-6 col-xxl-6">
-                                    <div class="widget-card">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="widget-stat">
-                                                <div class="coin-title">
-                                                    <span><i class="cc BTC"></i></span>
-                                                    <h5 class="d-inline-block ml-2 mb-3">Bitcoin <span>(24h)</span>
-                                                    </h5>
+                                @foreach(eshop()->category()->orderBy('created_at','desc')->take(4)->get() as $category)
+                                    <div class="col-xl-12 col-lg-6 col-xxl-6">
+                                        <div class="widget-card">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="widget-stat">
+                                                    <div class="coin-title">
+                                                        <span><i class="far fa-hdd"></i></span>
+                                                        <h5 class="d-inline-block ml-2 mb-3">{{$category->getPayload('name')}}</h5>
+                                                    </div>
+                                                    <h4>{{$category->tax()->first()->getPayload('name')}} <span class="badge badge-warning ml-2 text-white">{{$category->tax()->first()->getPayload('rate')}}</span>
+                                                    </h4>
                                                 </div>
-                                                <h4>USD 1254.36 <span class="badge badge-success ml-2">+ 06%</span>
-                                                </h4>
+                                                <div id="dashChart"></div>
                                             </div>
-                                            <div id="btcChart"></div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-xxl-6">
-                                    <div class="widget-card">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="widget-stat">
-                                                <div class="coin-title">
-                                                    <span><i class="cc ETH"></i></span>
-                                                    <h5 class="d-inline-block ml-2 mb-3">Ethereum <span>(24h)</span>
-                                                    </h5>
-                                                </div>
-                                                <h4>USD 1254.36 <span class="badge badge-danger ml-2">- 06%</span>
-                                                </h4>
-                                            </div>
-                                            <div id="ltcChart"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-xxl-6">
-                                    <div class="widget-card">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="widget-stat">
-                                                <div class="coin-title">
-                                                    <span><i class="cc LTC"></i></span>
-                                                    <h5 class="d-inline-block ml-2 mb-3">Litecoin <span>(24h)</span>
-                                                    </h5>
-                                                </div>
-                                                <h4>USD 1254.36 <span class="badge badge-primary ml-2"> 06%</span>
-                                                </h4>
-                                            </div>
-                                            <div id="xrpChart"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-xxl-6">
-                                    <div class="widget-card">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="widget-stat">
-                                                <div class="coin-title">
-                                                    <span><i class="cc XRP"></i></span>
-                                                    <h5 class="d-inline-block ml-2 mb-3">Ripple <span>(24h)</span>
-                                                    </h5>
-                                                </div>
-                                                <h4>USD 1254.36 <span class="badge badge-danger ml-2">- 06%</span>
-                                                </h4>
-                                            </div>
-                                            <div id="dashChart"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

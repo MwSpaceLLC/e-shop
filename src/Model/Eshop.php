@@ -48,6 +48,14 @@ class Eshop
     }
 
     /**
+     * @return ShippingEshop
+     */
+    public function shipping()
+    {
+        return new ShippingEshop;
+    }
+
+    /**
      * @return TaxEshop
      */
     public function tax()

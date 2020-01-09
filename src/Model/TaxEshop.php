@@ -75,4 +75,15 @@ class TaxEshop extends Model
         return $this->hasMany(CategoryEshop::class, 'tax_id');
     }
 
+    /**
+     * @param $payload
+     * @return |null
+     */
+    public function getPayload($payload)
+    {
+        if (!isset($this->payload()->$payload))
+            return null;
+
+        return $this->payload()->$payload;
+    }
 }

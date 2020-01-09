@@ -1,11 +1,11 @@
 <div class="col-xl-4 col-lg-4 col-md-6">
     <div class="card profile_card">
         <div class="card-body">
-            <div data-category="{{eshop()->category()->count()}}"
-                 data-product="{{eshop()->product()->count()}}"
-                 data-tax="{{eshop()->tax()->count()}}"
-                 data-media="{{eshop()->media()->count()}}"
-                 id="category-chart"></div>
+            <div data-cart="{{eshop()->cart()->count()}}"
+                 data-payment="{{eshop()->payment()->count()}}"
+                 data-order="{{eshop()->order()->count()}}"
+                 data-media="{{eshop()->shipping()->count()}}"
+                 id="products-chart"></div>
         </div>
     </div>
 </div>
