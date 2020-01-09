@@ -25,14 +25,15 @@ Route::post('/model/insert/{model}', 'Backend\Model\InsertController')->name('es
 
 Route::post('/model/update/{model}/{id}', 'Backend\Model\UpdateController')->name('eshop-model-update');
 
+Route::post('/model/position/{model}', 'Backend\Model\PositionController')->name('eshop-position-model');
+
+Route::get('/model/delete/{model}/{id}', 'Backend\Model\DeleteController')->name('eshop-delete-model');
+
 Route::get('/category/{id}/products', 'Backend\Model\ViewProductsController')->name('eshop-view-products');
 
 Route::get('/category/{id}/{page?}', 'Backend\Model\EditCategoryController')->name('eshop-edit-category');
 
 Route::get('/category/{id}/product/{idd}/{page?}', 'Backend\Model\EditProductController')->name('eshop-edit-product');
-
-
-Route::get('/model/delete/{model}/{id}', 'Backend\Model\DeleteController')->name('eshop-delete-model');
 
 /*
 | e-shop Option & Config

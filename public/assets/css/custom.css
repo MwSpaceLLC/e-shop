@@ -43,3 +43,13 @@ img.cover {
 img.contain {
     object-fit: contain !important;
 }
+
+.table tr td, .table tr th {
+    background: transparent !important;
+}
+
+
+tr {
+    background: #F2F6FE;
+    animation: 1s;
+}

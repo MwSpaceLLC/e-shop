@@ -250,42 +250,11 @@ jQuery(window).on("load", function () {
 
     });
 
-    $(function () {
-        // var win_w = window.outerWidth;
-        var win_h = window.outerHeight;
-        var win_h = window.outerHeight;
-        if (win_h > 0 ? win_h : screen.height) {
-            $(".content-body").css("min-height", (win_h + 60) + "px");
-        }
-    });
-
-
-    // custom js
-
-    tippy('[data-tippy-content]');
-
-    $("form").each(function () {
-        let form = $(this);
-        let submit = form.find(':submit');
-        $(this).on('submit', evt => {
-            submit.prepend('<i class="fas fa-spinner fa-pulse"></i> ');
-            submit.attr('disabled', true);
-        });
-    });
-
-    $('.percent').mask('##0,00%', {reverse: true});
-    $('.price').mask("#.##0,00", {reverse: true});
-
-    tinymce.init({
-        selector: ".tiny",
-        plugins: "paste",
-        paste_data_images: true,
-        theme: "silver",
-        height: "380",
-    });
-
-    $('input[type="file"]').change(function (e) {
-        $(this).closest('.file-upload-wrapper').attr('data-text', e.target.files[0].name)
-    });
+    // var win_w = window.outerWidth;
+    var win_h = window.outerHeight;
+    var win_h = window.outerHeight;
+    if (win_h > 0 ? win_h : screen.height) {
+        $(".content-body").css("min-height", (win_h + 60) + "px");
+    }
 
 })(jQuery);

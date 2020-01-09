@@ -1,7 +1,7 @@
 <table class="table mb-0 table-responsive-sm">
-    <tbody>
+    <tbody id="sortableModels" data-model="Product">
     @foreach($category->product()->get() as $product)
-        <tr>
+        <tr data-id="{{$product->id}}">
             <td>
                 <span class="sold-thumb bg-dark"><i class="fas fa-box"></i></span>
             </td>
@@ -63,6 +63,13 @@
             </td>
 
             <td class="text-warning">{{$product->created_at}}</td>
+
+            <td class="draggable">
+                <a href="#!" style="cursor: move"
+                   data-tippy-content="Scala Posizione">
+                    <i class="fas fa-grip-lines"></i>
+                </a>
+            </td>
 
             <td><a href="{{backend("category/{$category->id}/product/{$product->id}")}}"
                    data-tippy-content="Gestione">

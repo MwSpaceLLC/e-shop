@@ -17,6 +17,7 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / quixlab) -->
     <link rel="dns-prefetch" href="//{{request()->getHost()}}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="backend-path" content="{{ backend() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ asset('/vendor/eshop/assets/favicon/app.ico') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{asset('/vendor/eshop/assets/favicon/apple-icon-57x57.png')}}">
@@ -75,8 +76,12 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / quixlab) -->
             integrity="sha256-DdWABQXQvgw5MFqHCMQ34eo2D3GTcL6xA36LVz1sAmQ=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.1.2/themes/silver/theme.min.js"
             integrity="sha256-R6tqgNv9sxVru+r49uhkXZlReXzULd9bomlZEnxv75Q=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"
+            integrity="sha256-Hhwv1ElzvrH6ZuiIDWEO6xBYW3lmFYrapwcjgXhpL6g=" crossorigin="anonymous"></script>
 
     <script defer src="{{asset('vendor/eshop/assets/js/custom.js')}}"></script>
+    <script defer src="{{asset('vendor/eshop/assets/js/global.js')}}"></script>
 </head>
 
 <body>

@@ -63,7 +63,7 @@ class BaseController extends Controller
     }
 
     /**
-     * @return string|void
+     * @return \Eloquent
      */
     protected function newModel()
     {
@@ -82,6 +82,17 @@ class BaseController extends Controller
             return abort(403, "model {$this->request->model} not exist");
 
         return $model::findOrFail($this->request->id);
+    }
+
+    /**
+     * @return model|void
+     */
+    protected function allModels()
+    {
+        if (!class_exists($model = "MwSpace\\Eshop\\Model\\" . ucfirst("{$this->request->model}Eshop")))
+            return abort(403, "model {$this->request->model} not exist");
+
+        return $model::all();
     }
 
     /**

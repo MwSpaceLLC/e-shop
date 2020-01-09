@@ -1,7 +1,7 @@
 <table class="table mb-0 table-responsive-sm">
-    <tbody>
-    @foreach(eshop()->category()->all() as $category)
-        <tr>
+    <tbody id="sortableModels" data-model="Product">
+    @foreach(eshop()->category()->get() as $category)
+        <tr data-id="{{$category->id}}">
             <td>
                 <h4 class="text-black-50">{{$category->getPayload('name')}}</h4>
             </td>
@@ -25,20 +25,30 @@
                 {{\Illuminate\Support\Str::limit($category->getPayload('info'))}}
             </td>
             <td class="text-warning">{{$category->created_at}}</td>
-            <td><a href="{{backend("category/{$category->id}/products")}}"
+            <td class="draggable">
+                <a href="#!" style="cursor: move"
+                   data-tippy-content="Scala Posizione">
+                    <i class="fas fa-grip-lines"></i>
+                </a>
+            </td>
+            <td>
+                <a href="{{backend("category/{$category->id}/products")}}"
                    data-tippy-content="Gestione">
                     <i class="fas fa-tasks"></i>
                 </a>
             </td>
-            <td><a href="{{backend("category/{$category->id}")}}"
+            <td>
+                <a href="{{backend("category/{$category->id}")}}"
                    data-tippy-content="Modifica">
                     <i class="far fa-edit"></i>
                 </a>
             </td>
-            <td><a href="{{backend("model/delete/Category/{$category->id}")}}"
+            <td>
+                <a href="{{backend("model/delete/Category/{$category->id}")}}"
                    data-tippy-content="Elimina">
                     <i class="fas fa-trash-alt text-danger"></i>
-                </a></td>
+                </a>
+            </td>
         </tr>
     @endforeach
     </tbody>

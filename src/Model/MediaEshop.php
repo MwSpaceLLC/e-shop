@@ -11,6 +11,7 @@ namespace MwSpace\Eshop\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  *
@@ -25,6 +26,16 @@ use Illuminate\Support\Facades\Storage;
 class MediaEshop extends Model
 {
     use SoftDeletes;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Order by name ASC
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('index');
+        });
+    }
 
     /**
      * The table associated with the model.
@@ -56,5 +67,14 @@ class MediaEshop extends Model
             return url('vendor/eshop/assets/img/photo.png');
 
         return Storage::disk(config('e-shop.disk'))->url($this->payload()->path);
+    }
+
+    /**
+     * @param null $direction
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function indexes($direction = null)
+    {
+        return $this->orderBy('index', $direction ?? 'asc');
     }
 }

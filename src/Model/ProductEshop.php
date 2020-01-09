@@ -11,6 +11,7 @@ namespace MwSpace\Eshop\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  *
@@ -24,6 +25,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ProductEshop extends Model
 {
     use SoftDeletes;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Order by name ASC
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('index');
+        });
+    }
 
     /**
      * The table associated with the model.
@@ -150,6 +161,15 @@ class ProductEshop extends Model
             return null;
 
         return $this->payload()->$payload;
+    }
+
+    /**
+     * @param null $direction
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function indexes($direction = null)
+    {
+        return $this->orderBy('index', $direction ?? 'asc');
     }
 
 }

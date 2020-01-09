@@ -5,7 +5,8 @@
             <div class="form-group" data-tippy-content="Aggiungi un file">
                 <div class="input-group mb-3">
                     <div class="file-upload-wrapper" data-text="Scegli un File">
-                        <input required name="payload[path]" type="file" class="file-upload-field">
+                        <input accept="image/*" required name="payload[path]" type="file"
+                               class="file-upload-field input-mime">
                     </div>
                 </div>
             </div>
@@ -14,13 +15,14 @@
         <div class="col-md-5">
             <div class="form-group" data-tippy-content="Tipo di File">
                 <div class="input-group mb-3">
-                    <select class="form-control" name="payload[type]">
+                    <select class="form-control select-mime" name="payload[type]">
                         @if(!$category->media()->where('payload->type','cover')->first())
                             <option value="cover">Cover</option>
                         @endif
                         <option value="image">Immagine</option>
                         <option value="video">Video</option>
-                        <option value="file">File</option>
+                        <option value="audio">Audio</option>
+                        <option value="text">Documento</option>
                     </select>
                 </div>
             </div>
