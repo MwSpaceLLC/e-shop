@@ -1,5 +1,5 @@
 <table class="table mb-0 table-responsive-sm">
-    <tbody id="sortableModels" data-model="Product">
+    <tbody id="sortableModels" data-model="Category">
     @foreach(eshop()->category()->get() as $category)
         <tr data-id="{{$category->id}}">
             <td>
