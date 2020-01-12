@@ -26,7 +26,7 @@ class TokenController extends Base
      */
     public function __invoke()
     {
-        $admin = AdminEshop::where('payload->token', $this->request->token)->firstOrFail();
+        $admin = AdminEshop::where('token', $this->request->token)->firstOrFail();
 
         Auth::guard('eshop:admin')->login($admin);
 

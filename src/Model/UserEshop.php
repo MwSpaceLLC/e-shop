@@ -75,4 +75,55 @@ class UserEshop extends Authenticatable
     {
         return json_decode($this->payload);
     }
+
+    /**
+     * @throws EshopException
+     */
+    public function shippoGenerateShipment()
+    {
+
+        if (!eshop()->config('SHIPPO_SK') || !eshop()->config('SHIPPO_COURIER'))
+            throw new EshopException('Shippo Key required for Create Shipment');
+
+        Shippo::setApiKey("YOUR_API_KEY");
+
+        $fromAddress = array(
+            'name' => 'Shawn Ippotle',
+            'street1' => '215 Clayton St.',
+            'city' => 'San Francisco',
+            'state' => 'CA',
+            'zip' => '94117',
+            'country' => 'US',
+            'phone' => '+1 555 341 9393',
+            'email' => 'shippotle@goshippo.com'
+        );
+
+        $toAddress = array(
+            'name' => 'Mr Hippo"',
+            'street1' => 'Broadway 1',
+            'city' => 'New York',
+            'state' => 'NY',
+            'zip' => '10007',
+            'country' => 'US',
+            'phone' => '+1 555 341 9393',
+            'email' => 'mrhippo@goshippo.com'
+        );
+
+        $parcel = array(
+            'length' => '5',
+            'width' => '5',
+            'height' => '5',
+            'distance_unit' => 'in',
+            'weight' => '2',
+            'mass_unit' => 'lb',
+        );
+
+        return Shippo_Shipment::create(array(
+                'address_from' => $fromAddress,
+                'address_to' => $toAddress,
+                'parcels' => array($parcel),
+                'async' => false
+            )
+        );
+    }
 }

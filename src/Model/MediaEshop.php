@@ -61,7 +61,7 @@ class MediaEshop extends Model
         return json_decode($this->payload);
     }
 
-    public function image()
+    public function path()
     {
         if (!isset($this->payload()->path))
             return url('vendor/eshop/assets/img/photo.png');

@@ -17,8 +17,8 @@ $("form").each(function () {
     });
 });
 
-$('.percent').mask('##0,00%', {reverse: true});
-$('.price').mask("#.##0,00", {reverse: true});
+$('.percent').mask('##0.00', {reverse: true});
+$('.price').mask("##0.00", {reverse: true});
 
 tinymce.init({
     selector: ".tiny",
@@ -40,14 +40,14 @@ $(".select-mime").on('change', () => {
 });
 
 var sortableModels = document.getElementById('sortableModels');
-var model = sortableModels.dataset.model;
-if (sortableModels)
+if (sortableModels) {
+    var model = sortableModels.dataset.model;
     Sortable.create(sortableModels, {
         animation: 250,  // ms, animation speed moving items when sorting, `0` — without animation
         easing: "cubic-bezier(1, 0, 0, 1)", // Easing for animation. Defaults to null. See https://easings.net/ for examples.
-        ghostClass: "bg-warning",  // Class name for the drop placeholder
-        chosenClass: "bg-secondary",  // Class name for the chosen item
-        dragClass: "sortable-drag",  // Class name for the dragging item
+        ghostClass: "bg-primary",  // Class name for the drop placeholder
+        chosenClass: "bg-dark",  // Class name for the chosen item
+        dragClass: "bg-primary",  // Class name for the dragging item
         handle: ".draggable",  // Drag handle selector within list items
         store: {
             /**
@@ -82,3 +82,4 @@ if (sortableModels)
             }
         }
     });
+}

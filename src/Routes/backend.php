@@ -31,9 +31,11 @@ Route::get('/model/delete/{model}/{id}', 'Backend\Model\DeleteController')->name
 
 Route::get('/category/{id}/products', 'Backend\Model\ViewProductsController')->name('eshop-view-products');
 
+Route::get('/category/{id}/services', 'Backend\Model\ViewServicesController')->name('eshop-view-services');
+
 Route::get('/category/{id}/{page?}', 'Backend\Model\EditCategoryController')->name('eshop-edit-category');
 
-Route::get('/category/{id}/product/{idd}/{page?}', 'Backend\Model\EditProductController')->name('eshop-edit-product');
+Route::get('/category/{category}/product/{product}/{page?}', 'Backend\Model\EditProductController')->name('eshop-edit-product');
 
 /*
 | e-shop Option & Config

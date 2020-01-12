@@ -21,7 +21,7 @@ class PostController extends Base
     {
         // TODO: Implement __invoke() method.
 
-        if (!AdminEshop::where('payload->email', $this->request->email)->first())
+        if (!AdminEshop::where('email', $this->request->email)->first())
             return back()->withErrors(['email' => 'Amministratore non trovato']);
 
         $this->silentAdminToken();

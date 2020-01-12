@@ -28,7 +28,7 @@ class CreateEshopModulesTable extends Migration
                 ->references('id')
                 ->on('eshop_admins');
 
-            $table->json('payload')->nullable();
+            $table->boolean('enable')->default(true);
 
             $table->timestamps();
             $table->softDeletes();

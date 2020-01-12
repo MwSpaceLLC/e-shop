@@ -18,10 +18,10 @@
                                         <li class="media">
                                             <i class="fas fa-box m-3"></i>
                                             <div class="media-body">
-                                                <h5 class="m-0">{{$product->getPayload('name')}}</h5>
+                                                <h5 class="m-0">{{$product->name}}</h5>
                                             </div>
                                             <div class="text-right">
-                                                <span>{{$product->getPayload('price')}} €</span>
+                                                <span>{{$product->price}} €</span>
                                             </div>
                                         </li>
                                     @endforeach
@@ -118,10 +118,8 @@
                                                 <div class="widget-stat">
                                                     <div class="coin-title">
                                                         <span><i class="far fa-hdd"></i></span>
-                                                        <h5 class="d-inline-block ml-2 mb-3">{{$category->getPayload('name')}}</h5>
+                                                        <h5 class="d-inline-block ml-2 mb-3">{{$category->name}}</h5>
                                                     </div>
-                                                    <h4>{{$category->tax()->first()->getPayload('name')}} <span class="badge badge-warning ml-2 text-white">{{$category->tax()->first()->getPayload('rate')}}</span>
-                                                    </h4>
                                                 </div>
                                                 <div id="dashChart"></div>
                                             </div>

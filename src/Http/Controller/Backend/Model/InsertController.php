@@ -48,12 +48,13 @@ class InsertController extends Base
         if ($this->model instanceof CategoryEshop)
             $this->model->tax_id = $this->request->tax_id ?? null;
 
-        if ($this->model instanceof ProductEshop)
+        if (
+            $this->model instanceof ProductEshop ||
+            $this->model instanceof ServiceEshop
+        )
             $this->model->category_id = $this->request->category_id ?? null;
 
         if ($this->model instanceof MediaEshop) {
-
-//            dd($this->request->payload);
 
             if ($this->request->payload['path'] instanceof \Illuminate\Http\UploadedFile)
                 $this->request->payload = array_merge($this->request->payload, ['path' => $this->storage->put("media", $this->request->payload['path'])]);
@@ -75,11 +76,16 @@ class InsertController extends Base
         )
             $this->model->admin_id = eshop()->auth()->admin()->id;
 
-        $this->model->payload = json_encode($this->request->payload);
+        // Mount Static Data in to index
+        foreach ($this->request->payload as $key => $payload) {
+            $this->model->$key = $payload;
+        }
+
+//        dd($this->request->payload);
 
         $this->model->save();
 
-        return back()->with('success', "record inserito con successo!");
+        return back()->with('success', "{{$this->model->name}} inserito con successo!");
     }
 
 }

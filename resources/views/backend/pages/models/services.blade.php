@@ -6,19 +6,19 @@
     <div class="content-body">
         <div class="container-fluid">
             <div class="row">
-                @include("eshop::backend.components.headers.products")
+                @include("eshop::backend.components.headers.services")
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <h4 class="card-title">Prodotti Disponibili per <span
+                            <h4 class="card-title">Servizi Disponibili per <span
                                     class="badge badge-info">{{$category->name}}</span></h4>
                         </div>
                         <div class="card-body pt-0">
                             <div class="transaction-table">
                                 <div class="table-responsive">
-                                    @include("eshop::backend.components.tables.products")
+                                    @include("eshop::backend.components.tables.services")
                                 </div>
                             </div>
                         </div>

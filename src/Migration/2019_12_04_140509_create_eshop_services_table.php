@@ -34,7 +34,14 @@ class CreateEshopServicesTable extends Migration
                 ->references('id')
                 ->on('eshop_categories')->onDelete('cascade');
 
-            $table->json('payload')->nullable();
+            // Dataset (Dati utilizzabili fissi)
+            $table->string('name');
+            $table->decimal('price');
+            $table->longText('info')->nullable();
+            $table->longText('description')->nullable();
+            $table->boolean('enable')->default(true);
+            $table->string('view')->default('public');
+            $table->string('interval')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

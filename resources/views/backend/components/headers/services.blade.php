@@ -48,12 +48,12 @@
             <div class="buy-sell-widget">
                 <ul class="nav nav-tabs">
                     <li class="nav-item" style="pointer-events: none">
-                        <a class="nav-link active" data-toggle="tab" href="#Category">+ Prodotto</a>
+                        <a class="nav-link active" data-toggle="tab" href="#Service">+ Servizio</a>
                     </li>
                 </ul>
                 <div class="tab-content tab-content-default">
-                    <div class="tab-pane fade active show" id="Category" role="tabpanel">
-                        @include('eshop::backend.components.forms.newProduct')
+                    <div class="tab-pane fade active show" id="Service">
+                        @include('eshop::backend.components.forms.newServices')
                     </div>
                 </div>
             </div>

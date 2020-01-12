@@ -23,7 +23,7 @@
                             <div class="profile_log dropdown">
                                 <div class="user" data-toggle="dropdown">
                                     <span class="thumb"><i class="la la-user"></i></span>
-                                    <span class="name">{{eshop()->auth()->admin()->payload()->email}}</span>
+                                    <span class="name">{{eshop()->auth()->admin()->email}}</span>
                                     <span class="arrow"><i class="la la-angle-down"></i></span>
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">

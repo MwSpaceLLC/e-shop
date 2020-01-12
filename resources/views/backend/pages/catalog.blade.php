@@ -33,8 +33,9 @@
             var chart = new ApexCharts(catalogoCharts,
                 {
                     series: [
-                        catalogoCharts.dataset.product,
                         catalogoCharts.dataset.category,
+                        catalogoCharts.dataset.product,
+                        catalogoCharts.dataset.service,
                         catalogoCharts.dataset.tax,
                         catalogoCharts.dataset.media
                     ],
@@ -63,8 +64,8 @@
                             }
                         }
                     },
-                    colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
-                    labels: ['Prodotti', 'Categorie', 'Tasse', 'Media'],
+                    colors: ['#1ab7ea', '#1483ae', '#0084ff', '#39539E', '#0077B5'],
+                    labels: ['Categorie', 'Prodotti', 'Servizi', 'Tasse', 'Media'],
                     legend: {
                         show: true,
                         floating: true,

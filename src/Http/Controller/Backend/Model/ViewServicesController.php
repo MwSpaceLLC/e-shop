@@ -21,7 +21,7 @@ use \MwSpace\Eshop\Http\Controller\BaseController as Base;
  * Class ViewController
  * @package MwSpace\Eshop\Http\Controller\Backend\Option
  */
-class EditCategoryController extends Base
+class ViewServicesController extends Base
 {
 
     /**
@@ -30,17 +30,8 @@ class EditCategoryController extends Base
      */
     public function __invoke()
     {
-        $this->model = CategoryEshop::findOrFail($this->request->id);
-
-        if ($this->request->page) {
-            if (!file_exists(eshop()->path("resources/views/backend/pages/category/{$this->request->page}.blade.php")))
-                return abort(404);
-
-            return view("eshop::backend.pages.category.{$this->request->page}")->with('category', $this->model);
-        }
-
-        return view("eshop::backend.pages.category.index")->with('category', $this->model);
-
+        return view("eshop::backend.pages.models.services")
+            ->with('category', CategoryEshop::findOrFail($this->request->id));
     }
 
 }

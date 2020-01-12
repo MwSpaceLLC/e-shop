@@ -16,7 +16,7 @@
             <div class="form-group" data-tippy-content="Tipo di File">
                 <div class="input-group mb-3">
                     <select class="form-control select-mime" name="payload[type]">
-                        @if(!$category->media()->where('payload->type','cover')->first())
+                        @if(!$product->media()->where('payload->type','cover')->first())
                             <option value="cover">Cover</option>
                         @endif
                         <option value="image">Immagine</option>
@@ -42,7 +42,7 @@
         <ul class="linked_account payloads">
             <li class="mt-2">
                 <div class="row">
-                    @if($cover = $category->media()->where('payload->type','cover')->first())
+                    @if($cover = $product->media()->where('payload->type','cover')->first())
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="blog-grid">
                                 <div class="card">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                     @endif
-                    @foreach($category->media()->orderBy('created_at','desc')->get() as $media)
+                    @foreach($product->media()->orderBy('created_at','desc')->get() as $media)
 
                         @if($media->payload()->type !== 'cover')
                             <div class="col-xl-4 col-lg-4 col-md-6">
@@ -92,5 +92,5 @@
         </ul>
 
     </div>
-    <input type="hidden" name="category_id" value="{{$category->id}}">
+    <input type="hidden" name="product_id" value="{{$product->id}}">
 </form>

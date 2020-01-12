@@ -35,7 +35,11 @@ class CreateEshopCategoriesTable extends Migration
                 ->references('id')
                 ->on('eshop_taxes');
 
-            $table->json('payload')->nullable();
+            // Dataset (Dati utilizzabili fissi)
+            $table->string('name');
+            $table->longText('info')->nullable();
+            $table->longText('description')->nullable();
+            $table->boolean('enable')->default(true);
 
             $table->timestamps();
             $table->softDeletes();

@@ -50,7 +50,7 @@ class InstallCommand extends Command
         $this->comment('Perform e-shop Migration...');
         $this->callSilent('migrate');
 
-        if (AdminEshop::where('payload->email', $email)->first())
+        if (AdminEshop::where('email', $email)->first())
             return $this->error("Super User already exist in e-shop");
 
         $this->comment('Popolate e-shop root Superuser...');
@@ -86,14 +86,13 @@ Please see backend at: " . route('eshop-login') . "
     {
         $admin = new AdminEshop();
 
-        $payload = new Payload;
-        $payload->role = 'root';
-        if (AdminEshop::where('payload->role', 'root')->first())
-            $payload->role = 'admin';
-        $payload->email = $email;
-        $payload->token = $admin->generateToken();
+        $admin->role = 'root';
 
-        $admin->payload = $payload->get();
+        if (AdminEshop::where('role', 'root')->first())
+            $admin->role = 'admin';
+
+        $admin->email = $email;
+        $admin->token = $admin->generateToken();
         $admin->save();
     }
 

@@ -8,10 +8,10 @@
 
 namespace MwSpace\Eshop\Model;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  *
@@ -65,6 +65,11 @@ class CategoryEshop extends Model
     public function product()
     {
         return $this->hasMany(ProductEshop::class, 'category_id');
+    }
+
+    public function service()
+    {
+        return $this->hasMany(ServiceEshop::class, 'category_id');
     }
 
     /**

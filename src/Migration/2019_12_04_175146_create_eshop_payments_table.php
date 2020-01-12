@@ -48,7 +48,7 @@ class CreateEshopPaymentsTable extends Migration
                 ->references('id')
                 ->on('eshop_products');
 
-            $table->json('payload')->nullable();
+            $table->json('stripe')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

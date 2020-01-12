@@ -34,7 +34,19 @@ class CreateEshopProductsTable extends Migration
                 ->references('id')
                 ->on('eshop_categories')->onDelete('cascade');
 
-            $table->json('payload')->nullable();
+            // Dataset (Dati utilizzabili fissi)
+            $table->string('name');
+            $table->decimal('price');
+            $table->longText('info')->nullable();
+            $table->longText('description')->nullable();
+            $table->boolean('enable')->default(true);
+
+            $table->decimal('length')->default(0);
+            $table->decimal('width')->default(0);
+            $table->decimal('height')->default(0);
+            $table->string('distance_unit')->default('cm');
+            $table->decimal('weight')->default(0);
+            $table->string('mass_unit')->default('g');
 
             $table->timestamps();
             $table->softDeletes();

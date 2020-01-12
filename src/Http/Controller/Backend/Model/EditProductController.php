@@ -30,10 +30,20 @@ class EditProductController extends Base
      */
     public function __invoke()
     {
-        $this->model = CategoryEshop::findOrFail($this->request->id);
-        $this->model = ProductEshop::findOrFail($this->request->idd);
 
-        return view("eshop::backend.pages.models.product")->with('product', $this->model);
+        if ($this->request->page) {
+            if (!file_exists(eshop()->path("resources/views/backend/pages/product/{$this->request->page}.blade.php")))
+                return abort(404);
+
+            return view("eshop::backend.pages.product.{$this->request->page}")
+                ->with('category', CategoryEshop::findOrFail($this->request->category))
+                ->with('product', ProductEshop::findOrFail($this->request->product));
+        }
+
+
+        return view("eshop::backend.pages.product.index")
+            ->with('category', CategoryEshop::findOrFail($this->request->category))
+            ->with('product', ProductEshop::findOrFail($this->request->product));
 
     }
 

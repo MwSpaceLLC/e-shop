@@ -1,8 +1,9 @@
 <div class="col-xl-4 col-lg-4 col-md-6">
     <div class="card profile_card">
         <div class="card-body">
-            <div data-category="{{eshop()->category()->count()}}"
-                 data-product="{{eshop()->product()->count()}}"
+            <div data-product="{{eshop()->product()->count()}}"
+                 data-service="{{eshop()->service()->count()}}"
+                 data-category="{{eshop()->category()->count()}}"
                  data-tax="{{eshop()->tax()->count()}}"
                  data-media="{{eshop()->media()->count()}}"
                  id="catalogue-chart"></div>

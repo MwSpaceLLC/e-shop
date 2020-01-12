@@ -1,7 +1,8 @@
 <table class="table mb-0 table-responsive-sm">
-    <tbody id="sortableModels" data-model="Product">
+    <tbody id="sortableModels" data-model="Product" data-success="Posizione aggiornata"
+           data-error="Errore durante l'aggiornamento delle posizioni">
     @foreach($category->product()->get() as $product)
-        <tr data-id="{{$product->id}}">
+        <tr data-id="{{$product->id}}" class="sortableItem">
             <td>
                 <span class="sold-thumb bg-dark"><i class="fas fa-box"></i></span>
             </td>
@@ -30,10 +31,6 @@
                         class="fab fa-facebook"></i>
                 </td>
             @endif
-            <td data-tippy-content="{{isset($product->payload()->publish['www'])?'Pubblicato':'Non pubblicato'}}"
-                class="text-{{isset($product->payload()->publish['www'])?'success':'danger'}}"><i
-                    class="fab fa-edge"></i>
-            </td>
             @if(eshop()->option('amazon'))
                 <td data-tippy-content="{{isset($product->payload()->publish['alibaba'])?'Pubblicato':'Non pubblicato'}}">
                     <svg style="margin: unset" t="1578448004054" class="icon" viewBox="0 0 1041 1024" version="1.1"
@@ -50,8 +47,13 @@
                 </td>
             @endif
 
+            <td data-tippy-content="{{$product->enable?'Pubblicato':'Non pubblicato'}}"
+                class="text-{{$product->enable?'success':'danger'}}"><i
+                    class="fab fa-edge"></i>
+            </td>
+
             <td>
-                <h4 class="text-black-50">{{$product->getPayload('name')}}</h4>
+                <h4 class="text-black-50">{{$product->name}}</h4>
             </td>
 
             <td>
@@ -59,7 +61,7 @@
             </td>
 
             <td>
-                <h3>{{$product->getPayload('price')}} <i class="fas fa-euro-sign"></i></h3>
+                <h3>{{$product->price}} <i class="fas fa-euro-sign"></i></h3>
             </td>
 
             <td class="text-warning">{{$product->created_at}}</td>

@@ -33,8 +33,6 @@ class CreateEshopNotificationsTable extends Migration
                 ->references('id')
                 ->on('eshop_admins')->onDelete('cascade');
 
-            $table->json('payload')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
 

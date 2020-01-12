@@ -22,7 +22,14 @@ class CreateEshopAdminsTable extends Migration
         Schema::create('eshop_admins', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->json('payload')->nullable();
+            // Dataset (Dati utilizzabili fissi)
+            $table->boolean('enable')->default(true);
+            $table->string('role')->default('admin');
+            $table->string('name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('email')->unique();
+            $table->longText('token')->unique();
 
             $table->rememberToken();
             $table->timestamps();

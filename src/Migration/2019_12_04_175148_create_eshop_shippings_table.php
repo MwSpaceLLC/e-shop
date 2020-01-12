@@ -43,7 +43,7 @@ class CreateEshopShippingsTable extends Migration
                 ->references('id')
                 ->on('eshop_orders');
 
-            $table->json('payload')->nullable();
+            $table->json('shippo')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

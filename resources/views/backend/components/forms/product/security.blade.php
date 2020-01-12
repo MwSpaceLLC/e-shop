@@ -1,0 +1,45 @@
+<form action="{{backend("model/update/Category/{$category->id}")}}" method="post"> @csrf
+    <div class="row">
+        <div class="col-md-4 offset-md-8">
+            <button type="submit" class="btn btn-outline-success px-4">
+                Aggiorna impostazioni
+            </button>
+        </div>
+    </div>
+
+    <hr class="hr-light">
+
+    <div class="form">
+        <ul class="linked_account payloads">
+            <li class="mt-2">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="fas fa-user-tag"></i>
+                            </span>
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1">Accesso alla categoria</h5>
+                                <select class="form-control" name="payload[role]">
+                                    <option
+                                        {{$category->getPayload('role') == 'public'?'selected':''}} value="public">
+                                        Pubblica
+                                    </option>
+                                    <option
+                                        {{$category->getPayload('role') == 'user'?'selected':''}} value="user">
+                                        Utenti
+                                    </option>
+                                    <option
+                                        {{$category->getPayload('role') == 'admin'?:''}} value="admin">
+                                        Admin
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</form>

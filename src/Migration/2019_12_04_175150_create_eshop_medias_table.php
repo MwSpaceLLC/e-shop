@@ -50,7 +50,10 @@ class CreateEshopMediasTable extends Migration
                 ->references('id')
                 ->on('eshop_admins');
 
-            $table->json('payload')->nullable();
+            // Dataset (Dati utilizzabili fissi)
+            $table->string('name')->nullable();
+            $table->string('path');
+            $table->string('type')->default('image');
 
             $table->timestamps();
             $table->softDeletes();

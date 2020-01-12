@@ -53,3 +53,42 @@ tr {
     background: #F2F6FE;
     animation: 1s;
 }
+
+.draggable {
+    cursor: grab;
+    cursor: -webkit-grab;
+    display: inline-block;
+}
+
+.sortableItem {
+    opacity: 1.0;
+    -moz-opacity: 1.0;
+    filter: alpha(opacity=100);
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome, Opera and Firefox */
+}
+
+.draggable:active * {
+    cursor: grabbing !important;
+    cursor: -webkit-grabbing !important;
+    display: inline-block;
+}
+
+.sortable-fallback {
+    visibility: hidden;
+}
+
+[draggable=true], [draggable=true] > td > h4, [draggable=true] > td > * {
+    color: white !important;
+}
+
+video {
+    object-fit: cover;
+    width: 100%;
+}

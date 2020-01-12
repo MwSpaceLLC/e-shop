@@ -28,7 +28,10 @@ class CreateEshopTaxesTable extends Migration
                 ->references('id')
                 ->on('eshop_admins');
 
-            $table->json('payload')->nullable();
+            // Dataset (Dati utilizzabili fissi)
+            $table->string('name');
+            $table->decimal('rate')->default(1000);
+            $table->boolean('excluding')->default(false);
 
             $table->timestamps();
             $table->softDeletes();
