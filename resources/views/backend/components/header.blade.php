@@ -36,8 +36,8 @@
                                     <a href="settings.html" class="dropdown-item">
                                         <i class="la la-cog"></i> Setting
                                     </a>
-                                    <a href="lock.html" class="dropdown-item">
-                                        <i class="la la-lock"></i> Lock
+                                    <a href="/" class="dropdown-item" target="_blank">
+                                        <i class="far fa-window-maximize"></i> Front End
                                     </a>
                                     <a href="{{route('eshop-logout')}}" class="dropdown-item logout">
                                         <i class="la la-sign-out"></i> Logout

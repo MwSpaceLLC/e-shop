@@ -67,7 +67,7 @@ class ProductEshop extends Model
      */
     public function category()
     {
-        return $this->belongsTo(CategoryEshop::class);
+        return $this->belongsTo(CategoryEshop::class, 'category_id');
     }
 
     /**
@@ -84,10 +84,10 @@ class ProductEshop extends Model
      */
     public function image()
     {
-        if (isset($this->payload()->image))
-            return Storage::disk(config('e-shop.disk'))->url($this->payload()->image);
+        if ($image = $this->media()->first())
+            return Storage::disk(config('e-shop.disk'))->url($image->path);
 
-        return asset("vendor/eshop/assets/img/file.png");
+        return asset("vendor/eshop/assets/img/photo.png");
     }
 
     /**
