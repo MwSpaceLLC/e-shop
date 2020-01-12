@@ -39,7 +39,12 @@ class InstallCommand extends Command
     public function handle()
     {
         try {
+
             DB::connection()->getPdo();
+            if (Schema::hasTable('eshop_admins'))
+                if (AdminEshop::first())
+                    return $this->error("e-shop system already mounted");
+
         } catch (\Exception $e) {
             return $this->error("Set Database (postgres) Before Instal e-shop");
         }
@@ -49,9 +54,6 @@ class InstallCommand extends Command
 
         $this->comment('Perform e-shop Migration...');
         $this->callSilent('migrate');
-
-        if (AdminEshop::where('email', $email)->first())
-            return $this->error("Super User already exist in e-shop");
 
         $this->comment('Popolate e-shop root Superuser...');
         $this->createRoot($email);

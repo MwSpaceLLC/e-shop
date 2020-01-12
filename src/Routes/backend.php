@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{page?}', 'Backend\Page\ViewController')->name('eshop-backend');
-
 Route::post('/model/insert/{model}', 'Backend\Model\InsertController')->name('eshop-model-insert');
 
 Route::post('/model/update/{model}/{id}', 'Backend\Model\UpdateController')->name('eshop-model-update');
@@ -36,6 +34,12 @@ Route::get('/category/{id}/services', 'Backend\Model\ViewServicesController')->n
 Route::get('/category/{id}/{page?}', 'Backend\Model\EditCategoryController')->name('eshop-edit-category');
 
 Route::get('/category/{category}/product/{product}/{page?}', 'Backend\Model\EditProductController')->name('eshop-edit-product');
+
+Route::get('/category/{category}/service/{service}/{page?}', 'Backend\Model\EditServiceController')->name('eshop-edit-service');
+
+Route::get('/settings/{page?}', 'Backend\Setting\ViewController')->name('eshop-edit-settings');
+
+Route::get('/{page?}', 'Backend\Page\ViewController')->name('eshop-backend');
 
 /*
 | e-shop Option & Config

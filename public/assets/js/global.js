@@ -83,3 +83,9 @@ if (sortableModels) {
         }
     });
 }
+
+
+/* data-selected Fix multiple select */
+document.querySelectorAll('[data-selected]').forEach(e => {
+    e.value = e.dataset.selected
+});

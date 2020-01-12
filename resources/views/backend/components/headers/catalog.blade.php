@@ -57,10 +57,10 @@
                 </ul>
                 <div class="tab-content tab-content-default">
                     <div class="tab-pane fade active show" id="Category" role="tabpanel">
-                        @include('eshop::backend.components.forms.newCategory')
+                        @include('eshop::backend.components.forms.catalog.newCategory')
                     </div>
                     <div class="tab-pane fade" id="Tax">
-                        @include('eshop::backend.components.forms.newTax')
+                        @include('eshop::backend.components.forms.catalog.newTax')
                     </div>
                 </div>
             </div>

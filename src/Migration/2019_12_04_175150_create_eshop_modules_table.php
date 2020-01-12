@@ -29,6 +29,7 @@ class CreateEshopModulesTable extends Migration
                 ->on('eshop_admins');
 
             $table->boolean('enable')->default(true);
+            $table->string('role')->default('user');
 
             $table->timestamps();
             $table->softDeletes();

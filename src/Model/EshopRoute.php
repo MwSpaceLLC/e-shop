@@ -17,11 +17,14 @@ use Illuminate\Support\Facades\Route;
 class EshopRoute extends \stdClass
 {
     /**
-     * @param $model
-     * @return string
+     * @param $routename
+     * @return bool
      */
-    public function product($model)
+    public function is($routename)
     {
-        return \backend("api/new/product/$model");
+        if (is_array($routename))
+            return in_array(request()->route()->getName(), $routename);
+
+        return request()->route()->getName() === $routename;
     }
 }

@@ -38,10 +38,10 @@ class CreateEshopServicesTable extends Migration
             $table->string('name');
             $table->decimal('price');
             $table->longText('info')->nullable();
+            $table->string('interval')->nullable();
             $table->longText('description')->nullable();
             $table->boolean('enable')->default(true);
-            $table->string('view')->default('public');
-            $table->string('interval')->nullable();
+            $table->string('role')->default('public');
 
             $table->timestamps();
             $table->softDeletes();

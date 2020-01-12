@@ -23,6 +23,7 @@ use \MwSpace\Eshop\Http\Controller\BaseController as Base;
 use MwSpace\Eshop\Model\ShippingEshop;
 use MwSpace\Eshop\Model\TaxEshop;
 use MwSpace\Eshop\Model\UserEshop;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Class InsertController
@@ -37,55 +38,36 @@ class InsertController extends Base
     {
         $this->model = $this->newModel();
 
-        if (
-            $this->model instanceof CategoryEshop ||
-            $this->model instanceof ServiceEshop ||
-            $this->model instanceof ProductEshop ||
-            $this->model instanceof MediaEshop
-        )
+        if (Schema::hasColumn($this->model->getTable(), 'admin_id'))
+            $this->model->admin_id = eshop()->auth()->admin()->id;
+
+        if (Schema::hasColumn($this->model->getTable(), 'index'))
             $this->model->index = $this->model->count() + 1;
 
-        if ($this->model instanceof CategoryEshop)
-            $this->model->tax_id = $this->request->tax_id ?? null;
+        if ($this->request->tax_id)
+            $this->model->tax_id = $this->request->tax_id;
 
-        if (
-            $this->model instanceof ProductEshop ||
-            $this->model instanceof ServiceEshop
-        )
-            $this->model->category_id = $this->request->category_id ?? null;
+        if ($this->request->category_id)
+            $this->model->category_id = $this->request->category_id;
 
-        if ($this->model instanceof MediaEshop) {
+        if ($this->request->service_id)
+            $this->model->service_id = $this->request->service_id;
 
+        if ($this->request->product_id)
+            $this->model->product_id = $this->request->product_id;
+
+        if ($this->model instanceof MediaEshop)
             if ($this->request->payload['path'] instanceof \Illuminate\Http\UploadedFile)
                 $this->request->payload = array_merge($this->request->payload, ['path' => $this->storage->put("media", $this->request->payload['path'])]);
-
-            $this->model->admin_id = eshop()->auth()->admin()->id;
-            $this->model->service_id = $this->request->service_id ?? null;
-            $this->model->product_id = $this->request->product_id ?? null;
-            $this->model->category_id = $this->request->category_id ?? null;
-        }
-
-        if (
-            !$this->model instanceof PaymentEshop ||
-            !$this->model instanceof ConfigEshop ||
-            !$this->model instanceof OptionEshop ||
-            !$this->model instanceof OrderEshop ||
-            !$this->model instanceof CartEshop ||
-            !$this->model instanceof UserEshop ||
-            !$this->model instanceof ShippingEshop
-        )
-            $this->model->admin_id = eshop()->auth()->admin()->id;
 
         // Mount Static Data in to index
         foreach ($this->request->payload as $key => $payload) {
             $this->model->$key = $payload;
         }
 
-//        dd($this->request->payload);
-
         $this->model->save();
 
-        return back()->with('success', "{{$this->model->name}} inserito con successo!");
+        return back()->with('success','Record inserito correttamente');
     }
 
 }

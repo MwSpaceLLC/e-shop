@@ -131,7 +131,7 @@ class GlobalController extends Base
 
         $customer = \Stripe\Customer::retrieve($stripe->customer);
 
-        if (!$user = eshop()->user()->where('payload->email', $customer->email)->first())
+        if (!$user = eshop()->user()->where('email', $customer->email)->first())
             $user = eshop()->user()->create([
                 'payload' => json_encode([
                     'role' => 'visitor',
@@ -141,7 +141,7 @@ class GlobalController extends Base
                 ])
             ]);
 
-        if (!$order = eshop()->order()->where('payload->stripe->id', $stripe->id)->first())
+        if (!$order = eshop()->order()->where('stripe->id', $stripe->id)->first())
             $order = eshop()->order()->create([
                 'payload' => json_encode([
                     'user_id' => $user->id,

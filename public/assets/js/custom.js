@@ -1,34 +1,3 @@
-toastr.success("Complete your payment to make it easier to exchange", "Complete your payment!", {
-    // timeOut: 500000,
-    closeButton: !0,
-    debug: !1,
-    newestOnTop: !0,
-    progressBar: !0,
-    positionClass: "toast-top-right demo_rtl_class",
-    preventDuplicates: !0,
-    onclick: null,
-    showDuration: "300",
-    hideDuration: "1000",
-    extendedTimeOut: "1000",
-    showEasing: "swing",
-    hideEasing: "linear",
-    showMethod: "fadeIn",
-    hideMethod: "fadeOut",
-    tapToDismiss: !1,
-    closeHtml: '<div class="circle_progress"></div><span class="progress_count"></span> <i class="la la-close"></i> <a href="#">Suggest</a>'
-});
-
-$('.toast-success').circleProgress({
-    value: 0.8,
-    size: 80,
-    thickness: 10,
-    fill: {
-        gradient: ["#FE9431"]
-    }
-}).on('circle-animation-progress', function (event, progress) {
-    $(this).find('.progress_count').html(Math.round(80 * progress) + '<i>%</i>');
-});
-
 (function ($) {
 
     if (document.getElementById("timeline-chart")) {

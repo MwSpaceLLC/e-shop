@@ -50,7 +50,18 @@ class MediaEshop extends Model
      * @var array
      */
     protected $fillable = [
-        'payload',
+        'index',
+        'admin_id',
+        'service_id',
+        'product_id',
+        'category_id',
+        'user_id',
+        'name',
+        'path',
+        'type',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -63,10 +74,10 @@ class MediaEshop extends Model
 
     public function path()
     {
-        if (!isset($this->payload()->path))
+        if (!$this->path)
             return url('vendor/eshop/assets/img/photo.png');
 
-        return Storage::disk(config('e-shop.disk'))->url($this->payload()->path);
+        return Storage::disk(config('e-shop.disk'))->url($this->path);
     }
 
     /**

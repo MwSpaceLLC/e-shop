@@ -11,10 +11,10 @@
             <div class="col-xl-6">
                 <div class="footer-social">
                     <ul>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#!"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#!"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#!"><i class="fab fa-youtube"></i></a></li>
                     </ul>
                 </div>
             </div>

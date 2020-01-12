@@ -92,3 +92,17 @@ video {
     object-fit: cover;
     width: 100%;
 }
+
+.fa-info-circle {
+    cursor: help !important;
+}
+
+.nice-select.open .list {
+    max-height: 350px;
+    overflow: auto;
+}
+
+.fa-external-link-alt {
+    color: #f6906a;
+    cursor: pointer;
+}

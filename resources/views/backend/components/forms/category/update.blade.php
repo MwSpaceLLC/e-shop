@@ -22,7 +22,7 @@
                                 <h5 class="mt-0 mb-1">Nome</h5>
                                 <input type="text" class="form-control"
                                        name="payload[name]"
-                                       value="{{$category->payload()->name}}">
+                                       value="{{$category->name}}">
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Descrizione Breve</h5>
                                 <textarea class="form-control"
-                                          name="payload[info]">{{$category->payload()->info}}</textarea>
+                                          name="payload[info]">{{$category->info}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Descrizione Dettagliata</h5>
                                 <textarea class="form-control tiny"
-                                          name="payload[description]">{{$category->payload()->description}}</textarea>
+                                          name="payload[description]">{{$category->description}}</textarea>
                             </div>
                         </div>
                     </div>

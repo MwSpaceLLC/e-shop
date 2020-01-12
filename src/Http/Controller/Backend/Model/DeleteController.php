@@ -33,7 +33,7 @@ class DeleteController extends Base
 
         $this->model->delete();
 
-        return back()->with('success', "Il modello è stato eliminato!");
+        return back()->with('success', "Record eliminato correttamente");
 
     }
 

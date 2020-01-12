@@ -16,7 +16,7 @@
             <div class="form-group" data-tippy-content="Tipo di File">
                 <div class="input-group mb-3">
                     <select class="form-control select-mime" name="payload[type]">
-                        @if(!$product->media()->where('payload->type','cover')->first())
+                        @if(!$product->media()->where('type','cover')->first())
                             <option value="cover">Cover</option>
                         @endif
                         <option value="image">Immagine</option>
@@ -42,7 +42,7 @@
         <ul class="linked_account payloads">
             <li class="mt-2">
                 <div class="row">
-                    @if($cover = $product->media()->where('payload->type','cover')->first())
+                    @if($cover = $product->media()->where('type','cover')->first())
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="blog-grid">
                                 <div class="card">
@@ -50,7 +50,7 @@
                                     <div class="card-body"></div>
                                     <div class="card-footer">
                                         <div class="meta-info">
-                                            <span class="badge badge-dark">Tipo: {{$cover->payload()->type}}</span>
+                                            <span class="badge badge-dark">Tipo: {{$cover->type}}</span>
                                             <a href="{{backend("model/delete/Media/{$cover->id}")}}"
                                                class="post-date"><i class="la la-trash"></i>Rimuovi</a>
                                         </div>
@@ -61,14 +61,14 @@
                     @endif
                     @foreach($product->media()->orderBy('created_at','desc')->get() as $media)
 
-                        @if($media->payload()->type !== 'cover')
+                        @if($media->type !== 'cover')
                             <div class="col-xl-4 col-lg-4 col-md-6">
                                 <div class="blog-grid">
                                     <div class="card">
-                                        @if($media->payload()->type === 'image')
+                                        @if($media->type === 'image')
                                             <img class="img-fluid contain" src="{{$media->path()}}" alt="">
                                         @endif
-                                        @if($media->payload()->type === 'video')
+                                        @if($media->type === 'video')
                                             <video playsinline autoplay muted loop>
                                                 <source src="{{$media->path()}}"
                                                         type="video/{{pathinfo($media->path(), PATHINFO_EXTENSION)}}">
@@ -77,7 +77,7 @@
                                         <div class="card-body"></div>
                                         <div class="card-footer">
                                             <div class="meta-info">
-                                                <span class="badge badge-light">Tipo: {{$media->payload()->type}}</span>
+                                                <span class="badge badge-light">Tipo: {{$media->type}}</span>
                                                 <a href="{{backend("model/delete/Media/{$media->id}")}}"
                                                    class="post-date"><i class="la la-trash"></i>Rimuovi</a>
                                             </div>

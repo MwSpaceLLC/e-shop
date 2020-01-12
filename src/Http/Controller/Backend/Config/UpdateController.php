@@ -29,7 +29,7 @@ class UpdateController extends Base
      */
     public function __invoke()
     {
-        foreach ($this->request->keys as $key => $value) {
+        foreach ($this->request->payload as $key => $value) {
             if (!$config = ConfigEshop::where('key', $key)->first())
                 $config = new ConfigEshop();
 
@@ -42,11 +42,9 @@ class UpdateController extends Base
 
             } else $config->value = is_array($value) ? json_encode($value) : $value;
 
-//            dd($config);
-
             $config->save();
         }
 
-        return back()->with('success', "{$config->key} | has been updated succesfull!");
+        return back()->with('success', "Impostazioni aggiornate con successo!");
     }
 }

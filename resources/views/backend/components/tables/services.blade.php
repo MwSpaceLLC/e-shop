@@ -7,8 +7,8 @@
                 <span class="sold-thumb bg-dark"><i class="fas fa-box"></i></span>
             </td>
 
-            <td data-tippy-content="{{$service->view?'Pubblicato':'Non pubblicato'}}"
-                class="text-{{$service->view?'success':'danger'}}"><i
+            <td data-tippy-content="{{$service->enable?'Pubblicato':'Non pubblicato'}}"
+                class="text-{{$service->enable?'success':'danger'}}"><i
                     class="fab fa-edge"></i>
             </td>
 
@@ -17,7 +17,7 @@
             </td>
 
             <td>
-                <span class="badge badge-primary">Intervallo: {{$service->interval??'Nessuno'}}</span>
+                <span class="badge badge-primary">Intervallo: <b>{{$service->interval??'Nessuno'}}</b> </span>
             </td>
 
             <td>

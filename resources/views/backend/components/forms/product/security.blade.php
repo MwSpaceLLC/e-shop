@@ -1,4 +1,4 @@
-<form action="{{backend("model/update/Category/{$category->id}")}}" method="post"> @csrf
+<form action="{{backend("model/update/Product/{$product->id}")}}" method="post"> @csrf
     <div class="row">
         <div class="col-md-4 offset-md-8">
             <button type="submit" class="btn btn-outline-success px-4">
@@ -20,17 +20,14 @@
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Accesso alla categoria</h5>
-                                <select class="form-control" name="payload[role]">
-                                    <option
-                                        {{$category->getPayload('role') == 'public'?'selected':''}} value="public">
+                                <select data-selected="{{$product->role}}" class="form-control" name="payload[role]">
+                                    <option value="public">
                                         Pubblica
                                     </option>
-                                    <option
-                                        {{$category->getPayload('role') == 'user'?'selected':''}} value="user">
+                                    <option value="user">
                                         Utenti
                                     </option>
-                                    <option
-                                        {{$category->getPayload('role') == 'admin'?:''}} value="admin">
+                                    <option value="admin">
                                         Admin
                                     </option>
                                 </select>

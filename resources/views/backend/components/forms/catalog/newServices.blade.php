@@ -28,7 +28,7 @@
                 </label>
             </div>
             <select class="form-control" name="payload[interval]">
-                <option selected disabled> Non Ricorrente</option>
+                <option value="unless"> Non Ricorrente</option>
                 <option value="month"> Mensile</option>
                 <option value="year"> Annuale</option>
                 <option value="week"> Settimanale</option>

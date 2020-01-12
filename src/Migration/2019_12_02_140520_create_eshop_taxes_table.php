@@ -32,6 +32,7 @@ class CreateEshopTaxesTable extends Migration
             $table->string('name');
             $table->decimal('rate')->default(1000);
             $table->boolean('excluding')->default(false);
+            $table->boolean('enable')->default(true);
 
             $table->timestamps();
             $table->softDeletes();

@@ -20,17 +20,14 @@
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Accesso alla categoria</h5>
-                                <select class="form-control" name="payload[role]">
-                                    <option
-                                        {{$category->getPayload('role') == 'public'?'selected':''}} value="public">
+                                <select data-selected="{{$category->role}}" class="form-control" name="payload[role]">
+                                    <option value="public">
                                         Pubblica
                                     </option>
-                                    <option
-                                        {{$category->getPayload('role') == 'user'?'selected':''}} value="user">
+                                    <option value="user">
                                         Utenti
                                     </option>
-                                    <option
-                                        {{$category->getPayload('role') == 'admin'?:''}} value="admin">
+                                    <option value="admin">
                                         Admin
                                     </option>
                                 </select>

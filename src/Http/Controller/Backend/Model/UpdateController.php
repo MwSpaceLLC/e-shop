@@ -30,30 +30,20 @@ class UpdateController extends Base
     {
         $this->model = $this->findModel();
 
-        if ($this->model instanceof CategoryEshop)
-            $this->model->tax_id = $this->request->tax_id ?? $this->model->tax_id;
+        if ($this->request->tax_id)
+            $this->model->tax_id = $this->request->tax_id;
 
-        if ($this->model instanceof ProductEshop)
-            $this->model->category_id = $this->request->category_id ?? $this->model->category_id;
+        if ($this->request->category_id)
+            $this->model->category_id = $this->request->category_id;
 
-        if ($this->model instanceof MediaEshop) {
-
-            dd($this->request->payload);
-
-            if ($this->request->payload['path'] instanceof \Illuminate\Http\UploadedFile)
-                $this->request->payload = array_merge($this->request->payload, ['path' => $this->storage->put("media", $this->request->payload['path'])]);
-
-            $this->model->admin_id = eshop()->auth()->admin()->id;
-            $this->model->service_id = $this->request->service_id ?? $this->model->service_id;
-            $this->model->product_id = $this->request->product_id ?? $this->model->product_id;
-            $this->model->category_id = $this->request->category_id ?? $this->model->category_id;
+        // Mount Static Data in to index
+        foreach ($this->request->payload as $key => $payload) {
+            $this->model->$key = $payload;
         }
-
-        $this->model->payload = array_merge(json_decode($this->model->payload, true), $this->request->payload);
 
         $this->model->save();
 
-        return back()->with('success', "Il modello è stato aggiornato con successo!");
+        return back()->with('success','Record aggiornato correttamente');
 
     }
 

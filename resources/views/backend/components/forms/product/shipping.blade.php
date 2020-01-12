@@ -20,10 +20,10 @@
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Lunghezza</h5>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control price"
                                        name="payload[length]"
                                        placeholder="30"
-                                       value="{{$product->getPayload('length')}}">
+                                       value="{{$product->length}}">
                             </div>
                         </div>
                     </div>
@@ -38,10 +38,10 @@
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Larghezza</h5>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control price"
                                        name="payload[width]"
                                        placeholder="30"
-                                       value="{{$product->getPayload('width')}}">
+                                       value="{{$product->width}}">
                             </div>
                         </div>
                     </div>
@@ -56,10 +56,10 @@
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Altezza</h5>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control price"
                                        name="payload[height]"
                                        placeholder="30"
-                                       value="{{$product->getPayload('height')}}">
+                                       value="{{$product->height}}">
                             </div>
                         </div>
                     </div>
@@ -72,9 +72,10 @@
                             <span class="mr-3">
                                 <i class="fas fa-calculator"></i>
                             </span>
-                            <div class="media-body" data-tippy-content='"cm""in""ft""mm""m""yd"'>
+                            <div class="media-body">
                                 <h5 class="mt-0 mb-1">Unità di misura delle grandezze</h5>
-                                <select class="form-control" name="payload[distance_unit]">
+                                <select data-selected="{{$product->distance_unit}}" class="form-control"
+                                        name="payload[distance_unit]">
                                     <option value="cm"> Centimetri</option>
                                     <option value="in"> Pollici</option>
                                     <option value="mm"> Millimetri</option>
@@ -95,10 +96,10 @@
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Peso</h5>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control price"
                                        name="payload[weight]"
                                        placeholder="30"
-                                       value="{{$product->getPayload('weight')}}">
+                                       value="{{$product->weight}}">
                             </div>
                         </div>
                     </div>
@@ -113,7 +114,8 @@
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Unità di misura del peso</h5>
-                                <select class="form-control" name="payload[mass_unit]">
+                                <select data-selected="{{$product->mass_unit}}" class="form-control"
+                                        name="payload[mass_unit]">
                                     <option value="g"> Grammi</option>
                                     <option value="oz"> Once</option>
                                     <option value="lb"> Libre</option>

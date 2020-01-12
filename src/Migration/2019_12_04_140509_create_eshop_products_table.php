@@ -40,6 +40,7 @@ class CreateEshopProductsTable extends Migration
             $table->longText('info')->nullable();
             $table->longText('description')->nullable();
             $table->boolean('enable')->default(true);
+            $table->string('role')->default('public');
 
             $table->decimal('length')->default(0);
             $table->decimal('width')->default(0);

@@ -40,6 +40,7 @@ class CreateEshopCategoriesTable extends Migration
             $table->longText('info')->nullable();
             $table->longText('description')->nullable();
             $table->boolean('enable')->default(true);
+            $table->string('role')->default('public');
 
             $table->timestamps();
             $table->softDeletes();

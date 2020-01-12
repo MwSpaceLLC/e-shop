@@ -53,7 +53,7 @@
                 </ul>
                 <div class="tab-content tab-content-default">
                     <div class="tab-pane fade active show" id="Service">
-                        @include('eshop::backend.components.forms.newServices')
+                        @include('eshop::backend.components.forms.catalog.newServices')
                     </div>
                 </div>
             </div>

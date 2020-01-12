@@ -16,7 +16,7 @@
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <label class="input-group-text">
-                    <i class="fas fa-comment-dollar"></i>
+                    <i class="fas fa-balance-scale-right"></i>
                 </label>
             </div>
             <select class="form-control" name="tax_id">

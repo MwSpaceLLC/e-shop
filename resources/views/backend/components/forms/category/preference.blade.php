@@ -20,13 +20,13 @@
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Stato</h5>
-                                <select class="form-control" name="payload[status]">
+                                <select class="form-control" name="payload[enable]">
                                     <option
-                                        {{$category->getPayload('status') == 'enable'?:''}} value="enable">
+                                        {{$category->enable?'selected':''}} value="1">
                                         Abilitata
                                     </option>
                                     <option
-                                        {{$category->getPayload('status') == 'disable'?'selected':''}} value="disable">
+                                        {{!$category->enable?'selected':''}} value="0">
                                         Disabilitata
                                     </option>
                                 </select>
@@ -40,19 +40,16 @@
                     <div class="col-9">
                         <div class="media">
                             <span class="mr-3">
-                                <i class="fas fa-comment-dollar"></i>
+                                <i class="fas fa-balance-scale-right"></i>
                             </span>
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">Tassa Categoria</h5>
-                                <select class="form-control" name="tax_id">
-                                    @forelse(eshop()->tax()->all() as $tax)
-                                        <option {{$tax->id == $category->tax_id?'selected':null}} value="{{$tax->id}}">
-                                            {{$tax->payload()->name}} | {{$tax->payload()->rate}}
-                                            ({{$tax->payload()->position}})
+                                <select data-selected="{{$category->tax_id}}" class="form-control" name="tax_id">
+                                    @foreach(eshop()->tax()->all() as $tax)
+                                        <option value="{{$tax->id}}">
+                                            {{$tax->name}} | {{$tax->rate}} ({{$tax->excluding?'Esclusa':'Inclusa'}})
                                         </option>
-                                    @empty
-                                        <option selected disabled>--- nessuna ---</option>
-                                    @endforelse
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

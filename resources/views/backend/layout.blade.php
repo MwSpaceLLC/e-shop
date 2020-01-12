@@ -80,8 +80,8 @@ We made this e-commerce Laravel Plugin with Love ❤ | ux (envato / quixlab) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"
             integrity="sha256-Hhwv1ElzvrH6ZuiIDWEO6xBYW3lmFYrapwcjgXhpL6g=" crossorigin="anonymous"></script>
 
-    <script defer src="{{asset('vendor/eshop/assets/js/custom.js')}}"></script>
     <script defer src="{{asset('vendor/eshop/assets/js/global.js')}}"></script>
+    <script defer src="{{asset('vendor/eshop/assets/js/custom.js')}}"></script>
 </head>
 
 <body>
