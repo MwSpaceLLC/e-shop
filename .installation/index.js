@@ -2,7 +2,9 @@ require('dotenv').config()
 
 const bcrypt = require("bcryptjs");
 const crypto = require('crypto');
-const {prisma} = require("../lib/database");
+const {PrismaClient} = require('@prisma/client')
+
+const prisma = new PrismaClient({log: ['query']});
 
 /**
  |--------------------------------------------------------------------------
@@ -77,6 +79,28 @@ const {prisma} = require("../lib/database");
                 cover: '/crud/demo/categories/art.jpg',
                 thumbnail: '/crud/demo/categories/art.jpg',
                 description: 'Poster incorniciati e immagini vettoriali, tutto ciò che ti serve per dare personalità alle tue pareti o dare vita ai tuoi progetti creativi.',
+            }
+        })
+    )
+    console.log(
+        await prisma.category.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                name: 'LAVORO',
+                cover: '/crud/demo/categories/workspaces.jpg',
+                thumbnail: '/crud/demo/categories/workspaces.jpg',
+                description: 'Lo spazio di lavoro è un termine comunemente usato in vari ambiti dell\'ingegneria e in economia con due significati completamente differenti.',
+            }
+        })
+    )
+    console.log(
+        await prisma.category.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                name: 'OROLOGI',
+                cover: '/crud/demo/categories/clocks.jpg',
+                thumbnail: '/crud/demo/categories/clocks.jpg',
+                description: 'Oscillatore che genera un segnale di frequenza nota e stabile, dal quale si ricavano impulsi succedentisi a intervalli noti e stabili.',
             }
         })
     )

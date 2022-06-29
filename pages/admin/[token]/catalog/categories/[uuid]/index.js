@@ -2,7 +2,7 @@ import {useTranslation} from "next-i18next";
 import AdminAuthServerSideProps from "../../../../../../lib/props/AdminAuthServerSideProps";
 
 import AppLayout from "../../../../../../components/AppLayout";
-import useAdminToken from "../../../../../../hooks/useAdminToken";
+
 import {useRouter} from "next/router";
 import useSWR from "swr";
 import {fetcher} from "../../../../../../lib/function";
@@ -17,7 +17,40 @@ import axios from "axios";
 // This gets called on every request
 export const getServerSideProps = AdminAuthServerSideProps
 
-export default function AdminCatalog() {
+const notificationMethods = [
+    {id: 'email', title: 'Email'},
+    {id: 'sms', title: 'Phone (SMS)'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+    {id: 'push', title: 'Push notification'},
+]
+
+export default function AdminCatalogCategoryIndex() {
 
     const [loader, setLoader] = useState(false);
     const [confirm, setConfirm] = useState(false);
@@ -27,23 +60,31 @@ export default function AdminCatalog() {
     const cover = useRef();
     const thumbnail = useRef();
     const description = useRef();
+    const [parentId, setParentId] = useState(0);
 
-    const token = useAdminToken()
+    // const token = useAdminToken()
     const {t} = useTranslation();
 
     const router = useRouter()
-    const {uuid} = router.query
+    const {uuid, token} = router.query
 
-    const {data: category, error} = useSWR(`/api/crud/categories/${uuid}`, fetcher)
+    const {data: category} = useSWR(`/api/admin/${token}/catalog/categories/${uuid}`, fetcher)
+    const {data: categories} = useSWR(`/api/admin/${token}/catalog/categories`, fetcher)
 
     const Update = (e, inputs = []) => {
+
         e.preventDefault()
 
-        const credentials = {};
+        setLoader(true)
+
+        const dataset = {
+            parentId: parentId,
+            name: name.current.value,
+            description: description.current.value,
+        };
 
         axios
-            .post(`/api/login`, credentials)
-            .then(() => router.push('/account'))
+            .post(`/api/admin/${token}/catalog/categories/${uuid}/update`, dataset)
             .catch(({response}) => setRes(response))
             .finally(() => setLoader(false))
 
@@ -57,7 +98,7 @@ export default function AdminCatalog() {
                       className="mt-6 shadow bg-white shadow overflow-hidden sm:rounded-md px-8 py-8 space-y-8 divide-y divide-y-orange-200">
                     <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
 
-                        <div className="sm:col-span-6">
+                        <div className="sm:col-span-4">
                             <label htmlFor="photo" className="block text-sm font-bold text-orange-500">
                                 THUMBNAIL
                             </label>
@@ -121,14 +162,54 @@ export default function AdminCatalog() {
                             </div>
                         </div>
 
+                        {categories && (
+                            <div className="sm:col-span-2 h-56 px-2 overflow-auto">
+                                <label className="text-base font-medium text-gray-900">Categoria Genitore</label>
+                                <p className="text-sm leading-5 text-gray-500">Seleziona il livello superiore</p>
+                                <fieldset className="mt-4">
+                                    <legend className="sr-only">Notification method</legend>
+                                    <div className="space-y-4">
+                                        <div className="flex items-center">
+                                            <input
+                                                name="parent"
+                                                type="radio"
+                                                defaultChecked={!category.parentId}
+                                                onClick={() => setParentId(null)}
+                                                className="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300"
+                                            />
+                                            <label className="ml-3 block text-sm font-medium text-gray-700">
+                                                -home-
+                                            </label>
+                                        </div>
+                                        {categories.map((cat, idx) => cat.id !== category.id && (
+                                            <div key={idx} className="flex items-center">
+                                                <input
+                                                    onClick={() => setParentId(cat.id)}
+                                                    value={cat.id}
+                                                    name="parent"
+                                                    type="radio"
+                                                    defaultChecked={cat.id === category.parentId}
+                                                    className="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300"
+                                                />
+                                                <label htmlFor={cat.id}
+                                                       className="ml-3 block text-sm font-medium text-gray-700">
+                                                    {cat.name}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </fieldset>
+                            </div>
+                        )}
+
                         <div className="sm:col-span-3">
                             <label className="block text-sm text-orange-500 font-bold">
                                 NOME CATEGORIA
                             </label>
                             <input
                                 ref={name}
-                                onChange={e => Update(e.target)}
                                 type="text"
+                                key={category.name}
                                 defaultValue={category.name}
                                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm text-orange-gray-900 sm:text-sm focus:ring-orange-500 focus:border-orange-500"
                             />
@@ -161,6 +242,7 @@ export default function AdminCatalog() {
                                 rows={4}
                                 ref={description}
                                 className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-orange-500 focus:border-orange-500"
+                                key={category.description}
                                 defaultValue={category.description}
                             />
                             </div>
@@ -237,7 +319,7 @@ export default function AdminCatalog() {
                             type="submit"
                             className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                         >
-                            Save
+                            {loader ? '⚪⚪⚪' : 'Salva'}
                         </button>
                     </div>
                 </form>

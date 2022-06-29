@@ -9,13 +9,12 @@ import {prisma} from "../../../lib/database";
  |--------------------------------------------------------------------------
  */
 export default withApiSession(async (req, res) => {
-    if (req.method !== 'POST') return res.status("403").json({message: 'method not recognized'});
+    const {email, password, name} = req.session.confirm;
+
+    if (req.method !== 'POST' || !password || !email || !name || !req.body.code) return res.status("403").json();
 
     if (!req.session.confirm) return res.status("403").json({message: 'confirm code not set'})
     if (req.session.confirm.random !== parseInt(req.body.code)) return res.status("422").json({message: 'code mismatch'})
-
-    // get user data from reg
-    const {email, password, name} = req.session.confirm;
 
     const hash = bcrypt.hashSync(password, 10);
 

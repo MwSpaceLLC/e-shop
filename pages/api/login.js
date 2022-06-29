@@ -10,9 +10,9 @@ import {prisma} from "../../lib/database";
  |--------------------------------------------------------------------------
  */
 export default withApiSession(async (req, res) => {
-    if (req.method !== 'POST') return res.status("403").json();
-
     const {email, password} = req.body;
+
+    if (req.method !== 'POST' || !password || !email) return res.status("403").json();
 
     req.session.user = await prisma.user.findUnique({where: {email: email}})
 

@@ -19,7 +19,7 @@ import {useRouter} from "next/router";
 import Link from "next/link";
 import useAdminToken from "../hooks/useAdminToken";
 import {useTranslation} from "next-i18next";
-
+import {post} from "../lib/request";
 
 const user = {
     name: 'Lisa Marie',
@@ -27,29 +27,16 @@ const user = {
     imageUrl:
         'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80',
 }
-const navigation = [
-    {name: 'Dashboard', href: '#'},
-    {name: 'Jobs', href: '#'},
-    {name: 'Applicants', href: '#'},
-    {name: 'Company', href: '#'},
-]
-const userNavigation = [
-    {name: 'Your Profile', href: '#'},
-    {name: 'Settings', href: '#'},
-    {name: 'Sign out', href: '#'},
-]
-
-const settings = [
-    {name: 'Public access', description: 'This project would be available to anyone who has the link'},
-    {name: 'Private to Project Members', description: 'Only members of this project would be able to access'},
-    {name: 'Private to you', description: 'You are the only one able to access this project'},
-]
 
 export default function AppLayout({title, description, children}) {
 
     const router = useRouter()
     const token = useAdminToken()
     const {t} = useTranslation();
+
+    const userNavigation = [
+        {name: 'Disconnetti', onClick: () => post('/api/logout').then(data => window.location.reload())},
+    ]
 
     const subNavigation = [
         {name: 'Dashboard', href: `/admin/${token}`, icon: CreditCardIcon, current: router.route === '/admin/[token]'},
@@ -170,7 +157,8 @@ export default function AppLayout({title, description, children}) {
                                                         <Menu.Item key={item.name}>
                                                             {({active}) => (
                                                                 <a
-                                                                    href={item.href}
+                                                                    href="#"
+                                                                    onClick={item.onClick}
                                                                     className={classNames(
                                                                         active ? 'bg-gray-100' : '',
                                                                         'block py-2 px-4 text-sm text-gray-700 rounded-md'
@@ -212,7 +200,8 @@ export default function AppLayout({title, description, children}) {
                                             <Disclosure.Button
                                                 key={item.name}
                                                 as="a"
-                                                href={item.href}
+                                                href="#"
+                                                onClick={item.onClick}
                                                 className="block rounded-full py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                                             >
                                                 {item.name}

@@ -11,9 +11,7 @@ import bcrypt from "bcryptjs";
  */
 export default withApiSession(async (req, res) => {
 
-    const {token} = req.query;
-    const backendToken = process.env.ADMIN_BACKEND_TOKEN;
-    if (req.method !== 'POST' || backendToken !== token) return res.status("404").json();
+    if (process.env.ADMIN_BACKEND_TOKEN !== req.query.token || req.method !== 'POST') return res.status("403").json();
 
     /*
      | Logic apis

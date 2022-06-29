@@ -3,20 +3,26 @@ import {Fragment, useState} from 'react'
 import {ArchiveIcon, HeartIcon, XIcon} from '@heroicons/react/outline'
 
 import {CheckCircleIcon, ChevronRightIcon, MailIcon} from '@heroicons/react/solid'
-import useAdminToken from "../../hooks/useAdminToken";
+
 import {useTranslation} from "next-i18next";
 
 import useSWR from "swr";
 import {fetcher} from "../../lib/function";
 import Image from "next/image";
 import Link from "next/link";
+import {useRouter} from "next/router";
 
 export default function ViewCategories() {
 
-    const token = useAdminToken()
+    // const token = useAdminToken()
     const {t} = useTranslation();
 
-    const {data: categories, error} = useSWR('/api/crud/categories', fetcher)
+    const router = useRouter()
+    const {token} = router.query
+
+    const [like, setLike] = useState("")
+
+    const {data: categories, error} = useSWR(`/api/admin/${token}/catalog/categories?like=${like}`, fetcher)
 
     return (
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
@@ -29,7 +35,10 @@ export default function ViewCategories() {
                             Sfoglia le tue categorie e sottocategorie
                         </p>
                     </div>
-                    <div className="ml-4 mt-4 flex-shrink-0">
+                    <div className="ml-4 mt-4 flex gap-2">
+                        <input onChange={e => setLike(e.target.value)} type="search" placeholder="Cerca..."
+                               className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-orange-800 bg-orange-100 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"/>
+
                         <Link href={`/admin/${token}/catalog/categories/create`}>
                             <a className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
                                 Nuova categoria
@@ -43,7 +52,7 @@ export default function ViewCategories() {
                 <ul role="list" className="divide-y divide-gray-200">
                     {categories.map((category, idx) => (
                         <li key={idx}>
-                            <Link href={`/admin/${token}/catalog/categories/${category.uuid}`}>
+                            <Link href={`${window.location.pathname}/categories/${category.uuid}`}>
                                 <a className="block hover:bg-gray-50">
                                     <div className="flex items-center px-4 py-4 sm:px-6">
                                         <div className="min-w-0 flex-1 flex items-center">

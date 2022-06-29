@@ -11,9 +11,10 @@ import {prisma} from "../../lib/database";
  |--------------------------------------------------------------------------
  */
 export default withApiSession(async (req, res) => {
-    if (req.method !== 'POST') return res.status("403").json();
-
     const {name, email, password} = req.body;
+
+    if (req.method !== 'POST' || !password || !email || !name) return res.status("403").json();
+
     const random = Math.floor(100000 + Math.random() * 900000);
     const sendResponse = (message, status = 200) => res.status(status).json({message: message})
 

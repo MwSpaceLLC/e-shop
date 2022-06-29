@@ -50,6 +50,7 @@ export default function Login() {
             password: password.current.value
         };
 
+        // TODO: make auth
         axios
             .post(`/api/login`, credentials)
             .then(() => router.push('/account'))

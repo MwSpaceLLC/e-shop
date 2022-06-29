@@ -114,7 +114,7 @@ model Payment {
 
 model Product {
   id                Int        @id @default(autoincrement())
-  uuid              String     @db.Text
+  uuid              String     @unique @db.VarChar(255)
   createdAt         DateTime   @default(now()) @db.Timestamp(6)
 
   name              String     @db.VarChar(255)
@@ -234,9 +234,9 @@ model ProductTagLang {
 
 model Category {
   id                Int       @id @default(autoincrement())
-  uuid              String    @db.Text
+  uuid              String    @unique @db.VarChar(255)
   createdAt         DateTime  @default(now()) @db.Timestamp(6)
-  parentId          String?    @db.VarChar(255)
+  parentId          Int?     @default(0)
 
   name              String    @db.VarChar(255)
   description       String    @db.LongText

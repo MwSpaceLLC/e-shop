@@ -5,7 +5,7 @@ import AdminAuthServerSideProps from "../../../lib/props/AdminAuthServerSideProp
 // This gets called on every request
 export const getServerSideProps = AdminAuthServerSideProps
 
-export default function AdminPayment({loggedIn,token}) {
+export default function AdminPayment() {
 
     const {t} = useTranslation();
 
