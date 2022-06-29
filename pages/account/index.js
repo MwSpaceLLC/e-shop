@@ -6,12 +6,11 @@ import {RadioGroup, Switch} from "@headlessui/react";
 import {BellIcon, CogIcon, CreditCardIcon, KeyIcon, UserCircleIcon, ViewGridAddIcon} from "@heroicons/react/outline";
 import {useState} from "react";
 
+import {classNames} from "../../lib/function"
+
+
 // This gets called on every request
 export const getServerSideProps = AuthServerSideProps
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
 
 const subNavigation = [
     {name: 'Profile', href: '#', icon: UserCircleIcon, current: true},

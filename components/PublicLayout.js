@@ -1,5 +1,6 @@
 import {useTranslation} from "next-i18next";
-import {classNames} from "../lib/helpers";
+
+import {classNames} from "../lib/function"
 
 import {Fragment, useState} from 'react'
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'

@@ -1,16 +1,18 @@
 import {useTranslation} from "next-i18next";
-import AdminAuthServerSideProps from "../../../../../lib/props/AdminAuthServerSideProps";
+import AdminAuthServerSideProps from "../../../../../../lib/props/AdminAuthServerSideProps";
 
-import AppLayout from "../../../../../components/AppLayout";
-import useAdminToken from "../../../../../hooks/useAdminToken";
+import AppLayout from "../../../../../../components/AppLayout";
+import useAdminToken from "../../../../../../hooks/useAdminToken";
 import {useRouter} from "next/router";
 import useSWR from "swr";
-import {fetcher} from "../../../../../lib/function";
+import {fetcher} from "../../../../../../lib/function";
 
 import Image from "next/image";
 import slugify from "slugify";
-import {useState} from "react";
+import {useState, useRef} from "react";
 import Link from "next/link";
+import {post} from "../../../../../../lib/request";
+import axios from "axios";
 
 // This gets called on every request
 export const getServerSideProps = AdminAuthServerSideProps
@@ -19,7 +21,12 @@ export default function AdminCatalog() {
 
     const [loader, setLoader] = useState(false);
     const [confirm, setConfirm] = useState(false);
-    const [data, setData] = useState({});
+    const [res, setRes] = useState({});
+
+    const name = useRef();
+    const cover = useRef();
+    const thumbnail = useRef();
+    const description = useRef();
 
     const token = useAdminToken()
     const {t} = useTranslation();
@@ -29,16 +36,25 @@ export default function AdminCatalog() {
 
     const {data: category, error} = useSWR(`/api/crud/categories/${uuid}`, fetcher)
 
-    const Update = ({value}) => {
-        console.log(value)
+    const Update = (e, inputs = []) => {
+        e.preventDefault()
+
+        const credentials = {};
+
+        axios
+            .post(`/api/login`, credentials)
+            .then(() => router.push('/account'))
+            .catch(({response}) => setRes(response))
+            .finally(() => setLoader(false))
+
     }
 
     return (
         <AppLayout title="Modifica | Catalogo">
 
             {category && (
-                <div
-                    className="mt-6 shadow bg-white shadow overflow-hidden sm:rounded-md px-8 py-8 space-y-8 divide-y divide-y-orange-200">
+                <form onSubmit={Update}
+                      className="mt-6 shadow bg-white shadow overflow-hidden sm:rounded-md px-8 py-8 space-y-8 divide-y divide-y-orange-200">
                     <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
 
                         <div className="sm:col-span-6">
@@ -64,7 +80,7 @@ export default function AdminCatalog() {
                                             </button>
 
                                             <button
-                                                onClick={e => setConfirm(true)}
+                                                onClick={e => post(`${window.location.pathname}/delete`)}
                                                 type="button"
                                                 className="ml-3 bg-red-500 py-2 px-3 border border-transparent rounded-md text-sm font-medium text-white focus:outline-none focus:border-gray-300 focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-500"
                                             >
@@ -83,20 +99,21 @@ export default function AdminCatalog() {
                                                     <span className="sr-only"> user photo</span>
                                                 </label>
                                                 <input
-                                                    id="user-photo"
-                                                    name="user-photo"
                                                     type="file"
+                                                    ref={thumbnail}
                                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
                                                 />
                                             </div>
 
-                                            <button
-                                                onClick={e => setConfirm(true)}
-                                                type="button"
-                                                className="ml-3 bg-transparent py-2 px-3 border border-transparent rounded-md text-sm font-medium text-orange-gray-900 hover:text-orange-gray-700 focus:outline-none focus:border-gray-300 focus:ring-2 focus:ring-offset-2 focus:ring-offset-orange-gray-50 focus:ring-orange-500"
-                                            >
-                                                Rimuovi
-                                            </button>
+                                            {category.cover && (
+                                                <button
+                                                    onClick={e => setConfirm(true)}
+                                                    type="button"
+                                                    className="ml-3 bg-transparent py-2 px-3 border border-transparent rounded-md text-sm font-medium text-orange-gray-900 hover:text-orange-gray-700 focus:outline-none focus:border-gray-300 focus:ring-2 focus:ring-offset-2 focus:ring-offset-orange-gray-50 focus:ring-orange-500"
+                                                >
+                                                    Rimuovi
+                                                </button>
+                                            )}
                                         </>
                                     )}
 
@@ -109,6 +126,7 @@ export default function AdminCatalog() {
                                 NOME CATEGORIA
                             </label>
                             <input
+                                ref={name}
                                 onChange={e => Update(e.target)}
                                 type="text"
                                 defaultValue={category.name}
@@ -140,9 +158,8 @@ export default function AdminCatalog() {
                             </label>
                             <div className="mt-1">
                             <textarea
-                                id="description"
-                                name="description"
                                 rows={4}
+                                ref={description}
                                 className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-orange-500 focus:border-orange-500"
                                 defaultValue={category.description}
                             />
@@ -191,8 +208,7 @@ export default function AdminCatalog() {
                                             <span className="sr-only"> user photo</span>
                                         </label>
                                         <input
-                                            id="user-photo"
-                                            name="user-photo"
+                                            ref={cover}
                                             type="file"
                                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
                                         />
@@ -224,7 +240,7 @@ export default function AdminCatalog() {
                             Save
                         </button>
                     </div>
-                </div>
+                </form>
             )}
 
         </AppLayout>

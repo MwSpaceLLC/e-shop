@@ -5,16 +5,14 @@ import {
     MenuIcon,
     MinusSmIcon,
     PlusSmIcon,
-    SearchIcon,
-    ShoppingBagIcon,
-    UserIcon,
-    XIcon,
+
 } from '@heroicons/react/outline'
 import {StarIcon} from '@heroicons/react/solid'
-import AppLayout from "../../components/AppLayout";
+
 import PublicLayout from "../../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import Link from "next/link";
+import {classNames} from "../../lib/function"
 
 const navigation = {
     categories: [
@@ -275,10 +273,6 @@ const footerNavigation = {
         {name: 'FAQ', href: '#'},
         {name: 'Find a store', href: '#'},
     ],
-}
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
 }
 
 export default function Product({loggedIn}) {

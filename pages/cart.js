@@ -3,7 +3,6 @@ import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
 import {MenuIcon, SearchIcon, ShoppingBagIcon, XIcon as XIconOutline} from '@heroicons/react/outline'
 import {CheckIcon, ClockIcon, QuestionMarkCircleIcon, XIcon as XIconSolid} from '@heroicons/react/solid'
 
-import {classNames} from "../lib/helpers";
 import PublicLayout from "../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import PublicServerSideProps from "../lib/props/PublicServerSideProps";

@@ -3,6 +3,8 @@ import Head from "next/head";
 import {Fragment, useState} from 'react'
 import {Disclosure, Menu, RadioGroup, Transition} from '@headlessui/react'
 
+import {classNames} from "../lib/function"
+
 import {
     SearchIcon, TruckIcon,
     BellIcon,
@@ -42,10 +44,6 @@ const settings = [
     {name: 'Private to Project Members', description: 'Only members of this project would be able to access'},
     {name: 'Private to you', description: 'You are the only one able to access this project'},
 ]
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
 
 export default function AppLayout({title, description, children}) {
 
