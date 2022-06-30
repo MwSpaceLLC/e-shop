@@ -17,7 +17,13 @@ export default async function handler(req, res) {
     // concatenate query if exists on request like
     if (req.query.category) query = {
         ...query,
-        where: {...query.where, categories: {id: [req.query.category]}}
+        where: {
+            ...query.where, categories: {
+                some: {
+                    id: {in: [parseInt(req.query.category)]}
+                }
+            }
+        }
     }
 
     return res.json(

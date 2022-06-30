@@ -3,7 +3,7 @@ import PublicLayout from "../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import Image from "next/image";
 import useSWR from "swr";
-import {fetcher} from "../lib/function";
+import {fetcher, slugCategory} from "../lib/function";
 import Link from "next/link";
 import slugify from "slugify";
 
@@ -45,7 +45,7 @@ export default function Index({loggedIn}) {
                                 className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8">
                                 {categories?.map((category, idx) => (
 
-                                    <Link key={idx} href={slugify(category.id + '-' + category.name).toLowerCase()}>
+                                    <Link key={idx} href={slugCategory(category)}>
                                         <a className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 xl:w-auto">
                                       <span aria-hidden="true" className="absolute inset-0">
                                         <img src={category.thumbnail} alt=""

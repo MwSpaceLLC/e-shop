@@ -161,6 +161,58 @@ const prisma = new PrismaClient({log: ['query']});
             }
         })
     )
+    console.log(
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 2,
+                price: 32.94,
+                name: 'Scrivania di design ARISTOTELE 4pz',
+                cover: '/crud/demo/products/Aristotele-4pz-K12-1.jpg',
+                description: 'Questo splendido set di accessori da scrivania prende il nome da una delle menti più geniali di tutti i tempi. ARISTOTELE 4pz è l’idea LIMAC Design per studio o ufficio dal design classico e ricercato.',
+                categories: {connect: [{id: 4}]}
+            }
+        })
+    )
+    console.log(
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 15,
+                price: 20.94,
+                name: 'Organizer tavolo esagonale',
+                cover: '/crud/demo/products/shopping.webp',
+                description: 'Home Ufficio Accessori da scrivania organizer tavolo esagonale in legno organizzazione scrivania ambiente di lavoro decoro scrivania',
+                categories: {connect: [{id: 4}]}
+            }
+        })
+    )
+    console.log(
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 8,
+                price: 569.94,
+                name: 'GRANITE BLUE TITANIUM',
+                cover: '/crud/demo/products/123456shopping.webp',
+                description: 'Suunto 9 è la nostra gamma di punta di orologi per lo sport GPS dotati di tutte le funzionalità, con durata della batteria superiore e resistenza alle condizioni più impegnative. Suunto 9 Peak è l\'orologio più sottile e resistente che Suunto abbia mai realizzato.',
+                categories: {connect: [{id: 5}]}
+            }
+        })
+    )
+    console.log(
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 5,
+                price: 469.94,
+                name: 'ALL BLACK\n',
+                cover: '/crud/demo/products/ss05052200ay-01.jfif',
+                description: 'Suunto 9 Peak All Black si avvale dell\'acciaio inossidabile per una robusta struttura in metallo costruita appositamente. Il rivestimento di alta qualità in tinta abbinata conferisce all\'orologio un\'estetica e una modalità di interazione impossibili da quantificare.',
+                categories: {connect: [{id: 5}]}
+            }
+        })
+    )
 
 })()
 

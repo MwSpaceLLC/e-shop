@@ -5,281 +5,36 @@ import {
     MenuIcon,
     MinusSmIcon,
     PlusSmIcon,
-
 } from '@heroicons/react/outline'
 import {StarIcon} from '@heroicons/react/solid'
 
 import PublicLayout from "../../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import Link from "next/link";
-import {classNames} from "../../lib/function"
-
-const navigation = {
-    categories: [
-        {
-            id: 'women',
-            name: 'Women',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-                    imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-                },
-                {
-                    name: 'Basic Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-                    imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-                },
-                {
-                    name: 'Accessories',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg',
-                    imageAlt: 'Model wearing minimalist watch with black wristband and white watch face.',
-                },
-            ],
-            sections: [
-                [
-                    {
-                        id: 'shoes',
-                        name: 'Shoes & Accessories',
-                        items: [
-                            {name: 'Sneakers', href: '#'},
-                            {name: 'Boots', href: '#'},
-                            {name: 'Flats', href: '#'},
-                            {name: 'Sandals', href: '#'},
-                            {name: 'Heels', href: '#'},
-                            {name: 'Socks', href: '#'},
-                        ],
-                    },
-                    {
-                        id: 'collection',
-                        name: 'Shop Collection',
-                        items: [
-                            {name: 'Everything', href: '#'},
-                            {name: 'Core', href: '#'},
-                            {name: 'New Arrivals', href: '#'},
-                            {name: 'Sale', href: '#'},
-                            {name: 'Accessories', href: '#'},
-                        ],
-                    },
-                ],
-                [
-                    {
-                        id: 'clothing',
-                        name: 'All Clothing',
-                        items: [
-                            {name: 'Basic Tees', href: '#'},
-                            {name: 'Artwork Tees', href: '#'},
-                            {name: 'Tops', href: '#'},
-                            {name: 'Bottoms', href: '#'},
-                            {name: 'Swimwear', href: '#'},
-                            {name: 'Underwear', href: '#'},
-                        ],
-                    },
-                    {
-                        id: 'accessories',
-                        name: 'All Accessories',
-                        items: [
-                            {name: 'Watches', href: '#'},
-                            {name: 'Wallets', href: '#'},
-                            {name: 'Bags', href: '#'},
-                            {name: 'Sunglasses', href: '#'},
-                            {name: 'Hats', href: '#'},
-                            {name: 'Belts', href: '#'},
-                        ],
-                    },
-                ],
-                [
-                    {
-                        id: 'brands',
-                        name: 'Brands',
-                        items: [
-                            {name: 'Full Nelson', href: '#'},
-                            {name: 'My Way', href: '#'},
-                            {name: 'Re-Arranged', href: '#'},
-                            {name: 'Counterfeit', href: '#'},
-                            {name: 'Significant Other', href: '#'},
-                        ],
-                    },
-                ],
-            ],
-        },
-        {
-            id: 'men',
-            name: 'Men',
-            featured: [
-                {
-                    name: 'Accessories',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg',
-                    imageAlt:
-                        'Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters.',
-                },
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-                },
-                {
-                    name: 'Artwork Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-                },
-            ],
-            sections: [
-                [
-                    {
-                        id: 'shoes',
-                        name: 'Shoes & Accessories',
-                        items: [
-                            {name: 'Sneakers', href: '#'},
-                            {name: 'Boots', href: '#'},
-                            {name: 'Sandals', href: '#'},
-                            {name: 'Socks', href: '#'},
-                        ],
-                    },
-                    {
-                        id: 'collection',
-                        name: 'Shop Collection',
-                        items: [
-                            {name: 'Everything', href: '#'},
-                            {name: 'Core', href: '#'},
-                            {name: 'New Arrivals', href: '#'},
-                            {name: 'Sale', href: '#'},
-                        ],
-                    },
-                ],
-                [
-                    {
-                        id: 'clothing',
-                        name: 'All Clothing',
-                        items: [
-                            {name: 'Basic Tees', href: '#'},
-                            {name: 'Artwork Tees', href: '#'},
-                            {name: 'Pants', href: '#'},
-                            {name: 'Hoodies', href: '#'},
-                            {name: 'Swimsuits', href: '#'},
-                        ],
-                    },
-                    {
-                        id: 'accessories',
-                        name: 'All Accessories',
-                        items: [
-                            {name: 'Watches', href: '#'},
-                            {name: 'Wallets', href: '#'},
-                            {name: 'Bags', href: '#'},
-                            {name: 'Sunglasses', href: '#'},
-                            {name: 'Hats', href: '#'},
-                            {name: 'Belts', href: '#'},
-                        ],
-                    },
-                ],
-                [
-                    {
-                        id: 'brands',
-                        name: 'Brands',
-                        items: [
-                            {name: 'Re-Arranged', href: '#'},
-                            {name: 'Counterfeit', href: '#'},
-                            {name: 'Full Nelson', href: '#'},
-                            {name: 'My Way', href: '#'},
-                        ],
-                    },
-                ],
-            ],
-        },
-    ],
-    pages: [
-        {name: 'Company', href: '#'},
-        {name: 'Stores', href: '#'},
-    ],
-}
-const product = {
-    name: 'Zip Tote Basket',
-    price: '$140',
-    rating: 4,
-    images: [
-        {
-            id: 1,
-            name: 'Angled view',
-            src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
-            alt: 'Angled front view with bag zipped and handles upright.',
-        },
-        // More images...
-    ],
-    colors: [
-        {name: 'Washed Black', bgColor: 'bg-gray-700', selectedColor: 'ring-gray-700'},
-        {name: 'White', bgColor: 'bg-white', selectedColor: 'ring-gray-400'},
-        {name: 'Washed Gray', bgColor: 'bg-gray-500', selectedColor: 'ring-gray-500'},
-    ],
-    description: `
-    <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use.</p>
-  `,
-    details: [
-        {
-            name: 'Features',
-            items: [
-                'Multiple strap configurations',
-                'Spacious interior with top zip',
-                'Leather handle and tabs',
-                'Interior dividers',
-                'Stainless strap loops',
-                'Double stitched construction',
-                'Water-resistant',
-            ],
-        },
-        // More sections...
-    ],
-}
-const relatedProducts = [
-    {
-        id: 1,
-        name: 'Zip Tote Basket',
-        color: 'White and black',
-        href: '/withe/zip-Basket',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-03-related-product-01.jpg',
-        imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
-        price: '$140',
-    },
-    // More products...
-]
-const footerNavigation = {
-    products: [
-        {name: 'Bags', href: '#'},
-        {name: 'Tees', href: '#'},
-        {name: 'Objects', href: '#'},
-        {name: 'Home Goods', href: '#'},
-        {name: 'Accessories', href: '#'},
-    ],
-    company: [
-        {name: 'Who we are', href: '#'},
-        {name: 'Sustainability', href: '#'},
-        {name: 'Press', href: '#'},
-        {name: 'Careers', href: '#'},
-        {name: 'Terms & Conditions', href: '#'},
-        {name: 'Privacy', href: '#'},
-    ],
-    customerService: [
-        {name: 'Contact', href: '#'},
-        {name: 'Shipping', href: '#'},
-        {name: 'Returns', href: '#'},
-        {name: 'Warranty', href: '#'},
-        {name: 'Secure Payments', href: '#'},
-        {name: 'FAQ', href: '#'},
-        {name: 'Find a store', href: '#'},
-    ],
-}
+import {classNames, fetcher, slugCategoryProduct, slugProduct} from "../../lib/function"
+import {useRouter} from "next/router";
+import useSWR from "swr";
+import Image from "next/image";
 
 export default function Product({loggedIn}) {
     const {t} = useTranslation();
 
     const [open, setOpen] = useState(false)
-    const [selectedColor, setSelectedColor] = useState(product.colors[0])
+    const [selectedColor, setSelectedColor] = useState({
+        name: 'Washed Black',
+        bgColor: 'bg-gray-700',
+        selectedColor: 'ring-gray-700'
+    })
+
+    const router = useRouter()
+    const categoryId = router.query.category?.split('-').shift()
+    const productId = router.query.product?.split('-').shift()
+
+    const {data: products} = useSWR(`/api/json/catalog/products?category=${categoryId}`, fetcher)
+    // const {data: categories} = useSWR(`/api/json/catalog/categories`, fetcher)
+
+    const {data: product} = useSWR(`/api/json/catalog/products/${productId}`, fetcher)
+    const {data: category} = useSWR(`/api/json/catalog/categories/${categoryId}`, fetcher)
 
     return (
         <PublicLayout loggedIn={loggedIn} title={t('seo-index-title')} description={t('seo-index-description')}>
@@ -292,7 +47,29 @@ export default function Product({loggedIn}) {
                             {/* Image selector */}
                             <div className="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
                                 <Tab.List className="grid grid-cols-4 gap-6">
-                                    {product.images.map((image) => (
+
+                                    <Tab
+                                        className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
+                                    >
+                                        {({selected}) => (
+                                            <>
+                                                <span className="sr-only">{product?.name}</span>
+                                                <span className="absolute inset-0 rounded-md overflow-hidden">
+                                                        <img src={product?.cover} alt=""
+                                                             className="w-full h-full object-center object-cover"/>
+                                                      </span>
+                                                <span
+                                                    className={classNames(
+                                                        selected ? 'ring-orange-500' : 'ring-transparent',
+                                                        'absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none'
+                                                    )}
+                                                    aria-hidden="true"
+                                                />
+                                            </>
+                                        )}
+                                    </Tab>
+
+                                    {product?.images?.map((image) => (
                                         <Tab
                                             key={image.id}
                                             className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
@@ -301,11 +78,12 @@ export default function Product({loggedIn}) {
                                                 <>
                                                     <span className="sr-only">{image.name}</span>
                                                     <span className="absolute inset-0 rounded-md overflow-hidden">
-                            <img src={image.src} alt="" className="w-full h-full object-center object-cover"/>
-                          </span>
+                                                        <img src={image.src} alt=""
+                                                             className="w-full h-full object-center object-cover"/>
+                                                      </span>
                                                     <span
                                                         className={classNames(
-                                                            selected ? 'ring-indigo-500' : 'ring-transparent',
+                                                            selected ? 'ring-orange-500' : 'ring-transparent',
                                                             'absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none'
                                                         )}
                                                         aria-hidden="true"
@@ -318,7 +96,19 @@ export default function Product({loggedIn}) {
                             </div>
 
                             <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
-                                {product.images.map((image) => (
+
+                                <Tab.Panel>
+                                    {product && (
+                                        <Image layout="fill"
+                                               objectFit="cover"
+                                               src={product.cover}
+                                               alt={product.name}
+                                               className="w-full h-full object-center object-cover sm:rounded-lg"
+                                        />
+                                    )}
+                                </Tab.Panel>
+
+                                {product?.images?.map((image) => (
                                     <Tab.Panel key={image.id}>
                                         <img
                                             src={image.src}
@@ -332,11 +122,11 @@ export default function Product({loggedIn}) {
 
                         {/* Product info */}
                         <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-                            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product.name}</h1>
+                            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product?.name}</h1>
 
                             <div className="mt-3">
                                 <h2 className="sr-only">Product information</h2>
-                                <p className="text-3xl text-gray-900">{product.price}</p>
+                                <p className="text-3xl text-gray-900">{product?.price}</p>
                             </div>
 
                             {/* Reviews */}
@@ -348,14 +138,14 @@ export default function Product({loggedIn}) {
                                             <StarIcon
                                                 key={rating}
                                                 className={classNames(
-                                                    product.rating > rating ? 'text-indigo-500' : 'text-gray-300',
+                                                    product?.rating > rating ? 'text-orange-500' : 'text-gray-300',
                                                     'h-5 w-5 flex-shrink-0'
                                                 )}
                                                 aria-hidden="true"
                                             />
                                         ))}
                                     </div>
-                                    <p className="sr-only">{product.rating} out of 5 stars</p>
+                                    <p className="sr-only">{product?.rating} out of 5 stars</p>
                                 </div>
                             </div>
 
@@ -364,7 +154,7 @@ export default function Product({loggedIn}) {
 
                                 <div
                                     className="text-base text-gray-700 space-y-6"
-                                    dangerouslySetInnerHTML={{__html: product.description}}
+                                    dangerouslySetInnerHTML={{__html: product?.description}}
                                 />
                             </div>
 
@@ -376,7 +166,7 @@ export default function Product({loggedIn}) {
                                     <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-2">
                                         <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                                         <div className="flex items-center space-x-3">
-                                            {product.colors.map((color) => (
+                                            {product?.colors?.map((color) => (
                                                 <RadioGroup.Option
                                                     key={color.name}
                                                     value={color}
@@ -408,7 +198,7 @@ export default function Product({loggedIn}) {
                                 <div className="mt-10 flex sm:flex-col1">
                                     <button
                                         type="submit"
-                                        className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                                        className="max-w-xs flex-1 bg-orange-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-orange-500 sm:w-full"
                                     >
                                         Add to bag
                                     </button>
@@ -429,7 +219,7 @@ export default function Product({loggedIn}) {
                                 </h2>
 
                                 <div className="border-t divide-y divide-gray-200">
-                                    {product.details.map((detail) => (
+                                    {product?.details?.map((detail) => (
                                         <Disclosure as="div" key={detail.name}>
                                             {({open}) => (
                                                 <>
@@ -438,7 +228,7 @@ export default function Product({loggedIn}) {
                                                             className="group relative w-full py-6 flex justify-between items-center text-left">
                               <span
                                   className={classNames(
-                                      open ? 'text-indigo-600' : 'text-gray-900',
+                                      open ? 'text-orange-600' : 'text-gray-900',
                                       'text-sm font-medium'
                                   )}
                               >
@@ -447,7 +237,7 @@ export default function Product({loggedIn}) {
                                                             <span className="ml-6 flex items-center">
                                 {open ? (
                                     <MinusSmIcon
-                                        className="block h-6 w-6 text-indigo-400 group-hover:text-indigo-500"
+                                        className="block h-6 w-6 text-orange-400 group-hover:text-orange-500"
                                         aria-hidden="true"
                                     />
                                 ) : (
@@ -478,25 +268,25 @@ export default function Product({loggedIn}) {
                     <section aria-labelledby="related-heading"
                              className="mt-10 border-t border-gray-200 py-16 px-4 sm:px-0">
                         <h2 id="related-heading" className="text-xl font-bold text-gray-900">
-                            Customers also bought
+                            Prodotti consigliati
                         </h2>
 
                         <div
                             className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-                            {relatedProducts.map((product) => (
-                                <Link href={product.href}>
-                                    <a key={product.id}>
+                            {category && product && products?.map((prd, idx) => prd.id !== product.id && (
+                                <Link key={idx} href={slugCategoryProduct(category, prd)}>
+                                    <a key={prd?.id}>
                                         <div className="relative">
                                             <div className="relative w-full h-72 rounded-lg overflow-hidden">
                                                 <img
-                                                    src={product.imageSrc}
-                                                    alt={product.imageAlt}
+                                                    src={prd?.cover}
+                                                    alt={prd?.name}
                                                     className="w-full h-full object-center object-cover"
                                                 />
                                             </div>
                                             <div className="relative mt-4">
-                                                <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
-                                                <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                                                <h3 className="text-sm font-medium text-gray-900">{product?.name}</h3>
+                                                <p className="mt-1 text-sm text-gray-500">{product?.color}</p>
                                             </div>
                                             <div
                                                 className="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
@@ -504,14 +294,14 @@ export default function Product({loggedIn}) {
                                                     aria-hidden="true"
                                                     className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
                                                 />
-                                                <p className="relative text-lg font-semibold text-white">{product.price}</p>
+                                                <p className="relative text-lg font-semibold text-white">{product?.price}</p>
                                             </div>
                                         </div>
                                         <div className="mt-6">
                                             <button
                                                 className="w-full relative flex bg-gray-100 border border-transparent rounded-md py-2 px-8 items-center justify-center text-sm font-medium text-gray-900 hover:bg-gray-200"
                                             >
-                                                Add to bag<span className="sr-only">, {product.name}</span>
+                                                Add to bag <span className="sr-only">, {product?.name}</span>
                                             </button>
                                         </div>
                                     </a>

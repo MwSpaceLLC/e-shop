@@ -8,10 +8,14 @@ export default async function handler(req, res) {
     return res.json(
         await prisma.product.findFirst({
             where: {
-                uuid: req.query.uuid,
+                OR: [
+                    {id: parseInt(req.query.uuid ?? 0)},
+                    {uuid: req.query.uuid},
+                ]
             },
             include: {
                 langs: true,
+                images: true,
             }
         }) ?? {}
     )
