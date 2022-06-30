@@ -19,16 +19,16 @@ model Admin {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String?  @db.VarChar(255)
-  email     String   @unique @db.VarChar(255)
-  password  String   @db.VarChar(255)
+  id            Int      @id @default(autoincrement())
+  name          String?  @db.VarChar(255)
+  email         String   @unique @db.VarChar(255)
+  password      String   @db.VarChar(255)
 
-  Order     Order[]
-  Address   Address[]
-  Payment   Payment[]
-  Card      Card[]
-  Cart      Cart?
+  orders        Order[]
+  addresses     Address[]
+  payments      Payment[]
+  cards         Card[]
+  cart          Cart?
 }
 
 model Card {
@@ -39,7 +39,7 @@ model Card {
   default       Int         @db.Int
 
   userId        Int         @unique
-  User          User        @relation(fields: [userId], references: [id])
+  user          User        @relation(fields: [userId], references: [id])
 
 }
 
@@ -59,7 +59,7 @@ model Address {
   directions        String?     @db.VarChar(255)
 
   userId    Int                 @unique
-  User      User                @relation(fields: [userId], references: [id])
+  user      User                @relation(fields: [userId], references: [id])
 }
 
 model Cart {
@@ -73,8 +73,8 @@ model Cart {
   orderId       Int         @unique
   Order         Order       @relation(fields: [orderId], references: [id])
 
-  Payment       Payment?
-  CartItem      CartItem[]
+  payment       Payment?
+  items     CartItem[]
 }
 
 model CartItem {
@@ -83,7 +83,7 @@ model CartItem {
   product   String   @db.LongText
 
   cartId    Int      @unique
-  Cart      Cart     @relation(fields: [cartId], references: [id])
+  cart      Cart     @relation(fields: [cartId], references: [id])
 }
 
 model Order {
@@ -92,10 +92,10 @@ model Order {
   product   String?  @db.LongText
 
   userId    Int      @unique
-  User      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
-  Cart      Cart?
-  Payment   Payment?
+  cart      Cart?
+  payment   Payment?
 }
 
 model Payment {
@@ -109,7 +109,7 @@ model Payment {
   Cart          Cart        @relation(fields: [cartId], references: [id])
 
   orderId       Int         @unique
-  Order         Order       @relation(fields: [orderId], references: [id])
+  order         Order       @relation(fields: [orderId], references: [id])
 }
 
 model Product {
@@ -126,13 +126,24 @@ model Product {
   discount          Decimal?   @db.Decimal
   weight            Decimal?   @db.Decimal
   quantity          Int?       @db.Int
-  categories        String?    @db.LongText
 
-  ProductTag        ProductTag[]
-  ProductLangs      ProductLang[]
-  ProductImage      ProductImage[]
+  tags              ProductTag[]
+  langs             ProductLang[]
+  images            ProductImage[]
 
-  AttributeValue    AttributeValuesOnProducts[]
+  attributes        Attribute[]
+  categories        Category[]
+
+}
+
+model ProductTag {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now()) @db.Timestamp(6)
+
+  name             String      @db.VarChar(255)
+
+  productId     Int         @unique
+  product       Product     @relation(fields: [productId], references: [id])
 
 }
 
@@ -146,7 +157,7 @@ model ProductLang {
   cover             String?    @db.LongText
 
   productId         Int        @unique
-  Product           Product    @relation(fields: [productId], references: [id])
+  product           Product    @relation(fields: [productId], references: [id])
 }
 
 model ProductImage {
@@ -156,7 +167,7 @@ model ProductImage {
   base64            String     @db.VarChar(255)
 
   productId         Int        @unique
-  Product           Product    @relation(fields: [productId], references: [id])
+  product           Product    @relation(fields: [productId], references: [id])
 }
 
 model Attribute {
@@ -165,8 +176,10 @@ model Attribute {
 
   name              String     @db.VarChar(255)
 
-  AttributeLangs     AttributeLang[]
-  AttributeValues    AttributeValue[]
+  langs             AttributeLang[]
+  values            AttributeValue[]
+
+  products          Product[]
 
 }
 
@@ -178,7 +191,7 @@ model AttributeLang {
   name              String     @db.VarChar(255)
 
   attributeId       Int        @unique
-  Attribute         Attribute    @relation(fields: [attributeId], references: [id])
+  attribute         Attribute    @relation(fields: [attributeId], references: [id])
 
 }
 
@@ -190,46 +203,6 @@ model AttributeValue {
   attributeId       Int        @unique
   Attribute         Attribute  @relation(fields: [attributeId], references: [id])
 
-  Product           AttributeValuesOnProducts[]
-
-}
-
-model AttributeValuesOnProducts {
-  Product    Product     @relation(fields: [ProductId], references: [id])
-  ProductId  Int // relation scalar field (used in the `@relation` attribute above)
-
-  AttributeValue   AttributeValue @relation(fields: [AttributeValueId], references: [id])
-  AttributeValueId Int // relation scalar field (used in the `@relation` attribute above)
-
-  price             Decimal?   @db.Decimal
-  discount          Decimal?   @db.Decimal
-  impact            Decimal?   @db.Decimal
-  cover             String?    @db.LongText
-
-  @@id([ProductId, AttributeValueId])
-}
-
-model ProductTag {
-  id            Int         @id @default(autoincrement())
-  createdAt     DateTime    @default(now()) @db.Timestamp(6)
-
-  name             String      @db.VarChar(255)
-
-  productId     Int         @unique
-  Product       Product     @relation(fields: [productId], references: [id])
-
-  ProductTagLangs       ProductTagLang?
-}
-
-model ProductTagLang {
-  id               Int         @id @default(autoincrement())
-  createdAt        DateTime    @default(now()) @db.Timestamp(6)
-  iso               String     @db.VarChar(255)
-
-  name             String      @db.VarChar(255)
-
-  producttagId     Int         @unique
-  ProductTag       ProductTag         @relation(fields: [producttagId], references: [id])
 }
 
 model Category {
@@ -244,7 +217,8 @@ model Category {
   cover             String?   @db.LongText
   thumbnail         String?   @db.LongText
 
-  CategoryLangs      CategoryLang[]
+  products          Product[]
+  langs             CategoryLang[]
 
 }
 
@@ -258,7 +232,7 @@ model CategoryLang {
   cover             String?   @db.LongText
 
   categoryId    Int         @unique
-  Category      Category    @relation(fields: [categoryId], references: [id])
+  category      Category    @relation(fields: [categoryId], references: [id])
 
 }
 
@@ -269,7 +243,7 @@ model Page {
   body          String      @db.LongText
   enabled       Int         @db.Int
 
-  PageLangs      PageLang[]
+  langs      PageLang[]
 }
 
 model PageLang {
@@ -280,7 +254,7 @@ model PageLang {
   body          String      @db.LongText
 
   pageId    Int      @unique
-  Page      Page     @relation(fields: [pageId], references: [id])
+  page      Page     @relation(fields: [pageId], references: [id])
 }
 
 model Lang {

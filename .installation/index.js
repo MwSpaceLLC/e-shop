@@ -118,7 +118,7 @@ const prisma = new PrismaClient({log: ['query']});
                 name: 'HUMMINGBIRD PRINTED T-SHIRT',
                 cover: '/crud/demo/products/hummingbird-printed-t-shirt.jpg',
                 description: 'Vestibilità regolare, scollo tondo, maniche corte. Realizzato in cotone pima a fiocco extra lungo.',
-                categories: "[0,1]" // id of categories (0 => homepage)
+                categories: {connect: [{id: 1}]}
             }
         })
     )
@@ -131,7 +131,7 @@ const prisma = new PrismaClient({log: ['query']});
                 name: 'HUMMINGBIRD PRINTED SWEATER',
                 cover: '/crud/demo/products/brown-bear-printed-sweater.jpg',
                 description: 'Vestibilità regolare, scollo tondo, maniche lunghe. 100% cotone, lato interno spazzolato per un comfort extra.',
-                categories: "[0,1]" // id of categories (0 => homepage)
+                categories: {connect: [{id: 1}]}
             }
         })
     )
@@ -144,7 +144,7 @@ const prisma = new PrismaClient({log: ['query']});
                 name: 'MUG THE ADVENTURE BEGINS',
                 cover: '/crud/demo/products/mug-the-adventure-begins.jpg',
                 description: 'L\'avventura inizia con una tazza di caffè. Parti alla conquista della giornata! Diametro 8,2 cm / Altezza 9,5 cm / 0,43 kg. A prova di lavastoviglie.',
-                categories: "[0,2]" // id of categories (0 => homepage)
+                categories: {connect: [{id: 2}]}
             }
         })
     )
@@ -157,7 +157,7 @@ const prisma = new PrismaClient({log: ['query']});
                 name: 'MOUNTAIN FOX CUSHION',
                 cover: '/crud/demo/products/mountain-fox-cushion.jpg',
                 description: 'Il cuscino Mountain Fox aggiungerà un tocco grafico e colorato al tuo divano, poltrona o letto. Crea un\'atmosfera moderna e zen che ispira relax. Fodera 100% cotone, lavabile in lavatrice a 60° / Imbottitura 100% poliestere anallergico.',
-                categories: "[0,2]" // id of categories (0 => homepage)
+                categories: {connect: [{id: 2}]}
             }
         })
     )

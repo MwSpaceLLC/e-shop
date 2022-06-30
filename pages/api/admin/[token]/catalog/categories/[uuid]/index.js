@@ -20,6 +20,9 @@ export default withApiSession(async (req, res) => {
             where: {
                 uuid: req.query.uuid,
             },
+            include: {
+                langs: true,
+            }
         })
     )
 

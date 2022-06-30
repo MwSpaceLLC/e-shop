@@ -18,7 +18,7 @@ export default withApiSession(async (req, res) => {
 
     let query = {
         include: {
-            CategoryLangs: true,
+            langs: true,
         },
     };
 
