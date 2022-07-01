@@ -17,39 +17,6 @@ import axios from "axios";
 // This gets called on every request
 export const getServerSideProps = AdminAuthServerSideProps
 
-const notificationMethods = [
-    {id: 'email', title: 'Email'},
-    {id: 'sms', title: 'Phone (SMS)'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-    {id: 'push', title: 'Push notification'},
-]
-
 export default function AdminCatalogCategoryIndex() {
 
     const [loader, setLoader] = useState(false);

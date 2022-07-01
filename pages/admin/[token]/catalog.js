@@ -6,6 +6,7 @@ import ViewProducts from "../../../components/admin/ViewProducts";
 import ViewCategories from "../../../components/admin/ViewCategories";
 import AppLayout from "../../../components/AppLayout";
 import {classNames} from "../../../lib/function"
+import {useRouter} from "next/router";
 
 // This gets called on every request
 export const getServerSideProps = AdminAuthServerSideProps
@@ -14,12 +15,15 @@ export default function AdminCatalog() {
 
     const [tab, setTab] = useState(1);
 
+    const router = useRouter()
+    const {parentId} = router.query
+
     const tabs = [
         {name: 'Categorie', current: tab === 1},
         {name: 'Prodotti', current: tab === 2},
     ]
 
-    const {t} = useTranslation();
+    console.log(parentId)
 
     return (
         <AppLayout title="Catalogo">
@@ -39,7 +43,7 @@ export default function AdminCatalog() {
                         defaultValue={tabs.find((tab) => tab.current).name}
                     >
                         {tabs.map((tab, idx) => (
-                            <option value={idx+1} onChangeCapture={tab.onClick} key={tab.name}>{tab.name}</option>
+                            <option value={idx + 1} onChangeCapture={tab.onClick} key={tab.name}>{tab.name}</option>
                         ))}
                     </select>
                 </div>
@@ -63,7 +67,7 @@ export default function AdminCatalog() {
             </div>
 
             <section>
-                {tab === 1 && <ViewCategories/>}
+                {tab === 1 && <ViewCategories parentId={parentId}/>}
 
                 {tab === 2 && <ViewProducts/>}
             </section>

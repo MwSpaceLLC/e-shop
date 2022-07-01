@@ -11,7 +11,7 @@ module.exports = {
                 'warm-gray': colors.stone,
                 sky: colors.sky,
                 cyan: colors.cyan,
-                shop: "#253977",
+                shop: "#ff9800",
             },
         },
     },

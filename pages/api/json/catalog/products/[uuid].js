@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         await prisma.product.findFirst({
             where: {
                 OR: [
-                    {id: parseInt(req.query.uuid ?? 0)},
+                    {id: parseInt(req.query.uuid) || 0},
                     {uuid: req.query.uuid},
                 ]
             },

@@ -49,6 +49,43 @@ const prisma = new PrismaClient({log: ['query']});
 
     /*
      |--------------------------------------------------------------------------
+     | Create Default Settings
+     |------------------------------------------------------------------------*/
+    console.log("\n======= Create Default Lang =======")
+    console.log(
+        await prisma.setting.createMany({
+            data: [
+                {
+                    key: 'ShopName',
+                    value: 'e-shop',
+                }, {
+                    key: 'ShopDescription',
+                    value: 'Free commerce platform based on NextJs',
+                }, {
+                    key: 'ShopLogo',
+                    value: '/crud/demo/settings/logo-1080-hd.webp',
+                }, {
+                    key: 'ShopMainColor',
+                    value: '#ff9800',
+                }, {
+                    key: 'ShopAddress',
+                    value: 'Via camillo bozza, 14',
+                }, {
+                    key: 'ShopCity',
+                    value: 'Perugia',
+                }, {
+                    key: 'ShopZip',
+                    value: '06073',
+                }, {
+                    key: 'ShopCountry',
+                    value: 'Italy',
+                },
+            ]
+        })
+    )
+
+    /*
+     |--------------------------------------------------------------------------
      | Create Demo Categories
      |------------------------------------------------------------------------*/
     console.log("\n======= Create Demo Categories =======")
@@ -203,7 +240,7 @@ const prisma = new PrismaClient({log: ['query']});
                     uuid: crypto.randomUUID(),
                     name: 'Accessori ricondizionati',
                     cover: '/crud/demo/categories/accessories-refurb-category-201810.jfif',
-                    thumbnail: '/crud/demo/categories/MN6L3_FV402.png',
+                    thumbnail: '/crud/demo/categories/MNA73.jfif',
                     description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
                 }, {            // ID: 20
                     parentId: 18,
@@ -215,6 +252,49 @@ const prisma = new PrismaClient({log: ['query']});
                     uuid: crypto.randomUUID(),
                     name: 'Accessori per iPad',
                     description: 'Scopri cosa c’è dietro un Accessori per iPad ricondizionato.',
+                },
+
+
+                /** Category Id [22] */
+                {            // ID: 22
+                    parentId: 2,
+                    uuid: crypto.randomUUID(),
+                    name: 'MacBook Air (1° Generazione)',
+                    cover: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021_AV3.jfif',
+                    thumbnail: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021_AV3.jfif',
+                    description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
+                }, {            // ID: 23
+                    parentId: 2,
+                    uuid: crypto.randomUUID(),
+                    name: 'MacBook Air (2° Generazione)',
+                    cover: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021_AV3.jfif',
+                    thumbnail: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021_AV3.jfif',
+                    description: 'Scopri cosa c’è dietro un Accessori per Mac ricondizionato.',
+                }, {            // ID: 24
+                    parentId: 2,
+                    uuid: crypto.randomUUID(),
+                    name: 'MacBook Air (3° Generazione)',
+                    cover: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021_AV3.jfif',
+                    thumbnail: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021_AV3.jfif',
+                    description: 'Scopri cosa c’è dietro un Accessori per iPad ricondizionato.',
+                },
+
+
+                /** Category Id [25] */
+                {            // ID: 25
+                    parentId: 22,
+                    uuid: crypto.randomUUID(),
+                    name: 'MacBook Air (1° Generazione) | Nero',
+                    cover: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021.jfif',
+                    thumbnail: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021.jfif',
+                    description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
+                }, {            // ID: 26
+                    parentId: 22,
+                    uuid: crypto.randomUUID(),
+                    name: 'MacBook Air (1° Generazione) | Bianco',
+                    cover: '/crud/demo/categories/refurb-ipad-air-wifi-silver-2021.jfif',
+                    thumbnail: '/crud/demo/categories/refurb-ipad-air-wifi-silver-2021.jfif',
+                    description: 'Scopri cosa c’è dietro un Accessori per Mac ricondizionato.',
                 },
 
             ]
@@ -249,6 +329,89 @@ const prisma = new PrismaClient({log: ['query']});
             }
         })
     )
+
+    /*
+     |--------------------------------------------------------------------------
+     | Create Demo Sections
+     |------------------------------------------------------------------------*/
+    console.log("\n======= Create Demo Sections =======")
+    console.log(
+        await prisma.section.createMany({
+            data: [
+                {
+                    slug: 'HomeIntro',
+                    name: 'Home Intro',
+                    body: {
+                        header: 'Pro. E pronto a tutto',
+                        image: '/crud/demo/sections/Immagine-home 2022-07-01 153057.png',
+                        text: 'MacBook Pro 13" è più veloce e potente che mai. Con il nuovissimo chip M2, un sistema di raffreddamento attivo e fino a 20 ore di autonomia, affronta con agilità anche i carichi di lavoro più impegnativi.',
+                    },
+                },
+                {
+                    slug: 'HomeHero',
+                    name: 'Home Hero',
+                    body: {
+                        header: 'Sistema più evoluto di sempre',
+                        image: '/crud/demo/sections/hero_1_static__feiuc1zaeiaa_large.jpg',
+                        text: 'Abbiamo riprogettato completamente l’architettura e ruotato gli obiettivi di 45 gradi per fare spazio al nostro sistema a doppia fotocamera più evoluto, con il sensore più grande di sempre sul grandangolo, e una nuova stabilizzazione ottica dell’immagine su sensore. E abbiamo anche aumentato la velocità dell’ultra-grandangolo.',
+                    },
+                },
+                {
+                    slug: 'HomeCollection',
+                    name: 'Home Collection',
+                    body: {
+                        header: 'Scopri i "nuovi" Ricondizionati',
+                        text: 'iPhone ricondizionati ufficiali apple. Ogni stagione, collaboriamo con designer di livello mondiale per creare una collezione ispirata al mondo naturale',
+                    },
+                },
+                {
+                    slug: 'HomeBottom',
+                    name: 'Home Bottom',
+                    body: {
+                        header: 'Con un chip esagerato',
+                        image: '/crud/demo/sections/immagine-footer-2022-07-01 153803.png',
+                        text: 'Con il nuovo iPad Air ti immergi in tutto quello che leggi, guardi o crei. Lo splendido display Liquid Retina da 10,9" ha un’ampia gamma cromatica P3, tecnologie evolute come True Tone, e il rivestimento antiriflesso.',
+                    },
+                },
+
+
+                {
+                    slug: 'MainBackgroundImage',
+                    name: 'Main Background Image',
+                    body: {
+                        image: '/crud/demo/sections/laptop-ge705b6c1e_1920.jpg',
+                    },
+                },
+            ]
+        })
+    )
+
+
+    /*
+     |--------------------------------------------------------------------------
+     | Create Demo Pages
+     |------------------------------------------------------------------------*/
+    console.log("\n======= Create Demo Pages =======")
+    console.log(
+        await prisma.page.createMany({
+            data: [
+                {
+                    name: 'Privacy',
+                    body: '',
+                }, {
+                    name: 'Termini',
+                    body: '',
+                }, {
+                    name: 'Cookies',
+                    body: '',
+                }, {
+                    name: 'Supporto',
+                    body: '',
+                },
+            ]
+        })
+    )
+
 
 })()
 

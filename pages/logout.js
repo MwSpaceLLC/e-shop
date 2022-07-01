@@ -7,8 +7,8 @@ import {useRouter} from 'next/router'
 import axios from "axios";
 import ErrorsAlert from "../components/ErrorsAlert";
 
-import {LogoApp} from "./index";
 import AuthServerSideProps from "../lib/props/AuthServerSideProps";
+import {LogoApp} from "../components/LogoApp";
 
 // This gets called on every request
 export const getServerSideProps = AuthServerSideProps

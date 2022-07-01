@@ -1,6 +1,6 @@
 import {useTranslation} from "next-i18next";
 
-import {classNames} from "../lib/function"
+import {classNames, fetcher} from "../lib/function"
 
 import {Fragment, useState} from 'react'
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
@@ -8,6 +8,7 @@ import {MenuIcon, QuestionMarkCircleIcon, SearchIcon, ShoppingBagIcon, XIcon} fr
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
+import useSWR from "swr";
 
 const currencies = ['EUR']
 
@@ -118,6 +119,10 @@ export default function PublicLayout({title, description, children, className, H
     const {t} = useTranslation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+    const {data: categories} = useSWR(`/api/json/catalog/categories?recursive=true`, fetcher)
+
+    const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
+
     return (
         <>
             <Head>
@@ -169,7 +174,7 @@ export default function PublicLayout({title, description, children, className, H
                                     <Tab.Group as="div" className="mt-2">
                                         <div className="border-b border-gray-200">
                                             <Tab.List className="-mb-px flex px-4 space-x-8">
-                                                {navigation.categories.map((category) => (
+                                                {categories?.map((category) => (
                                                     <Tab
                                                         key={category.name}
                                                         className={({selected}) =>
@@ -185,10 +190,10 @@ export default function PublicLayout({title, description, children, className, H
                                             </Tab.List>
                                         </div>
                                         <Tab.Panels as={Fragment}>
-                                            {navigation.categories.map((category) => (
+                                            {categories?.map((category) => (
                                                 <Tab.Panel key={category.name} className="px-4 py-6 space-y-12">
                                                     <div className="grid grid-cols-2 gap-x-4 gap-y-10">
-                                                        {category.featured.map((item) => (
+                                                        {category.featured?.map((item) => (
                                                             <div key={item.name} className="group relative">
                                                                 <div
                                                                     className="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
@@ -293,11 +298,17 @@ export default function PublicLayout({title, description, children, className, H
                 <div className="relative bg-gray-900">
                     {/* Decorative image and overlay */}
                     <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-                        <img
-                            src="https://tailwindui.com/img/ecommerce-images/home-page-01-hero-full-width.jpg"
-                            alt=""
-                            className="w-full h-full object-center object-cover"
-                        />
+
+                        {MainBackgroundImage && (
+                            <Image
+                                layout="fill"
+                                objectFit="cover"
+                                src={MainBackgroundImage.body.image}
+                                alt="Shop Home Image"
+                                className="w-full h-full object-center object-cover"
+                            />
+                        )}
+
                     </div>
                     <div aria-hidden="true" className="absolute inset-0 bg-gray-900 opacity-50"/>
 
@@ -386,7 +397,7 @@ export default function PublicLayout({title, description, children, className, H
                                                 {/* Flyout menus */}
                                                 <Popover.Group className="px-4 bottom-0 inset-x-0">
                                                     <div className="h-full flex justify-center space-x-8">
-                                                        {navigation.categories.map((category) => (
+                                                        {categories?.slice(0,6).map((category) => (
                                                             <Popover key={category.name} className="flex">
                                                                 {({open}) => (
                                                                     <>
@@ -425,14 +436,14 @@ export default function PublicLayout({title, description, children, className, H
                                                                                         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                                                                         <div
                                                                                             className="grid grid-cols-4 gap-y-10 gap-x-8 py-16">
-                                                                                            {category.featured.map((item) => (
+                                                                                            {category.children?.slice(0,4).map((item) => (
                                                                                                 <div key={item.name}
                                                                                                      className="group relative">
                                                                                                     <div
                                                                                                         className="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                                                                         <img
-                                                                                                            src={item.imageSrc}
-                                                                                                            alt={item.imageAlt}
+                                                                                                            src={item.thumbnail}
+                                                                                                            alt={item.name}
                                                                                                             className="object-center object-cover"
                                                                                                         />
                                                                                                     </div>
@@ -457,16 +468,6 @@ export default function PublicLayout({title, description, children, className, H
                                                                     </>
                                                                 )}
                                                             </Popover>
-                                                        ))}
-
-                                                        {navigation.pages.map((page) => (
-                                                            <a
-                                                                key={page.name}
-                                                                href={page.href}
-                                                                className="flex items-center text-sm font-medium text-white"
-                                                            >
-                                                                {page.name}
-                                                            </a>
                                                         ))}
                                                     </div>
                                                 </Popover.Group>

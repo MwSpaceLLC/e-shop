@@ -8,8 +8,8 @@ import {useRouter} from 'next/router'
 import axios from "axios";
 import ErrorsAlert from "../../components/ErrorsAlert";
 
-import {LogoApp} from "../index";
 import RegisterCodeConfirmServerSideProps from "../../lib/props/RegisterCodeConfirmServerSideProps";
+import {LogoApp} from "../../components/LogoApp";
 
 // This gets called on every request
 export const getServerSideProps = RegisterCodeConfirmServerSideProps

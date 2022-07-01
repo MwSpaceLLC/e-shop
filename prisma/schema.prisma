@@ -27,6 +27,7 @@ model User {
   orders        Order[]
   addresses     Address[]
   payments      Payment[]
+  shipments      Shipment[]
   cards         Card[]
   cart          Cart?
 }
@@ -35,19 +36,22 @@ model Card {
   id            Int         @id @default(autoincrement())
   session       String?     @db.LongText
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
-  stripe        String?     @db.LongText
-  default       Int         @db.Int
+//  stripe        String?     @db.LongText
+  stripe        Json?
+
+  default       Boolean     @default(false)
 
   userId        Int
   user          User        @relation(fields: [userId], references: [id])
 
+  payment   Payment?
 }
 
 model Address {
   id        Int                 @id @default(autoincrement())
   createdAt DateTime            @default(now()) @db.Timestamp(6)
 
-  default           Int         @db.Int
+  default           Boolean     @default(false)
   state             String      @db.VarChar(255)
   name              String      @db.VarChar(255)
   phone             String      @db.VarChar(255)
@@ -70,10 +74,10 @@ model Cart {
   userId        Int         @unique
   User          User        @relation(fields: [userId], references: [id])
 
-  orderId       Int         @unique
-  Order         Order       @relation(fields: [orderId], references: [id])
+//  orderId       Int         @unique
+//  Order         Order       @relation(fields: [orderId], references: [id])
 
-  payment       Payment?
+//  payment       Payment?
   items         CartItem[]
 }
 
@@ -94,19 +98,38 @@ model Order {
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
 
-  cart      Cart?
+//  cart      Cart?
   payment   Payment?
+  shipment  Shipment?
 }
 
 model Payment {
   id            Int         @id @default(autoincrement())
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
 
+  stripe        Json?
+
   userId        Int
   User          User        @relation(fields: [userId], references: [id])
 
-  cartId        Int         @unique
-  Cart          Cart        @relation(fields: [cartId], references: [id])
+  cartdId       Int         @unique
+  Card          Card        @relation(fields: [cartdId], references: [id])
+
+  orderId       Int         @unique
+  order         Order       @relation(fields: [orderId], references: [id])
+}
+
+model Shipment {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now()) @db.Timestamp(6)
+
+  packlink      Json?
+
+  userId        Int
+  User          User        @relation(fields: [userId], references: [id])
+
+//  cartId        Int         @unique
+//  Cart          Cart        @relation(fields: [cartId], references: [id])
 
   orderId       Int         @unique
   order         Order       @relation(fields: [orderId], references: [id])
@@ -120,7 +143,9 @@ model Product {
   name              String     @db.VarChar(255)
   description       String     @db.LongText
   presentation      String?    @db.LongText
+
   thumbnail         String?    @db.LongText
+  thumbnailalt      String?      @db.VarChar(255)
 
   price             Decimal    @db.Decimal
   discount          Decimal?   @db.Decimal
@@ -130,6 +155,10 @@ model Product {
   tags              ProductTag[]
   langs             ProductLang[]
   images            ProductImage[]
+
+  seotitle        String?      @db.VarChar(255)
+  seodescription  String?      @db.VarChar(255)
+  seokey          String?      @db.VarChar(255)
 
   attributes        Attribute[]
   categories        Category[]
@@ -165,6 +194,7 @@ model ProductImage {
   createdAt         DateTime    @default(now()) @db.Timestamp(6)
 
   path              String      @db.VarChar(255)
+  pathalt           String?      @db.VarChar(255)
 
   productId         Int
   product           Product     @relation(fields: [productId], references: [id])
@@ -240,8 +270,13 @@ model Page {
   id            Int         @id @default(autoincrement())
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
 
-  body          String      @db.LongText
-  enabled       Int         @db.Int
+  name          String      @unique @db.VarChar(255)
+  body          String?     @db.LongText
+  enabled       Boolean     @default(true)
+
+  seotitle        String?      @db.VarChar(255)
+  seodescription  String?      @db.VarChar(255)
+  seokey          String?      @db.VarChar(255)
 
   langs      PageLang[]
 }
@@ -251,24 +286,50 @@ model PageLang {
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
   iso               String     @db.VarChar(255)
 
+  name          String      @unique @db.VarChar(255)
   body          String      @db.LongText
 
   pageId    Int
   page      Page     @relation(fields: [pageId], references: [id])
 }
 
-model Lang {
+model Section {
   id            Int         @id @default(autoincrement())
-  default       Boolean    @default(false)
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
+
+  parentId      Int?        @default(0)
+
+  slug          String      @unique @db.VarChar(255)
+  name          String      @db.VarChar(255)
+  body          Json
+
+  langs         SectionLang[]
+}
+
+model SectionLang {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now()) @db.Timestamp(6)
+  iso           String      @db.VarChar(255)
+
+  name          String      @db.VarChar(255)
+  body          Json
+
+  sectionId     Int
+  section       Section     @relation(fields: [sectionId], references: [id])
+}
+
+model Lang {
+  id            Int       @id @default(autoincrement())
+  default       Boolean   @default(false)
+  createdAt     DateTime  @default(now()) @db.Timestamp(6)
   name          String    @db.VarChar(255)
   iso           String    @db.VarChar(255)
 }
 
-model Settings {
+model Setting {
   id            Int         @id @default(autoincrement())
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
-  key           String      @db.VarChar(255)
+  key           String      @unique @db.VarChar(255)
   value         String      @db.VarChar(255)
 }
 

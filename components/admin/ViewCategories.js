@@ -12,9 +12,8 @@ import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/router";
 
-export default function ViewCategories() {
+export default function ViewCategories({parentId = 0}) {
 
-    // const token = useAdminToken()
     const {t} = useTranslation();
 
     const router = useRouter()
@@ -22,7 +21,9 @@ export default function ViewCategories() {
 
     const [like, setLike] = useState("")
 
-    const {data: categories, error} = useSWR(`/api/admin/${token}/catalog/categories?like=${like}`, fetcher)
+    const {data: categories} = useSWR(`/api/json/catalog/categories?parentId=${parentId}&name=${like}`, fetcher)
+
+    const {data: category} = useSWR(`/api/json/catalog/categories/${parentId}`, fetcher)
 
     return (
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
@@ -30,7 +31,8 @@ export default function ViewCategories() {
             <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
                 <div className="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-nowrap">
                     <div className="ml-4 mt-4">
-                        <h3 className="text-lg leading-6 font-medium text-gray-900">Gestione categorie</h3>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">Gestione
+                            categorie <b>({parentId ? category?.name : 'Home'})</b></h3>
                         <p className="mt-1 text-sm text-gray-500">
                             Sfoglia le tue categorie e sottocategorie
                         </p>
@@ -48,53 +50,62 @@ export default function ViewCategories() {
                 </div>
             </div>
 
-            {categories && (
-                <ul role="list" className="divide-y divide-gray-200">
-                    {categories.map((category, idx) => (
-                        <li key={idx}>
-                            <Link href={`${window.location.pathname}/categories/${category.uuid}`}>
-                                <a className="block hover:bg-gray-50">
-                                    <div className="flex items-center px-4 py-4 sm:px-6">
-                                        <div className="min-w-0 flex-1 flex items-center">
-                                            <div className="flex-shrink-0">
-                                                <Image width={50} height={50} className="h-12 w-12 rounded-sm"
-                                                       src={category.thumbnail}
-                                                       alt=""/>
-                                            </div>
-                                            <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                                                <div>
-                                                    <p className="text-sm font-medium text-orange-600 truncate">{category.name}</p>
-                                                    <p className="mt-2 flex items-center text-sm text-gray-500">
+            <ul role="list" className="divide-y divide-gray-200">
+                {categories?.map((category, idx) => (
+                    <li key={idx}>
+                        <div className="block hover:bg-gray-50">
+                            <div className="flex items-center px-4 py-4 sm:px-6">
+                                <Link href={`${window.location.pathname}?parentId=${category.id}`}>
+                                    <a className="min-w-0 flex-1 flex items-center">
+                                        <div className="flex-shrink-0">
+                                            {category.thumbnail && (
+                                                <Image
+                                                    width={80}
+                                                    height={80}
+                                                    alt={category.name}
+                                                    src={category.thumbnail}
+                                                    className="h-12 w-12 object-contain rounded-sm"
+                                                />
+                                            )}
+                                        </div>
+                                        <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                                            <div>
+                                                <p className="text-sm font-medium text-orange-600 truncate">{category.name}</p>
+                                                <p className="mt-2 flex items-center text-sm text-gray-500">
                                                     <span
                                                         className="truncate">{category.description}</span>
+                                                </p>
+                                            </div>
+                                            <div className="hidden md:block">
+                                                <div>
+                                                    <p className="text-sm text-gray-900">
+                                                        Create <time
+                                                        dateTime={category.createdAt}>{new Date(category.createdAt).toDateString()}</time>
                                                     </p>
-                                                </div>
-                                                <div className="hidden md:block">
-                                                    <div>
-                                                        <p className="text-sm text-gray-900">
-                                                            Create <time
-                                                            dateTime={category.createdAt}>{new Date(category.createdAt).toDateString()}</time>
-                                                        </p>
-                                                        <p className="mt-2 flex items-center text-sm text-gray-500">
-                                                            <ArchiveIcon
-                                                                className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-                                                                aria-hidden="true"/>
-                                                            {category.quantity ?? 0} Prodotti disponibili
-                                                        </p>
-                                                    </div>
+                                                    <p className="mt-2 flex items-center text-sm text-gray-500">
+                                                        <ArchiveIcon
+                                                            className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
+                                                            aria-hidden="true"/>
+                                                        {category.quantity ?? 0} Prodotti disponibili
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <ChevronRightIcon className="h-5 w-5 text-gray-400" aria-hidden="true"/>
-                                        </div>
-                                    </div>
-                                </a>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            )}
+                                    </a>
+                                </Link>
+
+                                <Link href={`${window.location.pathname}/categories/${category.uuid}`}>
+                                    <a>
+                                        <ChevronRightIcon className="bg-gray-100 p-1 rounded-xl w-10 text-gray-400"
+                                                          aria-hidden="true"/>
+                                    </a>
+                                </Link>
+
+                            </div>
+                        </div>
+                    </li>
+                ))}
+            </ul>
 
         </div>
     )

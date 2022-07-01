@@ -5,7 +5,6 @@ import Image from "next/image";
 import useSWR from "swr";
 import {fetcher, slugCategory} from "../lib/function";
 import Link from "next/link";
-import slugify from "slugify";
 
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
@@ -20,6 +19,11 @@ export default function Index({loggedIn}) {
     const {t} = useTranslation();
 
     const {data: categories} = useSWR(`/api/json/catalog/categories?parent=0`, fetcher)
+    const {data: collection} = useSWR(`/api/json/catalog/categories?parentId=11`, fetcher)
+
+    const {data: HomeCollection} = useSWR(`/api/json/sections/HomeCollection`, fetcher)
+    const {data: HomeBottom} = useSWR(`/api/json/sections/HomeBottom`, fetcher)
+    const {data: HomeHero} = useSWR(`/api/json/sections/HomeHero`, fetcher)
 
     return (
         <PublicLayout loggedIn={loggedIn} title={t('seo-index-title')} description={t('seo-index-description')}
@@ -48,8 +52,13 @@ export default function Index({loggedIn}) {
                                     <Link key={idx} href={slugCategory(category)}>
                                         <a className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 xl:w-auto">
                                       <span aria-hidden="true" className="absolute inset-0">
-                                        <img src={category.thumbnail} alt=""
-                                             className="w-full h-full object-center object-cover"/>
+                                          <Image
+                                              layout="fill"
+                                              objectFit="contain"
+                                              src={category.thumbnail}
+                                              alt={category.name}
+                                              className="w-full h-full object-center object-contain"
+                                          />
                                       </span>
                                             <span
                                                 aria-hidden="true"
@@ -74,153 +83,124 @@ export default function Index({loggedIn}) {
             </section>
 
             {/* Featured section */}
-            <section
-                aria-labelledby="social-impact-heading"
-                className="max-w-7xl mx-auto pt-24 px-4 sm:pt-32 sm:px-6 lg:px-8"
-            >
-                <div className="relative rounded-lg overflow-hidden">
-                    <div className="absolute inset-0">
-                        <img
-                            src="https://tailwindui.com/img/ecommerce-images/home-page-01-feature-section-01.jpg"
-                            alt=""
-                            className="w-full h-full object-center object-cover"
-                        />
-                    </div>
-                    <div className="relative bg-gray-900 bg-opacity-75 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
-                        <div className="relative max-w-3xl mx-auto flex flex-col items-center text-center">
-                            <h2
-                                id="social-impact-heading"
-                                className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
-                            >
-                                <span className="block sm:inline">{t('index-banner-title')}</span>
-                            </h2>
-                            <p className="mt-3 text-xl text-white">{t('index-banner-description')}</p>
-                            <a
-                                href="#"
-                                className="mt-8 w-full block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
-                            >
-                                {t('index-banner-btn')}
-                            </a>
+            {HomeHero && (
+                <section
+                    aria-labelledby="social-impact-heading"
+                    className="max-w-7xl mx-auto pt-24 px-4 sm:pt-32 sm:px-6 lg:px-8">
+                    <div className="relative rounded-lg overflow-hidden">
+                        <div className="absolute inset-0">
+
+                            <Image
+                                quality={100}
+                                layout="fill"
+                                objectFit="cover"
+                                src={HomeHero.body.image}
+                                alt={HomeHero.body.header}
+                                className="w-full h-full object-center object-cover"
+                            />
+
+                        </div>
+                        <div className="relative bg-gray-900 bg-opacity-75 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
+                            <div className="relative max-w-3xl mx-auto flex flex-col items-center text-center">
+                                <h2
+                                    id="social-impact-heading"
+                                    className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
+                                >
+                                    <span className="block sm:inline">{HomeHero.body.header}</span>
+                                </h2>
+                                <p className="mt-3 text-xl text-white">{HomeHero.body.text}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            )}
 
             {/* Collection section */}
             <section
                 aria-labelledby="collection-heading"
                 className="max-w-xl mx-auto pt-24 px-4 sm:pt-32 sm:px-6 lg:max-w-7xl lg:px-8"
             >
-                <h2 id="collection-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
-                    {t('index-collection-title')}
-                </h2>
-                <p className="mt-4 text-base text-gray-500">
-                    {t('index-collection-description')}
-                </p>
+                {HomeCollection && (
+                    <>
+                        <h2 id="collection-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
+                            {HomeCollection.body.header}
+                        </h2>
+                        <p className="mt-4 text-base text-gray-500">
+                            {HomeCollection.body.text}
+                        </p>
+                    </>
+                )}
 
                 <div className="mt-10 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8">
-                    {collections.map((collection) => (
-                        <a key={collection.name} href={collection.href} className="group block">
+                    {collection?.slice(0, 3).map((cat, idx) => (
+                        <a key={idx} href={cat.href} className="group block">
                             <div
                                 aria-hidden="true"
                                 className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden group-hover:opacity-75 lg:aspect-w-5 lg:aspect-h-6"
                             >
-                                <img
-                                    src={collection.imageSrc}
-                                    alt={collection.imageAlt}
+
+                                <Image
+                                    layout="fill"
+                                    quality={100}
+                                    objectFit="contain"
+                                    src={cat.thumbnail}
+                                    alt={cat.name}
                                     className="w-full h-full object-center object-cover"
                                 />
+
                             </div>
-                            <h3 className="mt-4 text-base font-semibold text-gray-900">{collection.name}</h3>
-                            <p className="mt-2 text-sm text-gray-500">{collection.description}</p>
+                            <h3 className="mt-4 text-base font-semibold text-gray-900">{cat.name}</h3>
+                            <p className="mt-2 text-sm text-gray-500">{cat.description}</p>
                         </a>
                     ))}
                 </div>
             </section>
 
             {/* Featured section */}
-            <section aria-labelledby="comfort-heading"
-                     className="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-                <div className="relative rounded-lg overflow-hidden">
-                    <div className="absolute inset-0">
-                        <img
-                            src="https://tailwindui.com/img/ecommerce-images/home-page-01-feature-section-02.jpg"
-                            alt=""
-                            className="w-full h-full object-center object-cover"
-                        />
-                    </div>
-                    <div className="relative bg-gray-900 bg-opacity-75 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
-                        <div className="relative max-w-3xl mx-auto flex flex-col items-center text-center">
-                            <h2 id="comfort-heading"
-                                className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                                {t('index-last-title')}
-                            </h2>
-                            <p className="mt-3 text-xl text-white">{t('index-last-description')}</p>
-                            <a
-                                href="#"
-                                className="mt-8 w-full block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
-                            >
-                                {t('index-last-btn')}
-                            </a>
+            {HomeBottom && (
+                <section aria-labelledby="comfort-heading"
+                         className="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                    <div className="relative rounded-lg overflow-hidden">
+                        <div className="absolute inset-0">
+
+                            <Image
+                                quality={100}
+                                layout="fill"
+                                objectFit="cover"
+                                src={HomeBottom.body.image}
+                                alt={HomeBottom.body.header}
+                                className="w-full h-full object-center object-cover"
+                            />
+
+                        </div>
+                        <div className="relative bg-gray-900 bg-opacity-75 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
+                            <div className="relative max-w-3xl mx-auto flex flex-col items-center text-center">
+                                <h2 id="comfort-heading"
+                                    className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                                    {HomeBottom.body.header}
+                                </h2>
+                                <p className="mt-3 text-xl text-white">{HomeBottom.body.text}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            )}
 
         </PublicLayout>
     )
 }
 
-export function LogoApp({className}) {
-    return (
-        <div className="w-full flex items-center justify-center">
-            <Image
-                className={className}
-                src="/e-shop-1080-hd.png"
-                alt="e-shop logo"
-                width={50} height={50}/>
-        </div>
-    )
-}
-
 function HeroSection() {
-    const {t} = useTranslation();
+
+    const {data: HomeIntro} = useSWR(`/api/json/sections/HomeIntro`, fetcher)
 
     return (
-        <div
-            className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">{t('index-head-title')}</h1>
-            <p className="mt-4 text-xl text-white">{t('index-head-description')}</p>
-            <a
-                href="#"
-                className="mt-8 inline-block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100"
-            >
-                {t('index-head-btn')}
-            </a>
-        </div>
+        HomeIntro ? (
+            <div
+                className="relative max-w-3xl mx-auto py-32 px-6 flex flex-col items-center text-center sm:py-64 lg:px-0">
+                <h1 className="text-4xl font-extrabold tracking-tight text-white lg:text-6xl">{HomeIntro.body.header}</h1>
+                <p className="mt-4 text-xl text-white">{HomeIntro.body.text}</p>
+            </div>
+        ) : <></>
     )
 }
-
-const collections = [
-    {
-        name: 'Handcrafted Collection',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-collection-01.jpg',
-        imageAlt: 'Brown leather key ring with brass metal loops and rivets on wood table.',
-        description: 'Keep your phone, keys, and wallet together, so you can lose everything at once.',
-    },
-    {
-        name: 'Organized Desk Collection',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-collection-02.jpg',
-        imageAlt: 'Natural leather mouse pad on white desk next to porcelain mug and keyboard.',
-        description: 'The rest of the house will still be a mess, but your desk will look great.',
-    },
-    {
-        name: 'Focus Collection',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg',
-        imageAlt: 'Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.',
-        description: 'Be more productive than enterprise project managers with a single piece of paper.',
-    },
-]

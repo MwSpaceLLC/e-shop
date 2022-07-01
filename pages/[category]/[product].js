@@ -36,8 +36,11 @@ export default function Product({loggedIn}) {
     const {data: product} = useSWR(`/api/json/catalog/products/${productId}`, fetcher)
     const {data: category} = useSWR(`/api/json/catalog/categories/${categoryId}`, fetcher)
 
+    console.log(product?.images)
+
     return (
-        <PublicLayout loggedIn={loggedIn} title={t('seo-index-title')} description={t('seo-index-description')}>
+        <PublicLayout loggedIn={loggedIn} title={product?.name + ' | ' + category?.name}
+                      description={product?.description}>
             <main className="max-w-7xl mx-auto sm:pt-16 sm:px-6 lg:px-8">
                 <div className="max-w-2xl mx-auto lg:max-w-none">
                     {/* Product */}
@@ -55,9 +58,16 @@ export default function Product({loggedIn}) {
                                             <>
                                                 <span className="sr-only">{product?.name}</span>
                                                 <span className="absolute inset-0 rounded-md overflow-hidden">
-                                                        <img src={product?.thumbnail} alt=""
-                                                             className="w-full h-full object-center object-cover"/>
-                                                      </span>
+                                                    {product && (
+                                                        <Image
+                                                            alt={product.name}
+                                                            layout="fill"
+                                                            objectFit="cover"
+                                                            src={product.thumbnail}
+                                                            className="w-full h-full object-center object-cover"
+                                                        />
+                                                    )}
+                                                </span>
                                                 <span
                                                     className={classNames(
                                                         selected ? 'ring-orange-500' : 'ring-transparent',
@@ -78,8 +88,14 @@ export default function Product({loggedIn}) {
                                                 <>
                                                     <span className="sr-only">{image.name}</span>
                                                     <span className="absolute inset-0 rounded-md overflow-hidden">
-                                                        <img src={image.src} alt=""
-                                                             className="w-full h-full object-center object-cover"/>
+
+                                                        <Image
+                                                            layout="fill"
+                                                            objectFit="cover"
+                                                            src={image.path}
+                                                            className="w-full h-full object-center object-cover"
+                                                        />
+
                                                       </span>
                                                     <span
                                                         className={classNames(
@@ -100,22 +116,25 @@ export default function Product({loggedIn}) {
                                 <Tab.Panel>
                                     {product && (
                                         <Image
-                                               layout="fill"
-                                               objectFit="cover"
-                                               src={product.thumbnail}
-                                               alt={product.name}
-                                               className="w-full h-full object-center object-cover sm:rounded-lg"
+                                            layout="fill"
+                                            objectFit="cover"
+                                            src={product.thumbnail}
+                                            alt={product.name}
+                                            className="w-full h-full object-center object-cover sm:rounded-lg"
                                         />
                                     )}
                                 </Tab.Panel>
 
                                 {product?.images?.map((image) => (
                                     <Tab.Panel key={image.id}>
-                                        <img
-                                            src={image.src}
-                                            alt={image.alt}
+
+                                        <Image
+                                            layout="fill"
+                                            objectFit="cover"
+                                            src={image.path}
                                             className="w-full h-full object-center object-cover sm:rounded-lg"
                                         />
+
                                     </Tab.Panel>
                                 ))}
                             </Tab.Panels>
@@ -194,6 +213,7 @@ export default function Product({loggedIn}) {
                                             ))}
                                         </div>
                                     </RadioGroup>
+
                                 </div>
 
                                 <div className="mt-10 flex sm:flex-col1">
