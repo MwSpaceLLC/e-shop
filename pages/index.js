@@ -19,7 +19,7 @@ export const getServerSideProps = PublicServerSideProps
 export default function Index({loggedIn}) {
     const {t} = useTranslation();
 
-    const {data: categories} = useSWR(`/api/json/catalog/categories`, fetcher)
+    const {data: categories} = useSWR(`/api/json/catalog/categories?parent=0`, fetcher)
 
     return (
         <PublicLayout loggedIn={loggedIn} title={t('seo-index-title')} description={t('seo-index-description')}
@@ -43,7 +43,7 @@ export default function Index({loggedIn}) {
                         <div className="box-content py-2 relative h-80 overflow-x-auto xl:overflow-visible">
                             <div
                                 className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8">
-                                {categories?.map((category, idx) => (
+                                {categories?.slice(0, 5).map((category, idx) => (
 
                                     <Link key={idx} href={slugCategory(category)}>
                                         <a className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 xl:w-auto">

@@ -58,7 +58,7 @@ export default function ViewCategories() {
                                         <div className="min-w-0 flex-1 flex items-center">
                                             <div className="flex-shrink-0">
                                                 <Image width={50} height={50} className="h-12 w-12 rounded-sm"
-                                                       src={category.cover}
+                                                       src={category.thumbnail}
                                                        alt=""/>
                                             </div>
                                             <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">

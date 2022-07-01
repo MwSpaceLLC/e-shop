@@ -61,7 +61,7 @@ export default function ViewProducts() {
                                             <div className="flex overflow-hidden -space-x-1">
                                                 <Image width={45} height={45}
                                                        className="inline-block h-6 w-6 rounded-xl ring-2 ring-white"
-                                                       src={product.cover}
+                                                       src={product.thumbnail}
                                                        alt={product.name}
                                                 />
 

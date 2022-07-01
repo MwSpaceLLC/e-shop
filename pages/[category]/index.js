@@ -88,7 +88,7 @@ export default function CategoryIndexProducts() {
                                     <div
                                         className="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
                                         <Image width={450} height={580}
-                                               src={product.cover}
+                                               src={product.thumbnail}
                                                alt={product.name}
                                                className="w-52 h-40 object-center object-contain sm:w-full sm:h-full"
                                         />

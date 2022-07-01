@@ -105,7 +105,7 @@ export default function AdminCatalogCategoryIndex() {
                             <div className="mt-1 flex items-center">
                                 <Image width={160} height={160}
                                        className="inline-block object-contain"
-                                       src={category.cover}
+                                       src={category.thumbnail}
                                        alt=""
                                 />
                                 <div className="ml-4 flex">
@@ -146,7 +146,7 @@ export default function AdminCatalogCategoryIndex() {
                                                 />
                                             </div>
 
-                                            {category.cover && (
+                                            {category.thumbnail && (
                                                 <button
                                                     onClick={e => setConfirm(true)}
                                                     type="button"
@@ -276,7 +276,7 @@ export default function AdminCatalogCategoryIndex() {
                             <div className="mt-1 flex items-center">
                                 <Image width={450} height={150}
                                        className="inline-block object-contain"
-                                       src={category.cover}
+                                       src={category.thumbnail}
                                        alt=""
                                 />
                                 <div className="ml-4 flex">

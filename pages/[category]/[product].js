@@ -55,7 +55,7 @@ export default function Product({loggedIn}) {
                                             <>
                                                 <span className="sr-only">{product?.name}</span>
                                                 <span className="absolute inset-0 rounded-md overflow-hidden">
-                                                        <img src={product?.cover} alt=""
+                                                        <img src={product?.thumbnail} alt=""
                                                              className="w-full h-full object-center object-cover"/>
                                                       </span>
                                                 <span
@@ -99,9 +99,10 @@ export default function Product({loggedIn}) {
 
                                 <Tab.Panel>
                                     {product && (
-                                        <Image layout="fill"
+                                        <Image
+                                               layout="fill"
                                                objectFit="cover"
-                                               src={product.cover}
+                                               src={product.thumbnail}
                                                alt={product.name}
                                                className="w-full h-full object-center object-cover sm:rounded-lg"
                                         />
@@ -279,7 +280,7 @@ export default function Product({loggedIn}) {
                                         <div className="relative">
                                             <div className="relative w-full h-72 rounded-lg overflow-hidden">
                                                 <img
-                                                    src={prd?.cover}
+                                                    src={prd?.thumbnail}
                                                     alt={prd?.name}
                                                     className="w-full h-full object-center object-cover"
                                                 />
