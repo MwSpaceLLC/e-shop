@@ -133,25 +133,26 @@ export default function Index({loggedIn}) {
 
                 <div className="mt-10 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8">
                     {collection?.slice(0, 3).map((cat, idx) => (
-                        <a key={idx} href={cat.href} className="group block">
-                            <div
-                                aria-hidden="true"
-                                className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden group-hover:opacity-75 lg:aspect-w-5 lg:aspect-h-6"
-                            >
+                        <Link key={idx} href={slugCategory(cat)}>
+                            <a className="group block">
+                                <div
+                                    aria-hidden="true"
+                                    className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden group-hover:opacity-75 lg:aspect-w-5 lg:aspect-h-6"
+                                >
+                                    <Image
+                                        layout="fill"
+                                        quality={100}
+                                        objectFit="contain"
+                                        src={cat.thumbnail}
+                                        alt={cat.name}
+                                        className="w-full h-full object-center object-cover"
+                                    />
 
-                                <Image
-                                    layout="fill"
-                                    quality={100}
-                                    objectFit="contain"
-                                    src={cat.thumbnail}
-                                    alt={cat.name}
-                                    className="w-full h-full object-center object-cover"
-                                />
-
-                            </div>
-                            <h3 className="mt-4 text-base font-semibold text-gray-900">{cat.name}</h3>
-                            <p className="mt-2 text-sm text-gray-500">{cat.description}</p>
-                        </a>
+                                </div>
+                                <h3 className="mt-4 text-base font-semibold text-gray-900">{cat.name}</h3>
+                                <p className="mt-2 text-sm text-gray-500">{cat.description}</p>
+                            </a>
+                        </Link>
                     ))}
                 </div>
             </section>

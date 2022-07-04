@@ -17,20 +17,21 @@ import {classNames, fetcher, slugCategoryProduct, slugProduct} from "../../lib/f
 
 import ProductServerSideProps from "../../lib/props/ProductServerSideProps";
 import useSWR from "swr";
+import useMoney from "../../hooks/useMoney";
 
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
 
 export default function Product({loggedIn, product, category}) {
+
     const {t} = useTranslation();
+    const money = useMoney()
 
     const [selectedColor, setSelectedColor] = useState({
         name: 'Washed Black',
         bgColor: 'bg-gray-700',
         selectedColor: 'ring-gray-700'
     })
-
-    // const router = useRouter()
 
     const {data: products} = useSWR(`/api/json/catalog/products?category=${category.id}`, fetcher)
 
@@ -56,9 +57,9 @@ export default function Product({loggedIn, product, category}) {
                                                 <span className="absolute inset-0 rounded-md overflow-hidden">
                                                     {product?.thumbnail && (
                                                         <Image
-                                                            alt={product.name}
                                                             layout="fill"
                                                             objectFit="cover"
+                                                            alt={product.name}
                                                             src={product.thumbnail}
                                                             className="w-full h-full object-center object-cover"
                                                         />
@@ -142,7 +143,7 @@ export default function Product({loggedIn, product, category}) {
 
                             <div className="mt-3">
                                 <h2 className="sr-only">Product information</h2>
-                                <p className="text-3xl text-gray-900">{product?.price}</p>
+                                <p className="text-3xl text-gray-900">{money.format(product?.price)}</p>
                             </div>
 
                             {/* Reviews */}
@@ -291,7 +292,7 @@ export default function Product({loggedIn, product, category}) {
                         <div
                             className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
                             {category && product && products?.map((prd, idx) => prd.id !== product.id && (
-                                <Link key={idx} href={slugCategoryProduct(category, prd)}>
+                                <Link key={idx} href={slugCategoryProduct(prd)}>
                                     <a key={prd?.id}>
                                         <div className="relative">
                                             <div className="relative w-full h-72 rounded-lg overflow-hidden">
@@ -311,7 +312,7 @@ export default function Product({loggedIn, product, category}) {
                                                     aria-hidden="true"
                                                     className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
                                                 />
-                                                <p className="relative text-lg font-semibold text-white">{product?.price}</p>
+                                                <p className="relative text-lg font-semibold text-white">{money.format(product?.price)}</p>
                                             </div>
                                         </div>
                                         <div className="mt-6">

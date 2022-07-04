@@ -9,6 +9,8 @@ import {useRouter} from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import CategoryServerSideProps from "../../lib/props/CategoryServerSideProps";
+import SideCategoriesNested from "../../components/SideCategoriesNested";
+import useMoney from "../../hooks/useMoney";
 
 // This gets called on every request
 export const getServerSideProps = CategoryServerSideProps
@@ -17,12 +19,12 @@ export default function CategoryIndexProducts({category}) {
     const [name, setName] = useState("")
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
+    const money = useMoney()
     const router = useRouter()
+
     const id = router.query.category?.split('-').shift()
 
     const {data: products} = useSWR(`/api/json/catalog/products?category=${id}&name=${name}`, fetcher)
-
-    const {data: categories} = useSWR(`/api/json/catalog/categories`, fetcher)
 
     return (
         <PublicLayout className="mx-auto max-w-7xl" title={category?.name} description={category?.description}>
@@ -47,70 +49,56 @@ export default function CategoryIndexProducts({category}) {
                     <div className="hidden lg:block">
                         <div className="divide-y divide-gray-200 space-y-10">
                             <fieldset>
-                                <legend
-                                    className="block text-sm font-medium text-gray-900">Categorie
-                                </legend>
-                                <ul className="pt-6 space-y-3">
-                                    {categories?.map((cat, optionIdx) => (
-                                        <ul key={cat.id} className="cursor-default">
-                                            <Link href={slugCategory(cat)} className="items-center">
-                                                <li className="cursor-default">
-                                                    <input
-                                                        onChange={e => router.push(slugCategory(cat))}
-                                                        checked={parseInt(cat.id) === parseInt(id)}
-                                                        name={`${cat.id}[]`}
-                                                        type="checkbox"
-                                                        className="h-4 w-4 border-gray-300 rounded-full text-orange-600 focus:ring-orange-500"
-                                                    />
-                                                    <label htmlFor={cat.id} className="ml-3 text-sm text-gray-600">
-                                                        {cat.name}
-                                                    </label>
-                                                </li>
-                                            </Link>
-                                        </ul>
-                                    ))}
-                                </ul>
+                                <SideCategoriesNested categoryId={id}/>
                             </fieldset>
                         </div>
                     </div>
                 </aside>
 
                 <section aria-labelledby="product-heading" className="mt-6 lg:mt-0 lg:col-span-2 xl:col-span-3">
-                    <h2 id="product-heading" className="sr-only">
-                        Products
-                    </h2>
+
+                    {products?.length === 0 && (
+                        <div className="w-full flex items-center justify-center flex-col">
+                            <p className="font-bold text-xl">Il prodotto che stai cercando non è attualmente
+                                disponibile. Riprova più tardi.</p>
+                            <Link href="/cart">
+                                <a className="text-orange-500">Continua lo shopping</a>
+                            </Link>
+                        </div>
+                    )}
 
                     <div
                         className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
                         {category && products?.map((product, idx) => (
-                            <Link key={idx} href={slugCategoryProduct(category, product)}>
+                            <Link key={idx} href={slugCategoryProduct(product)}>
                                 <a
                                     key={product.id}
-                                    className="group relative bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden">
+                                    className="group bg-gray-200 relative bg-white border-2 border-gray-200 rounded-lg flex flex-col overflow-hidden">
                                     <div
-                                        className="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
-                                        <Image width={450} height={580}
-                                               src={product.thumbnail}
-                                               alt={product.name}
-                                               className="w-52 h-40 object-center object-contain sm:w-full sm:h-full"
+                                        className="relative aspect-w-3 aspect-h-4 bg-white group-hover:opacity-75 sm:aspect-none sm:h-96">
+                                        <img
+                                            alt={product.name}
+                                            src={product.thumbnail}
+                                            className="w-52 h-52 object-center object-cover"
                                         />
                                     </div>
                                     <div className="flex-1 p-4 space-y-2 flex flex-col">
                                         <h3 className="text-sm font-medium text-gray-900">
-                                            <a href={product.href}>
+                                            <span>
                                                 <span aria-hidden="true" className="absolute inset-0"/>
                                                 {product.name}
-                                            </a>
+                                            </span>
                                         </h3>
                                         <p className="text-sm text-gray-500">{product.description}</p>
                                         <div className="flex-1 flex flex-col justify-end">
                                             <p className="text-sm italic text-gray-500">{product.options}</p>
-                                            <p className="text-base font-medium text-gray-900">{product.price}</p>
+                                            <p className="text-base font-medium text-gray-900">{money.format(product.price)}</p>
                                         </div>
                                     </div>
                                 </a>
                             </Link>
                         ))}
+
                     </div>
                 </section>
             </div>

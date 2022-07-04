@@ -7,7 +7,7 @@ export default async function handler(req, res) {
      |------------------------------------------------------------------------*/
 
     return res.json(
-        await prisma.section.findFirst({
+        await prisma.setting.findFirst({
             where: {
                 key: req.query.key
             }

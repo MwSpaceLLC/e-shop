@@ -8,6 +8,8 @@ export default async function handler(req, res) {
     let query = {
         include: {
             langs: true,
+            images: true,
+            categories:true
         },
     };
 
@@ -23,7 +25,7 @@ export default async function handler(req, res) {
                     id: {in: [parseInt(req.query.category)]}
                 }
             }
-        }
+        },
     }
 
     return res.json(

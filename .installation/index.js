@@ -79,6 +79,12 @@ const prisma = new PrismaClient({log: ['query']});
                 }, {
                     key: 'ShopCountry',
                     value: 'Italy',
+                }, {
+                    key: 'ShopCurrency',
+                    value: 'EUR',
+                }, {
+                    key: 'ShopLanguage',
+                    value: 'IT',
                 },
             ]
         })
@@ -284,14 +290,14 @@ const prisma = new PrismaClient({log: ['query']});
                 {            // ID: 25
                     parentId: 22,
                     uuid: crypto.randomUUID(),
-                    name: 'MacBook Air (1° Generazione) | Nero',
+                    name: 'MacBook Air (1° Generazione) | 2014',
                     cover: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021.jfif',
                     thumbnail: '/crud/demo/categories/refurb-ipad-air-wifi-spacegrey-2021.jfif',
                     description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
                 }, {            // ID: 26
                     parentId: 22,
                     uuid: crypto.randomUUID(),
-                    name: 'MacBook Air (1° Generazione) | Bianco',
+                    name: 'MacBook Air (1° Generazione) | 2016',
                     cover: '/crud/demo/categories/refurb-ipad-air-wifi-silver-2021.jfif',
                     thumbnail: '/crud/demo/categories/refurb-ipad-air-wifi-silver-2021.jfif',
                     description: 'Scopri cosa c’è dietro un Accessori per Mac ricondizionato.',
@@ -311,15 +317,14 @@ const prisma = new PrismaClient({log: ['query']});
             data: {
                 uuid: crypto.randomUUID(),
                 quantity: 4,
-                price: 9.939,
+                price: 989,
                 discount: 20.00,
                 name: 'MacBook Air 13,3" ricondizionato con chip Apple M1, CPU 8‑core e GPU 7‑core',
-                thumbnail: '/crud/demo/products/refurb-macbook-air-space-gray-m1-202010.jfif',
+                thumbnail: '/crud/demo/products/refurb-macbook-air-space-gray-m1-202010_AV1.jfif',
                 description: 'Data iniziale di immissione sul mercato: novembre 2020 Display retroilluminato LED da 13,3" (diagonale) con tecnologia IPS; risoluzione nativa 2560×1600 a 227 pixel per pollice 8GB di memoria unificata Unità SSD da 256GB1 Sensore Touch ID Videocamera FaceTime HD a 720p.',
                 categories: {connect: [{id: 1}, {id: 2}]},
                 images: {
                     create: [
-                        {path: '/crud/demo/products/refurb-macbook-air-space-gray-m1-202010_AV1.jfif'},
                         {path: '/crud/demo/products/refurb-macbook-air-space-gray-m1-202010_AV2.jfif'},
                         {path: '/crud/demo/products/refurb-macbook-air-space-gray-m1-202010_AV3.jfif'},
                         {path: '/crud/demo/products/refurb-macbook-air-space-gray-m1-202010_AV4.jfif'},
@@ -327,7 +332,86 @@ const prisma = new PrismaClient({log: ['query']});
                     ]
                 }
             }
-        })
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 18,
+                price: 1259,
+                discount: 20.00,
+                name: 'MacBook Pro 13,3" ricondizionato con chip Apple M1, CPU 8‑core e GPU 8‑core',
+                thumbnail: '/crud/demo/products/refurb-mbp13-space-m1-2020_GEO_IT.jfif',
+                description: 'Data iniziale di immissione sul mercato: novembre 2020 Display retroilluminato LED da 13,3" (diagonale) con tecnologia IPS; risoluzione nativa 2560×1600 a 227 pixel per pollice 8GB di memoria unificata Unità SSD da 256GB1 Touch Bar e Touch ID Videocamera FaceTime HD a 720p.',
+                categories: {connect: [{id: 1}, {id: 3}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-mbp13-space-m1-2020_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-mbp13-space-m1-2020_AV2.jfif'},
+                        {path: '/crud/demo/products/refurb-mbp13-space-m1-2020_AV3.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 18,
+                price: 1259,
+                discount: 20.00,
+                name: 'Mac mini Intel Core i5 6‑core di ottava generazione a 3,0GHz',
+                thumbnail: '/crud/demo/products/mac-mini-spacegray-202011-gallery-1.jfif',
+                description: 'Data iniziale di immissione sul mercato: giugno 2017 Display retroilluminato LED da 21,5" (diagonale); risoluzione 1920×1080; supporta milioni di colori 8GB di memoria DDR4 a 2133MHz su scheda Archiviazione SSD da 256GB1 Videocamera FaceTime HD Intel Iris Plus Graphics 640.',
+                categories: {connect: [{id: 1}, {id: 4}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/mac-mini-spacegray-202011-gallery-2.jfif'},
+                        {path: '/crud/demo/products/mac-mini-spacegray-202011-gallery-3.jfif'},
+                        {path: '/crud/demo/products/mac-mini-spacegray-202011-gallery-4.jfif'},
+                        {path: '/crud/demo/products/mac-mini-spacegray-202011-gallery-5.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 18,
+                price: 1259,
+                discount: 20.00,
+                name: 'iMac 21,5" ricondizionato con Intel Core i5 dual-core a 2,3GHz',
+                thumbnail: '/crud/demo/products/refurb-2017-imac-215-gallery.jfif',
+                description: 'Data iniziale di immissione sul mercato: giugno 2017 Display retroilluminato LED da 21,5" (diagonale); risoluzione 1920×1080; supporta milioni di colori 8GB di memoria DDR4 a 2133MHz su scheda Archiviazione SSD da 256GB1 Videocamera FaceTime HD Intel Iris Plus Graphics 640.',
+                categories: {connect: [{id: 1}, {id: 5}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-2017-imac-215-gallery_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-2017-imac-215-gallery_AV2.jfif'},
+                        {path: '/crud/demo/products/refurb-2017-imac-215-gallery_AV3.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 18,
+                price: 6599,
+                discount: 10.00,
+                name: 'iMac 21,5" ricondizionato con Intel Core i5 dual-core a 2,3GHz',
+                thumbnail: '/crud/demo/products/mac-pro-2019-gallery1.jfif',
+                description: 'Processore Intel Xeon W 8‑core a 3,5GHz (Turbo Boost fino a 4,0GHz) 32GB (4x8GB) di memoria ECC DDR4 Radeon Pro W5500X con 8GB di memoria GDDR6 Unità SSD da 512GB Telaio in acciaio inossidabile con piedini Magic Mouse Magic Keyboard con tastierino numerico - Italiano.',
+                categories: {connect: [{id: 1}, {id: 6}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/mac-pro-2019-gallery2.jfif'},
+                        {path: '/crud/demo/products/mac-pro-2019-gallery3.jfif'},
+                        {path: '/crud/demo/products/mac-pro-2019-gallery4.jfif'},
+                        {path: '/crud/demo/products/mac-pro-2019-gallery5.jfif'},
+                        {path: '/crud/demo/products/mac-pro-2019-gallery6.jfif'},
+                    ]
+                }
+            }
+        }),
     )
 
     /*
