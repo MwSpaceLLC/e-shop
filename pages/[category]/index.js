@@ -5,14 +5,15 @@ import useSWR from "swr";
 import {fetcher, slugCategory, slugCategoryProduct, slugProduct} from "../../lib/function";
 import PublicLayout from "../../components/PublicLayout";
 import {useRouter} from "next/router";
-import PublicServerSideProps from "../../lib/props/PublicServerSideProps";
+
 import Link from "next/link";
 import Image from "next/image";
+import CategoryServerSideProps from "../../lib/props/CategoryServerSideProps";
 
 // This gets called on every request
-export const getServerSideProps = PublicServerSideProps
+export const getServerSideProps = CategoryServerSideProps
 
-export default function CategoryIndexProducts() {
+export default function CategoryIndexProducts({category}) {
     const [name, setName] = useState("")
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
@@ -20,7 +21,7 @@ export default function CategoryIndexProducts() {
     const id = router.query.category?.split('-').shift()
 
     const {data: products} = useSWR(`/api/json/catalog/products?category=${id}&name=${name}`, fetcher)
-    const {data: category} = useSWR(`/api/json/catalog/categories/${id}`, fetcher)
+
     const {data: categories} = useSWR(`/api/json/catalog/categories`, fetcher)
 
     return (
@@ -53,8 +54,9 @@ export default function CategoryIndexProducts() {
                                     {categories?.map((cat, optionIdx) => (
                                         <ul key={cat.id} className="cursor-default">
                                             <Link href={slugCategory(cat)} className="items-center">
-                                                <a className="cursor-default">
+                                                <li className="cursor-default">
                                                     <input
+                                                        onChange={e => router.push(slugCategory(cat))}
                                                         checked={parseInt(cat.id) === parseInt(id)}
                                                         name={`${cat.id}[]`}
                                                         type="checkbox"
@@ -63,7 +65,7 @@ export default function CategoryIndexProducts() {
                                                     <label htmlFor={cat.id} className="ml-3 text-sm text-gray-600">
                                                         {cat.name}
                                                     </label>
-                                                </a>
+                                                </li>
                                             </Link>
                                         </ul>
                                     ))}

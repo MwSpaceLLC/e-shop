@@ -8,35 +8,31 @@ import {
 } from '@heroicons/react/outline'
 import {StarIcon} from '@heroicons/react/solid'
 
+import Image from "next/image";
+
 import PublicLayout from "../../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import Link from "next/link";
 import {classNames, fetcher, slugCategoryProduct, slugProduct} from "../../lib/function"
-import {useRouter} from "next/router";
-import useSWR from "swr";
-import Image from "next/image";
 
-export default function Product({loggedIn}) {
+import ProductServerSideProps from "../../lib/props/ProductServerSideProps";
+import useSWR from "swr";
+
+// This gets called on every request
+export const getServerSideProps = ProductServerSideProps
+
+export default function Product({loggedIn, product, category}) {
     const {t} = useTranslation();
 
-    const [open, setOpen] = useState(false)
     const [selectedColor, setSelectedColor] = useState({
         name: 'Washed Black',
         bgColor: 'bg-gray-700',
         selectedColor: 'ring-gray-700'
     })
 
-    const router = useRouter()
-    const categoryId = router.query.category?.split('-').shift()
-    const productId = router.query.product?.split('-').shift()
+    // const router = useRouter()
 
-    const {data: products} = useSWR(`/api/json/catalog/products?category=${categoryId}`, fetcher)
-    // const {data: categories} = useSWR(`/api/json/catalog/categories`, fetcher)
-
-    const {data: product} = useSWR(`/api/json/catalog/products/${productId}`, fetcher)
-    const {data: category} = useSWR(`/api/json/catalog/categories/${categoryId}`, fetcher)
-
-    console.log(product?.images)
+    const {data: products} = useSWR(`/api/json/catalog/products?category=${category.id}`, fetcher)
 
     return (
         <PublicLayout loggedIn={loggedIn} title={product?.name + ' | ' + category?.name}
@@ -58,7 +54,7 @@ export default function Product({loggedIn}) {
                                             <>
                                                 <span className="sr-only">{product?.name}</span>
                                                 <span className="absolute inset-0 rounded-md overflow-hidden">
-                                                    {product && (
+                                                    {product?.thumbnail && (
                                                         <Image
                                                             alt={product.name}
                                                             layout="fill"
@@ -114,7 +110,7 @@ export default function Product({loggedIn}) {
                             <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
 
                                 <Tab.Panel>
-                                    {product && (
+                                    {product?.thumbnail && (
                                         <Image
                                             layout="fill"
                                             objectFit="cover"

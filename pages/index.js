@@ -18,7 +18,7 @@ export const getServerSideProps = PublicServerSideProps
 export default function Index({loggedIn}) {
     const {t} = useTranslation();
 
-    const {data: categories} = useSWR(`/api/json/catalog/categories?parent=0`, fetcher)
+    const {data: categories} = useSWR(`/api/json/catalog/categories?parentId=0`, fetcher)
     const {data: collection} = useSWR(`/api/json/catalog/categories?parentId=11`, fetcher)
 
     const {data: HomeCollection} = useSWR(`/api/json/sections/HomeCollection`, fetcher)
