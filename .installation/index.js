@@ -602,7 +602,6 @@ const prisma = new PrismaClient({log: ['query']});
         }),
     )
 
-
     /*
      |--------------------------------------------------------------------------
      | Create Demo Product Combinations

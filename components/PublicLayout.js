@@ -125,7 +125,7 @@ export default function PublicLayout({title, description, children, className, H
     const {t} = useTranslation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-    const {data: categories} = useSWR(`/api/json/catalog/categories?recursive=true`, fetcher)
+    const {data: categories} = useSWR(`/api/json/categories?recursive=true`, fetcher)
 
     const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
     const {data: ShopFavicon} = useSWR(`/api/json/sections/ShopFavicon`, fetcher)

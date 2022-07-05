@@ -21,9 +21,9 @@ export default function ViewCategories({parentId = 0}) {
 
     const [like, setLike] = useState("")
 
-    const {data: categories} = useSWR(`/api/json/catalog/categories?parentId=${parentId}&name=${like}`, fetcher)
+    const {data: categories} = useSWR(`/api/json/categories?parentId=${parentId}&name=${like}`, fetcher)
 
-    const {data: category} = useSWR(`/api/json/catalog/categories/${parentId}`, fetcher)
+    const {data: category} = useSWR(`/api/json/categories/${parentId}`, fetcher)
 
     return (
         <div className="bg-white shadow overflow-hidden sm:rounded-md">

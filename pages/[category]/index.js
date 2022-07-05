@@ -24,7 +24,7 @@ export default function CategoryIndexProducts({category}) {
 
     const id = router.query.category?.split('-').shift()
 
-    const {data: products} = useSWR(`/api/json/catalog/products?category=${id}&name=${name}`, fetcher)
+    const {data: products} = useSWR(`/api/json/products?category=${id}&name=${name}`, fetcher)
 
     return (
         <PublicLayout className="mx-auto max-w-7xl" title={category?.name} description={category?.description}>

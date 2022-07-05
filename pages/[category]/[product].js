@@ -33,7 +33,7 @@ export default function Product({loggedIn, product, category}) {
         selectedColor: 'ring-gray-700'
     })
 
-    const {data: products} = useSWR(`/api/json/catalog/products?category=${category.id}`, fetcher)
+    const {data: products} = useSWR(`/api/json/products?category=${category.id}`, fetcher)
 
     return (
         <PublicLayout loggedIn={loggedIn} title={product?.name + ' | ' + category?.name}

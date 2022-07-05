@@ -23,8 +23,8 @@ export default function Search() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
-    const {data: products} = useSWR(`/api/json/catalog/products?name=${name}&category=${inCategory.join(',')}`, fetcher)
-    const {data: categories} = useSWR(`/api/json/catalog/categories`, fetcher)
+    const {data: products} = useSWR(`/api/json/products?name=${name}&category=${inCategory.join(',')}`, fetcher)
+    const {data: categories} = useSWR(`/api/json/categories`, fetcher)
 
     const sortOptions = [
         {name: 'Più nuovo', onChange: () => setOrderBy('new'), current: orderBy === 'new'},

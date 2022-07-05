@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 export default function SideCategoriesNested({categoryId}) {
 
     const router = useRouter()
-    const {data: categories} = useSWR(`/api/json/catalog/categories?recursive=true`, fetcher)
+    const {data: categories} = useSWR(`/api/json/categories?recursive=true`, fetcher)
 
     const CategoryItem = ({item}) => (
         <li key={item.id}>
