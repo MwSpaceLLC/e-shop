@@ -260,7 +260,7 @@ export default function Cart() {
                                             <select
                                                 id={`quantity-${productIdx}`}
                                                 name={`quantity-${productIdx}`}
-                                                className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                                             >
                                                 <option value={1}>1</option>
                                                 <option value={2}>2</option>
@@ -342,47 +342,13 @@ export default function Cart() {
                     <div className="mt-6">
                         <button
                             type="button"
-                            className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                            className="w-full bg-orange-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-orange-500"
                         >
                             {t('cart-summary-btn')}
                         </button>
                     </div>
                 </section>
             </div>
-
-            {/* Related products */}
-            <section aria-labelledby="related-heading" className="mt-24">
-                <h2 id="related-heading" className="text-lg font-medium text-gray-900">
-                    You may also like&hellip;
-                </h2>
-
-                <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                    {relatedProducts.map((relatedProduct) => (
-                        <div key={relatedProduct.id} className="group relative">
-                            <div
-                                className="w-full min-h-80 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                                <img
-                                    src={relatedProduct.imageSrc}
-                                    alt={relatedProduct.imageAlt}
-                                    className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                                />
-                            </div>
-                            <div className="mt-4 flex justify-between">
-                                <div>
-                                    <h3 className="text-sm text-gray-700">
-                                        <a href={relatedProduct.href}>
-                                            <span aria-hidden="true" className="absolute inset-0"/>
-                                            {relatedProduct.name}
-                                        </a>
-                                    </h3>
-                                    <p className="mt-1 text-sm text-gray-500">{relatedProduct.color}</p>
-                                </div>
-                                <p className="text-sm font-medium text-gray-900">{relatedProduct.price}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
         </PublicLayout>
     )
 }

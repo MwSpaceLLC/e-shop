@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         include: {
             langs: true,
             images: true,
-            categories:true
+            categories: true
         },
     };
 
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         where: {
             ...query.where, categories: {
                 some: {
-                    id: {in: [parseInt(req.query.category)]}
+                    id: {in: req.query.category.split(',').map(id => parseInt(id))}
                 }
             }
         },

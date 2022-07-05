@@ -4,7 +4,13 @@ import {classNames, fetcher} from "../lib/function"
 
 import {Fragment, useState} from 'react'
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
-import {MenuIcon, QuestionMarkCircleIcon, SearchIcon, ShoppingBagIcon, XIcon} from '@heroicons/react/outline'
+import {
+    MenuIcon,
+    SearchCircleIcon,
+    SearchIcon,
+    ShoppingBagIcon,
+    XIcon
+} from '@heroicons/react/outline'
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
@@ -122,6 +128,7 @@ export default function PublicLayout({title, description, children, className, H
     const {data: categories} = useSWR(`/api/json/catalog/categories?recursive=true`, fetcher)
 
     const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
+    const {data: ShopFavicon} = useSWR(`/api/json/sections/ShopFavicon`, fetcher)
 
     return (
         <>
@@ -129,6 +136,11 @@ export default function PublicLayout({title, description, children, className, H
                 <title>{title} | {process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
                 <meta name="description" content={description}/>
                 <link rel="icon" href="/favicon.ico"/>
+
+                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+                <link rel="manifest" href="/site.webmanifest"/>
             </Head>
 
             <div className="bg-white">
@@ -174,7 +186,7 @@ export default function PublicLayout({title, description, children, className, H
                                     <Tab.Group as="div" className="mt-2">
                                         <div className="border-b border-gray-200">
                                             <Tab.List className="-mb-px flex px-4 space-x-8">
-                                                {categories?.map((category) => (
+                                                {categories?.slice(0, 5).map((category) => (
                                                     <Tab
                                                         key={category.name}
                                                         className={({selected}) =>
@@ -190,7 +202,7 @@ export default function PublicLayout({title, description, children, className, H
                                             </Tab.List>
                                         </div>
                                         <Tab.Panels as={Fragment}>
-                                            {categories?.map((category) => (
+                                            {categories?.slice(0, 5).map((category) => (
                                                 <Tab.Panel key={category.name} className="px-4 py-6 space-y-12">
                                                     <div className="grid grid-cols-2 gap-x-4 gap-y-10">
                                                         {category.featured?.map((item) => (
@@ -234,7 +246,7 @@ export default function PublicLayout({title, description, children, className, H
                                         <div className="flow-root">
                                             <Link href={loggedIn ? "/account" : "/register"}>
                                                 <a className="-m-2 p-2 block font-medium text-gray-900">
-                                                    {loggedIn ? 'Account' : 'Create an account'}
+                                                    {loggedIn ? 'Account' : 'Crea un account'}
                                                 </a>
                                             </Link>
                                         </div>
@@ -242,7 +254,7 @@ export default function PublicLayout({title, description, children, className, H
                                         <div className="flow-root">
                                             <Link href={loggedIn ? "/logout" : "/login"}>
                                                 <a className="-m-2 p-2 block font-medium text-gray-900">
-                                                    {loggedIn ? 'Sign Out' : 'Sign in'}
+                                                    {loggedIn ? 'Disconnetti' : 'Accedi'}
                                                 </a>
                                             </Link>
                                         </div>
@@ -361,13 +373,13 @@ export default function PublicLayout({title, description, children, className, H
 
                                         <Link href={loggedIn ? "/logout" : "/login"}>
                                             <a className="text-sm font-medium text-white hover:text-gray-100">
-                                                {loggedIn ? 'Sign Out' : 'Sign in'}
+                                                {loggedIn ? 'Disconnetti' : 'Accedi'}
                                             </a>
                                         </Link>
 
                                         <Link href={loggedIn ? "/account" : "/register"}>
                                             <a className="text-sm font-medium text-white hover:text-gray-100">
-                                                {loggedIn ? 'Account' : 'Create an account'}
+                                                {loggedIn ? 'Account' : 'Crea un account'}
                                             </a>
                                         </Link>
                                     </div>
@@ -397,7 +409,7 @@ export default function PublicLayout({title, description, children, className, H
                                                 {/* Flyout menus */}
                                                 <Popover.Group className="px-4 bottom-0 inset-x-0">
                                                     <div className="h-full flex justify-center space-x-8">
-                                                        {categories?.slice(0,6).map((category) => (
+                                                        {categories?.slice(0, 5).map((category) => (
                                                             <Popover key={category.name} className="flex">
                                                                 {({open}) => (
                                                                     <>
@@ -436,7 +448,7 @@ export default function PublicLayout({title, description, children, className, H
                                                                                         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                                                                         <div
                                                                                             className="grid grid-cols-4 gap-y-10 gap-x-8 py-16">
-                                                                                            {category.children?.slice(0,4).map((item) => (
+                                                                                            {category.children?.slice(0, 4).map((item) => (
                                                                                                 <div key={item.name}
                                                                                                      className="group relative">
                                                                                                     <div
@@ -482,10 +494,12 @@ export default function PublicLayout({title, description, children, className, H
                                                 </button>
 
                                                 {/* Search */}
-                                                <a href="#" className="ml-2 p-2 text-white">
-                                                    <span className="sr-only">Search</span>
-                                                    <SearchIcon className="w-6 h-6" aria-hidden="true"/>
-                                                </a>
+                                                <Link href="/search">
+                                                    <a href="#" className="ml-2 p-2 text-white">
+                                                        <span className="sr-only">Ricerca</span>
+                                                        <SearchIcon className="w-6 h-6" aria-hidden="true"/>
+                                                    </a>
+                                                </Link>
                                             </div>
 
                                             {/* Logo (lg-) */}
@@ -499,20 +513,22 @@ export default function PublicLayout({title, description, children, className, H
                                             </a>
 
                                             <div className="flex-1 flex items-center justify-end">
-                                                <a href="#" className="hidden text-sm font-medium text-white lg:block">
-                                                    Search
-                                                </a>
 
                                                 <div className="flex items-center lg:ml-8">
                                                     {/* Help */}
-                                                    <a href="#" className="p-2 text-white lg:hidden">
-                                                        <span className="sr-only">Help</span>
-                                                        <QuestionMarkCircleIcon className="w-6 h-6" aria-hidden="true"/>
-                                                    </a>
-                                                    <a href="#"
-                                                       className="hidden text-sm font-medium text-white lg:block">
-                                                        Help
-                                                    </a>
+                                                    <Link href="/search">
+                                                        <a className="p-2 text-white lg:hidden">
+                                                            <SearchCircleIcon
+                                                                className="w-6 h-6"
+                                                                aria-hidden="true"/>
+                                                        </a>
+                                                    </Link>
+
+                                                    <Link href="/search">
+                                                        <a className="hidden text-sm font-medium text-white lg:block">
+                                                            Ricerca
+                                                        </a>
+                                                    </Link>
 
                                                     {/* Cart */}
                                                     <div className="ml-4 flow-root lg:ml-8">

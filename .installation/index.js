@@ -51,7 +51,7 @@ const prisma = new PrismaClient({log: ['query']});
      |--------------------------------------------------------------------------
      | Create Default Settings
      |------------------------------------------------------------------------*/
-    console.log("\n======= Create Default Lang =======")
+    console.log("\n======= Create Default Setting =======")
     console.log(
         await prisma.setting.createMany({
             data: [
@@ -65,8 +65,41 @@ const prisma = new PrismaClient({log: ['query']});
                     key: 'ShopLogo',
                     value: '/crud/demo/settings/logo-1080-hd.webp',
                 }, {
+                    key: 'ShopFavicon',
+                    value: '/crud/demo/settings/favicon/favicon.ico',
+                }, {
+                    key: 'ShopFavicon16',
+                    value: '/crud/demo/settings/favicon/favicon-16x16.png',
+                }, {
+                    key: 'ShopFavicon32',
+                    value: '/crud/demo/settings/favicon/favicon-32x32.png',
+                }, {
+                    key: 'ShopWebManifest',
+                    value: '/crud/demo/settings/favicon/site.webmanifest',
+                }, {
                     key: 'ShopMainColor',
                     value: '#ff9800',
+                }, {
+                    key: 'ShopTopTextColor',
+                    value: '#ffffff',
+                }, {
+                    key: 'ShopTopBackgroundColor',
+                    value: '#111827',
+                }, {
+                    key: 'ShopMenuTextColor',
+                    value: '#ffffff',
+                }, {
+                    key: 'ShopFooterTextColor',
+                    value: '#ffffff',
+                }, {
+                    key: 'ShopFooterBackgroundColor',
+                    value: '#111827',
+                }, {
+                    key: 'ShopProductTextColor',
+                    value: '#374151',
+                }, {
+                    key: 'ShopProductBackgroundColor',
+                    value: '#f3f4f6',
                 }, {
                     key: 'ShopAddress',
                     value: 'Via camillo bozza, 14',
@@ -85,6 +118,49 @@ const prisma = new PrismaClient({log: ['query']});
                 }, {
                     key: 'ShopLanguage',
                     value: 'IT',
+                }, {
+                    key: 'ShopSeoIndexTitle',
+                    value: 'elettronica, libri, musica, fashion, videogiochi, DVD e tanto altro',
+                }, {
+                    key: 'ShopSeoIndexDescription',
+                    value: 'Ampia scelta, piccoli prezzi. Scopri nei nostri negozi online fotocamere digitali, lettori MP3, libri, musica, DVD, videogiochi, elettrodomestici e tanto altro',
+                },
+
+                // insert api system keys
+                {
+                    key: 'ShopStripeId',
+                    value: '',
+                }, {
+                    key: 'ShopStripeSecret',
+                    value: '',
+                }, {
+                    key: 'ShopPackLinkApiKey',
+                    value: '',
+                },
+            ]
+        })
+    )
+
+    /*
+     |--------------------------------------------------------------------------
+     | Create Default Settings
+     |------------------------------------------------------------------------*/
+    console.log("\n======= Create Default Option =======")
+    console.log(
+        await prisma.option.createMany({
+            data: [
+                {
+                    key: 'SystemBlog',
+                    enabled: true,
+                }, {
+                    key: 'SystemShipment',
+                    enabled: true,
+                }, {
+                    key: 'SystemSelling',
+                    enabled: true,
+                }, {
+                    key: 'GuestPrices',
+                    enabled: true,
                 },
             ]
         })
@@ -303,6 +379,28 @@ const prisma = new PrismaClient({log: ['query']});
                     description: 'Scopri cosa c’è dietro un Accessori per Mac ricondizionato.',
                 },
 
+
+                /** Category Id [27] */
+                {            // ID: 27
+                    parentId: 0,
+                    uuid: crypto.randomUUID(),
+                    name: 'Fine Serie',
+                    cover: '/crud/demo/categories/apple-refurb-products-home-201810.png',
+                    thumbnail: '/crud/demo/categories/ipad-air-select-202203.jfif',
+                    description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
+                },
+
+
+                /** Category Id [28] */
+                {            // ID: 28
+                    parentId: 19,
+                    uuid: crypto.randomUUID(),
+                    name: 'Accessori per Mac',
+                    cover: '/crud/demo/categories/accessories-refurb-category-201810.jfif',
+                    thumbnail: '/crud/demo/categories/stand-mount-gallery-1-202203.jfif',
+                    description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
+                },
+
             ]
         })
     )
@@ -322,7 +420,7 @@ const prisma = new PrismaClient({log: ['query']});
                 name: 'MacBook Air 13,3" ricondizionato con chip Apple M1, CPU 8‑core e GPU 7‑core',
                 thumbnail: '/crud/demo/products/refurb-macbook-air-space-gray-m1-202010_AV1.jfif',
                 description: 'Data iniziale di immissione sul mercato: novembre 2020 Display retroilluminato LED da 13,3" (diagonale) con tecnologia IPS; risoluzione nativa 2560×1600 a 227 pixel per pollice 8GB di memoria unificata Unità SSD da 256GB1 Sensore Touch ID Videocamera FaceTime HD a 720p.',
-                categories: {connect: [{id: 1}, {id: 2}]},
+                categories: {connect: [{id: 1}, {id: 2}, {id: 22}, {id: 26}]},
                 images: {
                     create: [
                         {path: '/crud/demo/products/refurb-macbook-air-space-gray-m1-202010_AV2.jfif'},
@@ -397,9 +495,30 @@ const prisma = new PrismaClient({log: ['query']});
                 quantity: 18,
                 price: 6599,
                 discount: 10.00,
-                name: 'iMac 21,5" ricondizionato con Intel Core i5 dual-core a 2,3GHz',
+                name: 'Mac Pro ricondizionato con Intel Xeon W 8‑core a 3,5GHz, due Radeon Pro W5700X e Apple Afterburner',
                 thumbnail: '/crud/demo/products/mac-pro-2019-gallery1.jfif',
-                description: 'Processore Intel Xeon W 8‑core a 3,5GHz (Turbo Boost fino a 4,0GHz) 32GB (4x8GB) di memoria ECC DDR4 Radeon Pro W5500X con 8GB di memoria GDDR6 Unità SSD da 512GB Telaio in acciaio inossidabile con piedini Magic Mouse Magic Keyboard con tastierino numerico - Italiano.',
+                description: 'Data iniziale di immissione sul mercato: dicembre 2019 Processore Intel Xeon W 8‑core a 3,5GHz (Turbo Boost fino a 4,0GHz) 48GB (6x8GB) di memoria ECC DDR4 Due Radeon Pro W5700X con 16GB di memoria GDDR6 ciascuna Archiviazione SSD da 1TB1 Telaio in acciaio inossidabile con piedini Apple Afterburner',
+                categories: {connect: [{id: 1}, {id: 6}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/mac-pro-2019-gallery2.jfif'},
+                        {path: '/crud/demo/products/mac-pro-2019-gallery3.jfif'},
+                        {path: '/crud/demo/products/mac-pro-2019-gallery4.jfif'},
+                        {path: '/crud/demo/products/mac-pro-2019-gallery5.jfif'},
+                        {path: '/crud/demo/products/mac-pro-2019-gallery6.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                quantity: 18,
+                price: 6599,
+                discount: 10.00,
+                name: 'Mac Pro ricondizionato con Intel Xeon W 28‑core a 2,5GHz, due Radeon Pro Vega II Duo e Apple Afterburner',
+                thumbnail: '/crud/demo/products/mac-pro-2019-gallery1.jfif',
+                description: 'Data iniziale di immissione sul mercato: dicembre 2019 Processore Intel Xeon W 28‑core a 2,5GHz (Turbo Boost fino a 4,4GHz) 1,5TB (12x128GB) di memoria ECC DDR4 Due Radeon Pro Vega II Duo con 2x32GB di memoria HBM2 ciascuna Archiviazione SSD da 8TB1 Telaio in acciaio inossidabile con piedini Apple Afterburner',
                 categories: {connect: [{id: 1}, {id: 6}]},
                 images: {
                     create: [
