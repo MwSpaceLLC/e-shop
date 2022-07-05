@@ -92,23 +92,29 @@ model Address {
 
 model Cart {
   id            Int         @id @default(autoincrement())
-  session       String?     @db.LongText
+  session       String?     @unique
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
 
   userId        Int?         @unique
   User          User?        @relation(fields: [userId], references: [id])
 
-  items         CartItem[]
+  items         Json?
+
+//  items         CartItem[]
 }
 
-model CartItem {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  product   String   @db.LongText
-
-  cartId    Int
-  cart      Cart     @relation(fields: [cartId], references: [id])
-}
+//model CartItem {
+//  id        Int      @id @default(autoincrement())
+//  createdAt DateTime @default(now()) @db.Timestamp(6)
+//  product   Json
+//
+//  price             Decimal    @db.Decimal
+//  total             Decimal    @db.Decimal
+//  quantity          Int        @default(1) @db.Int
+//
+//  cartId    Int
+//  cart      Cart     @relation(fields: [cartId], references: [id])
+//}
 
 model Wishlist {
   id            Int         @id @default(autoincrement())
@@ -118,17 +124,17 @@ model Wishlist {
   userId        Int?         @unique
   User          User?        @relation(fields: [userId], references: [id])
 
-  items         WishlistItem[]
+  items         Json?
 }
 
-model WishlistItem {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  product   String   @db.LongText
-
-  wishlistId    Int
-  wishlist      Wishlist     @relation(fields: [wishlistId], references: [id])
-}
+//model WishlistItem {
+//  id        Int      @id @default(autoincrement())
+//  createdAt DateTime @default(now()) @db.Timestamp(6)
+//  product   String   @db.LongText
+//
+//  wishlistId    Int
+//  wishlist      Wishlist     @relation(fields: [wishlistId], references: [id])
+//}
 
 model Order {
   id        Int      @id @default(autoincrement())

@@ -74,10 +74,19 @@ const prisma = new PrismaClient({log: ['query']});
                     key: 'ShopFavicon32',
                     value: '/crud/demo/settings/favicon/favicon-32x32.png',
                 }, {
+                    key: 'ShopAppleTouchIcon',
+                    value: '/crud/demo/settings/favicon/apple-touch-icon.png',
+                }, {
                     key: 'ShopWebManifest',
                     value: '/crud/demo/settings/favicon/site.webmanifest',
                 }, {
-                    key: 'ShopMainColor',
+                    key: 'ShopBackgroundColor',
+                    value: '#ffffff',
+                }, {
+                    key: 'ShopMainTextColor',
+                    value: '#ffffff',
+                }, {
+                    key: 'ShopMainBackgroundColor',
                     value: '#ff9800',
                 }, {
                     key: 'ShopTopTextColor',
@@ -503,7 +512,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
-                quantity: 18,
+                quantity: 22,
                 price: 1259,
                 discount: 20.00,
                 name: 'MacBook Pro 13,3" ricondizionato con chip Apple M1, CPU 8‑core e GPU 8‑core',
@@ -522,7 +531,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
-                quantity: 18,
+                quantity: 5,
                 price: 1259,
                 discount: 20.00,
                 name: 'Mac mini Intel Core i5 6‑core di ottava generazione a 3,0GHz',
@@ -542,7 +551,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
-                quantity: 18,
+                quantity: 8,
                 price: 1259,
                 discount: 20.00,
                 name: 'iMac 21,5" ricondizionato con Intel Core i5 dual-core a 2,3GHz',
@@ -561,7 +570,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
-                quantity: 18,
+                quantity: 35,
                 price: 6599,
                 discount: 10.00,
                 name: 'Mac Pro ricondizionato con Intel Xeon W 8‑core a 3,5GHz, due Radeon Pro W5700X e Apple Afterburner',
@@ -582,7 +591,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
-                quantity: 18,
+                quantity: 2,
                 price: 6599,
                 discount: 10.00,
                 name: 'Mac Pro ricondizionato con Intel Xeon W 28‑core a 2,5GHz, due Radeon Pro Vega II Duo e Apple Afterburner',

@@ -18,6 +18,7 @@ import {classNames, fetcher, slugCategoryProduct, slugProduct} from "../../lib/f
 import ProductServerSideProps from "../../lib/props/ProductServerSideProps";
 import useSWR from "swr";
 import useMoney from "../../hooks/useMoney";
+import axios from "axios";
 
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
@@ -33,7 +34,21 @@ export default function Product({loggedIn, product, category}) {
         selectedColor: 'ring-gray-700'
     })
 
+    const [load, setLoad] = useState(false)
+
     const {data: products} = useSWR(`/api/json/products?category=${category.id}`, fetcher)
+
+    const AddProductCart = (e) => {
+
+        setLoad(true)
+        e.preventDefault();
+
+        axios.post('/api/json/carts', product)
+            .then(res => console.log(res))
+            .catch(err => console.error(err))
+            .finally(() => setLoad(false))
+
+    }
 
     return (
         <PublicLayout loggedIn={loggedIn} title={product?.name + ' | ' + category?.name}
@@ -76,9 +91,9 @@ export default function Product({loggedIn, product, category}) {
                                         )}
                                     </Tab>
 
-                                    {product?.images?.map((image) => (
+                                    {product?.images?.map((image, idx) => (
                                         <Tab
-                                            key={image.id}
+                                            key={idx}
                                             className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
                                         >
                                             {({selected}) => (
@@ -122,8 +137,8 @@ export default function Product({loggedIn, product, category}) {
                                     )}
                                 </Tab.Panel>
 
-                                {product?.images?.map((image) => (
-                                    <Tab.Panel key={image.id}>
+                                {product?.images?.map((image, idx) => (
+                                    <Tab.Panel key={idx}>
 
                                         <Image
                                             layout="fill"
@@ -147,24 +162,24 @@ export default function Product({loggedIn, product, category}) {
                             </div>
 
                             {/* Reviews */}
-                            <div className="mt-3">
-                                <h3 className="sr-only">Reviews</h3>
-                                <div className="flex items-center">
-                                    <div className="flex items-center">
-                                        {[0, 1, 2, 3, 4].map((rating) => (
-                                            <StarIcon
-                                                key={rating}
-                                                className={classNames(
-                                                    product?.rating > rating ? 'text-orange-500' : 'text-gray-300',
-                                                    'h-5 w-5 flex-shrink-0'
-                                                )}
-                                                aria-hidden="true"
-                                            />
-                                        ))}
-                                    </div>
-                                    <p className="sr-only">{product?.rating} out of 5 stars</p>
-                                </div>
-                            </div>
+                            {/*<div className="mt-3">*/}
+                            {/*    <h3 className="sr-only">Reviews</h3>*/}
+                            {/*    <div className="flex items-center">*/}
+                            {/*        <div className="flex items-center">*/}
+                            {/*            {[0, 1, 2, 3, 4].map((rating) => (*/}
+                            {/*                <StarIcon*/}
+                            {/*                    key={rating}*/}
+                            {/*                    className={classNames(*/}
+                            {/*                        product?.rating > rating ? 'text-orange-500' : 'text-gray-300',*/}
+                            {/*                        'h-5 w-5 flex-shrink-0'*/}
+                            {/*                    )}*/}
+                            {/*                    aria-hidden="true"*/}
+                            {/*                />*/}
+                            {/*            ))}*/}
+                            {/*        </div>*/}
+                            {/*        <p className="sr-only">{product?.rating} out of 5 stars</p>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
 
                             <div className="mt-6">
                                 <h3 className="sr-only">Description</h3>
@@ -175,39 +190,40 @@ export default function Product({loggedIn, product, category}) {
                                 />
                             </div>
 
-                            <form className="mt-6">
+                            <form className="mt-6" onSubmit={AddProductCart}>
+
                                 {/* Colors */}
                                 <div>
-                                    <h3 className="text-sm text-gray-600">Color</h3>
+                                    <h3 className="text-sm text-gray-600">Disponibili: {product.quantity}</h3>
 
                                     <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-2">
                                         <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                                         <div className="flex items-center space-x-3">
-                                            {product?.colors?.map((color) => (
-                                                <RadioGroup.Option
-                                                    key={color.name}
-                                                    value={color}
-                                                    className={({active, checked}) =>
-                                                        classNames(
-                                                            color.selectedColor,
-                                                            active && checked ? 'ring ring-offset-1' : '',
-                                                            !active && checked ? 'ring-2' : '',
-                                                            '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                                                        )
-                                                    }
-                                                >
-                                                    <RadioGroup.Label as="span" className="sr-only">
-                                                        {color.name}
-                                                    </RadioGroup.Label>
-                                                    <span
-                                                        aria-hidden="true"
-                                                        className={classNames(
-                                                            color.bgColor,
-                                                            'h-8 w-8 border border-black border-opacity-10 rounded-full'
-                                                        )}
-                                                    />
-                                                </RadioGroup.Option>
-                                            ))}
+                                            {/*{product?.colors?.map((color, idx) => (*/}
+                                            {/*    <RadioGroup.Option*/}
+                                            {/*        key={idx}*/}
+                                            {/*        value={color}*/}
+                                            {/*        className={({active, checked}) =>*/}
+                                            {/*            classNames(*/}
+                                            {/*                color.selectedColor,*/}
+                                            {/*                active && checked ? 'ring ring-offset-1' : '',*/}
+                                            {/*                !active && checked ? 'ring-2' : '',*/}
+                                            {/*                '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'*/}
+                                            {/*            )*/}
+                                            {/*        }*/}
+                                            {/*    >*/}
+                                            {/*        <RadioGroup.Label as="span" className="sr-only">*/}
+                                            {/*            {color.name}*/}
+                                            {/*        </RadioGroup.Label>*/}
+                                            {/*        <span*/}
+                                            {/*            aria-hidden="true"*/}
+                                            {/*            className={classNames(*/}
+                                            {/*                color.bgColor,*/}
+                                            {/*                'h-8 w-8 border border-black border-opacity-10 rounded-full'*/}
+                                            {/*            )}*/}
+                                            {/*        />*/}
+                                            {/*    </RadioGroup.Option>*/}
+                                            {/*))}*/}
                                         </div>
                                     </RadioGroup>
 
@@ -216,9 +232,9 @@ export default function Product({loggedIn, product, category}) {
                                 <div className="mt-10 flex sm:flex-col1">
                                     <button
                                         type="submit"
-                                        className="max-w-xs flex-1 bg-orange-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-orange-500 sm:w-full"
+                                        className={(load ? 'animate-pulse' : '') + " max-w-xs flex-1 bg-orange-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-orange-500 sm:w-full"}
                                     >
-                                        Add to bag
+                                        {load ? '⚪⚪⚪' : 'Aggiungi al carrello'}
                                     </button>
 
                                     <button
@@ -226,60 +242,60 @@ export default function Product({loggedIn, product, category}) {
                                         className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
                                     >
                                         <HeartIcon className="h-6 w-6 flex-shrink-0" aria-hidden="true"/>
-                                        <span className="sr-only">Add to favorites</span>
+                                        <span className="sr-only">Aggiungi ai preferiti</span>
                                     </button>
                                 </div>
                             </form>
 
-                            <section aria-labelledby="details-heading" className="mt-12">
-                                <h2 id="details-heading" className="sr-only">
-                                    Additional details
-                                </h2>
+                            {/*<section aria-labelledby="details-heading" className="mt-12">*/}
+                            {/*    <h2 id="details-heading" className="sr-only">*/}
+                            {/*        Additional details*/}
+                            {/*    </h2>*/}
 
-                                <div className="border-t divide-y divide-gray-200">
-                                    {product?.details?.map((detail) => (
-                                        <Disclosure as="div" key={detail.name}>
-                                            {({open}) => (
-                                                <>
-                                                    <h3>
-                                                        <Disclosure.Button
-                                                            className="group relative w-full py-6 flex justify-between items-center text-left">
-                              <span
-                                  className={classNames(
-                                      open ? 'text-orange-600' : 'text-gray-900',
-                                      'text-sm font-medium'
-                                  )}
-                              >
-                                {detail.name}
-                              </span>
-                                                            <span className="ml-6 flex items-center">
-                                {open ? (
-                                    <MinusSmIcon
-                                        className="block h-6 w-6 text-orange-400 group-hover:text-orange-500"
-                                        aria-hidden="true"
-                                    />
-                                ) : (
-                                    <PlusSmIcon
-                                        className="block h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                                        aria-hidden="true"
-                                    />
-                                )}
-                              </span>
-                                                        </Disclosure.Button>
-                                                    </h3>
-                                                    <Disclosure.Panel as="div" className="pb-6 prose prose-sm">
-                                                        <ul role="list">
-                                                            {detail.items.map((item) => (
-                                                                <li key={item}>{item}</li>
-                                                            ))}
-                                                        </ul>
-                                                    </Disclosure.Panel>
-                                                </>
-                                            )}
-                                        </Disclosure>
-                                    ))}
-                                </div>
-                            </section>
+                            {/*    <div className="border-t divide-y divide-gray-200">*/}
+                            {/*        {product?.details?.map((detail, idx) => (*/}
+                            {/*            <Disclosure as="div" key={idx}>*/}
+                            {/*                {({open}) => (*/}
+                            {/*                    <>*/}
+                            {/*                        <h3>*/}
+                            {/*                            <Disclosure.Button*/}
+                            {/*                                className="group relative w-full py-6 flex justify-between items-center text-left">*/}
+                            {/*  <span*/}
+                            {/*      className={classNames(*/}
+                            {/*          open ? 'text-orange-600' : 'text-gray-900',*/}
+                            {/*          'text-sm font-medium'*/}
+                            {/*      )}*/}
+                            {/*  >*/}
+                            {/*    {detail.name}*/}
+                            {/*  </span>*/}
+                            {/*                                <span className="ml-6 flex items-center">*/}
+                            {/*    {open ? (*/}
+                            {/*        <MinusSmIcon*/}
+                            {/*            className="block h-6 w-6 text-orange-400 group-hover:text-orange-500"*/}
+                            {/*            aria-hidden="true"*/}
+                            {/*        />*/}
+                            {/*    ) : (*/}
+                            {/*        <PlusSmIcon*/}
+                            {/*            className="block h-6 w-6 text-gray-400 group-hover:text-gray-500"*/}
+                            {/*            aria-hidden="true"*/}
+                            {/*        />*/}
+                            {/*    )}*/}
+                            {/*  </span>*/}
+                            {/*                            </Disclosure.Button>*/}
+                            {/*                        </h3>*/}
+                            {/*                        <Disclosure.Panel as="div" className="pb-6 prose prose-sm">*/}
+                            {/*                            <ul role="list">*/}
+                            {/*                                {detail.items.map((item, idx) => (*/}
+                            {/*                                    <li key={idx}>{item}</li>*/}
+                            {/*                                ))}*/}
+                            {/*                            </ul>*/}
+                            {/*                        </Disclosure.Panel>*/}
+                            {/*                    </>*/}
+                            {/*                )}*/}
+                            {/*            </Disclosure>*/}
+                            {/*        ))}*/}
+                            {/*    </div>*/}
+                            {/*</section>*/}
                         </div>
                     </div>
 

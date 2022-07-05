@@ -15,6 +15,8 @@ export const getServerSideProps = PublicServerSideProps
 
 export default function Search() {
 
+    const money = useMoney()
+
     const [name, setName] = useState("")
     const [orderBy, setOrderBy] = useState("")
     const [_products, set_Products] = useState([])
@@ -77,8 +79,6 @@ export default function Search() {
         //     ],
         // },
     ]
-
-    const money = useMoney()
 
     return (
         <PublicLayout title="Cerca un prodotto nello shop">

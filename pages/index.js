@@ -1,4 +1,3 @@
-import PublicServerSideProps from "../lib/props/PublicServerSideProps";
 import PublicLayout from "../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import Image from "next/image";
@@ -6,8 +5,10 @@ import useSWR from "swr";
 import {fetcher, slugCategory} from "../lib/function";
 import Link from "next/link";
 
+import PublicIndexServerSideProps from "../lib/props/PublicIndexServerSideProps";
+
 // This gets called on every request
-export const getServerSideProps = PublicServerSideProps
+export const getServerSideProps = PublicIndexServerSideProps
 
 /**
  |--------------------------------------------------------------------------
@@ -15,7 +16,8 @@ export const getServerSideProps = PublicServerSideProps
  |--------------------------------------------------------------------------
  */
 
-export default function Index({loggedIn}) {
+export default function Index({loggedIn, ShopSeoIndexTitle, ShopSeoIndexDescription}) {
+
     const {t} = useTranslation();
 
     const {data: categories} = useSWR(`/api/json/categories?parentId=0`, fetcher)
@@ -26,8 +28,9 @@ export default function Index({loggedIn}) {
     const {data: HomeHero} = useSWR(`/api/json/sections/HomeHero`, fetcher)
 
     return (
-        <PublicLayout loggedIn={loggedIn} title={t('seo-index-title')} description={t('seo-index-description')}
-                      HeroSection={HeroSection}>
+        <PublicLayout
+            loggedIn={loggedIn} title={ShopSeoIndexTitle} description={ShopSeoIndexDescription}
+            HeroSection={HeroSection}>
 
             {/* Category section */}
             <section aria-labelledby="category-heading"

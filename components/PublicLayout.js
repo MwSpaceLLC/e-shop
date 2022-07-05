@@ -1,6 +1,6 @@
 import {useTranslation} from "next-i18next";
 
-import {classNames, fetcher} from "../lib/function"
+import {classNames, fetcher, slugCategory} from "../lib/function"
 
 import {Fragment, useState} from 'react'
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
@@ -15,6 +15,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 import useSWR from "swr";
+import {LogoApp} from "./LogoApp";
 
 const currencies = ['EUR']
 
@@ -128,22 +129,38 @@ export default function PublicLayout({title, description, children, className, H
     const {data: categories} = useSWR(`/api/json/categories?recursive=true`, fetcher)
 
     const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
+
+    const {data: ShopName} = useSWR(`/api/json/settings/ShopName`, fetcher)
+
     const {data: ShopFavicon} = useSWR(`/api/json/settings/ShopFavicon`, fetcher)
+    const {data: ShopFavicon16} = useSWR(`/api/json/settings/ShopFavicon16`, fetcher)
+    const {data: ShopFavicon32} = useSWR(`/api/json/settings/ShopFavicon32`, fetcher)
+    const {data: ShopAppleTouchIcon} = useSWR(`/api/json/settings/ShopAppleTouchIcon`, fetcher)
+    const {data: ShopWebManifest} = useSWR(`/api/json/settings/ShopWebManifest`, fetcher)
+
+    const {data: ShopFooterTextColor} = useSWR(`/api/json/settings/ShopFooterTextColor`, fetcher)
+    const {data: ShopFooterBackgroundColor} = useSWR(`/api/json/settings/ShopFooterBackgroundColor`, fetcher)
+
+    const {data: ShopTopTextColor} = useSWR(`/api/json/settings/ShopTopTextColor`, fetcher)
+    const {data: ShopTopBackgroundColor} = useSWR(`/api/json/settings/ShopTopBackgroundColor`, fetcher)
+
+    const {data: ShopBackgroundColor} = useSWR(`/api/json/settings/ShopBackgroundColor`, fetcher)
 
     return (
         <>
             <Head>
-                <title>{title} | {process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
+                <title>{title} | {ShopName?.name ?? process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
                 <meta name="description" content={description}/>
-                <link rel="icon" href={ShopFavicon}/>
 
-                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-                <link rel="manifest" href="/site.webmanifest"/>
+                <link rel="icon" href={ShopFavicon?.value}/>
+                <link rel="apple-touch-icon" sizes="180x180" href={ShopAppleTouchIcon?.value}/>
+                <link rel="icon" type="image/png" sizes="32x32" href={ShopFavicon32?.value}/>
+                <link rel="icon" type="image/png" sizes="16x16" href={ShopFavicon16?.value}/>
+                <link rel="manifest" href={ShopWebManifest?.value}/>
             </Head>
 
-            <div className="bg-white">
+            <div style={{background: ShopBackgroundColor?.value}}>
+
                 {/* Mobile menu */}
                 <Transition.Root show={mobileMenuOpen} as={Fragment}>
                     <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileMenuOpen}>
@@ -183,27 +200,10 @@ export default function PublicLayout({title, description, children, className, H
                                     </div>
 
                                     {/* Links */}
-                                    <Tab.Group as="div" className="mt-2">
-                                        <div className="border-b border-gray-200">
-                                            <Tab.List className="-mb-px flex px-4 space-x-8">
-                                                {categories?.slice(0, 5).map((category) => (
-                                                    <Tab
-                                                        key={category.name}
-                                                        className={({selected}) =>
-                                                            classNames(
-                                                                selected ? 'text-gray-600 border-gray-600' : 'text-gray-900 border-transparent',
-                                                                'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium'
-                                                            )
-                                                        }
-                                                    >
-                                                        {category.name}
-                                                    </Tab>
-                                                ))}
-                                            </Tab.List>
-                                        </div>
+                                    <Tab.Group as="div" className="">
                                         <Tab.Panels as={Fragment}>
                                             {categories?.slice(0, 5).map((category) => (
-                                                <Tab.Panel key={category.name} className="px-4 py-6 space-y-12">
+                                                <Tab.Panel key={category.name} className="px-4 py-2 space-y-12">
                                                     <div className="grid grid-cols-2 gap-x-4 gap-y-10">
                                                         {category.featured?.map((item) => (
                                                             <div key={item.name} className="group relative">
@@ -231,12 +231,13 @@ export default function PublicLayout({title, description, children, className, H
                                     </Tab.Group>
 
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                                        {navigation.pages.map((page) => (
-                                            <div key={page.name} className="flow-root">
-                                                <a href={page.href}
-                                                   className="-m-2 p-2 block font-medium text-gray-900">
-                                                    {page.name}
-                                                </a>
+                                        {categories?.map((category) => (
+                                            <div key={category.id} className="flow-root">
+                                                <Link href={slugCategory(category)}>
+                                                    <a className="-m-2 hover:bg-gray-200 rounded p-2 block font-medium text-gray-900">
+                                                        {category.name}
+                                                    </a>
+                                                </Link>
                                             </div>
                                         ))}
                                     </div>
@@ -329,7 +330,10 @@ export default function PublicLayout({title, description, children, className, H
                         <nav aria-label="Top">
 
                             {/* Top navigation */}
-                            <div className="bg-gray-900">
+                            <div style={{
+                                color: ShopTopTextColor?.value,
+                                background: ShopTopBackgroundColor?.value
+                            }}>
                                 <div
                                     className="max-w-7xl mx-auto h-10 px-4 flex items-center justify-between sm:px-6 lg:px-8">
                                     {/* Currency selector */}
@@ -391,16 +395,12 @@ export default function PublicLayout({title, description, children, className, H
                                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                     <div>
                                         <div className="h-16 flex items-center justify-between">
+
                                             {/* Logo (lg+) */}
                                             <div className="hidden lg:flex-1 lg:flex lg:items-center">
                                                 <Link href="/">
                                                     <a>
-                                                        <span className="sr-only">e-shop</span>
-                                                        <Image
-                                                            className="h-8 w-auto"
-                                                            src="/e-shop-1080-hd.png"
-                                                            alt="e-shop logo"
-                                                            width={50} height={50}/>
+                                                        <LogoApp className="h-8 w-auto"/>
                                                     </a>
                                                 </Link>
                                             </div>
@@ -494,23 +494,20 @@ export default function PublicLayout({title, description, children, className, H
                                                 </button>
 
                                                 {/* Search */}
-                                                <Link href="/search">
-                                                    <a href="#" className="ml-2 p-2 text-white">
-                                                        <span className="sr-only">Ricerca</span>
-                                                        <SearchIcon className="w-6 h-6" aria-hidden="true"/>
-                                                    </a>
-                                                </Link>
+                                                {/*<Link href="/search">*/}
+                                                {/*    <a href="#" className="ml-2 p-2 text-white">*/}
+                                                {/*        <span className="sr-only">Ricerca</span>*/}
+                                                {/*        <SearchIcon className="w-6 h-6" aria-hidden="true"/>*/}
+                                                {/*    </a>*/}
+                                                {/*</Link>*/}
                                             </div>
 
                                             {/* Logo (lg-) */}
-                                            <a href="#" className="lg:hidden">
-                                                <span className="sr-only">Workflow</span>
-                                                <Image
-                                                    className="h-8 w-auto"
-                                                    src="/e-shop-1080-hd.png"
-                                                    alt="e-shop logo"
-                                                    width={50} height={50}/>
-                                            </a>
+                                            <Link href="/">
+                                                <a className="lg:hidden">
+                                                    <LogoApp className="h-8 w-auto"/>
+                                                </a>
+                                            </Link>
 
                                             <div className="flex-1 flex items-center justify-end">
 
@@ -552,13 +549,16 @@ export default function PublicLayout({title, description, children, className, H
                         </nav>
                     </header>
 
-                    {HeroSection ? <HeroSection></HeroSection> : <></>}
+                    {HeroSection && (<HeroSection/>)}
 
                 </div>
 
                 <main className={className}>{children}</main>
 
-                <footer aria-labelledby="footer-heading" className="bg-gray-900">
+                <footer aria-labelledby="footer-heading" style={{
+                    color: ShopFooterTextColor?.value,
+                    background: ShopFooterBackgroundColor?.value
+                }}>
                     <h2 id="footer-heading" className="sr-only">
                         Footer
                     </h2>
