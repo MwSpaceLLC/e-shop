@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     }
 
     // get categories
-    const categories = await prisma.category.findMany(query)
+    const categories = await prisma.category.findMany(query) ?? {}
 
     // get category recursively
     if (req.query.recursive) {

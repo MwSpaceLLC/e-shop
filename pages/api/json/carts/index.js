@@ -15,18 +15,19 @@ export default withApiSession(async (req, res) => {
      |------------------------------------------------------------------------*/
     if (req.method === 'POST') {
 
-        // search cart
-        const cart = await prisma.user.findFirst({
-            where: {
-                session: req.session.id,
-            },
-        })
-
-        return res.json(cart ?? await prisma.cart.create({
-            data: {
-                session: req.session.id,
-            }
-        }))
+        //TODO: create cart system
+        // // search cart
+        // const cart = await prisma.user.findFirst({
+        //     where: {
+        //         session: req.session.id,
+        //     },
+        // })
+        //
+        // return res.json(cart ?? await prisma.cart.create({
+        //     data: {
+        //         session: req.session.id,
+        //     }
+        // }))
     }
 
     /*
@@ -38,7 +39,7 @@ export default withApiSession(async (req, res) => {
     if (req.query.key) query = {...query, where: {key: req.query.key}}
 
     return res.json(
-        await prisma.cart.findMany(query)
+        await prisma.cart.findMany(query) ?? {}
     )
 
 });

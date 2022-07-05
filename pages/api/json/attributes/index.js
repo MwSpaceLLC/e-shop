@@ -11,6 +11,6 @@ export default async function handler(req, res) {
     if (req.query.id) query = {...query, where: {id: req.query.id}}
 
     return res.json(
-        await prisma.attribute.findMany(query)
+        await prisma.attribute.findMany(query) ?? {}
     )
 }

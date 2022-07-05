@@ -11,6 +11,6 @@ export default async function handler(req, res) {
             where: {
                 key: req.query.key
             }
-        })
+        }) ?? {}
     )
 }

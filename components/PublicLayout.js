@@ -128,14 +128,14 @@ export default function PublicLayout({title, description, children, className, H
     const {data: categories} = useSWR(`/api/json/categories?recursive=true`, fetcher)
 
     const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
-    const {data: ShopFavicon} = useSWR(`/api/json/sections/ShopFavicon`, fetcher)
+    const {data: ShopFavicon} = useSWR(`/api/json/settings/ShopFavicon`, fetcher)
 
     return (
         <>
             <Head>
                 <title>{title} | {process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
                 <meta name="description" content={description}/>
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href={ShopFavicon}/>
 
                 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
                 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>

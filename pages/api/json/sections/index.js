@@ -15,6 +15,6 @@ export default async function handler(req, res) {
     if (req.query.slug) query = {...query, where: {slug: req.query.slug}}
 
     return res.json(
-        await prisma.section.findMany(query)
+        await prisma.section.findMany(query) ?? {}
     )
 }

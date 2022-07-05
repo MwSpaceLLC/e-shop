@@ -29,6 +29,6 @@ export default async function handler(req, res) {
     }
 
     return res.json(
-        await prisma.product.findMany(query)
+        await prisma.product.findMany(query) ?? {}
     )
 }

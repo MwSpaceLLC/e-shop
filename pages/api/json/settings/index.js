@@ -11,6 +11,6 @@ export default async function handler(req, res) {
     if (req.query.key) query = {...query, where: {key: req.query.key}}
 
     return res.json(
-        await prisma.setting.findMany(query)
+        await prisma.setting.findMany(query) ?? {}
     )
 }
