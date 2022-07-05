@@ -49,7 +49,7 @@ const prisma = new PrismaClient({log: ['query']});
 
     /*
      |--------------------------------------------------------------------------
-     | Create Default Settings
+     | Create Default Setting
      |------------------------------------------------------------------------*/
     console.log("\n======= Create Default Setting =======")
     console.log(
@@ -143,7 +143,7 @@ const prisma = new PrismaClient({log: ['query']});
 
     /*
      |--------------------------------------------------------------------------
-     | Create Default Settings
+     | Create Default Option
      |------------------------------------------------------------------------*/
     console.log("\n======= Create Default Option =======")
     console.log(
@@ -407,6 +407,75 @@ const prisma = new PrismaClient({log: ['query']});
 
     /*
      |--------------------------------------------------------------------------
+     | Create Demo Attribute
+     |------------------------------------------------------------------------*/
+    console.log("\n======= Create Default Attribute =======")
+    console.log(
+        await prisma.attribute.create({
+            data: {
+                name: 'Color',
+                type: 'color', // color, button, checkbox, range, radio
+                values: {
+                    create: [
+                        {
+                            spec: '#b90000'
+                        }, {
+                            spec: '#FF9800'
+                        }, {
+                            spec: '#0040ef'
+                        }, {
+                            spec: '#b700ef'
+                        }, {
+                            spec: '#828282'
+                        }, {
+                            spec: '#000000'
+                        }, {
+                            spec: '#ffffff'
+                        },
+                    ]
+                },
+            }
+        }),
+        await prisma.attribute.create({
+            data: {
+                name: 'Ram',
+                type: 'range', // color, button, checkbox, range, radio
+                values: {
+                    create: [
+                        {
+                            spec: '128GB'
+                        }, {
+                            spec: '256GB'
+                        }, {
+                            spec: '512GB'
+                        }, {
+                            spec: '768GB'
+                        }, {
+                            spec: '1024GB'
+                        },
+                    ]
+                },
+            }
+        }),
+        await prisma.attribute.create({
+            data: {
+                name: 'Connessione',
+                type: 'button', // color, button, checkbox, range, radio
+                values: {
+                    create: [
+                        {
+                            spec: 'Wi-Fi'
+                        }, {
+                            spec: 'Wi-Fi+Cellular'
+                        },
+                    ]
+                },
+            }
+        }),
+    )
+
+    /*
+     |--------------------------------------------------------------------------
      | Create Demo Products
      |------------------------------------------------------------------------*/
     console.log("\n======= Create Demo Products =======")
@@ -532,6 +601,76 @@ const prisma = new PrismaClient({log: ['query']});
             }
         }),
     )
+
+
+    /*
+     |--------------------------------------------------------------------------
+     | Create Demo Product Combinations
+     |------------------------------------------------------------------------*/
+    // console.log("\n======= Create Default Attribute =======")
+    // console.log(
+    //     await prisma.combination.create({
+    //         data: {
+    //             name: 'Color',
+    //             type: 'color', // color, button, checkbox, range, radio
+    //             values: {
+    //                 create: [
+    //                     {
+    //                         spec: '#b90000'
+    //                     }, {
+    //                         spec: '#FF9800'
+    //                     }, {
+    //                         spec: '#0040ef'
+    //                     }, {
+    //                         spec: '#b700ef'
+    //                     }, {
+    //                         spec: '#828282'
+    //                     }, {
+    //                         spec: '#000000'
+    //                     }, {
+    //                         spec: '#ffffff'
+    //                     },
+    //                 ]
+    //             },
+    //         }
+    //     }),
+    //     await prisma.attribute.create({
+    //         data: {
+    //             name: 'Ram',
+    //             type: 'range', // color, button, checkbox, range, radio
+    //             values: {
+    //                 create: [
+    //                     {
+    //                         spec: '128GB'
+    //                     }, {
+    //                         spec: '256GB'
+    //                     }, {
+    //                         spec: '512GB'
+    //                     }, {
+    //                         spec: '768GB'
+    //                     }, {
+    //                         spec: '1024GB'
+    //                     },
+    //                 ]
+    //             },
+    //         }
+    //     }),
+    //     await prisma.attribute.create({
+    //         data: {
+    //             name: 'Connessione',
+    //             type: 'button', // color, button, checkbox, range, radio
+    //             values: {
+    //                 create: [
+    //                     {
+    //                         spec: 'Wi-Fi'
+    //                     }, {
+    //                         spec: 'Wi-Fi+Cellular'
+    //                     },
+    //                 ]
+    //             },
+    //         }
+    //     }),
+    // )
 
     /*
      |--------------------------------------------------------------------------

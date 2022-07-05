@@ -24,11 +24,14 @@ model User {
   email         String   @unique @db.VarChar(255)
   password      String   @db.VarChar(255)
 
+  invoice       Boolean  @default(false)
+
   cards         Card[]
   orders        Order[]
   addresses     Address[]
   payments      Payment[]
   shipments     Shipment[]
+  company       Company[]
 
   cart          Cart?
   wishlist      Wishlist?
@@ -47,6 +50,25 @@ model Card {
   user          User        @relation(fields: [userId], references: [id])
 
   payment   Payment?
+}
+
+model Company {
+  id        Int                 @id @default(autoincrement())
+  createdAt DateTime            @default(now()) @db.Timestamp(6)
+
+  default           Boolean     @default(false)
+  state             String      @db.VarChar(255)
+  name              String      @db.VarChar(255)
+  phone             String      @db.VarChar(255)
+  street            String      @db.VarChar(255)
+  postal            String      @db.VarChar(255)
+  city              String      @db.VarChar(255)
+  province          String      @db.VarChar(255)
+  vat               String?     @db.VarChar(255)
+  sdi               String?     @db.VarChar(255)
+
+  userId    Int
+  user      User                @relation(fields: [userId], references: [id])
 }
 
 model Address {
@@ -174,7 +196,9 @@ model Product {
   seodescription  String?      @db.VarChar(255)
   seokey          String?      @db.VarChar(255)
 
-  attributes        Attribute[]
+  combinations       Combination[]
+
+//  attributes        Attribute[]
   categories        Category[]
 
 }
@@ -219,11 +243,14 @@ model Attribute {
   createdAt         DateTime   @default(now()) @db.Timestamp(6)
 
   name              String     @db.VarChar(255)
+  type              String     @db.VarChar(255)
 
   langs             AttributeLang[]
   values            AttributeValue[]
 
-  products          Product[]
+  combinations       Combination[]
+
+//  products          Product[]
 
 }
 
@@ -245,8 +272,57 @@ model AttributeValue {
   spec              String     @db.VarChar(255)
 
   attributeId       Int
-  Attribute         Attribute  @relation(fields: [attributeId], references: [id])
+  attribute         Attribute  @relation(fields: [attributeId], references: [id])
 
+  combinations      Combination[]
+
+}
+
+model Combination {
+  id                Int                 @id @default(autoincrement())
+  createdAt         DateTime            @default(now()) @db.Timestamp(6)
+
+  thumbnail         String?    @db.LongText
+
+  price             Decimal?    @db.Decimal
+  discount          Decimal?   @db.Decimal
+  weight            Decimal?   @db.Decimal
+  quantity          Int?       @db.Int
+
+  tags              CombinationTag[]
+  images            CombinationImage[]
+
+  productId     Int
+  product       Product             @relation(fields: [productId], references: [id])
+
+  attributeId   Int
+  attribute     Attribute           @relation(fields: [attributeId], references: [id])
+
+  valueId       Int
+  value         AttributeValue      @relation(fields: [valueId], references: [id])
+
+}
+
+model CombinationTag {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now()) @db.Timestamp(6)
+
+  name          String      @db.VarChar(255)
+
+  combinationId     Int
+  combination       Combination  @relation(fields: [combinationId], references: [id])
+
+}
+
+model CombinationImage {
+  id                Int         @id @default(autoincrement())
+  createdAt         DateTime    @default(now()) @db.Timestamp(6)
+
+  path              String      @db.VarChar(255)
+  pathalt           String?      @db.VarChar(255)
+
+  combinationId     Int
+  combination       Combination  @relation(fields: [combinationId], references: [id])
 }
 
 model Category {
