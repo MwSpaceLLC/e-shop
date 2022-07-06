@@ -1,6 +1,5 @@
 import {Fragment, useState} from 'react'
-import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
-import {MenuIcon, SearchIcon, ShoppingBagIcon, XIcon as XIconOutline} from '@heroicons/react/outline'
+
 import {CheckIcon, ClockIcon, QuestionMarkCircleIcon, XIcon as XIconSolid} from '@heroicons/react/solid'
 
 import PublicLayout from "../components/PublicLayout";
@@ -14,16 +13,14 @@ import Link from "next/link";
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
 
-export default function Cart({sessionId}) {
+export default function Cart() {
 
     const money = useMoney()
 
     const {t} = useTranslation();
     const [open, setOpen] = useState(false)
 
-    const {data: carts} = useSWR(`/api/json/carts/${sessionId}`, fetcher)
-
-    console.log(carts)
+    const {data: carts} = useSWR(`/api/json/carts`, fetcher)
 
     return (
         <PublicLayout title={t('seo-cart-title')} description={t('seo-cart-description')}

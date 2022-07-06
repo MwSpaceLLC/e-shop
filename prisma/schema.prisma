@@ -337,6 +337,10 @@ model Category {
   createdAt         DateTime  @default(now()) @db.Timestamp(6)
   parentId          Int?      @default(0)
 
+  homepage          Boolean   @default(false)
+  menu              Boolean   @default(false)
+  footer            Boolean   @default(false)
+
   name              String    @db.VarChar(255)
   description       String    @db.LongText
 
@@ -349,8 +353,8 @@ model Category {
 }
 
 model CategoryLang {
-  id            Int         @id @default(autoincrement())
-  createdAt     DateTime    @default(now()) @db.Timestamp(6)
+  id                Int         @id @default(autoincrement())
+  createdAt         DateTime    @default(now()) @db.Timestamp(6)
   iso               String     @db.VarChar(255)
 
   name              String    @db.VarChar(255)

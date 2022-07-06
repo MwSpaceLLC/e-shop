@@ -32,7 +32,7 @@ export default withApiSession(async (req, res) => {
                 bag: item.bag < item.quantity ? item.bag + 1 : item.bag
 
                 // product not found, insert new object
-            })) : [...cart.items, {...req.body, bag: 1}];
+            })) : [...cart?.items ?? [], {...req.body, bag: 1}];
 
         await prisma.cart.update({
             where: {session: cart.session},
@@ -49,13 +49,14 @@ export default withApiSession(async (req, res) => {
     /*
      | GET CALL
      |------------------------------------------------------------------------*/
-    let query = {};
-
-    // concatenate query if exists on request like
-    if (req.query.key) query = {...query, where: {key: req.query.key}}
+    const query = {
+        where: {
+            session: req.session.id, // TODO: check if work
+        },
+    };
 
     return res.json(
-        await prisma.cart.findMany(query) ?? {}
+        await prisma.cart.findFirst(query) ?? {}
     )
 
 });

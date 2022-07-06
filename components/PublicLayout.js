@@ -19,74 +19,6 @@ import {LogoApp} from "./LogoApp";
 
 const currencies = ['EUR']
 
-const navigation = {
-    categories: [
-        {
-            name: 'Women',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-                    imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-                },
-                {
-                    name: 'Basic Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-                    imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-                },
-                {
-                    name: 'Accessories',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg',
-                    imageAlt: 'Model wearing minimalist watch with black wristband and white watch face.',
-                },
-                {
-                    name: 'Carry',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-04.jpg',
-                    imageAlt: 'Model opening tan leather long wallet with credit card pockets and cash pouch.',
-                },
-            ],
-        },
-        {
-            name: 'Men',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg',
-                    imageAlt: 'Hats and sweaters on wood shelves next to various colors of t-shirts on hangers.',
-                },
-                {
-                    name: 'Basic Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg',
-                    imageAlt: 'Model wearing light heather gray t-shirt.',
-                },
-                {
-                    name: 'Accessories',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg',
-                    imageAlt:
-                        'Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body.',
-                },
-                {
-                    name: 'Carry',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg',
-                    imageAlt: 'Model putting folded cash into slim card holder olive leather wallet with hand stitching.',
-                },
-            ],
-        },
-    ],
-    pages: [
-        {name: 'Company', href: '#'},
-        {name: 'Stores', href: '#'},
-    ],
-}
-
 const footerNavigation = {
     shop: [
         {name: 'Bags', href: '#'},
@@ -126,7 +58,7 @@ export default function PublicLayout({title, description, children, className, H
     const {t} = useTranslation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-    const {data: categories} = useSWR(`/api/json/categories?recursive=true`, fetcher)
+    const {data: categories} = useSWR(`/api/json/categories?recursive=true&menu=1`, fetcher)
 
     const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
 
@@ -145,6 +77,8 @@ export default function PublicLayout({title, description, children, className, H
     const {data: ShopTopBackgroundColor} = useSWR(`/api/json/settings/ShopTopBackgroundColor`, fetcher)
 
     const {data: ShopBackgroundColor} = useSWR(`/api/json/settings/ShopBackgroundColor`, fetcher)
+
+    const {data: carts} = useSWR(`/api/json/carts`, fetcher)
 
     return (
         <>
@@ -200,38 +134,38 @@ export default function PublicLayout({title, description, children, className, H
                                     </div>
 
                                     {/* Links */}
-                                    <Tab.Group as="div" className="">
-                                        <Tab.Panels as={Fragment}>
-                                            {categories?.slice(0, 5).map((category) => (
-                                                <Tab.Panel key={category.name} className="px-4 py-2 space-y-12">
-                                                    <div className="grid grid-cols-2 gap-x-4 gap-y-10">
-                                                        {category.featured?.map((item) => (
-                                                            <div key={item.name} className="group relative">
-                                                                <div
-                                                                    className="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                                                    <img src={item.imageSrc} alt={item.imageAlt}
-                                                                         className="object-center object-cover"/>
-                                                                </div>
-                                                                <a href={item.href}
-                                                                   className="mt-6 block text-sm font-medium text-gray-900">
-                                                                    <span className="absolute z-10 inset-0"
-                                                                          aria-hidden="true"/>
-                                                                    {item.name}
-                                                                </a>
-                                                                <p aria-hidden="true"
-                                                                   className="mt-1 text-sm text-gray-500">
-                                                                    Shop now
-                                                                </p>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </Tab.Panel>
-                                            ))}
-                                        </Tab.Panels>
-                                    </Tab.Group>
+                                    {/*<Tab.Group as="div" className="">*/}
+                                    {/*    <Tab.Panels as={Fragment}>*/}
+                                    {/*        {categories?.map((category) => (*/}
+                                    {/*            <Tab.Panel key={category.name} className="px-4 py-2 space-y-12">*/}
+                                    {/*                <div className="grid grid-cols-2 gap-x-4 gap-y-10">*/}
+                                    {/*                    {category.featured?.map((item) => (*/}
+                                    {/*                        <div key={item.name} className="group relative">*/}
+                                    {/*                            <div*/}
+                                    {/*                                className="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">*/}
+                                    {/*                                <img src={item.imageSrc} alt={item.imageAlt}*/}
+                                    {/*                                     className="object-center object-cover"/>*/}
+                                    {/*                            </div>*/}
+                                    {/*                            <a href={item.href}*/}
+                                    {/*                               className="mt-6 block text-sm font-medium text-gray-900">*/}
+                                    {/*                                <span className="absolute z-10 inset-0"*/}
+                                    {/*                                      aria-hidden="true"/>*/}
+                                    {/*                                {item.name}*/}
+                                    {/*                            </a>*/}
+                                    {/*                            <p aria-hidden="true"*/}
+                                    {/*                               className="mt-1 text-sm text-gray-500">*/}
+                                    {/*                                Shop now*/}
+                                    {/*                            </p>*/}
+                                    {/*                        </div>*/}
+                                    {/*                    ))}*/}
+                                    {/*                </div>*/}
+                                    {/*            </Tab.Panel>*/}
+                                    {/*        ))}*/}
+                                    {/*    </Tab.Panels>*/}
+                                    {/*</Tab.Group>*/}
 
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                                        {categories?.map((category) => (
+                                        {categories?.map((category) => category.menu && (
                                             <div key={category.id} className="flow-root">
                                                 <Link href={slugCategory(category)}>
                                                     <a className="-m-2 hover:bg-gray-200 rounded p-2 block font-medium text-gray-900">
@@ -409,7 +343,7 @@ export default function PublicLayout({title, description, children, className, H
                                                 {/* Flyout menus */}
                                                 <Popover.Group className="px-4 bottom-0 inset-x-0">
                                                     <div className="h-full flex justify-center space-x-8">
-                                                        {categories?.slice(0, 5).map((category) => (
+                                                        {categories?.map((category) => category.menu && (
                                                             <Popover key={category.name} className="flex">
                                                                 {({open}) => (
                                                                     <>
@@ -535,7 +469,7 @@ export default function PublicLayout({title, description, children, className, H
                                                                     className="flex-shrink-0 h-6 w-6 text-white"
                                                                     aria-hidden="true"/>
                                                                 <span
-                                                                    className="ml-2 text-sm font-medium text-white">0</span>
+                                                                    className="ml-2 text-sm font-medium text-white">{carts?.items.length}</span>
                                                                 <span className="sr-only">items in cart, view bag</span>
                                                             </a>
                                                         </Link>

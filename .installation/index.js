@@ -187,6 +187,9 @@ const prisma = new PrismaClient({log: ['query']});
                 /** Category Id [1] */
                 {            // ID: 1
                     parentId: 0,
+                    menu: true,
+                    footer: true,
+                    homepage: true,
                     uuid: crypto.randomUUID(),
                     name: 'Mac ricondizionato',
                     cover: '/crud/demo/categories/mac-refurb-category-201810.jfif',
@@ -233,6 +236,9 @@ const prisma = new PrismaClient({log: ['query']});
                 /** Category Id [7] */
                 {            // ID: 7
                     parentId: 0,
+                    menu: true,
+                    footer: true,
+                    homepage: true,
                     uuid: crypto.randomUUID(),
                     name: 'iPad ricondizionato',
                     cover: '/crud/demo/categories/ipad-refurb-category-201810.jfif',
@@ -266,6 +272,9 @@ const prisma = new PrismaClient({log: ['query']});
                 {            // ID: 11
                     parentId: 0,
                     uuid: crypto.randomUUID(),
+                    menu: true,
+                    footer: true,
+                    homepage: true,
                     name: 'iPhone ricondizionato',
                     cover: '/crud/demo/categories/iphone-refurb-category-201810.jfif',
                     thumbnail: '/crud/demo/categories/refurb-iphone-12-blue-2020.jfif',
@@ -305,6 +314,9 @@ const prisma = new PrismaClient({log: ['query']});
                     parentId: 0,
                     uuid: crypto.randomUUID(),
                     name: 'Apple TV ricondizionata',
+                    menu: true,
+                    footer: true,
+                    homepage: true,
                     cover: '/crud/demo/categories/apple-tv-refurb-category-201810.jfif',
                     thumbnail: '/crud/demo/categories/refurb-apple-tv-hd-2021.jfif',
                     description: 'Scopri cosa c’è dietro una Apple TV ricondizionata.',
@@ -330,6 +342,9 @@ const prisma = new PrismaClient({log: ['query']});
                     parentId: 0,
                     uuid: crypto.randomUUID(),
                     name: 'Accessori ricondizionati',
+                    menu: true,
+                    footer: true,
+                    homepage: true,
                     cover: '/crud/demo/categories/accessories-refurb-category-201810.jfif',
                     thumbnail: '/crud/demo/categories/MNA73.jfif',
                     description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
