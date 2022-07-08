@@ -469,7 +469,7 @@ export default function PublicLayout({title, description, children, className, H
                                                                     className="flex-shrink-0 h-6 w-6 text-white"
                                                                     aria-hidden="true"/>
                                                                 <span
-                                                                    className="ml-2 text-sm font-medium text-white">{carts?.items.length}</span>
+                                                                    className="ml-2 text-sm font-medium text-white">{carts?.items?.length ?? 0}</span>
                                                                 <span className="sr-only">items in cart, view bag</span>
                                                             </a>
                                                         </Link>

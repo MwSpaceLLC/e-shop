@@ -9,6 +9,7 @@ import useSWR from "swr";
 import {fetcher, slugCategoryProduct} from "../lib/function";
 import useMoney from "../hooks/useMoney";
 import Link from "next/link";
+import axios from "axios";
 
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
@@ -84,20 +85,23 @@ export default function Cart() {
                                                     Quantity, {cartItem.bag}
                                                 </label>
                                                 <select
+                                                    defaultValue={cartItem.bag}
                                                     id={`quantity-${cartItemIdx}`}
                                                     name={`quantity-${cartItemIdx}`}
                                                     className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                                                 >
+
                                                     {[...Array(cartItem.quantity).keys()].map((item, key) => (
-                                                        <option selected={(item + 1) === cartItem.bag} key={key}
-                                                                value={item + 1}>{item + 1}</option>
+                                                        <option key={key} value={item + 1}>{item + 1}</option>
                                                     ))}
 
                                                 </select>
 
                                                 <div className="absolute top-0 right-0">
-                                                    <button type="button"
-                                                            className="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+                                                    <button
+                                                        onClick={() => axios.delete(`/api/json/carts/${cartItem.uuid}`)}
+                                                        type="button"
+                                                        className="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
                                                         <span className="sr-only">Remove</span>
                                                         <XIconSolid className="h-5 w-5" aria-hidden="true"/>
                                                     </button>

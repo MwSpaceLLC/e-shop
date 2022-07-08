@@ -1,30 +1,42 @@
 import {useTranslation} from 'next-i18next';
-
+import GuestServerSideProps from "../lib/props/GuestServerSideProps";
 import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 
 import {useRouter} from 'next/router'
 import axios from "axios";
-import ErrorsAlert from "../../components/ErrorsAlert";
-
-import RegisterCodeConfirmServerSideProps from "../../lib/props/RegisterCodeConfirmServerSideProps";
-import {LogoApp} from "../../components/LogoApp";
-import PublicLayout from "../../components/PublicLayout";
+import ErrorsAlert from "../components/ErrorsAlert";
+import {LogoApp} from "../components/LogoApp";
+import PublicLayout from "../components/PublicLayout";
 
 // This gets called on every request
-export const getServerSideProps = RegisterCodeConfirmServerSideProps
+export const getServerSideProps = GuestServerSideProps
+
+export const CookiePrivacyBanner = ({intro}) => (
+    <p>{intro} dichiari di aver letto e accetti le nostre <Link href="/condition">
+        <a className="text-glue">Condizioni
+            generali di
+            uso e vendita</a></Link>. Prendi visione della nostra <Link href="/privacy">
+        <a className="text-glue">Informativa sulla privacy</a></Link>, della
+        nostra
+        <Link href="/cookies"><a className="text-glue">Informativa sui Cookie</a></Link> e della
+        nostra <Link href="/cookies"><a className="text-glue">Informativa sulla Pubblicità</a></Link> definita in base
+        agli
+        interessi.
+    </p>
+)
 
 /**
  |--------------------------------------------------------------------------
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function Confirm() {
+export default function Login() {
     const {t} = useTranslation();
     const router = useRouter()
 
-    const code = useRef();
-
+    const email = useRef();
+    const password = useRef();
     const [loader, setLoader] = useState(false);
     const [res, setRes] = useState({});
 
@@ -34,20 +46,21 @@ export default function Confirm() {
         evt.preventDefault()
 
         const credentials = {
-            code: code.current.value,
+            email: email.current.value,
+            password: password.current.value
         };
 
         // TODO: make auth
         axios
-            .post(`/api/register/confirm`, credentials)
-            .then(() => router.push(`/account`))
+            .post(`/api/login`, credentials)
+            .then(() => router.push('/account'))
             .catch(({response}) => setRes(response))
             .finally(() => setLoader(false))
 
     }
 
     return (
-        <PublicLayout title="Conferma il codice">
+        <PublicLayout title="Reset della password">
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
@@ -65,14 +78,14 @@ export default function Confirm() {
                             </a>
                         </Link>
 
-                        Conferma il codice
+                        Reset della password
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Oppure
 
                         <Link href="/register">
                             <a className="ml-1 font-medium underline text-shop hover:text-shop">
-                                annulla la registrazione
+                                accedi al tuo account
                             </a>
                         </Link>
 
@@ -80,21 +93,21 @@ export default function Confirm() {
                 </div>
 
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-gray-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                         <form className="space-y-6" onSubmit={AuthPost} method="POST">
                             <div>
-                                <label htmlFor="number" className="block text-sm font-medium text-gray-700">
-                                    Codice ricevuto per email
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                    e-mail address
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        ref={code}
-                                        id="code"
-                                        name="code"
-                                        type="number"
-                                        autoComplete="code"
+                                        ref={email}
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        autoComplete="email"
                                         required
-                                        disabled={loader}
+                                        readOnly={loader}
                                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-shop focus:border-shop sm:text-sm"
                                     />
                                 </div>
@@ -105,7 +118,7 @@ export default function Confirm() {
                                     disabled={loader}
                                     type="submit"
                                     className={(loader ? 'animate-pulse' : '') + " w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-shop hover:bg-shop focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shop"}>
-                                    {loader ? '⚪⚪⚪' : 'Avanti'}
+                                    {loader ? '⚪⚪⚪' : 'Accedi'}
                                 </button>
                             </div>
                         </form>

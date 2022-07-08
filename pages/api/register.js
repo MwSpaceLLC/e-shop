@@ -23,12 +23,12 @@ export default withApiSession(async (req, res) => {
 
     // check if user already taken in to a DATABASE
     if (await prisma.user.findUnique({where: {email: email}})) {
-        return sendResponse("email address already taken", 403)
+        return sendResponse("indirizzo email già preso", 403)
     }
 
     // send email from node to smtp
     const html = ReactDOMServer.renderToString(<ConfirmCode {...req.session.confirm}/>);
-    nodemail(email, 'Confirm your e-mail address', html, async function (err, info) {
+    nodemail(email, 'Conferma il tuo indirizzo email', html, async function (err, info) {
         if (err) return sendResponse(err, 500)
 
         await req.session.save();

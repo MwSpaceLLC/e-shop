@@ -2,15 +2,15 @@ import {Fragment, useState} from 'react'
 
 import {ChevronDownIcon, PlusSmIcon} from '@heroicons/react/solid'
 import useSWR from "swr";
-import {fetcher, slugCategory, slugCategoryProduct, slugProduct} from "../../lib/function";
-import PublicLayout from "../../components/PublicLayout";
+import {fetcher, slugCategory, slugCategoryProduct, slugProduct} from "../../../lib/function";
+import PublicLayout from "../../../components/PublicLayout";
 import {useRouter} from "next/router";
 
 import Link from "next/link";
-import Image from "next/image";
-import CategoryServerSideProps from "../../lib/props/CategoryServerSideProps";
-import SideCategoriesNested from "../../components/SideCategoriesNested";
-import useMoney from "../../hooks/useMoney";
+
+import CategoryServerSideProps from "../../../lib/props/CategoryServerSideProps";
+import SideCategoriesNested from "../../../components/SideCategoriesNested";
+import useMoney from "../../../hooks/useMoney";
 
 // This gets called on every request
 export const getServerSideProps = CategoryServerSideProps

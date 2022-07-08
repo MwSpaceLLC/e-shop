@@ -1,8 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import {withApiSession} from "../../../../lib/withSession";
 import {prisma} from "../../../../lib/database";
-import crypto from "crypto";
-import products from "../../admin/[token]/catalog/products";
 
 /**
  |--------------------------------------------------------------------------

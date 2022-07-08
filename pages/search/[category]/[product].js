@@ -1,24 +1,18 @@
 import {Fragment, useState} from 'react'
-import {Dialog, Disclosure, Popover, RadioGroup, Tab, Transition} from '@headlessui/react'
-import {
-    HeartIcon,
-    MenuIcon,
-    MinusSmIcon,
-    PlusSmIcon,
-} from '@heroicons/react/outline'
-import {StarIcon} from '@heroicons/react/solid'
+import {RadioGroup, Tab, Transition} from '@headlessui/react'
+import {HeartIcon} from '@heroicons/react/outline'
 
 import Image from "next/image";
 
-import PublicLayout from "../../components/PublicLayout";
+import PublicLayout from "../../../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import Link from "next/link";
-import {classNames, fetcher, slugCategoryProduct, slugProduct} from "../../lib/function"
+import {classNames, fetcher, slugCategoryProduct} from "../../../lib/function"
 
-import ProductServerSideProps from "../../lib/props/ProductServerSideProps";
-import useSWR from "swr";
-import useMoney from "../../hooks/useMoney";
+import ProductServerSideProps from "../../../lib/props/ProductServerSideProps";
+import useMoney from "../../../hooks/useMoney";
 import axios from "axios";
+import useSWR from "swr";
 
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
