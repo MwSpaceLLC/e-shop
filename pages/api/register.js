@@ -11,7 +11,7 @@ import {prisma} from "../../lib/database";
  |--------------------------------------------------------------------------
  */
 export default withApiSession(async (req, res) => {
-    const {name, email, password} = req.body;
+    const {name, email, password, invoice} = req.body;
 
     if (req.method !== 'POST' || !password || !email || !name) return res.status("403").json();
 
@@ -19,7 +19,7 @@ export default withApiSession(async (req, res) => {
     const sendResponse = (message, status = 200) => res.status(status).json({message: message})
 
     //create session confirm
-    req.session.confirm = {name, email, password, random};
+    req.session.confirm = {name, email, password, random, invoice};
 
     // check if user already taken in to a DATABASE
     if (await prisma.user.findUnique({where: {email: email}})) {

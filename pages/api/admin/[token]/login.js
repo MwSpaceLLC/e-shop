@@ -21,7 +21,7 @@ export default withApiSession(async (req, res) => {
     req.session.admin = await prisma.admin.findUnique({where: {email: email}})
 
     // admin not found in to a DATABASE
-    if (!req.session.admin) return res.status(403).json({message: 'Email address not exists'});
+    if (!req.session.admin) return res.status(403).json({message: 'Credentials not match with our records'});
 
     if (bcrypt.compareSync(password, req.session.admin.password)) {
 

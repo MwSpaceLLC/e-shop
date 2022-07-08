@@ -23,6 +23,7 @@ export default function Register() {
 
     const router = useRouter()
 
+    const invoice = useRef();
     const name = useRef();
     const email = useRef();
     const password = useRef();
@@ -38,7 +39,8 @@ export default function Register() {
         const credentials = {
             name: name.current.value,
             email: email.current.value,
-            password: password.current.value
+            password: password.current.value,
+            invoice: invoice.current.value
         };
 
         if (_password.current.value !== password.current.value) {
@@ -61,8 +63,6 @@ export default function Register() {
 
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-
-                    <LogoApp className="h-8 w-auto"/>
 
                     <h2 className="mt-6 flex items-center gap-2 text-center justify-center text-3xl font-extrabold text-gray-900">
                         <Link href="/">
@@ -90,9 +90,29 @@ export default function Register() {
                     </p>
                 </div>
 
-                <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-gray-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                    <div className="py-8 px-4 sm:px-10">
                         <form className="space-y-6" onSubmit={AuthPost} method="POST">
+                            <div>
+                                <label htmlFor="invoice" className="block text-sm font-medium text-gray-700">
+                                    Tipo di account
+                                </label>
+                                <div className="mt-1">
+                                    <select
+                                        ref={invoice}
+                                        id="invoice"
+                                        name="invoice"
+                                        autoComplete="invoice"
+                                        required
+                                        disabled={loader}
+                                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-shop focus:border-shop sm:text-sm"
+                                    >
+                                        <option value={0}>Privato</option>
+                                        <option value={1}>Azienda</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                                     Nome e Cognome

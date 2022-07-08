@@ -173,6 +173,9 @@ const prisma = new PrismaClient({log: ['query']});
                 }, {
                     key: 'GuestPrices',
                     enabled: true,
+                }, {
+                    key: 'PriceInTax',
+                    enabled: true,
                 },
             ]
         })

@@ -16,13 +16,17 @@ export const getServerSideProps = PublicServerSideProps
 
 export default function Cart() {
 
-    const { mutate } = useSWRConfig()
+    const {mutate} = useSWRConfig()
     const money = useMoney()
 
     const {t} = useTranslation();
     const [open, setOpen] = useState(false)
 
     const {data: carts} = useSWR(`/api/json/carts`, fetcher)
+
+    const TotalPriceTax = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag) * (parseFloat(item.tax) / 100), 0);
+    const PartialPrice = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag), 0) - TotalPriceTax;
+    const TotalPrice = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag), 0) + TotalPriceTax;
 
     return (
         <PublicLayout title={t('seo-cart-title')} description={t('seo-cart-description')}
@@ -138,32 +142,27 @@ export default function Cart() {
 
                         <dl className="mt-6 space-y-4">
                             <div className="flex items-center justify-between">
-                                <dt className="text-sm text-gray-600">{t('cart-summary-sub')}</dt>
-                                <dd className="text-sm font-medium text-gray-900">$99.00</dd>
+                                <dt className="flex items-center text-sm text-gray-600">{t('cart-summary-ship')}
+                                    <QuestionMarkCircleIcon className="ml-2 h-5 w-5" aria-hidden="true"/>
+                                </dt>
+                                <dd className="text-sm font-medium text-gray-900">{money.format(15.00)}</dd>
                             </div>
                             <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
-                                <dt className="flex items-center text-sm text-gray-600">
-                                    <span>{t('cart-summary-ship')}</span>
-                                    <a href="#" className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500">
-                                        <span className="sr-only">Learn more about how shipping is calculated</span>
-                                        <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true"/>
-                                    </a>
+                                <dt className="text-sm text-gray-600">
+                                    <span>{t('cart-summary-sub')}</span>
                                 </dt>
-                                <dd className="text-sm font-medium text-gray-900">$5.00</dd>
+                                <dd className="text-sm font-medium text-gray-900">{money.format(PartialPrice)}</dd>
                             </div>
                             <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                                 <dt className="flex text-sm text-gray-600">
                                     <span>{t('cart-summary-tax')}</span>
-                                    <a href="#" className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500">
-                                        <span className="sr-only">Learn more about how tax is calculated</span>
-                                        <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true"/>
-                                    </a>
+                                    <QuestionMarkCircleIcon className="ml-2 h-5 w-5" aria-hidden="true"/>
                                 </dt>
-                                <dd className="text-sm font-medium text-gray-900">$8.32</dd>
+                                <dd className="text-sm font-medium text-gray-900">{money.format(TotalPriceTax)}</dd>
                             </div>
                             <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
-                                <dt className="text-base font-medium text-gray-900">{t('cart-summary-total')}</dt>
-                                <dd className="text-base font-medium text-gray-900">$112.32</dd>
+                                <dt className="font-bold text-gray-900">{t('cart-summary-total')}</dt>
+                                <dd className="font-bold text-gray-900">{money.format(TotalPrice)}</dd>
                             </div>
                         </dl>
 

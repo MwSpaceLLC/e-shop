@@ -245,7 +245,7 @@ export default function PublicLayout({title, description, children, className, H
                 </Transition.Root>
 
                 {/* Hero section */}
-                <div className="relative bg-gray-900">
+                <div className="relative bg-gray-900 z-40">
                     {/* Decorative image and overlay */}
                     <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
 

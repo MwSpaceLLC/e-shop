@@ -51,8 +51,6 @@ export default function Confirm() {
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
-                    <LogoApp className="h-8 w-auto"/>
-
                     <h2 className="mt-6 flex items-center gap-2 text-center justify-center text-3xl font-extrabold text-gray-900">
                         <Link href="/">
                             <a>
@@ -79,8 +77,8 @@ export default function Confirm() {
                     </p>
                 </div>
 
-                <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-gray-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                    <div className="py-8 px-4 sm:px-10">
                         <form className="space-y-6" onSubmit={AuthPost} method="POST">
                             <div>
                                 <label htmlFor="number" className="block text-sm font-medium text-gray-700">
