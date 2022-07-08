@@ -5,7 +5,7 @@ import {CheckIcon, ClockIcon, QuestionMarkCircleIcon, XIcon as XIconSolid} from 
 import PublicLayout from "../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import PublicServerSideProps from "../lib/props/PublicServerSideProps";
-import useSWR from "swr";
+import useSWR, {useSWRConfig} from "swr";
 import {fetcher, slugCategoryProduct} from "../lib/function";
 import useMoney from "../hooks/useMoney";
 import Link from "next/link";
@@ -16,6 +16,7 @@ export const getServerSideProps = PublicServerSideProps
 
 export default function Cart() {
 
+    const { mutate } = useSWRConfig()
     const money = useMoney()
 
     const {t} = useTranslation();
@@ -99,7 +100,7 @@ export default function Cart() {
 
                                                 <div className="absolute top-0 right-0">
                                                     <button
-                                                        onClick={() => axios.delete(`/api/json/carts/${cartItem.uuid}`)}
+                                                        onClick={() => axios.delete(`/api/json/carts/${cartItem.uuid}`).then(() => mutate('/api/json/carts'))}
                                                         type="button"
                                                         className="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
                                                         <span className="sr-only">Remove</span>

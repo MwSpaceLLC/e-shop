@@ -16,6 +16,7 @@ import Image from "next/image";
 import Head from "next/head";
 import useSWR from "swr";
 import {LogoApp} from "./LogoApp";
+import useUser from "../hooks/useUser";
 
 const currencies = ['EUR']
 
@@ -53,7 +54,9 @@ const footerNavigation = {
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function PublicLayout({title, description, children, className, HeroSection, loggedIn}) {
+export default function PublicLayout({title, description, children, className, HeroSection}) {
+
+    const [user, loggedIn] = useUser();
 
     const {t} = useTranslation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

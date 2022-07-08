@@ -38,6 +38,6 @@ export default withApiSession(async (req, res) => {
 
     }
 
-    return res.json({...cart, items: cart.items?.filter(item => item.uuid === req.query.uuid) ?? []})
+    return res.json(cart.items ? {...cart, items: cart.items?.filter(item => item.uuid === req.query.uuid) ?? []} : {})
 
 });

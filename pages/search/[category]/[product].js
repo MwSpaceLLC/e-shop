@@ -12,13 +12,14 @@ import {classNames, fetcher, slugCategoryProduct} from "../../../lib/function"
 import ProductServerSideProps from "../../../lib/props/ProductServerSideProps";
 import useMoney from "../../../hooks/useMoney";
 import axios from "axios";
-import useSWR from "swr";
+import useSWR, {useSWRConfig} from "swr";
 
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
 
 export default function Product({loggedIn, product, category}) {
 
+    const {mutate} = useSWRConfig()
     const {t} = useTranslation();
     const money = useMoney()
 
@@ -38,7 +39,7 @@ export default function Product({loggedIn, product, category}) {
         e.preventDefault();
 
         axios.post('/api/json/carts', product)
-            .then(res => console.log(res))
+            .then(res => mutate('/api/json/carts'))
             .catch(err => console.error(err))
             .finally(() => setLoad(false))
 
