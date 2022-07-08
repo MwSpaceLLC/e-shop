@@ -17,7 +17,7 @@ import useSWR, {useSWRConfig} from "swr";
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
 
-export default function Product({loggedIn, product, category}) {
+export default function Product({product, category}) {
 
     const {mutate} = useSWRConfig()
     const {t} = useTranslation();
@@ -46,7 +46,7 @@ export default function Product({loggedIn, product, category}) {
     }
 
     return (
-        <PublicLayout loggedIn={loggedIn} title={product?.name + ' | ' + category?.name}
+        <PublicLayout title={product?.name + ' | ' + category?.name}
                       description={product?.description}>
             <main className="max-w-7xl mx-auto sm:pt-16 sm:px-6 lg:px-8">
                 <div className="max-w-2xl mx-auto lg:max-w-none">

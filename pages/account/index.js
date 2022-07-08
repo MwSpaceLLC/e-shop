@@ -39,7 +39,7 @@ const plans = [
     {name: 'Enterprise', priceMonthly: 249, priceYearly: 2490, limit: 'Unlimited active job postings'},
 ]
 
-export default function Index({loggedIn}) {
+export default function Index() {
     const {t} = useTranslation();
 
     const [selectedPlan, setSelectedPlan] = useState(plans[1])
@@ -47,7 +47,7 @@ export default function Index({loggedIn}) {
 
 
     return (
-        <PublicLayout loggedIn={loggedIn} title={t('seo-index-title')} description={t('seo-index-description')}>
+        <PublicLayout title={t('seo-index-title')} description={t('seo-index-description')}>
 
             <main className="max-w-7xl mx-auto pb-10 lg:py-12 lg:px-8">
                 <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
