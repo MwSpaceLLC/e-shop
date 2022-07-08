@@ -5,7 +5,7 @@ import AppLayout from "../../../../../../components/AppLayout";
 
 import {useRouter} from "next/router";
 import useSWR from "swr";
-import {fetcher} from "../../../../../../lib/function";
+import {fetcher, slugCategory} from "../../../../../../lib/function";
 
 import Image from "next/image";
 import slugify from "slugify";
@@ -35,13 +35,12 @@ export default function AdminCatalogCategoryIndex() {
     const router = useRouter()
     const {uuid, token} = router.query
 
-    const {data: category} = useSWR(`/api/admin/${token}/catalog/categories/${uuid}`, fetcher)
-    const {data: categories} = useSWR(`/api/admin/${token}/catalog/categories`, fetcher)
+    const {data: category} = useSWR(`/api/json/categories/${uuid}`, fetcher)
+    const {data: categories} = useSWR(`/api/json/categories?recursive=true`, fetcher)
 
     const Update = (e, inputs = []) => {
 
         e.preventDefault()
-
         setLoader(true)
 
         const dataset = {
@@ -56,6 +55,40 @@ export default function AdminCatalogCategoryIndex() {
             .finally(() => setLoader(false))
 
     }
+
+    const AdminCategoryItem = ({item}) => (
+        <li key={item.id}>
+            <div className="flex items-center">
+                <input
+                    onClick={() => setParentId(item.id)}
+                    value={item.id}
+                    name="parent"
+                    type="radio"
+                    defaultChecked={item.id === category.parentId}
+                    className="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300"
+                />
+                <label htmlFor={item.id}
+                       className="ml-3 block text-sm font-medium text-gray-700">
+                    {item.name}
+                </label>
+            </div>
+        </li>
+    )
+
+    const AdminCategoryReflection = ({items}) => (
+        <ul>
+            {items?.map((item, idx) => item.children.length > 0 ? (
+                <span key={idx}>
+                    <AdminCategoryItem key={idx} item={item}/>
+                    <div className="ml-2">
+                        <AdminCategoryReflection items={item.children}/>
+                    </div>
+                </span>
+            ) : (
+                <AdminCategoryItem key={idx} item={item}/>
+            ))}
+        </ul>
+    )
 
     return (
         <AppLayout title="Modifica | Catalogo">
@@ -148,22 +181,9 @@ export default function AdminCatalogCategoryIndex() {
                                                 -home-
                                             </label>
                                         </div>
-                                        {categories.map((cat, idx) => cat.id !== category.id && (
-                                            <div key={idx} className="flex items-center">
-                                                <input
-                                                    onClick={() => setParentId(cat.id)}
-                                                    value={cat.id}
-                                                    name="parent"
-                                                    type="radio"
-                                                    defaultChecked={cat.id === category.parentId}
-                                                    className="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300"
-                                                />
-                                                <label htmlFor={cat.id}
-                                                       className="ml-3 block text-sm font-medium text-gray-700">
-                                                    {cat.name}
-                                                </label>
-                                            </div>
-                                        ))}
+
+                                        <AdminCategoryReflection items={categories}/>
+
                                     </div>
                                 </fieldset>
                             </div>

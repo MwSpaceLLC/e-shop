@@ -10,9 +10,9 @@ import {prisma} from "../../../../../../../lib/database";
  */
 export default withApiSession(async (req, res) => {
 
-    if (req.method !== 'POST' || process.env.ADMIN_BACKEND_TOKEN !== req.query.token || !req.session.admin) return res.status("403").json();
+    console.log(req.session.admin)
 
-    console.log(req.body, req.query.uuid)
+    if (req.method !== 'POST' || process.env.ADMIN_BACKEND_TOKEN !== req.query.token || !req.session.admin) return res.status("403").json();
 
     /*
      | Logic apis

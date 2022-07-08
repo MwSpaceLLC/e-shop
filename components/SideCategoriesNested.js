@@ -41,6 +41,7 @@ export default function SideCategoriesNested({categoryId}) {
             ))}
         </ul>
     )
+
     return (
         <CategoryReflection items={categories}/>
     )

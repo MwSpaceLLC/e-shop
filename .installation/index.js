@@ -412,8 +412,8 @@ const prisma = new PrismaClient({log: ['query']});
                     parentId: 0,
                     uuid: crypto.randomUUID(),
                     name: 'Fine Serie',
-                    cover: '/crud/demo/categories/apple-refurb-products-home-201810.png',
-                    thumbnail: '/crud/demo/categories/ipad-air-select-202203.jfif',
+                    cover: '/crud/demo/categories/clearance-refurb-category-201810.jfif',
+                    thumbnail: '/crud/demo/categories/airpods_pro_right__fm0wwisa76em_large.png',
                     description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
                 },
 

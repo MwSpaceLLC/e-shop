@@ -23,8 +23,6 @@ export default function AdminCatalog() {
         {name: 'Prodotti', current: tab === 2},
     ]
 
-    console.log(parentId)
-
     return (
         <AppLayout title="Catalogo">
 
