@@ -190,6 +190,7 @@ model Product {
   thumbnailalt      String?      @db.VarChar(255)
 
   price             Decimal    @db.Decimal
+  tax               Decimal?   @db.Decimal
   discount          Decimal?   @db.Decimal
   weight            Decimal?   @db.Decimal
   quantity          Int?       @db.Int

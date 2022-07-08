@@ -128,6 +128,9 @@ const prisma = new PrismaClient({log: ['query']});
                     key: 'ShopLanguage',
                     value: 'IT',
                 }, {
+                    key: 'ShopTax',
+                    value: '22.00',
+                }, {
                     key: 'ShopSeoIndexTitle',
                     value: 'elettronica, libri, musica, fashion, videogiochi, DVD e tanto altro',
                 }, {
@@ -507,6 +510,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
+                tax: 22.00,
                 quantity: 4,
                 price: 989,
                 discount: 20.00,
@@ -527,6 +531,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
+                tax: 22.00,
                 quantity: 22,
                 price: 1259,
                 discount: 20.00,
@@ -546,6 +551,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
+                tax: 22.00,
                 quantity: 5,
                 price: 1259,
                 discount: 20.00,
@@ -566,6 +572,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
+                tax: 22.00,
                 quantity: 8,
                 price: 1259,
                 discount: 20.00,
@@ -585,6 +592,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
+                tax: 22.00,
                 quantity: 35,
                 price: 6599,
                 discount: 10.00,
@@ -606,6 +614,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
+                tax: 22.00,
                 quantity: 2,
                 price: 6599,
                 discount: 10.00,
