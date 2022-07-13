@@ -4,8 +4,6 @@ import {HeartIcon} from '@heroicons/react/outline'
 
 import HeartIconSolid from '@heroicons/react/solid/HeartIcon'
 
-import Image from "next/image";
-
 import PublicLayout from "../../../components/PublicLayout";
 import {useTranslation} from "next-i18next";
 import Link from "next/link";
@@ -13,8 +11,13 @@ import {classNames, fetcher, slugCategoryProduct} from "../../../lib/function"
 
 import ProductServerSideProps from "../../../lib/props/ProductServerSideProps";
 import useMoney from "../../../hooks/useMoney";
+
 import axios from "axios";
+import Image from "next/image";
 import useSWR, {useSWRConfig} from "swr";
+import FlayOutCart from "../../../components/FlayOutCart";
+import NotifyAddWishlist from "../../../components/NotifyAddWishlist";
+import NotifyRemoveWishlist from "../../../components/NotifyRemoveWishlist";
 
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
@@ -25,13 +28,11 @@ export default function Product({product, category}) {
     const {t} = useTranslation();
     const money = useMoney()
 
-    // const [selectedColor, setSelectedColor] = useState({
-    //     name: 'Washed Black',
-    //     bgColor: 'bg-gray-700',
-    //     selectedColor: 'ring-gray-700'
-    // })
-
+    const [open, setOpen] = useState(false)
     const [load, setLoad] = useState(false)
+
+    const [wishAdd, setWishAdd] = useState(false)
+    const [wishRemove, setWishRemove] = useState(false)
 
     const {data: products} = useSWR(`/api/json/products?category=${category.id}`, fetcher)
     const {data: wishlist} = useSWR(`/api/json/wishlists/${product.uuid}`, fetcher)
@@ -42,21 +43,25 @@ export default function Product({product, category}) {
         e.preventDefault();
 
         axios.post('/api/json/carts', product)
-            .then(res => mutate('/api/json/carts'))
+            .then(res => mutate('/api/json/carts').then(e => setOpen(true)))
             .catch(err => console.error(err))
             .finally(() => setLoad(false))
 
     }
 
     const AddFromWishlist = () => {
+        setWishRemove(false)
+
         axios.post('/api/json/wishlists', product)
-            .then(res => mutate(`/api/json/wishlists/${product.uuid}`))
+            .then(res => mutate(`/api/json/wishlists/${product.uuid}`).then(e => setWishAdd(true)))
             .catch(err => console.error(err))
     }
 
     const RemoveFromWishlist = () => {
+        setWishAdd(false)
+
         axios.delete(`/api/json/wishlists/${product.uuid}`)
-            .then(res => mutate(`/api/json/wishlists/${product.uuid}`))
+            .then(res => mutate(`/api/json/wishlists/${product.uuid}`).then(e => setWishRemove(true)))
             .catch(err => console.error(err))
     }
 
@@ -324,6 +329,12 @@ export default function Product({product, category}) {
                         </div>
                     </section>
                 </div>
+
+                <FlayOutCart product={product} open={open} setOpen={setOpen}/>
+
+                <NotifyAddWishlist product={product} show={wishAdd} setShow={setWishAdd}/>
+
+                <NotifyRemoveWishlist product={product} show={wishRemove} setShow={setWishRemove}/>
             </main>
         </PublicLayout>
     )
