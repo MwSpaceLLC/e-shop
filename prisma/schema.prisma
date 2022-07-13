@@ -33,7 +33,7 @@ model User {
   shipments     Shipment[]
   company       Company[]
 
-  cart          Index?
+  cart          Cart?
   wishlist      Wishlist?
 }
 
