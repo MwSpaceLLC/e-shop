@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {withApiSession} from "../../lib/withSession";
+import {connectGuestCartAndWishlist, withApiSession} from "../../lib/withSession";
 
 import bcrypt from "bcryptjs";
 import {prisma} from "../../lib/database";
@@ -21,8 +21,9 @@ export default withApiSession(async (req, res) => {
 
     if (bcrypt.compareSync(password, req.session.user.password)) {
 
-        //save user session
-        await req.session.save();
+        await req.session.save(); //save user session
+
+        await connectGuestCartAndWishlist(req.session); //TODO: check if work
 
         return res.status(200).json()
     }

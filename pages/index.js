@@ -29,7 +29,7 @@ export default function Index({ShopSeoIndexTitle, ShopSeoIndexDescription}) {
 
     return (
         <PublicLayout title={ShopSeoIndexTitle} description={ShopSeoIndexDescription}
-            HeroSection={HeroSection}>
+                      HeroSection={HeroSection}>
 
             {/* Category section */}
             <section aria-labelledby="category-heading"
@@ -38,10 +38,12 @@ export default function Index({ShopSeoIndexTitle, ShopSeoIndexDescription}) {
                     <h2 id="category-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
                         {t('index-cat-title')}
                     </h2>
-                    <a href="#"
-                       className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
-                        {t('index-cat-link')}<span aria-hidden="true"> &rarr;</span>
-                    </a>
+
+                    <Link href="/search">
+                        <a className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+                            {t('index-cat-link')}<span aria-hidden="true"> &rarr;</span>
+                        </a>
+                    </Link>
                 </div>
 
                 <div className="mt-4 flow-root">
@@ -78,9 +80,11 @@ export default function Index({ShopSeoIndexTitle, ShopSeoIndexDescription}) {
                 </div>
 
                 <div className="mt-6 px-4 sm:hidden">
-                    <a href="#" className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-                        {t('index-cat-link')}<span aria-hidden="true"> &rarr;</span>
-                    </a>
+                    <Link href="/search">
+                        <a className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
+                            {t('index-cat-link')}<span aria-hidden="true"> &rarr;</span>
+                        </a>
+                    </Link>
                 </div>
             </section>
 

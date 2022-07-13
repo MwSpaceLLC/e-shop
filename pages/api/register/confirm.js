@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {withApiSession} from "../../../lib/withSession";
+import {connectGuestCartAndWishlist, withApiSession} from "../../../lib/withSession";
 import bcrypt from "bcryptjs";
 import {prisma} from "../../../lib/database";
 
@@ -13,8 +13,10 @@ export default withApiSession(async (req, res) => {
 
     if (req.method !== 'POST' || !password || !email || !name || !req.body.code) return res.status("403").json();
 
-    if (!req.session.confirm) return res.status("403").json({message: 'confirm code not set'})
-    if (req.session.confirm.random !== parseInt(req.body.code)) return res.status("422").json({message: 'code mismatch'})
+    if (!req.session.confirm) return res.status("403").json({message: 'Codice non valido'})
+    if (req.session.confirm.random !== parseInt(req.body.code)) return res.status("422").json({message: 'Codice non valido'})
+
+    if (await prisma.user.findUnique({where: {email: email}})) return res.status(403).json({message: 'Codice già utilizzato'});
 
     const hash = bcrypt.hashSync(password, 10);
 
@@ -28,9 +30,10 @@ export default withApiSession(async (req, res) => {
         }
     })
 
-    //delete old confirm
-    delete req.session.confirm;
-    await req.session.save();
+    await connectGuestCartAndWishlist(req.session); //TODO: check if work
+
+    delete req.session.confirm; //delete old confirm
+    await req.session.save(); // save session
 
     return res.status(200).json();
 

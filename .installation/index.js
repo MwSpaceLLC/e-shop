@@ -555,6 +555,26 @@ const prisma = new PrismaClient({log: ['query']});
             data: {
                 uuid: crypto.randomUUID(),
                 tax: 22.00,
+                quantity: 22,
+                price: 2559,
+                discount: 20.00,
+                name: 'MacBook Pro 16" ricondizionato con chip Apple M1 Pro, CPU 10‑core e GPU 16‑core - Grigio siderale',
+                thumbnail: '/crud/demo/products/refurb-mbp16-space-m1-2021_GEO_IT.jfif',
+                description: 'Data iniziale di immissione sul mercato: ottobre 2021 Display Liquid Retina XDR da 16,2" (diagonale);1 risoluzione nativa 3456×2234 a 254 pixel per pollice 16GB di memoria unificata Unità SSD da 512GB2 Touch ID Videocamera FaceTime HD a 1080p Tre porte Thunderbolt 4.',
+                categories: {connect: [{id: 1}, {id: 3}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-mbp16-space-m1-2021_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-mbp16-space-m1-2021_AV2.jfif'},
+                        {path: '/crud/demo/products/refurb-mbp16-space-m1-2021_AV3.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
                 quantity: 5,
                 price: 1259,
                 discount: 20.00,
@@ -597,7 +617,7 @@ const prisma = new PrismaClient({log: ['query']});
                 uuid: crypto.randomUUID(),
                 tax: 22.00,
                 quantity: 35,
-                price: 6599,
+                price: 4699,
                 discount: 10.00,
                 name: 'Mac Pro ricondizionato con Intel Xeon W 8‑core a 3,5GHz, due Radeon Pro W5700X e Apple Afterburner',
                 thumbnail: '/crud/demo/products/mac-pro-2019-gallery1.jfif',
@@ -632,6 +652,64 @@ const prisma = new PrismaClient({log: ['query']});
                         {path: '/crud/demo/products/mac-pro-2019-gallery4.jfif'},
                         {path: '/crud/demo/products/mac-pro-2019-gallery5.jfif'},
                         {path: '/crud/demo/products/mac-pro-2019-gallery6.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 2,
+                price: 479,
+                discount: 10.00,
+                name: 'iPad Air Wi-Fi 64GB ricondizionato - Oro (terza generazione)',
+                thumbnail: '/crud/demo/products/refurb-ipad-air-wifi-gold-2019.jfif',
+                description: 'Data iniziale di immissione sul mercato: marzo 2019 Wi-Fi (802.11a/b/g/n/ac) Bluetooth 5.0 Display Retina da 10,5" Fotocamera iSight da 8 megapixel Videocamera FaceTime HD Registrazione video HD a 1080p Chip A12 Bionic con architettura a 64 bit Coprocessore M12 integrato Neural Engine Schermo Multi-Touch 456 g e 6,1 mm.',
+                categories: {connect: [{id: 7}, {id: 10}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-ipad-air-wifi-gold-2019_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-ipad-air-wifi-gold-2019_AV2.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 2,
+                price: 799,
+                discount: 10.00,
+                name: 'iPad Pro 12,9" Wi-Fi 256GB ricondizionato - Grigio siderale (terza generazione)',
+                thumbnail: '/crud/demo/products/refurb-ipad-pro-12-wifi-spacegray-2019.jfif',
+                description: 'Data iniziale di immissione sul mercato: marzo 2019 Wi-Fi (802.11a/b/g/n/ac) Bluetooth 5.0 Display Retina da 10,5" Fotocamera iSight da 8 megapixel Videocamera FaceTime HD Registrazione video HD a 1080p Chip A12 Bionic con architettura a 64 bit Coprocessore M12 integrato Neural Engine Schermo Multi-Touch 456 g e 6,1 mm.',
+                categories: {connect: [{id: 7}, {id: 9}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-ipad-pro-12-wifi-spacegray-2019_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-ipad-pro-12-wifi-spacegray-2019_AV2.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 2,
+                price: 139,
+                discount: 10.00,
+                name: 'Apple TV HD 32GB ricondizionata',
+                thumbnail: '/crud/demo/products/refurb-apple-tv-hd-2021.jfif',
+                description: 'Data iniziale di immissione sul mercato: aprile 2021 Film, serie ed eventi sportivi in diretta: Apple TV HD mette insieme il meglio della televisione e i tuoi servizi Apple preferiti. Scegli fra i titoli di Apple TV+, Netflix e Disney+, e guarda i canali in diretta di YouTube TV e Sling TV. E controlla tutto con il telecomando Siri Remote (seconda generazione).',
+                categories: {connect: [{id: 16}, {id: 17}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-apple-tv-hd-2021_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-apple-tv-hd-2021_AV2.jfif'},
+                        {path: '/crud/demo/products/refurb-apple-tv-hd-2021_AV3.jfif'},
                     ]
                 }
             }

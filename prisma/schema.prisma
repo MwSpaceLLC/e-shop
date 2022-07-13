@@ -92,7 +92,7 @@ model Address {
 
 model Cart {
   id            Int         @id @default(autoincrement())
-  session       String?     @unique
+  session       String?     @unique @db.VarChar(255)
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
 
   userId        Int?         @unique
@@ -118,7 +118,7 @@ model Cart {
 
 model Wishlist {
   id            Int         @id @default(autoincrement())
-  session       String?     @db.LongText
+  session       String?     @unique @db.VarChar(255)
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
 
   userId        Int?         @unique
@@ -157,8 +157,8 @@ model Payment {
   userId        Int
   User          User        @relation(fields: [userId], references: [id])
 
-  cartdId       Int         @unique
-  Card          Card        @relation(fields: [cartdId], references: [id])
+  CardId       Int         @unique
+  Card          Card        @relation(fields: [CardId], references: [id])
 
   orderId       Int         @unique
   order         Order       @relation(fields: [orderId], references: [id])

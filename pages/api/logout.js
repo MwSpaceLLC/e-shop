@@ -9,7 +9,9 @@ import {withApiSession} from "../../lib/withSession";
 export default withApiSession(async (req, res) => {
     if (req.method !== 'POST') return res.status("403").json();
 
-    await req.session.destroy();
+    delete req.session.user; // delete user
+    await req.session.save(); // save session
+
     return res.status(200).json({message: 'Good job'})
 
 });

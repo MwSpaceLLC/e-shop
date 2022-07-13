@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {withApiSession} from "../../../../lib/withSession";
+import {connectGuestCartAndWishlist, createIronSessionId, withApiSession} from "../../../../lib/withSession";
 import {prisma} from "../../../../lib/database";
 
 /**
@@ -34,6 +34,9 @@ export default withApiSession(async (req, res) => {
                 create: {
                     session: req.session.id,
                     items: [{...req.body, bag: 1}], // add product bag
+
+                    // connect session user if autenticate
+                    userId: req.session.user?.id ?? null,
                 },
             })
         )
@@ -45,7 +48,14 @@ export default withApiSession(async (req, res) => {
     return res.json(
         await prisma.cart.findFirst({
             where: {
-                session: req.session.id
+                OR: [
+                    {
+                        session: req.session.id,
+                    },
+                    {
+                        userId: req.session.user?.id,
+                    },
+                ],
             },
         }) ?? {}
     )
