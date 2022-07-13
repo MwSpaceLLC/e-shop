@@ -1,7 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import {
-    connectGuestCartAndWishlist,
-    createIronSessionId,
     getPrismaCart,
     withApiSession
 } from "../../../../lib/withSession";
