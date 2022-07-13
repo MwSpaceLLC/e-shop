@@ -9,6 +9,8 @@ import useMoney from "../hooks/useMoney";
 import Link from "next/link";
 import {classNames} from "../lib/function"
 import useSWR from "swr";
+import {SearchIcon} from "@heroicons/react/outline";
+import ImgSwp from "../components/ImgSwp";
 
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
@@ -22,6 +24,7 @@ export default function Search() {
     const [_products, set_Products] = useState([])
     const [inCategory, setInCategory] = useState([])
     const [activeFilters, setActiveFilters] = useState([])
+
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
@@ -109,7 +112,7 @@ export default function Search() {
                             <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                                 <kbd
                                     className="inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400">
-                                    ⌘K
+                                    <SearchIcon className="w-4"/>
                                 </kbd>
                             </div>
                         </div>

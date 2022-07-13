@@ -149,6 +149,11 @@ const prisma = new PrismaClient({log: ['query']});
                     key: 'ShopPackLinkApiKey',
                     value: '',
                 },
+
+                {
+                    key: 'ShopIntervalSwiperTime',
+                    value: '1000',
+                },
             ]
         })
     )

@@ -90,7 +90,7 @@ model Address {
   user      User                @relation(fields: [userId], references: [id])
 }
 
-model Index {
+model Cart {
   id            Int         @id @default(autoincrement())
   session       String?     @unique @db.VarChar(255)
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
@@ -100,21 +100,7 @@ model Index {
 
   items         Json?
 
-//  items         CartItem[]
 }
-
-//model CartItem {
-//  id        Int      @id @default(autoincrement())
-//  createdAt DateTime @default(now()) @db.Timestamp(6)
-//  product   Json
-//
-//  price             Decimal    @db.Decimal
-//  total             Decimal    @db.Decimal
-//  quantity          Int        @default(1) @db.Int
-//
-//  cartId    Int
-//  cart      Index     @relation(fields: [cartId], references: [id])
-//}
 
 model Wishlist {
   id            Int         @id @default(autoincrement())
@@ -126,15 +112,6 @@ model Wishlist {
 
   items         Json?
 }
-
-//model WishlistItem {
-//  id        Int      @id @default(autoincrement())
-//  createdAt DateTime @default(now()) @db.Timestamp(6)
-//  product   String   @db.LongText
-//
-//  wishlistId    Int
-//  wishlist      Wishlist     @relation(fields: [wishlistId], references: [id])
-//}
 
 model Order {
   id        Int      @id @default(autoincrement())
