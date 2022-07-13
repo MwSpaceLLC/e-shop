@@ -96,14 +96,14 @@ export default function CartIndex() {
                                             </div>
 
                                             <div className="mt-4 sm:mt-0 sm:pr-9">
-                                                <label htmlFor={`quantity-${cartItemIdx}`} className="sr-only">
+                                                <label htmlFor={`quantity-${idx}`} className="sr-only">
                                                     Quantity, {cartItem.bag}
                                                 </label>
                                                 <select
                                                     onChange={(event) => ChangeProductQuantity(event.target.value, cartItem)}
                                                     defaultValue={cartItem.bag}
-                                                    id={`quantity-${cartItemIdx}`}
-                                                    name={`quantity-${cartItemIdx}`}
+                                                    id={`quantity-${idx}`}
+                                                    name={`quantity-${idx}`}
                                                     className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                                                 >
 
