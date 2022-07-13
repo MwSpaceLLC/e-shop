@@ -1,21 +1,24 @@
-import PublicLayout from "../components/PublicLayout";
+import {Fragment, useState} from "react";
+
+import PublicLayout from "../../components/PublicLayout";
 import {Menu, Popover, Transition} from "@headlessui/react";
 import {ChevronDownIcon} from "@heroicons/react/solid";
-import {Fragment, useState} from "react";
-import PublicServerSideProps from "../lib/props/PublicServerSideProps";
 
-import {fetcher, slugCategoryProduct} from "../lib/function";
-import useMoney from "../hooks/useMoney";
-import Link from "next/link";
-import {classNames} from "../lib/function"
+import PublicServerSideProps from "../../lib/props/PublicServerSideProps";
+
+import {fetcher, slugCategoryProduct} from "../../lib/function";
+import useMoney from "../../hooks/useMoney";
+
 import useSWR from "swr";
+import Link from "next/link";
+
+import {classNames} from "../../lib/function"
 import {SearchIcon} from "@heroicons/react/outline";
-import ImgSwp from "../components/ImgSwp";
 
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
 
-export default function Search() {
+export default function Index() {
 
     const money = useMoney()
 

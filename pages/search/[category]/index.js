@@ -1,11 +1,12 @@
 import {Fragment, useState} from 'react'
 
 import {ChevronDownIcon, PlusSmIcon} from '@heroicons/react/solid'
-import useSWR from "swr";
+
 import {fetcher, slugCategory, slugCategoryProduct, slugProduct} from "../../../lib/function";
 import PublicLayout from "../../../components/PublicLayout";
 import {useRouter} from "next/router";
 
+import useSWR from "swr";
 import Link from "next/link";
 
 import CategoryServerSideProps from "../../../lib/props/CategoryServerSideProps";
