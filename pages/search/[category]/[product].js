@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {RadioGroup, Tab} from '@headlessui/react'
-import {HeartIcon} from '@heroicons/react/outline'
+import {CurrencyEuroIcon, HeartIcon} from '@heroicons/react/outline'
 
 import HeartIconSolid from '@heroicons/react/solid/HeartIcon'
 
@@ -36,6 +36,7 @@ export default function Product({product, category}) {
 
     const {data: products} = useSWR(`/api/json/products?category=${category.id}`, fetcher)
     const {data: wishlist} = useSWR(`/api/json/wishlists/${product.uuid}`, fetcher)
+    const {data: PriceInTax} = useSWR(`/api/json/options/PriceInTax`, fetcher)
 
     const AddProductCart = (e) => {
 
@@ -172,7 +173,9 @@ export default function Product({product, category}) {
 
                             <div className="mt-3">
                                 <h2 className="sr-only">Product information</h2>
-                                <p className="text-3xl text-gray-900">{money.format(product.price)}</p>
+                                <p className="text-3xl text-gray-900 flex items-center gap-4">{money.format(product.price)}
+                                    <i className="text-sm">({PriceInTax?.enabled ? 'Tasse Incluse' : 'Tasse Escluse'})</i>
+                                </p>
                             </div>
 
                             {/* Reviews */}

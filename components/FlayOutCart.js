@@ -6,6 +6,7 @@ import Image from "next/image";
 import useMoney from "../hooks/useMoney";
 import useSWR from "swr";
 import {fetcher} from "../lib/function";
+import Link from "next/link";
 
 export default function FlayOutCart({open, setOpen, product}) {
 
@@ -107,6 +108,14 @@ export default function FlayOutCart({open, setOpen, product}) {
                                                         </dd>
                                                     </div>
                                                 </dl>
+                                            </div>
+
+                                            <div className="flex">
+                                                <Link href="/cart">
+                                                    <a className="text-center ml-3 flex-1 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+                                                        Vai al carrello
+                                                    </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>

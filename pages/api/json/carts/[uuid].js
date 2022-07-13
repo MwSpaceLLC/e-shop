@@ -38,6 +38,24 @@ export default withApiSession(async (req, res) => {
 
     }
 
+    // delete an item in cart bags
+    if (req.method === 'PATCH' && cart.items && req.query.uuid) {
+
+        return res.json(
+            await prisma.cart.update({
+                where: {session: cart.session},
+                data: {
+                    items: cart.items?.map(item => {
+
+                        // update item bag
+                        return {...item, bag: item.uuid === req.query.uuid ? req.body.bag : item.bag};
+                    })
+                }
+            })
+        )
+
+    }
+
     // return res.json(cart.items ? {...cart, items: cart.items?.filter(item => item.uuid === req.query.uuid) ?? []} : {})
 
     return res.json(

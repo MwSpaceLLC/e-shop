@@ -168,8 +168,8 @@ export default function PublicLayout({title, description, children, className, H
                                     {/*</Tab.Group>*/}
 
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                                        {categories?.map((category) => category.menu && (
-                                            <div key={category.id} className="flow-root">
+                                        {categories?.map((category, idx) => category.menu && (
+                                            <div key={idx} className="flow-root">
                                                 <Link href={slugCategory(category)}>
                                                     <a className="-m-2 hover:bg-gray-200 rounded p-2 block font-medium text-gray-900">
                                                         {category.name}
@@ -212,8 +212,8 @@ export default function PublicLayout({title, description, children, className, H
                                                         name="currency"
                                                         className="bg-none border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-800 focus:outline-none focus:ring-0 focus:border-transparent"
                                                     >
-                                                        {currencies.map((currency) => (
-                                                            <option key={currency}>{currency}</option>
+                                                        {currencies.map((currency, idx) => (
+                                                            <option key={idx}>{currency}</option>
                                                         ))}
                                                     </select>
                                                     <div
@@ -285,8 +285,8 @@ export default function PublicLayout({title, description, children, className, H
                                                 name="currency"
                                                 className="bg-none bg-gray-900 border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-white group-hover:text-gray-100 focus:outline-none focus:ring-0 focus:border-transparent"
                                             >
-                                                {currencies.map((currency) => (
-                                                    <option key={currency}>{currency}</option>
+                                                {currencies.map((currency, idx) => (
+                                                    <option key={idx}>{currency}</option>
                                                 ))}
                                             </select>
                                             <div
@@ -346,8 +346,8 @@ export default function PublicLayout({title, description, children, className, H
                                                 {/* Flyout menus */}
                                                 <Popover.Group className="px-4 bottom-0 inset-x-0">
                                                     <div className="h-full flex justify-center space-x-8">
-                                                        {categories?.map((category) => category.menu && (
-                                                            <Popover key={category.name} className="flex">
+                                                        {categories?.map((category, idx) => category.menu && (
+                                                            <Popover key={idx} className="flex">
                                                                 {({open}) => (
                                                                     <>
                                                                         <div className="relative flex">
@@ -385,8 +385,8 @@ export default function PublicLayout({title, description, children, className, H
                                                                                         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                                                                         <div
                                                                                             className="grid grid-cols-4 gap-y-10 gap-x-8 py-16">
-                                                                                            {category.children?.slice(0, 4).map((item) => (
-                                                                                                <div key={item.name}
+                                                                                            {category.children?.slice(0, 4).map((item, idx) => (
+                                                                                                <div key={idx}
                                                                                                      className="group relative">
                                                                                                     <div
                                                                                                         className="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
@@ -506,8 +506,8 @@ export default function PublicLayout({title, description, children, className, H
                                     <div>
                                         <h3 className="text-sm font-medium text-white">Shop</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.shop.map((item) => (
-                                                <li key={item.name} className="text-sm">
+                                            {footerNavigation.shop.map((item,idx) => (
+                                                <li key={idx} className="text-sm">
                                                     <a href={item.href} className="text-gray-300 hover:text-white">
                                                         {item.name}
                                                     </a>
@@ -518,8 +518,8 @@ export default function PublicLayout({title, description, children, className, H
                                     <div>
                                         <h3 className="text-sm font-medium text-white">Company</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.company.map((item) => (
-                                                <li key={item.name} className="text-sm">
+                                            {footerNavigation.company.map((item,idx) => (
+                                                <li key={idx} className="text-sm">
                                                     <a href={item.href} className="text-gray-300 hover:text-white">
                                                         {item.name}
                                                     </a>
@@ -532,8 +532,8 @@ export default function PublicLayout({title, description, children, className, H
                                     <div>
                                         <h3 className="text-sm font-medium text-white">Account</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.account.map((item) => (
-                                                <li key={item.name} className="text-sm">
+                                            {footerNavigation.account.map((item,idx) => (
+                                                <li key={idx} className="text-sm">
                                                     <a href={item.href} className="text-gray-300 hover:text-white">
                                                         {item.name}
                                                     </a>
@@ -544,8 +544,8 @@ export default function PublicLayout({title, description, children, className, H
                                     <div>
                                         <h3 className="text-sm font-medium text-white">Connect</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.connect.map((item) => (
-                                                <li key={item.name} className="text-sm">
+                                            {footerNavigation.connect.map((item,idx) => (
+                                                <li key={idx} className="text-sm">
                                                     <a href={item.href} className="text-gray-300 hover:text-white">
                                                         {item.name}
                                                     </a>

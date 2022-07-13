@@ -33,7 +33,7 @@ model User {
   shipments     Shipment[]
   company       Company[]
 
-  cart          Cart?
+  cart          Index?
   wishlist      Wishlist?
 }
 
@@ -90,7 +90,7 @@ model Address {
   user      User                @relation(fields: [userId], references: [id])
 }
 
-model Cart {
+model Index {
   id            Int         @id @default(autoincrement())
   session       String?     @unique @db.VarChar(255)
   createdAt     DateTime    @default(now()) @db.Timestamp(6)
@@ -113,7 +113,7 @@ model Cart {
 //  quantity          Int        @default(1) @db.Int
 //
 //  cartId    Int
-//  cart      Cart     @relation(fields: [cartId], references: [id])
+//  cart      Index     @relation(fields: [cartId], references: [id])
 //}
 
 model Wishlist {

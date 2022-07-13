@@ -2,19 +2,19 @@ import {Fragment, useState} from 'react'
 
 import {CheckIcon, ClockIcon, QuestionMarkCircleIcon, XIcon as XIconSolid} from '@heroicons/react/solid'
 
-import PublicLayout from "../components/PublicLayout";
+import PublicLayout from "../../components/PublicLayout";
 import {useTranslation} from "next-i18next";
-import PublicServerSideProps from "../lib/props/PublicServerSideProps";
+import PublicServerSideProps from "../../lib/props/PublicServerSideProps";
 import useSWR, {useSWRConfig} from "swr";
-import {fetcher, slugCategoryProduct} from "../lib/function";
-import useMoney from "../hooks/useMoney";
+import {fetcher, slugCategoryProduct} from "../../lib/function";
+import useMoney from "../../hooks/useMoney";
 import Link from "next/link";
 import axios from "axios";
 
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
 
-export default function Cart() {
+export default function CartIndex() {
 
     const {mutate} = useSWRConfig()
     const money = useMoney()
@@ -23,10 +23,21 @@ export default function Cart() {
     const [open, setOpen] = useState(false)
 
     const {data: carts} = useSWR(`/api/json/carts`, fetcher)
+    const {data: PriceInTax} = useSWR(`/api/json/options/PriceInTax`, fetcher)
 
     const TotalPriceTax = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag) * (parseFloat(item.tax) / 100), 0);
-    const PartialPrice = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag), 0) - TotalPriceTax;
-    const TotalPrice = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag), 0) + TotalPriceTax;
+
+    //TODO: check if work | remove or not price tax
+    const PartialPrice = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag), 0) - (PriceInTax?.enabled ? TotalPriceTax : 0);
+
+    //TODO: check if work | add or not price tax
+    const TotalPrice = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag), 0) + (PriceInTax?.enabled ? 0 : TotalPriceTax);
+
+    const ChangeProductQuantity = (value, cartItem) => {
+        axios
+            .patch(`/api/json/carts/${cartItem.uuid}`, {bag: value})
+            .then(() => mutate('/api/json/carts'))
+    }
 
     return (
         <PublicLayout title={t('seo-cart-title')} description={t('seo-cart-description')}
@@ -48,19 +59,15 @@ export default function Cart() {
                 <div className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
                     <section aria-labelledby="cart-heading" className="lg:col-span-7">
                         <ul role="list" className="border-t border-b border-gray-200 divide-y divide-gray-200">
-                            {carts?.items?.map((cartItem, cartItemIdx) => (
-                                <li key={cartItemIdx} className="flex py-6 sm:py-10">
+                            {carts?.items?.map((cartItem, idx) => (
+                                <li key={idx} className="flex py-6 sm:py-10">
                                     <div className="flex-shrink-0">
 
-                                        <Link href={slugCategoryProduct(cartItem)}>
-                                            <a>
-                                                <img
-                                                    src={cartItem.thumbnail}
-                                                    alt={cartItem.name}
-                                                    className="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48"
-                                                />
-                                            </a>
-                                        </Link>
+                                        <img
+                                            src={cartItem.thumbnail}
+                                            alt={cartItem.name}
+                                            className="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48"
+                                        />
 
                                     </div>
 
@@ -70,7 +77,7 @@ export default function Cart() {
                                                 <div className="flex justify-between">
                                                     <h3 className="text-sm">
                                                         <Link href={slugCategoryProduct(cartItem)}>
-                                                            <a className="font-medium text-gray-700 hover:text-gray-800">
+                                                            <a className="font-medium hover:underline text-gray-700 hover:text-gray-800">
                                                                 {cartItem.name}
                                                             </a>
                                                         </Link>
@@ -82,7 +89,10 @@ export default function Cart() {
                                                         <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">{cartItem.size}</p>
                                                     ) : null}
                                                 </div>
-                                                <p className="mt-1 text-sm font-medium text-gray-900">{money.format(cartItem.price)}</p>
+                                                <p className="mt-1 text-sm font-medium text-gray-900 flex gap-2">
+                                                    <span>{money.format(cartItem.price)}</span>
+                                                    <i>({PriceInTax?.enabled ? 'Tasse Incluse' : 'Tasse Escluse'})</i>
+                                                </p>
                                             </div>
 
                                             <div className="mt-4 sm:mt-0 sm:pr-9">
@@ -90,14 +100,15 @@ export default function Cart() {
                                                     Quantity, {cartItem.bag}
                                                 </label>
                                                 <select
+                                                    onChange={(event) => ChangeProductQuantity(event.target.value, cartItem)}
                                                     defaultValue={cartItem.bag}
                                                     id={`quantity-${cartItemIdx}`}
                                                     name={`quantity-${cartItemIdx}`}
                                                     className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                                                 >
 
-                                                    {[...Array(cartItem.quantity).keys()].map((item, key) => (
-                                                        <option key={key} value={item + 1}>{item + 1}</option>
+                                                    {[...Array(cartItem.quantity).keys()].map((item, idx) => (
+                                                        <option key={idx} value={item + 1}>{item + 1}</option>
                                                     ))}
 
                                                 </select>
@@ -113,18 +124,6 @@ export default function Cart() {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <p className="mt-4 flex text-sm text-gray-700 space-x-2">
-                                            {cartItem.inStock ? (
-                                                <CheckIcon className="flex-shrink-0 h-5 w-5 text-green-500"
-                                                           aria-hidden="true"/>
-                                            ) : (
-                                                <ClockIcon className="flex-shrink-0 h-5 w-5 text-gray-300"
-                                                           aria-hidden="true"/>
-                                            )}
-
-                                            <span>{cartItem.inStock ? 'In stock' : `Ships in ${cartItem.leadTime}`}</span>
-                                        </p>
                                     </div>
                                 </li>
                             ))}
@@ -136,8 +135,8 @@ export default function Cart() {
                         aria-labelledby="summary-heading"
                         className="mt-16 bg-gray-50 rounded-lg px-4 py-6 sm:p-6 lg:p-8 lg:mt-0 lg:col-span-5"
                     >
-                        <h2 id="summary-heading" className="text-lg font-medium text-gray-900">
-                            {t('cart-summary-title')}
+                        <h2 id="summary-heading" className="flex items-center text-lg font-medium text-gray-900">
+                            <span>{t('cart-summary-title')}</span>
                         </h2>
 
                         <dl className="mt-6 space-y-4">
@@ -166,13 +165,13 @@ export default function Cart() {
                             </div>
                         </dl>
 
-                        <div className="mt-6">
-                            <button
-                                type="button"
-                                className="w-full bg-orange-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-orange-500"
-                            >
-                                {t('cart-summary-btn')}
-                            </button>
+                        <div className="mt-6 w-full flex">
+                            <Link href="/cart/checkout">
+                                <a
+                                    className="w-full text-center bg-orange-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-orange-500">
+                                    Prosegui
+                                </a>
+                            </Link>
                         </div>
                     </section>
                 </div>

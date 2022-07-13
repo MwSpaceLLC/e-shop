@@ -30,12 +30,12 @@ export default function SideCategoriesNested({categoryId}) {
     const CategoryReflection = ({items}) => (
         <ul className="space-y-3">
             {items?.map((item, idx) => item.children.length > 0 ? (
-                <>
+                <span key={idx}>
                     <CategoryItem key={idx} item={item}/>
                     <div className="ml-2">
                         <CategoryReflection items={item.children}/>
                     </div>
-                </>
+                </span>
             ) : (
                 <CategoryItem key={idx} item={item}/>
             ))}

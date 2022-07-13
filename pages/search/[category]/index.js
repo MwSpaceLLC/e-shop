@@ -72,7 +72,6 @@ export default function CategoryIndexProducts({category}) {
                         {category && products?.map((product, idx) => (
                             <Link key={idx} href={slugCategoryProduct(product)}>
                                 <a
-                                    key={product.id}
                                     className="group bg-gray-200 relative bg-white border-2 border-gray-200 rounded-lg flex flex-col overflow-hidden">
                                     <div
                                         className="relative aspect-w-3 aspect-h-4 bg-white group-hover:opacity-75 sm:aspect-none sm:h-96">
