@@ -1,8 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import {
-    connectGuestCartAndWishlist,
-    createIronSessionId,
-    getPrismaCart,
+    getPrismaWishlist,
     withApiSession
 } from "../../../../lib/withSession";
 import {prisma} from "../../../../lib/database";
@@ -14,7 +12,7 @@ import {prisma} from "../../../../lib/database";
  */
 export default withApiSession(async (req, res) => {
 
-    const cart = await getPrismaCart(req.session);
+    const wishlist = await getPrismaWishlist(req.session);
 
     /*
      | POST CALL
@@ -23,22 +21,17 @@ export default withApiSession(async (req, res) => {
 
         //TODO: check if logic work property
         return res.json(
-            await prisma.cart.upsert({
+            await prisma.wishlist.upsert({
                 where: {session: req.session.id},
                 update: {
 
-                    //check if cart.items bag has already product, if not, add to bag
-                    items: cart.items?.find(item => item.uuid === req.body.uuid) ? cart.items.map(
-                        item => ({
-                            ...item, // already item
-
-                            bag: item.bag < item.quantity ? item.bag + 1 : item.bag // product max quantity
-                        })
-                    ) : [...cart?.items ?? [], {...req.body, bag: 1}] // product not found, insert new object
+                    //check if wishlist.items bag has already product, if not, add to bag
+                    items: wishlist.items?.find(item => item.uuid === req.body.uuid) ?
+                        wishlist.items : [...wishlist?.items ?? [], {...req.body}] // product not found, insert new object
                 },
                 create: {
                     session: req.session.id,
-                    items: [{...req.body, bag: 1}], // add product bag
+                    items: [{...req.body}], // add product bag
 
                     // connect session user if autenticate
                     userId: req.session.user?.id ?? null,
@@ -50,6 +43,6 @@ export default withApiSession(async (req, res) => {
     /*
      | GET CALL
      |------------------------------------------------------------------------*/
-    return res.json(cart)
+    return res.json(wishlist)
 
 });

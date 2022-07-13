@@ -13,34 +13,36 @@ export default withApiSession(async (req, res) => {
      | Logic apis
      |------------------------------------------------------------------------*/
 
-    const cart = await prisma.cart.findFirst({
+    const wishlist = await prisma.wishlist.findFirst({
         where: {session: req.session.id},
     }) ?? {};
 
-    // delete an item in cart bags
-    if (req.method === 'DELETE' && cart.items && req.query.uuid) {
+    console.log(req.method)
 
-        const items = cart.items?.filter(item => item.uuid !== req.query.uuid);
+    // delete an item in wishlist bags
+    if (req.method === 'DELETE' && wishlist.items && req.query.uuid) {
+
+
+        const items = wishlist.items?.filter(item => item.uuid !== req.query.uuid);
 
         if (items.length > 0) {
             return res.json(
-                await prisma.cart.update({
-                    where: {session: cart.session},
+                await prisma.wishlist.update({
+                    where: {session: wishlist.session},
                     data: {items: items}
                 })
             )
         }
 
-        // delete cart for empty items
+        // delete wishlist for empty items
         return res.json(
-            await prisma.cart.delete({where: {session: cart.session}})
+            await prisma.wishlist.delete({where: {session: wishlist.session}})
         )
 
     }
 
-    // return res.json(cart.items ? {...cart, items: cart.items?.filter(item => item.uuid === req.query.uuid) ?? []} : {})
-
     return res.json(
-        cart.items?.find(item => item.uuid === req.query.uuid)
+        wishlist.items?.find(item => item.uuid === req.query.uuid)
         ?? {})
+
 });

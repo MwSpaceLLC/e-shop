@@ -1,6 +1,8 @@
-import {Fragment, useState} from 'react'
-import {RadioGroup, Tab, Transition} from '@headlessui/react'
+import {useState} from 'react'
+import {RadioGroup, Tab} from '@headlessui/react'
 import {HeartIcon} from '@heroicons/react/outline'
+
+import HeartIconSolid from '@heroicons/react/solid/HeartIcon'
 
 import Image from "next/image";
 
@@ -23,15 +25,16 @@ export default function Product({product, category}) {
     const {t} = useTranslation();
     const money = useMoney()
 
-    const [selectedColor, setSelectedColor] = useState({
-        name: 'Washed Black',
-        bgColor: 'bg-gray-700',
-        selectedColor: 'ring-gray-700'
-    })
+    // const [selectedColor, setSelectedColor] = useState({
+    //     name: 'Washed Black',
+    //     bgColor: 'bg-gray-700',
+    //     selectedColor: 'ring-gray-700'
+    // })
 
     const [load, setLoad] = useState(false)
 
     const {data: products} = useSWR(`/api/json/products?category=${category.id}`, fetcher)
+    const {data: wishlist} = useSWR(`/api/json/wishlists/${product.uuid}`, fetcher)
 
     const AddProductCart = (e) => {
 
@@ -45,9 +48,20 @@ export default function Product({product, category}) {
 
     }
 
+    const AddFromWishlist = () => {
+        axios.post('/api/json/wishlists', product)
+            .then(res => mutate(`/api/json/wishlists/${product.uuid}`))
+            .catch(err => console.error(err))
+    }
+
+    const RemoveFromWishlist = () => {
+        axios.delete(`/api/json/wishlists/${product.uuid}`)
+            .then(res => mutate(`/api/json/wishlists/${product.uuid}`))
+            .catch(err => console.error(err))
+    }
+
     return (
-        <PublicLayout title={product?.name + ' | ' + category?.name}
-                      description={product?.description}>
+        <PublicLayout title={product.name + ' | ' + category.name} description={product.description}>
             <main className="max-w-7xl mx-auto sm:pt-16 sm:px-6 lg:px-8">
                 <div className="max-w-2xl mx-auto lg:max-w-none">
                     {/* Product */}
@@ -149,11 +163,11 @@ export default function Product({product, category}) {
 
                         {/* Product info */}
                         <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-                            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product?.name}</h1>
+                            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product.name}</h1>
 
                             <div className="mt-3">
                                 <h2 className="sr-only">Product information</h2>
-                                <p className="text-3xl text-gray-900">{money.format(product?.price)}</p>
+                                <p className="text-3xl text-gray-900">{money.format(product.price)}</p>
                             </div>
 
                             {/* Reviews */}
@@ -179,50 +193,13 @@ export default function Product({product, category}) {
                             <div className="mt-6">
                                 <h3 className="sr-only">Description</h3>
 
-                                <div
-                                    className="text-base text-gray-700 space-y-6"
-                                    dangerouslySetInnerHTML={{__html: product?.description}}
-                                />
+                                <div className="text-base text-gray-700 space-y-6"
+                                     dangerouslySetInnerHTML={{__html: product.description}}/>
                             </div>
 
                             <form className="mt-6" onSubmit={AddProductCart}>
 
-                                {/* Colors */}
-                                <div>
-                                    <h3 className="text-sm text-gray-600">Disponibili: {product.quantity}</h3>
-
-                                    <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-2">
-                                        <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
-                                        <div className="flex items-center space-x-3">
-                                            {/*{product?.colors?.map((color, idx) => (*/}
-                                            {/*    <RadioGroup.Option*/}
-                                            {/*        key={idx}*/}
-                                            {/*        value={color}*/}
-                                            {/*        className={({active, checked}) =>*/}
-                                            {/*            classNames(*/}
-                                            {/*                color.selectedColor,*/}
-                                            {/*                active && checked ? 'ring ring-offset-1' : '',*/}
-                                            {/*                !active && checked ? 'ring-2' : '',*/}
-                                            {/*                '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'*/}
-                                            {/*            )*/}
-                                            {/*        }*/}
-                                            {/*    >*/}
-                                            {/*        <RadioGroup.Label as="span" className="sr-only">*/}
-                                            {/*            {color.name}*/}
-                                            {/*        </RadioGroup.Label>*/}
-                                            {/*        <span*/}
-                                            {/*            aria-hidden="true"*/}
-                                            {/*            className={classNames(*/}
-                                            {/*                color.bgColor,*/}
-                                            {/*                'h-8 w-8 border border-black border-opacity-10 rounded-full'*/}
-                                            {/*            )}*/}
-                                            {/*        />*/}
-                                            {/*    </RadioGroup.Option>*/}
-                                            {/*))}*/}
-                                        </div>
-                                    </RadioGroup>
-
-                                </div>
+                                <h3 className="text-sm text-gray-600">Disponibili: {product.quantity}</h3>
 
                                 <div className="mt-10 flex sm:flex-col1">
                                     <button
@@ -234,9 +211,16 @@ export default function Product({product, category}) {
 
                                     <button
                                         type="button"
+                                        title={(wishlist?.id ? 'Togli dalla' : 'Aggiungi alla') + " tua lista dei preferiti"}
+                                        onClick={wishlist?.id ? RemoveFromWishlist : AddFromWishlist}
                                         className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
                                     >
-                                        <HeartIcon className="h-6 w-6 flex-shrink-0" aria-hidden="true"/>
+                                        {wishlist?.id ? (
+                                            <HeartIconSolid className="h-6 w-6 text-green-500"/>
+                                        ) : (
+                                            <HeartIcon className="h-6 w-6 text-green-500"/>
+                                        )}
+
                                         <span className="sr-only">Aggiungi ai preferiti</span>
                                     </button>
                                 </div>
@@ -294,6 +278,7 @@ export default function Product({product, category}) {
                         </div>
                     </div>
 
+                    {/* Consigliati */}
                     <section aria-labelledby="related-heading"
                              className="mt-10 border-t border-gray-200 py-16 px-4 sm:px-0">
                         <h2 id="related-heading" className="text-xl font-bold text-gray-900">
