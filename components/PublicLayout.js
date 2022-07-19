@@ -88,7 +88,7 @@ export default function PublicLayout({title, description, children, className, H
     return (
         <>
             <Head>
-                <title>{title} | {ShopName?.name ?? process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
+                <title>{title} | {ShopName?.value ?? process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
                 <meta name="description" content={description}/>
 
                 <link rel="icon" href={ShopFavicon?.value}/>
