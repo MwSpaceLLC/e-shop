@@ -50,7 +50,7 @@ export default function CartIndex() {
                         Il tuo carrello sembra essere vuoto
                     </p>
                     <Link href="/">
-                        <a className="text-orange-500">Continua lo shopping</a>
+                        <a className="text-shop-500">Continua lo shopping</a>
                     </Link>
                 </div>
             )}
@@ -104,7 +104,7 @@ export default function CartIndex() {
                                                     defaultValue={cartItem.bag}
                                                     id={`quantity-${idx}`}
                                                     name={`quantity-${idx}`}
-                                                    className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                                                    className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-shop-500 focus:border-shop-500 sm:text-sm"
                                                 >
 
                                                     {[...Array(cartItem.quantity).keys()].map((item, idx) => (
@@ -168,7 +168,7 @@ export default function CartIndex() {
                         <div className="mt-6 w-full flex">
                             <Link href="/cart/checkout">
                                 <a
-                                    className="w-full text-center bg-orange-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-orange-500">
+                                    className="w-full text-center bg-shop-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-shop-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-shop-500">
                                     Prosegui
                                 </a>
                             </Link>

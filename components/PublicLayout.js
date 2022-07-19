@@ -1,6 +1,6 @@
 import {useTranslation} from "next-i18next";
 
-import {classNames, fetcher, slugCategory} from "../lib/function"
+import {classNames, fetcher, slugCategory, slugCategoryProduct} from "../lib/function"
 
 import {Fragment, useState} from 'react'
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
@@ -61,9 +61,9 @@ export default function PublicLayout({title, description, children, className, H
     const {t} = useTranslation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-    const {data: categories} = useSWR(`/api/json/categories?recursive=true&menu=1`, fetcher)
-
-    const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
+    const {data: menuCategories} = useSWR(`/api/json/categories?recursive=true&menu=true&orderBy=createdAt`, fetcher)
+    const {data: footerCategories} = useSWR(`/api/json/categories?recursive=true&footer=true&orderBy=createdAt`, fetcher)
+    const {data: products} = useSWR(`/api/json/products?orderBy=createdAt`, fetcher)
 
     const {data: ShopName} = useSWR(`/api/json/settings/ShopName`, fetcher)
 
@@ -80,6 +80,8 @@ export default function PublicLayout({title, description, children, className, H
     const {data: ShopTopBackgroundColor} = useSWR(`/api/json/settings/ShopTopBackgroundColor`, fetcher)
 
     const {data: ShopBackgroundColor} = useSWR(`/api/json/settings/ShopBackgroundColor`, fetcher)
+
+    const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
 
     const {data: carts} = useSWR(`/api/json/carts`, fetcher)
 
@@ -168,7 +170,7 @@ export default function PublicLayout({title, description, children, className, H
                                     {/*</Tab.Group>*/}
 
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                                        {categories?.map((category, idx) => category.menu && (
+                                        {menuCategories?.map((category, idx) => category.menu && (
                                             <div key={idx} className="flow-root">
                                                 <Link href={slugCategory(category)}>
                                                     <a className="-m-2 hover:bg-gray-200 rounded p-2 block font-medium text-gray-900">
@@ -346,7 +348,7 @@ export default function PublicLayout({title, description, children, className, H
                                                 {/* Flyout menus */}
                                                 <Popover.Group className="px-4 bottom-0 inset-x-0">
                                                     <div className="h-full flex justify-center space-x-8">
-                                                        {categories?.map((category, idx) => category.menu && (
+                                                        {menuCategories?.map((category, idx) => category.menu && (
                                                             <Popover key={idx} className="flex">
                                                                 {({open}) => (
                                                                     <>
@@ -504,25 +506,29 @@ export default function PublicLayout({title, description, children, className, H
                             <div className="grid grid-cols-2 gap-8 xl:col-span-2">
                                 <div className="space-y-12 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
                                     <div>
-                                        <h3 className="text-sm font-medium text-white">Shop</h3>
+                                        <h3 className="text-sm font-medium text-white">Prodotti</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.shop.map((item,idx) => (
+                                            {products?.slice(0, footerCategories?.length).map((item, idx) => (
                                                 <li key={idx} className="text-sm">
-                                                    <a href={item.href} className="text-gray-300 hover:text-white">
-                                                        {item.name}
-                                                    </a>
+                                                    <Link href={slugCategoryProduct(item)}>
+                                                        <a className="text-gray-300 hover:text-white">
+                                                            {item.name.substring(0, 23)}...
+                                                        </a>
+                                                    </Link>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
                                     <div>
-                                        <h3 className="text-sm font-medium text-white">Company</h3>
+                                        <h3 className="text-sm font-medium text-white">Negozio</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.company.map((item,idx) => (
+                                            {footerCategories?.map((item, idx) => (
                                                 <li key={idx} className="text-sm">
-                                                    <a href={item.href} className="text-gray-300 hover:text-white">
-                                                        {item.name}
-                                                    </a>
+                                                    <Link href={slugCategory(item)}>
+                                                        <a className="text-gray-300 hover:text-white">
+                                                            {item.name}
+                                                        </a>
+                                                    </Link>
                                                 </li>
                                             ))}
                                         </ul>
@@ -532,7 +538,7 @@ export default function PublicLayout({title, description, children, className, H
                                     <div>
                                         <h3 className="text-sm font-medium text-white">Account</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.account.map((item,idx) => (
+                                            {footerNavigation.account.map((item, idx) => (
                                                 <li key={idx} className="text-sm">
                                                     <a href={item.href} className="text-gray-300 hover:text-white">
                                                         {item.name}
@@ -542,9 +548,9 @@ export default function PublicLayout({title, description, children, className, H
                                         </ul>
                                     </div>
                                     <div>
-                                        <h3 className="text-sm font-medium text-white">Connect</h3>
+                                        <h3 className="text-sm font-medium text-white">Social</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.connect.map((item,idx) => (
+                                            {footerNavigation.connect.map((item, idx) => (
                                                 <li key={idx} className="text-sm">
                                                     <a href={item.href} className="text-gray-300 hover:text-white">
                                                         {item.name}
@@ -556,16 +562,17 @@ export default function PublicLayout({title, description, children, className, H
                                 </div>
                             </div>
                             <div className="mt-12 md:mt-16 xl:mt-0">
-                                <h3 className="text-sm font-medium text-white">Sign up for our newsletter</h3>
-                                <p className="mt-6 text-sm text-gray-300">The latest deals and savings, sent to your
-                                    inbox weekly.</p>
+                                <h3 className="text-sm font-medium text-white">Iscriviti alla nostra newsletter</h3>
+                                <p className="mt-6 text-sm text-gray-300">Promo settimanali alla tua casella di
+                                    posta.
+                                </p>
                                 <form className="mt-2 flex sm:max-w-md">
-                                    <label htmlFor="email-address" className="sr-only">
+                                    <label htmlFor="email" className="sr-only">
                                         Email address
                                     </label>
                                     <input
-                                        id="email-address"
-                                        type="text"
+                                        id="email"
+                                        type="email"
                                         autoComplete="email"
                                         required
                                         className="appearance-none min-w-0 w-full bg-white border border-white rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-white focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white"
@@ -575,7 +582,7 @@ export default function PublicLayout({title, description, children, className, H
                                             type="submit"
                                             className="w-full bg-gray-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-500"
                                         >
-                                            Sign up
+                                            Iscriviti
                                         </button>
                                     </div>
                                 </form>

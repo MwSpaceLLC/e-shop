@@ -38,7 +38,7 @@ export default function NotifyRemoveWishlist({show, setShow, product}) {
                                 <div className="ml-4 flex-shrink-0 flex">
                                     <button
                                         type="button"
-                                        className="bg-white rounded-full inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                                        className="bg-white rounded-full inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shop-500"
                                         onClick={() => {
                                             setShow(false)
                                         }}

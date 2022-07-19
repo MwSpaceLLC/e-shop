@@ -37,7 +37,7 @@ export default function AdminCatalog() {
                         id="tabs"
                         name="tabs"
                         onChange={e => setTab(parseInt(e.target.value))}
-                        className="block w-full focus:ring-orange-500 focus:border-orange-500 border-gray-300 rounded-md"
+                        className="block w-full focus:ring-shop-500 focus:border-shop-500 border-gray-300 rounded-md"
                         defaultValue={tabs.find((tab) => tab.current).name}
                     >
                         {tabs.map((tab, idx) => (
@@ -52,7 +52,7 @@ export default function AdminCatalog() {
                                 key={tab.name}
                                 onClick={() => setTab(idx + 1)}
                                 className={classNames(
-                                    tab.current ? 'bg-orange-100 text-orange-700' : 'text-gray-500 hover:text-gray-700',
+                                    tab.current ? 'bg-shop-100 text-shop-700' : 'text-gray-500 hover:text-gray-700',
                                     'px-3 py-2 font-medium text-sm rounded-md'
                                 )}
                                 aria-current={tab.current ? 'page' : undefined}

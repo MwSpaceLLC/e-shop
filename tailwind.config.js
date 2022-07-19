@@ -11,7 +11,7 @@ module.exports = {
                 'warm-gray': colors.stone,
                 sky: colors.sky,
                 cyan: colors.cyan,
-                shop: "#ff9800",
+                shop: "var(--ShopMainBackgroundColor)",
             },
         },
     },

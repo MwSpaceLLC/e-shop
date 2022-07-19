@@ -17,6 +17,10 @@ export default async function handler(req, res) {
     // concatenate query if exists on request menu
     if (req.query.menu) query.where.AND.push({menu: true})
 
+    // concatenate query if exists on request orderBy
+    if (req.query.hasOwnProperty('orderBy')) query = {...query, orderBy: {[req.query.orderBy]: 'asc'}}
+    if (req.query.hasOwnProperty('order')) query = {...query, orderBy: {[req.query.orderBy]: req.query.order}}
+
     // concatenate query if exists on request homepage
     if (req.query.homepage) query.where.AND.push({homepage: true})
 

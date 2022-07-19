@@ -19,8 +19,6 @@ export default withApiSession(async (req, res) => {
      |------------------------------------------------------------------------*/
     if (req.method === 'POST') {
 
-        console.log(req.session.user?.id ?? null)
-
         //TODO: check if logic work property
         return res.json(
             await prisma.cart.upsert({

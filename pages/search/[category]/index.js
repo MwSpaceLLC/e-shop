@@ -63,7 +63,7 @@ export default function CategoryIndexProducts({category}) {
                             <p className="font-bold text-xl">Il prodotto che stai cercando non è attualmente
                                 disponibile. Riprova più tardi.</p>
                             <Link href="/cart">
-                                <a className="text-orange-500">Continua lo shopping</a>
+                                <a className="text-shop-500">Continua lo shopping</a>
                             </Link>
                         </div>
                     )}
