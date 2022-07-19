@@ -39,7 +39,7 @@ export default withApiSession(async (req, res) => {
         }
     })
 
-    const link = `${req.headers.host}/api/forgot/${token}`;
+    const link = `${req.headers.origin}/api/forgot/${token}`;
 
     // send email from node to smtp
     const html = ReactDOMServer.renderToString(<ResetPassword email={email} link={link}/>);

@@ -152,8 +152,12 @@ const prisma = new PrismaClient({log: ['query']});
                 },
 
                 {
-                    key: 'ShopIntervalSwiperTime',
-                    value: '1000',
+                    key: 'ShopHeaderJsSnippet',
+                    value: '',
+                },
+                {
+                    key: 'ShopHeaderCssSnippet',
+                    value: '',
                 },
             ]
         })

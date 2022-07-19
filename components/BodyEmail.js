@@ -70,8 +70,8 @@ export default function BodyEmail({children, footer}) {
                                     PremailerWidth: '570px',
                                     backgroundColor: '#ffffff',
                                     borderColor: '#e8e5ef',
-                                    borderRadius: '2px',
-                                    borderWidth: '1px',
+                                    borderRadius: '5px',
+                                    borderWidth: '0px',
                                     // boxShadow: '0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015)',
                                     margin: '0 auto',
                                     padding: 0,
@@ -132,8 +132,8 @@ export default function BodyEmail({children, footer}) {
                                                 color: '#b0adc5',
                                                 fontSize: '12px',
                                                 textAlign: 'center'
-                                            }}>© 2022 | {process.env.NEXT_PUBLIC_APPLICATION_NAME} - All rights
-                                                reserved.</p>
+                                            }}>Copyright © 2022 {process.env.NEXT_PUBLIC_APPLICATION_NAME}. Tutti i
+                                                diritti riservati.</p>
                                         </td>
                                     </tr>
                                     </tbody>

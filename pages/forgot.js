@@ -13,20 +13,6 @@ import NotifyResetPassword from "../components/NotifyResetPassword";
 // This gets called on every request
 export const getServerSideProps = GuestServerSideProps
 
-export const CookiePrivacyBanner = ({intro}) => (
-    <p>{intro} dichiari di aver letto e accetti le nostre <Link href="/condition">
-        <a className="text-glue">Condizioni
-            generali di
-            uso e vendita</a></Link>. Prendi visione della nostra <Link href="/privacy">
-        <a className="text-glue">Informativa sulla privacy</a></Link>, della
-        nostra
-        <Link href="/cookies"><a className="text-glue">Informativa sui Cookie</a></Link> e della
-        nostra <Link href="/cookies"><a className="text-glue">Informativa sulla Pubblicità</a></Link> definita in base
-        agli
-        interessi.
-    </p>
-)
-
 /**
  |--------------------------------------------------------------------------
  | Export default React Component
