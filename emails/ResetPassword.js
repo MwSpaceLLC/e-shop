@@ -1,8 +1,8 @@
 import BodyEmail from "../components/BodyEmail";
 
-export default function ResetPassword({email, random}) {
+export default function ResetPassword({email, link}) {
     return (
-        <BodyEmail>
+        <BodyEmail footer={"Se non visualizzi il link, copia e incolla il seguente url sul tuo browser: " + link}>
             <tr>
                 <td className="content-cell" style={{
                     boxSizing: 'border-box',
@@ -20,7 +20,7 @@ export default function ResetPassword({email, random}) {
                         fontWeight: 'bold',
                         marginTop: 0,
                         textAlign: 'left'
-                    }}>Gentile utente, è stato richiesto il reset della password per: {email}</h1>
+                    }}>Gentile utente,</h1>
                     <p style={{
                         boxSizing: 'border-box',
                         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
@@ -29,7 +29,7 @@ export default function ResetPassword({email, random}) {
                         lineHeight: '1.5em',
                         marginTop: 0,
                         textAlign: 'left'
-                    }}>Ecco il tuo codice di conferma:</p>
+                    }}> è stato richiesto il reset della password per: {email}</p>
                     <table className="action" align="center" width="100%" cellPadding={0}
                            cellSpacing={0} role="presentation" style={{
                         boxSizing: 'border-box',
@@ -76,22 +76,23 @@ export default function ResetPassword({email, random}) {
                                                         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
                                                         position: 'relative'
                                                     }}>
-                                                        <pre
+                                                        <a
+                                                            href={link}
                                                             className="button button-primary"
                                                             style={{
                                                                 boxSizing: 'border-box',
                                                                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
                                                                 position: 'relative',
                                                                 WebkitTextSizeAdjust: 'none',
-                                                                color: '#fff',
+                                                                color: '#000000',
                                                                 display: 'inline-block',
                                                                 overflow: 'hidden',
-                                                                textDecoration: 'none',
+                                                                textDecoration: 'underline',
 
-                                                                padding: 12,
-                                                                borderRadius: '15px',
-                                                                backgroundColor: '#ff9800',
-                                                            }}>{random}</pre>
+                                                                // padding: 12,
+                                                                // borderRadius: '15px',
+                                                                // backgroundColor: '#ff9800',
+                                                            }}>Reset password</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>

@@ -1,10 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {connectGuestCartAndWishlist, withApiSession} from "../../lib/withSession";
+import {connectGuestCartAndWishlist, withApiSession} from "../../../lib/withSession";
 
-import {prisma} from "../../lib/database";
+import {prisma} from "../../../lib/database";
 import ReactDOMServer from "react-dom/server";
-import nodemail from "../../lib/nodemail";
-import ResetPassword from "../../emails/ResetPassword";
+import nodemail from "../../../lib/nodemail";
+import ResetPassword from "../../../emails/ResetPassword";
+import crypto from "crypto";
 
 /**
  |--------------------------------------------------------------------------
@@ -23,8 +24,16 @@ export default withApiSession(async (req, res) => {
     // user not found in to a DATABASE
     if (!user) return sendResponse('Indirizzo e-mail non trovato', 403);
 
+    req.session.forgot = {
+        id: user.id,
+        token: (crypto.randomUUID() + crypto.randomUUID()).replace(/-/g, ''),
+    };
+    await req.session.save();
+
+    const link = `${req.headers.host}/api/forgot/${token}`;
+
     // send email from node to smtp
-    const html = ReactDOMServer.renderToString(<ResetPassword {...req.session.confirm}/>);
+    const html = ReactDOMServer.renderToString(<ResetPassword email={email} link={link}/>);
     nodemail(email, 'Richiesta reset della password | ' + user.name, html, async function (err, info) {
         if (err) return sendResponse(err, 500)
 
@@ -32,7 +41,5 @@ export default withApiSession(async (req, res) => {
         return sendResponse('e-mail sent');
 
     })
-
-    return res.status(403).json({message: 'Le credenziali non corrispondono ai nostri record'})
 
 });

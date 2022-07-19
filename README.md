@@ -1,19 +1,42 @@
 ## [e-shop] Getting Started
 
-First, run the development server:
+First rename .env.example to .env & configure your environment:
+
+```dotenv
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB (Preview).
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+DATABASE_URL="mysql://root:toor@localhost:3306/database"
+#...
+```
+
+1) Run the development migration database:
+
+```bash
+npx prisma migrate dev
+```
+
+2) Install first dataset as default:
+
+```bash
+npm run installation
+```
+
+3) Run development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Rename .env.example to .env & configure your environment & after migrate:
+3) Deploy Helpers: install nginx, node, mariadb & pm2. After you can compile like as below (declare port for proxypass):
 
 ```bash
-npx prisma migrate dev && npm run installation
+cd /var/www/{your_next_folder}
+
+bash serve.sh # <= this file is in root dir
 ```
 
 ## Learn More

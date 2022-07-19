@@ -55,7 +55,10 @@ export default function Login() {
         // TODO: make auth
         axios
             .post(`/api/forgot`, credentials)
-            .then(() => alert('Link per il reset della password inviato'))
+            .then(() => {
+                setSent(true);
+                email.current.value = '';
+            })
             .catch(({response}) => setRes(response))
             .finally(() => setLoader(false))
 
