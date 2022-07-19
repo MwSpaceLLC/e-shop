@@ -44,10 +44,10 @@ export default function Register() {
         if (_password.current.value !== password.current.value) {
             setLoader(false)
 
-            return setRes({status: 422, statusText: 'Password mismatch'});
+            return setRes({status: 422, statusText: 'Le password non coincidono'});
         }
 
-        // TODO: make auth
+        // make post call
         axios
             .post('/api/register', credentials)
             .then(response => router.push(`${window.location.pathname}/confirm`))

@@ -1,14 +1,12 @@
 import {useTranslation} from 'next-i18next';
-import GuestServerSideProps from "../lib/props/GuestServerSideProps";
+import GuestServerSideProps from "../../lib/props/GuestServerSideProps";
 import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 
-import {useRouter} from 'next/router'
 import axios from "axios";
-import ErrorsAlert from "../components/ErrorsAlert";
-import {LogoApp} from "../components/LogoApp";
-import PublicLayout from "../components/PublicLayout";
-import NotifyResetPassword from "../components/NotifyResetPassword";
+import ErrorsAlert from "../../components/ErrorsAlert";
+import PublicLayout from "../../components/PublicLayout";
+import NotifyResetPassword from "../../components/NotifyResetPassword";
 
 // This gets called on every request
 export const getServerSideProps = GuestServerSideProps
@@ -20,10 +18,10 @@ export const getServerSideProps = GuestServerSideProps
  */
 export default function Login() {
     const {t} = useTranslation();
-    const router = useRouter()
 
-    const email = useRef();
     const password = useRef();
+    const _password = useRef();
+
     const [loader, setLoader] = useState(false);
     const [res, setRes] = useState({});
 
@@ -35,15 +33,19 @@ export default function Login() {
         evt.preventDefault()
 
         const credentials = {
-            email: email.current.value,
+            password: password.current.value,
         };
 
-        // TODO: make auth
+        if (_password.current.value !== password.current.value) {
+            setLoader(false)
+
+            return setRes({status: 422, statusText: 'Le password non coincidono'});
+        }
+
         axios
             .post(`/api/forgot`, credentials)
             .then(() => {
-                setSent(true);
-                email.current.value = '';
+                // setSent(true);
             })
             .catch(({response}) => setRes(response))
             .finally(() => setLoader(false))
@@ -67,7 +69,7 @@ export default function Login() {
                             </a>
                         </Link>
 
-                        Reset della password
+                        Importa una nuova password
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Oppure
@@ -84,19 +86,38 @@ export default function Login() {
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                     <div className="py-16 px-4 sm:px-10">
                         <form className="space-y-6" onSubmit={AuthPost} method="POST">
+
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                    e-mail address
+                                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                                    Password
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        ref={email}
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        autoComplete="email"
-                                        required
+                                        ref={password}
+                                        id="password"
+                                        name="password"
+                                        type="password"
                                         readOnly={loader}
+                                        autoComplete="new-password"
+                                        required
+                                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-shop focus:border-shop sm:text-sm"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label htmlFor="_password" className="block text-sm font-medium text-gray-700">
+                                    Verifica password
+                                </label>
+                                <div className="mt-1">
+                                    <input
+                                        ref={_password}
+                                        id="_password"
+                                        name="_password"
+                                        type="password"
+                                        readOnly={loader}
+                                        autoComplete="confirm-password"
+                                        required
                                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-shop focus:border-shop sm:text-sm"
                                     />
                                 </div>

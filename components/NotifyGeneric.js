@@ -1,9 +1,8 @@
 import {Fragment, useState} from 'react'
 import {Transition} from '@headlessui/react'
-import {CheckCircleIcon, MailOpenIcon} from '@heroicons/react/outline'
 import {XIcon} from '@heroicons/react/solid'
 
-export default function NotifyResetPassword({show, setShow}) {
+export default function NotifyResetPassword({NotifyIcon, title, classNameIcon, text, show, setShow}) {
 
     return (
         <div
@@ -27,21 +26,19 @@ export default function NotifyResetPassword({show, setShow}) {
                         <div className="p-4">
                             <div className="flex items-start">
                                 <div className="flex-shrink-0">
-                                    <MailOpenIcon className="h-6 w-6 text-green-400" aria-hidden="true"/>
+                                    <NotifyIcon className={"h-6 w-6 " + classNameIcon} aria-hidden="true"/>
                                 </div>
                                 <div className="ml-3 w-0 flex-1 pt-0.5">
-                                    <p className="text-sm font-bold text-gray-900">Link reset password</p>
+                                    <p className="text-sm font-bold text-gray-900">{title}</p>
                                     <p className="mt-1 text-sm text-gray-500">
-                                        Link per il reset della password inviato al tuo indirizzo e.mail.
+                                        {text}
                                     </p>
                                 </div>
                                 <div className="ml-4 flex-shrink-0 flex">
                                     <button
                                         type="button"
                                         className="bg-white rounded-full inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shop"
-                                        onClick={() => {
-                                            setShow(false)
-                                        }}
+                                        onClick={() => setShow(false)}
                                     >
                                         <span className="sr-only">Close</span>
                                         <XIcon className="h-5 w-5" aria-hidden="true"/>
