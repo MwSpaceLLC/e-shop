@@ -28,8 +28,7 @@ export default function Index({ShopSeoIndexTitle, ShopSeoIndexDescription}) {
     const {data: HomeHero} = useSWR(`/api/json/sections/HomeHero`, fetcher)
 
     return (
-        <PublicLayout title={ShopSeoIndexTitle} description={ShopSeoIndexDescription}
-                      HeroSection={HeroSection}>
+        <PublicLayout title={ShopSeoIndexTitle} description={ShopSeoIndexDescription} HeroSection={HeroSection}>
 
             {/* Category section */}
             <section aria-labelledby="category-heading"
