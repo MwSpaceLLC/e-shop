@@ -1,5 +1,5 @@
 import {useTranslation} from 'next-i18next';
-import GuestServerSideProps from "../../lib/props/GuestServerSideProps";
+
 import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 
@@ -7,17 +7,21 @@ import axios from "axios";
 import ErrorsAlert from "../../components/ErrorsAlert";
 import PublicLayout from "../../components/PublicLayout";
 import NotifyResetPassword from "../../components/NotifyResetPassword";
+import ForgotServerSideProps from "../../lib/props/ForgotServerSideProps";
+import {useRouter} from "next/router";
 
 // This gets called on every request
-export const getServerSideProps = GuestServerSideProps
+export const getServerSideProps = ForgotServerSideProps
 
 /**
  |--------------------------------------------------------------------------
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function Login() {
+export default function ResetPassword() {
     const {t} = useTranslation();
+
+    const router = useRouter()
 
     const password = useRef();
     const _password = useRef();
@@ -43,10 +47,8 @@ export default function Login() {
         }
 
         axios
-            .post(`/api/forgot`, credentials)
-            .then(() => {
-                // setSent(true);
-            })
+            .patch(`/api/forgot/${router.query.hash}`, credentials)
+            .then(() => router.push('/account'))
             .catch(({response}) => setRes(response))
             .finally(() => setLoader(false))
 
@@ -69,7 +71,7 @@ export default function Login() {
                             </a>
                         </Link>
 
-                        Importa una nuova password
+                        Crea una nuova password
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Oppure

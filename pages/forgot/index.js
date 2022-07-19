@@ -1,13 +1,12 @@
 import {useTranslation} from 'next-i18next';
-import GuestServerSideProps from "../lib/props/GuestServerSideProps";
+import GuestServerSideProps from "../../lib/props/GuestServerSideProps";
 import {useEffect, useRef, useState} from "react";
-import Link from "next/link";
+import ErrorsAlert from "../../components/ErrorsAlert";
+import PublicLayout from "../../components/PublicLayout";
+import NotifyResetPassword from "../../components/NotifyResetPassword";
 
-import {useRouter} from 'next/router'
+import Link from "next/link";
 import axios from "axios";
-import ErrorsAlert from "../components/ErrorsAlert";
-import PublicLayout from "../components/PublicLayout";
-import NotifyResetPassword from "../components/NotifyResetPassword";
 
 // This gets called on every request
 export const getServerSideProps = GuestServerSideProps
@@ -27,6 +26,8 @@ export default function Login() {
     const [sent, setSent] = useState(false);
 
     const AuthPost = (evt) => {
+        setRes({})
+        setSent(false)
         setLoader(true)
 
         evt.preventDefault()

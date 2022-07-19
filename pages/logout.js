@@ -26,6 +26,7 @@ export default function Login() {
     const [res, setRes] = useState({});
 
     const AuthPost = (evt) => {
+        setRes({})
         setLoader(true)
 
         evt.preventDefault()
