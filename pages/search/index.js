@@ -110,7 +110,7 @@ export default function Index() {
                                 value={name}
                                 type="text"
                                 onChange={e => setName(e.target.value)}
-                                className="shadow-sm focus:ring-shop-500 focus:border-shop-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
+                                className="shadow-sm focus:ring-shop focus:border-shop block w-full pr-12 sm:text-sm border-gray-300 rounded-md"
                             />
                             <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                                 <kbd
@@ -226,7 +226,7 @@ export default function Index() {
                                                                     onChange={option.onChange}
                                                                     type="checkbox"
                                                                     defaultChecked={option.checked}
-                                                                    className="h-4 w-4 border-gray-300 rounded-full text-shop-600 focus:ring-shop-500"
+                                                                    className="h-4 w-4 border-gray-300 rounded-full text-shop focus:ring-shop"
                                                                 />
                                                                 <label
                                                                     htmlFor={`filter-${section.id}-${optionIdx}`}

@@ -17,7 +17,7 @@ export default function SideCategoriesNested({categoryId}) {
                         checked={parseInt(item.id) === parseInt(categoryId)}
                         name={`${item.id}[]`}
                         type="checkbox"
-                        className="h-4 w-4 border-gray-300 rounded-full text-shop-600 focus:ring-shop-500"
+                        className="h-4 w-4 border-gray-300 rounded-full text-shop focus:ring-shop"
                     />
                     <label htmlFor={item.id} className="ml-3 text-sm text-gray-600">
                         {item.name}

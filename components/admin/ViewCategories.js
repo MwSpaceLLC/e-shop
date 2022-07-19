@@ -39,10 +39,10 @@ export default function ViewCategories({parentId = 0}) {
                     </div>
                     <div className="ml-4 mt-4 flex gap-2">
                         <input onChange={e => setLike(e.target.value)} type="search" placeholder="Cerca..."
-                               className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-shop-800 bg-shop-100 hover:bg-shop-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shop-500"/>
+                               className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-shop bg-shop hover:bg-shop focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shop"/>
 
                         <Link href={`/admin/${token}/catalog/categories/create`}>
-                            <a className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-shop-600 hover:bg-shop-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shop-500">
+                            <a className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-shop hover:bg-shop focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shop">
                                 Nuova categoria
                             </a>
                         </Link>
@@ -70,7 +70,7 @@ export default function ViewCategories({parentId = 0}) {
                                         </div>
                                         <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                                             <div>
-                                                <p className="text-sm font-medium text-shop-600 truncate">{category.name}</p>
+                                                <p className="text-sm font-medium text-shop truncate">{category.name}</p>
                                                 <p className="mt-2 flex items-center text-sm text-gray-500">
                                                     <span
                                                         className="truncate">{category.description}</span>

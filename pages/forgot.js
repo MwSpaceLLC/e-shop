@@ -8,6 +8,7 @@ import axios from "axios";
 import ErrorsAlert from "../components/ErrorsAlert";
 import {LogoApp} from "../components/LogoApp";
 import PublicLayout from "../components/PublicLayout";
+import NotifyResetPassword from "../components/NotifyResetPassword";
 
 // This gets called on every request
 export const getServerSideProps = GuestServerSideProps
@@ -40,6 +41,8 @@ export default function Login() {
     const [loader, setLoader] = useState(false);
     const [res, setRes] = useState({});
 
+    const [sent, setSent] = useState(false);
+
     const AuthPost = (evt) => {
         setLoader(true)
 
@@ -47,13 +50,12 @@ export default function Login() {
 
         const credentials = {
             email: email.current.value,
-            password: password.current.value
         };
 
         // TODO: make auth
         axios
-            .post(`/api/login`, credentials)
-            .then(() => router.push('/account'))
+            .post(`/api/forgot`, credentials)
+            .then(() => alert('Link per il reset della password inviato'))
             .catch(({response}) => setRes(response))
             .finally(() => setLoader(false))
 
@@ -63,8 +65,6 @@ export default function Login() {
         <PublicLayout title="Reset della password">
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-
-                    <LogoApp className="h-8 w-auto"/>
 
                     <h2 className="mt-6 flex items-center gap-2 text-center justify-center text-3xl font-extrabold text-gray-900">
                         <Link href="/">
@@ -83,7 +83,7 @@ export default function Login() {
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Oppure
 
-                        <Link href="/register">
+                        <Link href="/login">
                             <a className="ml-1 font-medium underline text-shop hover:text-shop">
                                 accedi al tuo account
                             </a>
@@ -93,7 +93,7 @@ export default function Login() {
                 </div>
 
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <div className="py-16 px-4 sm:px-10">
                         <form className="space-y-6" onSubmit={AuthPost} method="POST">
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -118,7 +118,7 @@ export default function Login() {
                                     disabled={loader}
                                     type="submit"
                                     className={(loader ? 'animate-pulse' : '') + " w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-shop hover:bg-shop focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shop"}>
-                                    {loader ? '⚪⚪⚪' : 'Accedi'}
+                                    {loader ? '⚪⚪⚪' : 'Avanti'}
                                 </button>
                             </div>
                         </form>
@@ -127,6 +127,8 @@ export default function Login() {
                 </div>
 
                 {!res.status ? '' : <ErrorsAlert onClose={e => setRes({})} res={res}/>}
+
+                <NotifyResetPassword setShow={setSent} show={sent}/>
             </div>
         </PublicLayout>
     )

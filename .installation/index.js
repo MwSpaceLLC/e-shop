@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const bcrypt = require("bcryptjs");
 const crypto = require('crypto');
+
 const {PrismaClient} = require('@prisma/client')
 
 const prisma = new PrismaClient({log: ['query']});
@@ -87,7 +88,7 @@ const prisma = new PrismaClient({log: ['query']});
                     value: '#ffffff',
                 }, {
                     key: 'ShopMainBackgroundColor',
-                    value: '#ff9800',
+                    value: `#${process.env.NEXT_PUBLIC_APPLICATION_COLOR}`,
                 }, {
                     key: 'ShopTopTextColor',
                     value: '#ffffff',

@@ -3,7 +3,7 @@ import {Transition} from '@headlessui/react'
 import {CheckCircleIcon} from '@heroicons/react/outline'
 import {XIcon} from '@heroicons/react/solid'
 
-export default function NotifyAddWishlist({show, setShow, product}) {
+export default function NotifyResetPassword({show, setShow}) {
 
     return (
         <div
@@ -30,9 +30,9 @@ export default function NotifyAddWishlist({show, setShow, product}) {
                                     <CheckCircleIcon className="h-6 w-6 text-green-400" aria-hidden="true"/>
                                 </div>
                                 <div className="ml-3 w-0 flex-1 pt-0.5">
-                                    <p className="text-sm font-bold text-gray-900">Aggiunto alla lista dei preferiti!</p>
+                                    <p className="text-sm font-bold text-gray-900">Link reset password</p>
                                     <p className="mt-1 text-sm text-gray-500">
-                                        {product.name}
+                                        Link per il reset della password inviato al tuo indirizzo e.mail.
                                     </p>
                                 </div>
                                 <div className="ml-4 flex-shrink-0 flex">

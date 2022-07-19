@@ -24,8 +24,6 @@ model User {
   email         String   @unique @db.VarChar(255)
   password      String   @db.VarChar(255)
 
-  invoice       Boolean  @default(false)
-
   cards         Card[]
   orders        Order[]
   addresses     Address[]
@@ -69,6 +67,8 @@ model Company {
 
   userId    Int
   user      User                @relation(fields: [userId], references: [id])
+
+  orders        Order[]
 }
 
 model Address {
@@ -120,6 +120,9 @@ model Order {
 
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
+
+  companyId Int?
+  company   Company?     @relation(fields: [companyId], references: [id])
 
   payment   Payment?
   shipment  Shipment?

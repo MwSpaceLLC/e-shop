@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300&display=swap');
 
+@import url('/api/css/root');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --ShopMainBackgroundColor: transparent;
-    --ShopTopTextColor: inherit;
-}
+/*:root {*/
+/*    --ShopMainBackgroundColor: transparent;*/
+/*    --ShopTopTextColor: inherit;*/
+/*}*/
 
 @layer utilities {
     input[type="number"]::-webkit-inner-spin-button,

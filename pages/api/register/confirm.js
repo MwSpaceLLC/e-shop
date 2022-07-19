@@ -9,7 +9,7 @@ import {prisma} from "../../../lib/database";
  |--------------------------------------------------------------------------
  */
 export default withApiSession(async (req, res) => {
-    const {email, password, name, invoice} = req.session.confirm;
+    const {email, password, name} = req.session.confirm;
 
     if (req.method !== 'POST' || !password || !email || !name || !req.body.code) return res.status("403").json();
 
@@ -26,7 +26,6 @@ export default withApiSession(async (req, res) => {
             name: name,
             email: email,
             password: hash,
-            invoice: invoice === 1,
         }
     })
 

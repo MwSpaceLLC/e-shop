@@ -136,7 +136,7 @@ export default function Login() {
                                     {res.status && (
                                         <Link href="/forgot">
                                             <a className="font-medium text-shop hover:text-shop">
-                                                Forgot your password?
+                                                Password dimenticata?
                                             </a>
                                         </Link>
                                     )}

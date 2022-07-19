@@ -8,9 +8,9 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                'warm-gray': colors.stone,
-                sky: colors.sky,
-                cyan: colors.cyan,
+                // 'warm-gray': colors.stone,
+                // sky: colors.sky,
+                // cyan: colors.cyan,
                 shop: "var(--ShopMainBackgroundColor)",
             },
         },

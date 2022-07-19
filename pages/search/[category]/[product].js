@@ -97,7 +97,7 @@ export default function Product({product, category}) {
                                                 </span>
                                                 <span
                                                     className={classNames(
-                                                        selected ? 'ring-shop-500' : 'ring-transparent',
+                                                        selected ? 'ring-shop' : 'ring-transparent',
                                                         'absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none'
                                                     )}
                                                     aria-hidden="true"
@@ -126,7 +126,7 @@ export default function Product({product, category}) {
                                                       </span>
                                                     <span
                                                         className={classNames(
-                                                            selected ? 'ring-shop-500' : 'ring-transparent',
+                                                            selected ? 'ring-shop' : 'ring-transparent',
                                                             'absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none'
                                                         )}
                                                         aria-hidden="true"
@@ -187,7 +187,7 @@ export default function Product({product, category}) {
                             {/*                <StarIcon*/}
                             {/*                    key={rating}*/}
                             {/*                    className={classNames(*/}
-                            {/*                        product?.rating > rating ? 'text-shop-500' : 'text-gray-300',*/}
+                            {/*                        product?.rating > rating ? 'text-shop' : 'text-gray-300',*/}
                             {/*                        'h-5 w-5 flex-shrink-0'*/}
                             {/*                    )}*/}
                             {/*                    aria-hidden="true"*/}
@@ -212,7 +212,7 @@ export default function Product({product, category}) {
                                 <div className="mt-10 flex sm:flex-col1">
                                     <button
                                         type="submit"
-                                        className={(load ? 'animate-pulse' : '') + " max-w-xs flex-1 bg-shop-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-shop-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-shop-500 sm:w-full"}
+                                        className={(load ? 'animate-pulse' : '') + " max-w-xs flex-1 bg-shop border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-shop focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-shop sm:w-full"}
                                     >
                                         {load ? '⚪⚪⚪' : 'Aggiungi al carrello'}
                                     </button>
@@ -249,7 +249,7 @@ export default function Product({product, category}) {
                             {/*                                className="group relative w-full py-6 flex justify-between items-center text-left">*/}
                             {/*  <span*/}
                             {/*      className={classNames(*/}
-                            {/*          open ? 'text-shop-600' : 'text-gray-900',*/}
+                            {/*          open ? 'text-shop' : 'text-gray-900',*/}
                             {/*          'text-sm font-medium'*/}
                             {/*      )}*/}
                             {/*  >*/}
@@ -258,7 +258,7 @@ export default function Product({product, category}) {
                             {/*                                <span className="ml-6 flex items-center">*/}
                             {/*    {open ? (*/}
                             {/*        <MinusSmIcon*/}
-                            {/*            className="block h-6 w-6 text-shop-400 group-hover:text-shop-500"*/}
+                            {/*            className="block h-6 w-6 text-shop group-hover:text-shop"*/}
                             {/*            aria-hidden="true"*/}
                             {/*        />*/}
                             {/*    ) : (*/}

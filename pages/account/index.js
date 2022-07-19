@@ -59,7 +59,7 @@ export default function Index() {
                                     href={item.href}
                                     className={classNames(
                                         item.current
-                                            ? 'bg-gray-50 text-shop-600 hover:bg-white'
+                                            ? 'bg-gray-50 text-shop hover:bg-white'
                                             : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50',
                                         'group rounded-md px-3 py-2 flex items-center text-sm font-medium'
                                     )}
@@ -67,7 +67,7 @@ export default function Index() {
                                 >
                                     <item.icon
                                         className={classNames(
-                                            item.current ? 'text-shop-500' : 'text-gray-400 group-hover:text-gray-500',
+                                            item.current ? 'text-shop' : 'text-gray-400 group-hover:text-gray-500',
                                             'flex-shrink-0 -ml-1 mr-3 h-6 w-6'
                                         )}
                                         aria-hidden="true"
@@ -241,7 +241,7 @@ export default function Index() {
                                                             classNames(
                                                                 planIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
                                                                 planIdx === plans.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
-                                                                checked ? 'bg-shop-50 border-shop-200 z-10' : 'border-gray-200',
+                                                                checked ? 'bg-shop-50 border-shop z-10' : 'border-gray-200',
                                                                 'relative border p-4 flex flex-col cursor-pointer md:pl-4 md:pr-6 md:grid md:grid-cols-3 focus:outline-none'
                                                             )
                                                         }
@@ -251,7 +251,7 @@ export default function Index() {
                                   <span className="flex items-center text-sm">
                                     <span
                                         className={classNames(
-                                            checked ? 'bg-shop-500 border-transparent' : 'bg-white border-gray-300',
+                                            checked ? 'bg-shop border-transparent' : 'bg-white border-gray-300',
                                             active ? 'ring-2 ring-offset-2 ring-gray-900' : '',
                                             'h-4 w-4 rounded-full border flex items-center justify-center'
                                         )}
@@ -269,21 +269,21 @@ export default function Index() {
                                                                 >
                                     <span
                                         className={classNames(
-                                            checked ? 'text-shop-900' : 'text-gray-900',
+                                            checked ? 'text-shop' : 'text-gray-900',
                                             'font-medium'
                                         )}
                                     >
                                       ${plan.priceMonthly} / mo
                                     </span>{' '}
                                                                     <span
-                                                                        className={checked ? 'text-shop-700' : 'text-gray-500'}>
+                                                                        className={checked ? 'text-shop' : 'text-gray-500'}>
                                       (${plan.priceYearly} / yr)
                                     </span>
                                                                 </RadioGroup.Description>
                                                                 <RadioGroup.Description
                                                                     as="span"
                                                                     className={classNames(
-                                                                        checked ? 'text-shop-700' : 'text-gray-500',
+                                                                        checked ? 'text-shop' : 'text-gray-500',
                                                                         'ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right'
                                                                     )}
                                                                 >
@@ -301,7 +301,7 @@ export default function Index() {
                                                 checked={annualBillingEnabled}
                                                 onChange={setAnnualBillingEnabled}
                                                 className={classNames(
-                                                    annualBillingEnabled ? 'bg-shop-500' : 'bg-gray-200',
+                                                    annualBillingEnabled ? 'bg-shop' : 'bg-gray-200',
                                                     'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors ease-in-out duration-200'
                                                 )}
                                             >
@@ -391,7 +391,7 @@ export default function Index() {
                                                             </td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                                 <a href={payment.href}
-                                                                   className="text-shop-600 hover:text-shop-900">
+                                                                   className="text-shop hover:text-shop">
                                                                     View receipt
                                                                 </a>
                                                             </td>
