@@ -24,11 +24,20 @@ export default withApiSession(async (req, res) => {
     // user not found in to a DATABASE
     if (!user) return sendResponse('Indirizzo e-mail non trovato', 403);
 
-    req.session.forgot = {
-        id: user.id,
-        token: (crypto.randomUUID() + crypto.randomUUID()).replace(/-/g, ''),
-    };
-    await req.session.save();
+    // make token for user
+    const token = (crypto.randomUUID() + crypto.randomUUID() + crypto.randomUUID()).replace(/-/g, '');
+
+    // update token
+    await prisma.user.update({
+        where: {id: user.id},
+        data: {
+            tokens: {
+                create: {
+                    hash: token
+                }
+            }
+        }
+    })
 
     const link = `${req.headers.host}/api/forgot/${token}`;
 

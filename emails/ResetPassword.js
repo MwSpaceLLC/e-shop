@@ -29,7 +29,7 @@ export default function ResetPassword({email, link}) {
                         lineHeight: '1.5em',
                         marginTop: 0,
                         textAlign: 'left'
-                    }}> è stato richiesto il reset della password per: {email}</p>
+                    }}> Hai richiesto il reset della password per: {email}</p>
                     <table className="action" align="center" width="100%" cellPadding={0}
                            cellSpacing={0} role="presentation" style={{
                         boxSizing: 'border-box',

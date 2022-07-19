@@ -1,4 +1,5 @@
 export default function BodyEmail({children, footer}) {
+
     return (
         <table className="wrapper" width="100%" cellPadding={0} cellSpacing={0} role="presentation" style={{
             boxSizing: 'border-box',
@@ -31,6 +32,7 @@ export default function BodyEmail({children, footer}) {
                         width: '100%'
                     }}>
                         <tbody>
+
                         <tr>
                             <td className="header" style={{
                                 boxSizing: 'border-box',
@@ -39,30 +41,6 @@ export default function BodyEmail({children, footer}) {
                                 padding: '25px 0',
                                 textAlign: 'center'
                             }}>
-                                <a href="http://localhost" style={{
-                                    boxSizing: 'border-box',
-                                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-                                    position: 'relative',
-                                    color: '#3d4852',
-                                    fontSize: '19px',
-                                    fontWeight: 'bold',
-                                    textDecoration: 'none',
-                                    display: 'inline-block'
-                                }}>
-
-
-                                    <img src="https://raw.githubusercontent.com/MwSpaceLLC/e-shop/main/public/crud/demo/settings/logo-1080-hd.webp" className="logo"
-                                         alt="wogha Logo" style={{
-                                        boxSizing: 'border-box',
-                                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-                                        position: 'relative',
-                                        maxWidth: '100%',
-                                        border: 'none',
-                                        height: '75px',
-                                        maxHeight: '75px',
-                                        width: '75px'
-                                    }}/>
-                                </a>
                             </td>
                         </tr>
 
@@ -94,7 +72,7 @@ export default function BodyEmail({children, footer}) {
                                     borderColor: '#e8e5ef',
                                     borderRadius: '2px',
                                     borderWidth: '1px',
-                                    boxShadow: '0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015)',
+                                    // boxShadow: '0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015)',
                                     margin: '0 auto',
                                     padding: 0,
                                     width: '570px'
@@ -154,7 +132,8 @@ export default function BodyEmail({children, footer}) {
                                                 color: '#b0adc5',
                                                 fontSize: '12px',
                                                 textAlign: 'center'
-                                            }}>© 2022 {process.env.NEXT_PUBLIC_APPLICATION_NAME}. All rights reserved.</p>
+                                            }}>© 2022 | {process.env.NEXT_PUBLIC_APPLICATION_NAME} - All rights
+                                                reserved.</p>
                                         </td>
                                     </tr>
                                     </tbody>

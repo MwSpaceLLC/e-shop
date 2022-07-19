@@ -11,19 +11,13 @@ DATABASE_URL="mysql://root:toor@localhost:3306/database"
 #...
 ```
 
-1) Run the development migration database:
-
-```bash
-npx prisma migrate dev
-```
-
-2) Install first dataset as default:
+1) Run the development migration & install dataset as default:
 
 ```bash
 npm run installation
 ```
 
-3) Run development server:
+2) Run development server:
 
 ```bash
 npm run dev
