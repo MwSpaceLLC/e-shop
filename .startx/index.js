@@ -523,6 +523,26 @@ const prisma = new PrismaClient({log: ['query']});
                     description: 'Scopri cosa c’è dietro un accessorio ricondizionato.',
                 },
 
+                /** Category Id [29] */
+                {            // ID: 29
+                    parentId: 1,
+                    uuid: crypto.randomUUID(),
+                    name: 'Mac Studio',
+                    cover: '/crud/demo/categories/mac-refurb-category-201810.jfif',
+                    thumbnail: '/crud/demo/categories/refurb-mac-studio-202203_AV5.jfif',
+                    description: 'Scopri cosa c’è dietro un Mac Studio ricondizionato.',
+                },
+
+                /** Category Id [30] */
+                {            // ID: 30
+                    parentId: 11,
+                    uuid: crypto.randomUUID(),
+                    name: 'iPhone 12 Pro Max',
+                    cover: '/crud/demo/categories/refurb-iphone-12-white-2020_AV3.jfif',
+                    thumbnail: '/crud/demo/categories/refurb-iphone-12-white-2020_AV3.jfif',
+                    description: 'Scopri cosa c’è dietro un iPhone 12 Pro Max ricondizionato.',
+                },
+
             ]
         })
     )
@@ -749,28 +769,28 @@ const prisma = new PrismaClient({log: ['query']});
                 }
             }
         }),
-        await prisma.product.create({
-            data: {
-                uuid: crypto.randomUUID(),
-                tax: 22.00,
-                quantity: 2,
-                price: 6599,
-                discount: 10.00,
-                name: 'Mac Pro ricondizionato con Intel Xeon W 28‑core a 2,5GHz, due Radeon Pro Vega II Duo e Apple Afterburner',
-                thumbnail: '/crud/demo/products/mac-pro-2019-gallery1.jfif',
-                description: 'Data iniziale di immissione sul mercato: dicembre 2019 Processore Intel Xeon W 28‑core a 2,5GHz (Turbo Boost fino a 4,4GHz) 1,5TB (12x128GB) di memoria ECC DDR4 Due Radeon Pro Vega II Duo con 2x32GB di memoria HBM2 ciascuna Archiviazione SSD da 8TB1 Telaio in acciaio inossidabile con piedini Apple Afterburner',
-                categories: {connect: [{id: 1}, {id: 6}]},
-                images: {
-                    create: [
-                        {path: '/crud/demo/products/mac-pro-2019-gallery2.jfif'},
-                        {path: '/crud/demo/products/mac-pro-2019-gallery3.jfif'},
-                        {path: '/crud/demo/products/mac-pro-2019-gallery4.jfif'},
-                        {path: '/crud/demo/products/mac-pro-2019-gallery5.jfif'},
-                        {path: '/crud/demo/products/mac-pro-2019-gallery6.jfif'},
-                    ]
-                }
-            }
-        }),
+        // await prisma.product.create({
+        //     data: {
+        //         uuid: crypto.randomUUID(),
+        //         tax: 22.00,
+        //         quantity: 2,
+        //         price: 6599,
+        //         discount: 10.00,
+        //         name: 'Mac Pro ricondizionato con Intel Xeon W 28‑core a 2,5GHz, due Radeon Pro Vega II Duo e Apple Afterburner',
+        //         thumbnail: '/crud/demo/products/mac-pro-2019-gallery1.jfif',
+        //         description: 'Data iniziale di immissione sul mercato: dicembre 2019 Processore Intel Xeon W 28‑core a 2,5GHz (Turbo Boost fino a 4,4GHz) 1,5TB (12x128GB) di memoria ECC DDR4 Due Radeon Pro Vega II Duo con 2x32GB di memoria HBM2 ciascuna Archiviazione SSD da 8TB1 Telaio in acciaio inossidabile con piedini Apple Afterburner',
+        //         categories: {connect: [{id: 1}, {id: 6}]},
+        //         images: {
+        //             create: [
+        //                 {path: '/crud/demo/products/mac-pro-2019-gallery2.jfif'},
+        //                 {path: '/crud/demo/products/mac-pro-2019-gallery3.jfif'},
+        //                 {path: '/crud/demo/products/mac-pro-2019-gallery4.jfif'},
+        //                 {path: '/crud/demo/products/mac-pro-2019-gallery5.jfif'},
+        //                 {path: '/crud/demo/products/mac-pro-2019-gallery6.jfif'},
+        //             ]
+        //         }
+        //     }
+        // }),
         await prisma.product.create({
             data: {
                 uuid: crypto.randomUUID(),
@@ -825,6 +845,143 @@ const prisma = new PrismaClient({log: ['query']});
                         {path: '/crud/demo/products/refurb-apple-tv-hd-2021_AV1.jfif'},
                         {path: '/crud/demo/products/refurb-apple-tv-hd-2021_AV2.jfif'},
                         {path: '/crud/demo/products/refurb-apple-tv-hd-2021_AV3.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 8,
+                price: 169,
+                discount: 10.00,
+                name: 'Apple TV 4K 32GB ricondizionata',
+                thumbnail: '/crud/demo/products/rfb-apple-tv-4k.jfif',
+                description: 'Data iniziale di immissione sul mercato: aprile 2021 Film, serie ed eventi sportivi in diretta: Apple TV HD mette insieme il meglio della televisione e i tuoi servizi Apple preferiti. Scegli fra i titoli di Apple TV+, Netflix e Disney+, e guarda i canali in diretta di YouTube TV e Sling TV. E controlla tutto con il telecomando Siri Remote (seconda generazione).',
+                categories: {connect: [{id: 16}, {id: 18}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/rfb-apple-tv-4k_AV1.jfif'},
+                        {path: '/crud/demo/products/rfb-apple-tv-4k_AV2.jfif'},
+                        {path: '/crud/demo/products/rfb-apple-tv-4k_AV3.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 5,
+                price: 8319,
+                discount: 10.00,
+                name: 'Mac Studio ricondizionato, chip Apple M1 Ultra con CPU 20‑core e GPU 64‑core',
+                thumbnail: '/crud/demo/products/refurb-mac-studio-202203.jfif',
+                description: 'Data iniziale di immissione sul mercato: marzo 2022 128GB di memoria unificata Unità SSD da 8TB¹ Lato anteriore: due porte Thunderbolt 4, uno slot SDXC card Lato posteriore: quattro porte Thunderbolt 4, due porte USB‑A, una porta HDMI, una porta 10Gb Ethernet, un jack da 3,5 mm per cuffie.',
+                categories: {connect: [{id: 1}, {id: 29}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-mac-studio-202203_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-mac-studio-202203_AV2.jfif'},
+                        {path: '/crud/demo/products/refurb-mac-studio-202203_AV3.jfif'},
+                        {path: '/crud/demo/products/refurb-mac-studio-202203_AV4.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 8,
+                price: 809,
+                discount: 10.00,
+                name: 'iPhone 11 Pro 64GB ricondizionato - Verde notte',
+                thumbnail: '/crud/demo/products/refurb-iphone-11-pro-midnight-green-2019_GEO_EMEA.jfif',
+                description: 'Data iniziale di immissione sul mercato: settembre 2019 Senza contratto, senza SIM, modello A22151 Display Super Retina XDR da 5,8" (OLED) Chip A13 Bionic con Neural Engine di terza generazione Riproduzione video: fino a 18 ore Gigabit LTE e Wi‑Fi 802.11ax con tecnologia MIMO 2×2 Tecnologia wireless Bluetooth 5.0 NFC con modalità lettore Tripla fotocamera da 12MP con ultra‑grandangolo, grandangolo e teleobiettivo Zoom digitale: fino a 10x Registrazione video 4K, registrazione video HD a 1080p Face ID Siri Apple Pay 188 grammi e 8,1 mm',
+                categories: {connect: [{id: 11}, {id: 12}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-iphone-11-pro-midnight-green-2019_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-iphone-11-pro-midnight-green-2019_AV2.jfif'},
+                        {path: '/crud/demo/products/refurb-iphone-11-pro-midnight-green-2019_AV3.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 5,
+                price: 1239,
+                discount: 5.00,
+                name: 'iPhone 11 Pro Max 512GB ricondizionato - Grigio siderale',
+                thumbnail: '/crud/demo/products/refurb-iphone-11-pro-max-space-gray-2019_GEO_EMEA.jfif',
+                description: 'Data iniziale di immissione sul mercato: settembre 2019 Senza contratto, senza SIM, modello A22181 Display Super Retina XDR da 6,5" (OLED) Chip A13 Bionic con Neural Engine di terza generazione Riproduzione video: fino a 20 ore Gigabit LTE e Wi‑Fi 802.11ax con tecnologia MIMO 2×2 Tecnologia wireless Bluetooth 5.0 NFC con modalità lettore Tripla fotocamera da 12MP con ultra‑grandangolo, grandangolo e teleobiettivo Zoom digitale: fino a 10x Registrazione video 4K, registrazione video HD a 1080p Face ID Siri Apple Pay.',
+                categories: {connect: [{id: 11}, {id: 13}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-iphone-11-pro-midnight-green-2019_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-iphone-11-pro-midnight-green-2019_AV2.jfif'},
+                        {path: '/crud/demo/products/refurb-iphone-11-pro-midnight-green-2019_AV3.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 5,
+                price: 709,
+                discount: 5.00,
+                name: 'iPhone 12 64GB ricondizionato - Viola',
+                thumbnail: '/crud/demo/products/refurb-iphone-12-purple-2021.jfif',
+                description: 'Data iniziale di immissione sul mercato: ottobre 2020 Senza contratto, senza SIM, modello A24031 Display Super Retina XDR OLED da 6,1" Chip A14 Bionic con Neural Engine 16-core Riproduzione video: fino a 17 ore 5G, Gigabit LTE e Wi‑Fi 802.11ax con tecnologia MIMO 2x2 Tecnologia wireless Bluetooth 5.0 NFC con modalità lettore Doppia fotocamera da 12MP con ultra‑grandangolo e grandangolo Zoom digitale: fino a 5x Registrazione video 4K, registrazione video HD a 1080p Face ID Siri Apple Pay 164 g e 0,74 cm.',
+                categories: {connect: [{id: 11}, {id: 14}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-iphone-12-purple-2021_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-iphone-12-purple-2021_AV2.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 5,
+                price: 909,
+                discount: 5.00,
+                name: 'iPhone 12 Pro 128GB ricondizionato - Blu Pacifico',
+                thumbnail: '/crud/demo/products/refurb-iphone-12-pro-blue-2020.jfif',
+                description: 'Data iniziale di immissione sul mercato: ottobre 2020 Senza contratto, senza SIM, modello A24071 Display Super Retina XDR OLED da 6,1" Chip A14 Bionic con Neural Engine 16-core Riproduzione video: fino a 17 ore 5G, Gigabit LTE e Wi‑Fi 802.11ax con tecnologia MIMO 2x2 Tecnologia wireless Bluetooth 5.0 NFC con modalità lettore Sistema di fotocamere Pro da 12MP con ultra‑grandangolo, grandangolo e teleobiettivo Zoom digitale: fino a 10x Registrazione video 4K, registrazione video HD a 1080p Face ID Siri Apple Pay 189 grammi e 7,4 mm',
+                categories: {connect: [{id: 11}, {id: 15}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-iphone-12-purple-2021_AV1.jfif'},
+                        {path: '/crud/demo/products/refurb-iphone-12-purple-2021_AV2.jfif'},
+                    ]
+                }
+            }
+        }),
+        await prisma.product.create({
+            data: {
+                uuid: crypto.randomUUID(),
+                tax: 22.00,
+                quantity: 5,
+                price: 909,
+                discount: 5.00,
+                name: 'iPhone 12 Pro Max 256GB ricondizionato - Oro',
+                thumbnail: '/crud/demo/products/refurb-iphone-12-pro-max-gold-2020.jfif',
+                description: 'Data iniziale di immissione sul mercato: ottobre 2020 Senza contratto, senza SIM, modello A24071 Display Super Retina XDR OLED da 6,1" Chip A14 Bionic con Neural Engine 16-core Riproduzione video: fino a 17 ore 5G, Gigabit LTE e Wi‑Fi 802.11ax con tecnologia MIMO 2x2 Tecnologia wireless Bluetooth 5.0 NFC con modalità lettore Sistema di fotocamere Pro da 12MP con ultra‑grandangolo, grandangolo e teleobiettivo Zoom digitale: fino a 10x Registrazione video 4K, registrazione video HD a 1080p Face ID Siri Apple Pay 189 grammi e 7,4 mm',
+                categories: {connect: [{id: 11}, {id: 30}]},
+                images: {
+                    create: [
+                        {path: '/crud/demo/products/refurb-iphone-12-pro-max-gold-2020_AV1.jfif'},
                     ]
                 }
             }

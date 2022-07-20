@@ -1,7 +1,7 @@
 import {useTranslation} from "next-i18next";
 import AdminAuthServerSideProps from "../../../../../../lib/props/AdminAuthServerSideProps";
 
-import AppLayout from "../../../../../../components/AppLayout";
+import AppLayout from "../../../../../../components/admin/AppLayout";
 
 import {useRouter} from "next/router";
 import useSWR from "swr";

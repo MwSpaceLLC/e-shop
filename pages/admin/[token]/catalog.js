@@ -4,7 +4,7 @@ import AdminAuthServerSideProps from "../../../lib/props/AdminAuthServerSideProp
 import {useState} from "react";
 import ViewProducts from "../../../components/admin/ViewProducts";
 import ViewCategories from "../../../components/admin/ViewCategories";
-import AppLayout from "../../../components/AppLayout";
+import AppLayout from "../../../components/admin/AppLayout";
 import {classNames} from "../../../lib/function"
 import {useRouter} from "next/router";
 

@@ -1,6 +1,6 @@
 import {useState} from 'react'
-import {RadioGroup, Tab} from '@headlessui/react'
-import {CurrencyEuroIcon, HeartIcon} from '@heroicons/react/outline'
+import {Tab} from '@headlessui/react'
+import {HeartIcon} from '@heroicons/react/outline'
 
 import HeartIconSolid from '@heroicons/react/solid/HeartIcon'
 
@@ -18,11 +18,12 @@ import useSWR, {useSWRConfig} from "swr";
 import FlayOutCart from "../../../components/FlayOutCart";
 import NotifyAddWishlist from "../../../components/NotifyAddWishlist";
 import NotifyRemoveWishlist from "../../../components/NotifyRemoveWishlist";
+import InnerImageZoom from "react-inner-image-zoom";
 
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
 
-export default function Product({set,product, category}) {
+export default function Product({set, product, category}) {
 
     const {mutate} = useSWRConfig()
     const {t} = useTranslation();
@@ -38,13 +39,13 @@ export default function Product({set,product, category}) {
     const {data: wishlist} = useSWR(`/api/json/wishlists/${product.uuid}`, fetcher)
     const {data: PriceInTax} = useSWR(`/api/json/options/PriceInTax`, fetcher)
 
-    const AddProductCart = (e) => {
+    const MutateCarts = () => mutate('/api/json/carts').then(e => setOpen(true));
+
+    const AddProductCart = (override) => {
 
         setLoad(true)
-        e.preventDefault();
 
-        axios.post('/api/json/carts', product)
-            .then(res => mutate('/api/json/carts').then(e => setOpen(true)))
+        axios.post('/api/json/carts', override || product).then(MutateCarts)
             .catch(err => console.error(err))
             .finally(() => setLoad(false))
 
@@ -142,13 +143,16 @@ export default function Product({set,product, category}) {
 
                                 <Tab.Panel>
                                     {product?.thumbnail && (
-                                        <Image
-                                            layout="fill"
-                                            objectFit="cover"
-                                            src={product.thumbnail}
-                                            alt={product.name}
-                                            className="w-full h-full object-center object-cover sm:rounded-lg"
-                                        />
+                                        // <Image
+                                        //     layout="fill"
+                                        //     objectFit="cover"
+                                        //     src={product.thumbnail}
+                                        //     alt={product.name}
+                                        //     className="w-full h-full object-center object-cover sm:rounded-lg"
+                                        // />
+
+                                        <InnerImageZoom className="w-full h-full object-center object-cover" src={product.thumbnail} zoomSrc={product.thumbnail} />
+
                                     )}
                                 </Tab.Panel>
 
@@ -205,13 +209,14 @@ export default function Product({set,product, category}) {
                                      dangerouslySetInnerHTML={{__html: product.description}}/>
                             </div>
 
-                            <form className="mt-6" onSubmit={AddProductCart}>
+                            <div className="mt-6">
 
                                 <h3 className="text-sm text-gray-600">Disponibili: {product.quantity}</h3>
 
                                 <div className="mt-10 flex sm:flex-col1">
                                     <button
-                                        type="submit"
+                                        onClick={AddProductCart}
+                                        type="button"
                                         className={(load ? 'animate-pulse' : '') + " max-w-xs flex-1 bg-shop border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-shop focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-shop sm:w-full"}
                                     >
                                         {load ? '⚪⚪⚪' : 'Aggiungi al carrello'}
@@ -232,7 +237,7 @@ export default function Product({set,product, category}) {
                                         <span className="sr-only">Aggiungi ai preferiti</span>
                                     </button>
                                 </div>
-                            </form>
+                            </div>
 
                             {/*<section aria-labelledby="details-heading" className="mt-12">*/}
                             {/*    <h2 id="details-heading" className="sr-only">*/}
@@ -307,8 +312,7 @@ export default function Product({set,product, category}) {
                                                 />
                                             </div>
                                             <div className="relative mt-4">
-                                                <h3 className="text-sm font-medium text-gray-900">{product?.name}</h3>
-                                                <p className="mt-1 text-sm text-gray-500">{product?.color}</p>
+                                                <h3 className="text-md h-20 border rounded-xl p-4 font-bold text-gray-900">{prd?.name}</h3>
                                             </div>
                                             <div
                                                 className="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
@@ -323,7 +327,7 @@ export default function Product({set,product, category}) {
                                             <button
                                                 className="w-full relative flex bg-gray-100 border border-transparent rounded-md py-2 px-8 items-center justify-center text-sm font-medium text-gray-900 hover:bg-gray-200"
                                             >
-                                                Add to bag <span className="sr-only">, {product?.name}</span>
+                                                Aggiungi al carrello
                                             </button>
                                         </div>
                                     </a>

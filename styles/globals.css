@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300&display=swap');
-
 @import url('/api/css/root');
+
+@import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
 
 @tailwind base;
 @tailwind components;
