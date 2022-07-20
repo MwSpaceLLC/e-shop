@@ -10,11 +10,12 @@ import {fetcher, slugCategoryProduct} from "../../lib/function";
 import useMoney from "../../hooks/useMoney";
 import Link from "next/link";
 import axios from "axios";
+import useCarts from "../../hooks/useCarts";
 
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
 
-export default function CartIndex({sett}) {
+export default function CartIndex({set, opt}) {
 
     const {mutate} = useSWRConfig()
     const money = useMoney()
@@ -22,16 +23,7 @@ export default function CartIndex({sett}) {
     const {t} = useTranslation();
     const [open, setOpen] = useState(false)
 
-    const {data: carts} = useSWR(`/api/json/carts`, fetcher)
-    const {data: PriceInTax} = useSWR(`/api/json/options/PriceInTax`, fetcher)
-
-    const TotalPriceTax = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag) * (parseFloat(item.tax) / 100), 0);
-
-    //TODO: check if work | remove or not price tax
-    const PartialPrice = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag), 0) - (PriceInTax?.enabled ? TotalPriceTax : 0);
-
-    //TODO: check if work | add or not price tax
-    const TotalPrice = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag), 0) + (PriceInTax?.enabled ? 0 : TotalPriceTax);
+    const [carts, TotalPriceTax, PartialPrice, TotalPrice] = useCarts(opt)
 
     const ChangeProductQuantity = (value, cartItem) => {
         axios
@@ -41,7 +33,7 @@ export default function CartIndex({sett}) {
 
     return (
         <PublicLayout
-            sett={sett}
+            set={set}
             title={t('seo-cart-title')}
             description={t('seo-cart-description')}
             className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -94,7 +86,7 @@ export default function CartIndex({sett}) {
                                                 </div>
                                                 <p className="mt-1 text-md font-medium text-gray-900 flex gap-2">
                                                     <b>{money.format(cartItem.price)}</b>
-                                                    <i>({PriceInTax?.enabled ? 'Tasse Incluse' : 'Tasse Escluse'})</i>
+                                                    <i>({opt.PriceInTax ? 'Tasse Incluse' : 'Tasse Escluse'})</i>
                                                 </p>
                                             </div>
 

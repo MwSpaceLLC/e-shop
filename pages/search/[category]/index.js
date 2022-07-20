@@ -16,7 +16,7 @@ import useMoney from "../../../hooks/useMoney";
 // This gets called on every request
 export const getServerSideProps = CategoryServerSideProps
 
-export default function CategoryIndexProducts({sett,category}) {
+export default function CategoryIndexProducts({set,category}) {
     const [name, setName] = useState("")
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
@@ -28,7 +28,7 @@ export default function CategoryIndexProducts({sett,category}) {
     const {data: products} = useSWR(`/api/json/products?category=${id}&name=${name}`, fetcher)
 
     return (
-        <PublicLayout sett={sett} className="mx-auto max-w-7xl" title={category.name} description={category.description}>
+        <PublicLayout set={set} className="mx-auto max-w-7xl" title={category.name} description={category.description}>
             <div className="border-b border-gray-200 pt-24 pb-10">
                 <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 capitalize">{category.name}</h1>
                 <p className="mt-4 text-base text-gray-500">{category.description}</p>

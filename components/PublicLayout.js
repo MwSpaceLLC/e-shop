@@ -54,7 +54,7 @@ const footerNavigation = {
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function PublicLayout({sett, title, description, children, className, HeroSection}) {
+export default function PublicLayout({set, title, description, children, className, HeroSection}) {
 
     const [user, loggedIn] = useUser();
 
@@ -88,17 +88,17 @@ export default function PublicLayout({sett, title, description, children, classN
     return (
         <>
             <Head>
-                <title>{title} | {sett.ShopName || process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
+                <title>{title} | {set.ShopName || process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
                 <meta name="description" content={description}/>
 
-                <link rel="icon" href={sett.ShopFavicon}/>
-                <link rel="apple-touch-icon" sizes="180x180" href={sett.ShopAppleTouchIcon}/>
-                <link rel="icon" type="image/png" sizes="32x32" href={sett.ShopFavicon32}/>
-                <link rel="icon" type="image/png" sizes="16x16" href={sett.ShopFavicon16}/>
-                <link rel="manifest" href={sett.ShopWebManifest}/>
+                <link rel="icon" href={set.ShopFavicon}/>
+                <link rel="apple-touch-icon" sizes="180x180" href={set.ShopAppleTouchIcon}/>
+                <link rel="icon" type="image/png" sizes="32x32" href={set.ShopFavicon32}/>
+                <link rel="icon" type="image/png" sizes="16x16" href={set.ShopFavicon16}/>
+                <link rel="manifest" href={set.ShopWebManifest}/>
             </Head>
 
-            <div style={{background: sett.ShopBackgroundColor}}>
+            <div style={{background: set.ShopBackgroundColor}}>
 
                 {/* Mobile menu */}
                 <Transition.Root show={mobileMenuOpen} as={Fragment}>
@@ -254,7 +254,7 @@ export default function PublicLayout({sett, title, description, children, classN
                         <Image
                             layout="fill"
                             objectFit="cover"
-                            src={sett.MainBackgroundImage}
+                            src={set.MainBackgroundImage}
                             alt="Shop Home Image"
                             className="w-full h-full object-center object-cover"
                         />
@@ -268,8 +268,8 @@ export default function PublicLayout({sett, title, description, children, classN
 
                             {/* Top navigation */}
                             <div style={{
-                                color: sett.ShopTopTextColor,
-                                background: sett.ShopTopBackgroundColor
+                                color: set.ShopTopTextColor,
+                                background: set.ShopTopBackgroundColor
                             }}>
                                 <div
                                     className="max-w-7xl mx-auto h-10 px-4 flex items-center justify-between sm:px-6 lg:px-8">
@@ -493,8 +493,8 @@ export default function PublicLayout({sett, title, description, children, classN
                 <main className={className}>{children}</main>
 
                 <footer aria-labelledby="footer-heading" style={{
-                    color: sett.ShopFooterTextColor,
-                    background: sett.ShopFooterBackgroundColor
+                    color: set.ShopFooterTextColor,
+                    background: set.ShopFooterBackgroundColor
                 }}>
                     <h2 id="footer-heading" className="sr-only">
                         Footer

@@ -7,19 +7,19 @@ import {useRouter} from 'next/router'
 import axios from "axios";
 import ErrorsAlert from "../../components/ErrorsAlert";
 
-import RegisterCodeConfirmServerSideProps from "../../lib/props/RegisterCodeConfirmServerSideProps";
-import {LogoApp} from "../../components/LogoApp";
+import CodeConfirmServerSideProps from "../../lib/props/CodeConfirmServerSideProps";
+
 import PublicLayout from "../../components/PublicLayout";
 
 // This gets called on every request
-export const getServerSideProps = RegisterCodeConfirmServerSideProps
+export const getServerSideProps = CodeConfirmServerSideProps
 
 /**
  |--------------------------------------------------------------------------
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function Confirm({sett}) {
+export default function Confirm({set}) {
     const {t} = useTranslation();
     const router = useRouter()
 
@@ -48,7 +48,7 @@ export default function Confirm({sett}) {
     }
 
     return (
-        <PublicLayout sett={sett} title="Conferma il codice">
+        <PublicLayout set={set} title="Conferma il codice">
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
 

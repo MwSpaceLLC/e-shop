@@ -16,7 +16,7 @@ export const getServerSideProps = PublicIndexServerSideProps
  |--------------------------------------------------------------------------
  */
 
-export default function Index({sett}) {
+export default function Index({set}) {
 
     const {t} = useTranslation();
 
@@ -29,9 +29,9 @@ export default function Index({sett}) {
 
     return (
         <PublicLayout
-            sett={sett}
-            title={sett.ShopSeoIndexTitle}
-            description={sett.ShopSeoIndexDescription}
+            set={set}
+            title={set.ShopSeoIndexTitle}
+            description={set.ShopSeoIndexDescription}
             HeroSection={HeroSection}>
 
             {/* Category section */}
