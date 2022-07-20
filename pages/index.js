@@ -16,7 +16,7 @@ export const getServerSideProps = PublicIndexServerSideProps
  |--------------------------------------------------------------------------
  */
 
-export default function Index({ShopSeoIndexTitle,ShopSeoIndexDescription}) {
+export default function Index({sett}) {
 
     const {t} = useTranslation();
 
@@ -28,7 +28,11 @@ export default function Index({ShopSeoIndexTitle,ShopSeoIndexDescription}) {
     const {data: HomeHero} = useSWR(`/api/json/sections/HomeHero`, fetcher)
 
     return (
-        <PublicLayout title={ShopSeoIndexTitle.value} description={ShopSeoIndexDescription.value} HeroSection={HeroSection}>
+        <PublicLayout
+            sett={sett}
+            title={sett.ShopSeoIndexTitle}
+            description={sett.ShopSeoIndexDescription}
+            HeroSection={HeroSection}>
 
             {/* Category section */}
             <section aria-labelledby="category-heading"

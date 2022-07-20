@@ -18,7 +18,7 @@ export const getServerSideProps = AuthServerSideProps
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function Login() {
+export default function Logout({sett}) {
     const {t} = useTranslation();
     const router = useRouter()
 

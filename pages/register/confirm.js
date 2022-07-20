@@ -19,7 +19,7 @@ export const getServerSideProps = RegisterCodeConfirmServerSideProps
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function Confirm() {
+export default function Confirm({sett}) {
     const {t} = useTranslation();
     const router = useRouter()
 
@@ -48,7 +48,7 @@ export default function Confirm() {
     }
 
     return (
-        <PublicLayout title="Conferma il codice">
+        <PublicLayout sett={sett} title="Conferma il codice">
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
 

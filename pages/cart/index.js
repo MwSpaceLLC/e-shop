@@ -14,7 +14,7 @@ import axios from "axios";
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
 
-export default function CartIndex() {
+export default function CartIndex({sett}) {
 
     const {mutate} = useSWRConfig()
     const money = useMoney()
@@ -40,8 +40,11 @@ export default function CartIndex() {
     }
 
     return (
-        <PublicLayout title={t('seo-cart-title')} description={t('seo-cart-description')}
-                      className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <PublicLayout
+            sett={sett}
+            title={t('seo-cart-title')}
+            description={t('seo-cart-description')}
+            className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{t('cart-head-title')}</h1>
 
             {!carts?.items && (
@@ -89,8 +92,8 @@ export default function CartIndex() {
                                                         <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">{cartItem.size}</p>
                                                     ) : null}
                                                 </div>
-                                                <p className="mt-1 text-sm font-medium text-gray-900 flex gap-2">
-                                                    <span>{money.format(cartItem.price)}</span>
+                                                <p className="mt-1 text-md font-medium text-gray-900 flex gap-2">
+                                                    <b>{money.format(cartItem.price)}</b>
                                                     <i>({PriceInTax?.enabled ? 'Tasse Incluse' : 'Tasse Escluse'})</i>
                                                 </p>
                                             </div>
@@ -159,7 +162,7 @@ export default function CartIndex() {
                                 </dt>
                                 <dd className="text-sm font-medium text-gray-900">{money.format(TotalPriceTax)}</dd>
                             </div>
-                            <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
+                            <div className="border-t text-xl border-gray-200 pt-4 flex items-center justify-between">
                                 <dt className="font-bold text-gray-900">{t('cart-summary-total')}</dt>
                                 <dd className="font-bold text-gray-900">{money.format(TotalPrice)}</dd>
                             </div>

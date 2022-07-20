@@ -16,7 +16,7 @@ export const getServerSideProps = GuestServerSideProps
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function Login() {
+export default function Forgot({sett}) {
     const {t} = useTranslation();
 
     const email = useRef();
@@ -49,7 +49,7 @@ export default function Login() {
     }
 
     return (
-        <PublicLayout title="Reset della password">
+        <PublicLayout sett={sett} title="Reset della password">
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
 

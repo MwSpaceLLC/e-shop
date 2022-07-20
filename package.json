@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "installation": "npx prisma migrate reset --force && node .installation"
+    "startx": "npx prisma migrate reset --force && node .startx"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.1",

@@ -18,7 +18,7 @@ export const getServerSideProps = GuestServerSideProps
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function Login() {
+export default function Login({sett}) {
     const {t} = useTranslation();
     const router = useRouter()
 
@@ -48,7 +48,7 @@ export default function Login() {
     }
 
     return (
-        <PublicLayout title="Accedi al tuo account">
+        <PublicLayout sett={sett} title="Accedi al tuo account">
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
 

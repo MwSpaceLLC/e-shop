@@ -18,7 +18,7 @@ import {SearchIcon} from "@heroicons/react/outline";
 // This gets called on every request
 export const getServerSideProps = PublicServerSideProps
 
-export default function Index() {
+export default function IndexSearch({sett}) {
 
     const money = useMoney()
 
@@ -87,7 +87,7 @@ export default function Index() {
     ]
 
     return (
-        <PublicLayout title="Cerca un prodotto nello shop">
+        <PublicLayout sett={sett} title="Cerca un prodotto nello shop">
 
             <div className="bg-white">
                 <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 flex justify-between">

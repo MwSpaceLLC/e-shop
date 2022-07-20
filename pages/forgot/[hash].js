@@ -18,7 +18,7 @@ export const getServerSideProps = ForgotServerSideProps
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function ResetPassword() {
+export default function ResetPassword({sett}) {
     const {t} = useTranslation();
 
     const router = useRouter()
@@ -55,7 +55,7 @@ export default function ResetPassword() {
     }
 
     return (
-        <PublicLayout title="Reset della password">
+        <PublicLayout sett={sett} title="Reset della password">
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
 

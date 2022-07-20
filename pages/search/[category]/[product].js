@@ -22,7 +22,7 @@ import NotifyRemoveWishlist from "../../../components/NotifyRemoveWishlist";
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
 
-export default function Product({product, category}) {
+export default function Product({sett,product, category}) {
 
     const {mutate} = useSWRConfig()
     const {t} = useTranslation();
@@ -67,7 +67,7 @@ export default function Product({product, category}) {
     }
 
     return (
-        <PublicLayout title={product.name + ' | ' + category.name} description={product.description}>
+        <PublicLayout sett={sett} title={product.name + ' | ' + category.name} description={product.description}>
             <main className="max-w-7xl mx-auto sm:pt-16 sm:px-6 lg:px-8">
                 <div className="max-w-2xl mx-auto lg:max-w-none">
                     {/* Product */}

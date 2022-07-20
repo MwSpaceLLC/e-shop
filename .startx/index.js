@@ -81,6 +81,9 @@ const prisma = new PrismaClient({log: ['query']});
                     key: 'ShopWebManifest',
                     value: '/crud/demo/settings/favicon/site.webmanifest',
                 }, {
+                    key: 'MainBackgroundImage',
+                    value: '/crud/demo/sections/laptop-ge705b6c1e_1920.jpg',
+                }, {
                     key: 'ShopBackgroundColor',
                     value: '#ffffff',
                 }, {
@@ -836,15 +839,6 @@ const prisma = new PrismaClient({log: ['query']});
                         header: 'Con un chip esagerato',
                         image: '/crud/demo/sections/immagine-footer-2022-07-01 153803.png',
                         text: 'Con il nuovo iPad Air ti immergi in tutto quello che leggi, guardi o crei. Lo splendido display Liquid Retina da 10,9" ha un’ampia gamma cromatica P3, tecnologie evolute come True Tone, e il rivestimento antiriflesso.',
-                    },
-                },
-
-
-                {
-                    slug: 'MainBackgroundImage',
-                    name: 'Main Background Image',
-                    body: {
-                        image: '/crud/demo/sections/laptop-ge705b6c1e_1920.jpg',
                     },
                 },
             ]

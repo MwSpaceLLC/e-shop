@@ -54,7 +54,7 @@ const footerNavigation = {
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function PublicLayout({title, description, children, className, HeroSection}) {
+export default function PublicLayout({sett, title, description, children, className, HeroSection}) {
 
     const [user, loggedIn] = useUser();
 
@@ -65,40 +65,40 @@ export default function PublicLayout({title, description, children, className, H
     const {data: footerCategories} = useSWR(`/api/json/categories?recursive=true&footer=true&orderBy=createdAt`, fetcher)
     const {data: products} = useSWR(`/api/json/products?orderBy=createdAt`, fetcher)
 
-    const {data: ShopName} = useSWR(`/api/json/settings/ShopName`, fetcher)
+    // const {data: ShopName} = useSWR(`/api/json/settings/ShopName`, fetcher)
 
-    const {data: ShopFavicon} = useSWR(`/api/json/settings/ShopFavicon`, fetcher)
-    const {data: ShopFavicon16} = useSWR(`/api/json/settings/ShopFavicon16`, fetcher)
-    const {data: ShopFavicon32} = useSWR(`/api/json/settings/ShopFavicon32`, fetcher)
-    const {data: ShopAppleTouchIcon} = useSWR(`/api/json/settings/ShopAppleTouchIcon`, fetcher)
-    const {data: ShopWebManifest} = useSWR(`/api/json/settings/ShopWebManifest`, fetcher)
+    // const {data: ShopFavicon} = useSWR(`/api/json/settings/ShopFavicon`, fetcher)
+    // const {data: ShopFavicon16} = useSWR(`/api/json/settings/ShopFavicon16`, fetcher)
+    // const {data: ShopFavicon32} = useSWR(`/api/json/settings/ShopFavicon32`, fetcher)
+    // const {data: ShopAppleTouchIcon} = useSWR(`/api/json/settings/ShopAppleTouchIcon`, fetcher)
+    // const {data: ShopWebManifest} = useSWR(`/api/json/settings/ShopWebManifest`, fetcher)
 
-    const {data: ShopFooterTextColor} = useSWR(`/api/json/settings/ShopFooterTextColor`, fetcher)
-    const {data: ShopFooterBackgroundColor} = useSWR(`/api/json/settings/ShopFooterBackgroundColor`, fetcher)
+    // const {data: ShopFooterTextColor} = useSWR(`/api/json/settings/ShopFooterTextColor`, fetcher)
+    // const {data: ShopFooterBackgroundColor} = useSWR(`/api/json/settings/ShopFooterBackgroundColor`, fetcher)
 
-    const {data: ShopTopTextColor} = useSWR(`/api/json/settings/ShopTopTextColor`, fetcher)
-    const {data: ShopTopBackgroundColor} = useSWR(`/api/json/settings/ShopTopBackgroundColor`, fetcher)
+    // const {data: ShopTopTextColor} = useSWR(`/api/json/settings/ShopTopTextColor`, fetcher)
+    // const {data: ShopTopBackgroundColor} = useSWR(`/api/json/settings/ShopTopBackgroundColor`, fetcher)
 
-    const {data: ShopBackgroundColor} = useSWR(`/api/json/settings/ShopBackgroundColor`, fetcher)
+    // const {data: ShopBackgroundColor} = useSWR(`/api/json/settings/ShopBackgroundColor`, fetcher)
 
-    const {data: MainBackgroundImage} = useSWR(`/api/json/sections/MainBackgroundImage`, fetcher)
+    // const {data: MainBackgroundImage} = useSWR(`/api/json/settings/MainBackgroundImage`, fetcher)
 
     const {data: carts} = useSWR(`/api/json/carts`, fetcher)
 
     return (
         <>
             <Head>
-                <title>{title} | {ShopName?.value ?? process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
+                <title>{title} | {sett.ShopName || process.env.NEXT_PUBLIC_APPLICATION_NAME}</title>
                 <meta name="description" content={description}/>
 
-                <link rel="icon" href={ShopFavicon?.value}/>
-                <link rel="apple-touch-icon" sizes="180x180" href={ShopAppleTouchIcon?.value}/>
-                <link rel="icon" type="image/png" sizes="32x32" href={ShopFavicon32?.value}/>
-                <link rel="icon" type="image/png" sizes="16x16" href={ShopFavicon16?.value}/>
-                <link rel="manifest" href={ShopWebManifest?.value}/>
+                <link rel="icon" href={sett.ShopFavicon}/>
+                <link rel="apple-touch-icon" sizes="180x180" href={sett.ShopAppleTouchIcon}/>
+                <link rel="icon" type="image/png" sizes="32x32" href={sett.ShopFavicon32}/>
+                <link rel="icon" type="image/png" sizes="16x16" href={sett.ShopFavicon16}/>
+                <link rel="manifest" href={sett.ShopWebManifest}/>
             </Head>
 
-            <div style={{background: ShopBackgroundColor?.value}}>
+            <div style={{background: sett.ShopBackgroundColor}}>
 
                 {/* Mobile menu */}
                 <Transition.Root show={mobileMenuOpen} as={Fragment}>
@@ -251,15 +251,13 @@ export default function PublicLayout({title, description, children, className, H
                     {/* Decorative image and overlay */}
                     <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
 
-                        {MainBackgroundImage && (
-                            <Image
-                                layout="fill"
-                                objectFit="cover"
-                                src={MainBackgroundImage.body.image}
-                                alt="Shop Home Image"
-                                className="w-full h-full object-center object-cover"
-                            />
-                        )}
+                        <Image
+                            layout="fill"
+                            objectFit="cover"
+                            src={sett.MainBackgroundImage}
+                            alt="Shop Home Image"
+                            className="w-full h-full object-center object-cover"
+                        />
 
                     </div>
                     <div aria-hidden="true" className="absolute inset-0 bg-gray-900 opacity-50"/>
@@ -270,8 +268,8 @@ export default function PublicLayout({title, description, children, className, H
 
                             {/* Top navigation */}
                             <div style={{
-                                color: ShopTopTextColor?.value,
-                                background: ShopTopBackgroundColor?.value
+                                color: sett.ShopTopTextColor,
+                                background: sett.ShopTopBackgroundColor
                             }}>
                                 <div
                                     className="max-w-7xl mx-auto h-10 px-4 flex items-center justify-between sm:px-6 lg:px-8">
@@ -495,8 +493,8 @@ export default function PublicLayout({title, description, children, className, H
                 <main className={className}>{children}</main>
 
                 <footer aria-labelledby="footer-heading" style={{
-                    color: ShopFooterTextColor?.value,
-                    background: ShopFooterBackgroundColor?.value
+                    color: sett.ShopFooterTextColor,
+                    background: sett.ShopFooterBackgroundColor
                 }}>
                     <h2 id="footer-heading" className="sr-only">
                         Footer
@@ -590,7 +588,9 @@ export default function PublicLayout({title, description, children, className, H
                         </div>
 
                         <div className="border-t border-gray-800 py-10">
-                            <p className="text-sm text-gray-400">Copyright &copy; 2022 | MwSpace llc.</p>
+                            <p className="text-sm text-gray-400">Copyright ©
+                                2022 {process.env.NEXT_PUBLIC_APPLICATION_NAME}. Tutti i
+                                diritti riservati.</p>
                         </div>
                     </div>
                 </footer>

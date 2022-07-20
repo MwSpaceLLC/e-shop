@@ -17,7 +17,7 @@ export const getServerSideProps = GuestServerSideProps
  | Export default React Component
  |--------------------------------------------------------------------------
  */
-export default function Register() {
+export default function Register({sett}) {
     const {t} = useTranslation();
 
     const router = useRouter()
@@ -58,7 +58,7 @@ export default function Register() {
     }
 
     return (
-        <PublicLayout title="Crea il tuo account!">
+        <PublicLayout sett={sett} title="Crea il tuo account!">
 
             <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">

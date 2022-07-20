@@ -14,7 +14,7 @@ DATABASE_URL="mysql://root:toor@localhost:3306/database"
 1) Run the development migration & install dataset as default:
 
 ```bash
-npm run installation
+npm run startx
 ```
 
 2) Run development server:
