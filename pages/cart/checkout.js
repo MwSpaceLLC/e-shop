@@ -1,7 +1,9 @@
 import {useState} from 'react'
 import {RadioGroup} from '@headlessui/react'
 import {CheckCircleIcon, TrashIcon} from '@heroicons/react/solid'
-import PublicServerSideProps from "../../lib/props/PublicServerSideProps";
+
+import CheckoutServerSideProps from "../../lib/props/CheckoutServerSideProps";
+
 import PublicLayout from "../../components/PublicLayout";
 import {classNames} from "../../lib/function"
 import useCarts from "../../hooks/useCarts";
@@ -31,11 +33,11 @@ const paymentMethods = [
 
 
 // This gets called on every request
-export const getServerSideProps = PublicServerSideProps
+export const getServerSideProps = CheckoutServerSideProps
 
 export default function Checkout({set, opt}) {
 
-    const [items, TotalPriceTax, PartialPrice, TotalPrice] = useCarts(opt)
+    const [items, TotalPriceTax, PartialPrice, TotalPrice, ChangeQuantity] = useCarts(opt)
 
     const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
 

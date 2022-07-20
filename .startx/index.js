@@ -17,6 +17,7 @@ const prisma = new PrismaClient({log: ['query']});
  */
 (async () => {
 
+
     /*
      |--------------------------------------------------------------------------
      | Create Admin User
@@ -33,6 +34,7 @@ const prisma = new PrismaClient({log: ['query']});
         })
     )
 
+
     /*
      |--------------------------------------------------------------------------
      | Create Default Lang
@@ -47,6 +49,7 @@ const prisma = new PrismaClient({log: ['query']});
             }
         })
     )
+
 
     /*
      |--------------------------------------------------------------------------
@@ -82,7 +85,7 @@ const prisma = new PrismaClient({log: ['query']});
                     value: '/crud/demo/settings/favicon/site.webmanifest',
                 }, {
                     key: 'MainBackgroundImage',
-                    value: '/crud/demo/sections/laptop-ge705b6c1e_1920.jpg',
+                    value: '/crud/demo/settings/support-hero-large.jpg',
                 }, {
                     key: 'ShopBackgroundColor',
                     value: '#ffffff',
@@ -166,6 +169,7 @@ const prisma = new PrismaClient({log: ['query']});
         })
     )
 
+
     /*
      |--------------------------------------------------------------------------
      | Create Default Option
@@ -193,6 +197,81 @@ const prisma = new PrismaClient({log: ['query']});
             ]
         })
     )
+
+
+    /*
+     |--------------------------------------------------------------------------
+     | Create Demo Sections
+     |------------------------------------------------------------------------*/
+    console.log("\n======= Create Demo Sections =======")
+    console.log(
+        await prisma.section.createMany({
+            data: [
+                {
+                    slug: 'HomeIntro',
+                    name: 'Home Intro',
+                    body: {
+                        header: 'Pro. E pronto a tutto',
+                        image: '/crud/demo/sections/Immagine-home 2022-07-01 153057.png',
+                        text: 'MacBook Pro 13" è più veloce e potente che mai. Con il nuovissimo chip M2, un sistema di raffreddamento attivo e fino a 20 ore di autonomia, affronta con agilità anche i carichi di lavoro più impegnativi.',
+                    },
+                },
+                {
+                    slug: 'HomeHero',
+                    name: 'Home Hero',
+                    body: {
+                        header: 'Sistema più evoluto di sempre',
+                        image: '/crud/demo/sections/hero_1_static__feiuc1zaeiaa_large.jpg',
+                        text: 'Abbiamo riprogettato completamente l’architettura e ruotato gli obiettivi di 45 gradi per fare spazio al nostro sistema a doppia fotocamera più evoluto, con il sensore più grande di sempre sul grandangolo, e una nuova stabilizzazione ottica dell’immagine su sensore. E abbiamo anche aumentato la velocità dell’ultra-grandangolo.',
+                    },
+                },
+                {
+                    slug: 'HomeCollection',
+                    name: 'Home Collection',
+                    body: {
+                        header: 'Scopri i "nuovi" Ricondizionati',
+                        text: 'iPhone ricondizionati ufficiali apple. Ogni stagione, collaboriamo con designer di livello mondiale per creare una collezione ispirata al mondo naturale',
+                    },
+                },
+                {
+                    slug: 'HomeBottom',
+                    name: 'Home Bottom',
+                    body: {
+                        header: 'Con un chip esagerato',
+                        image: '/crud/demo/sections/immagine-footer-2022-07-01 153803.png',
+                        text: 'Con il nuovo iPad Air ti immergi in tutto quello che leggi, guardi o crei. Lo splendido display Liquid Retina da 10,9" ha un’ampia gamma cromatica P3, tecnologie evolute come True Tone, e il rivestimento antiriflesso.',
+                    },
+                },
+            ]
+        })
+    )
+
+
+    /*
+     |--------------------------------------------------------------------------
+     | Create Demo Pages
+     |------------------------------------------------------------------------*/
+    console.log("\n======= Create Demo Pages =======")
+    console.log(
+        await prisma.page.createMany({
+            data: [
+                {
+                    name: 'Privacy',
+                    body: '',
+                }, {
+                    name: 'Termini',
+                    body: '',
+                }, {
+                    name: 'Cookies',
+                    body: '',
+                }, {
+                    name: 'Supporto',
+                    body: '',
+                },
+            ]
+        })
+    )
+
 
     /*
      |--------------------------------------------------------------------------
@@ -448,6 +527,7 @@ const prisma = new PrismaClient({log: ['query']});
         })
     )
 
+
     /*
      |--------------------------------------------------------------------------
      | Create Demo Attribute
@@ -457,7 +537,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.attribute.create({
             data: {
                 name: 'Color',
-                type: 'color', // color, button, checkbox, range, radio
+                type: 'color', // color, button, checkbox, range, radio, select
                 values: {
                     create: [
                         {
@@ -482,7 +562,28 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.attribute.create({
             data: {
                 name: 'Ram',
-                type: 'range', // color, button, checkbox, range, radio
+                type: 'range', // color, button, checkbox, range, radio, select
+                values: {
+                    create: [
+                        {
+                            spec: '128GB'
+                        }, {
+                            spec: '256GB'
+                        }, {
+                            spec: '512GB'
+                        }, {
+                            spec: '768GB'
+                        }, {
+                            spec: '1024GB'
+                        },
+                    ]
+                },
+            }
+        }),
+        await prisma.attribute.create({
+            data: {
+                name: 'Ram',
+                type: 'select', // color, button, checkbox, range, radio, select
                 values: {
                     create: [
                         {
@@ -503,7 +604,7 @@ const prisma = new PrismaClient({log: ['query']});
         await prisma.attribute.create({
             data: {
                 name: 'Connessione',
-                type: 'button', // color, button, checkbox, range, radio
+                type: 'button', // color, button, checkbox, range, radio, select
                 values: {
                     create: [
                         {
@@ -516,6 +617,7 @@ const prisma = new PrismaClient({log: ['query']});
             }
         }),
     )
+
 
     /*
      |--------------------------------------------------------------------------
@@ -729,148 +831,11 @@ const prisma = new PrismaClient({log: ['query']});
         }),
     )
 
+
     /*
      |--------------------------------------------------------------------------
      | Create Demo Product Combinations
      |------------------------------------------------------------------------*/
-    // console.log("\n======= Create Default Attribute =======")
-    // console.log(
-    //     await prisma.combination.create({
-    //         data: {
-    //             name: 'Color',
-    //             type: 'color', // color, button, checkbox, range, radio
-    //             values: {
-    //                 create: [
-    //                     {
-    //                         spec: '#b90000'
-    //                     }, {
-    //                         spec: '#FF9800'
-    //                     }, {
-    //                         spec: '#0040ef'
-    //                     }, {
-    //                         spec: '#b700ef'
-    //                     }, {
-    //                         spec: '#828282'
-    //                     }, {
-    //                         spec: '#000000'
-    //                     }, {
-    //                         spec: '#ffffff'
-    //                     },
-    //                 ]
-    //             },
-    //         }
-    //     }),
-    //     await prisma.attribute.create({
-    //         data: {
-    //             name: 'Ram',
-    //             type: 'range', // color, button, checkbox, range, radio
-    //             values: {
-    //                 create: [
-    //                     {
-    //                         spec: '128GB'
-    //                     }, {
-    //                         spec: '256GB'
-    //                     }, {
-    //                         spec: '512GB'
-    //                     }, {
-    //                         spec: '768GB'
-    //                     }, {
-    //                         spec: '1024GB'
-    //                     },
-    //                 ]
-    //             },
-    //         }
-    //     }),
-    //     await prisma.attribute.create({
-    //         data: {
-    //             name: 'Connessione',
-    //             type: 'button', // color, button, checkbox, range, radio
-    //             values: {
-    //                 create: [
-    //                     {
-    //                         spec: 'Wi-Fi'
-    //                     }, {
-    //                         spec: 'Wi-Fi+Cellular'
-    //                     },
-    //                 ]
-    //             },
-    //         }
-    //     }),
-    // )
-
-    /*
-     |--------------------------------------------------------------------------
-     | Create Demo Sections
-     |------------------------------------------------------------------------*/
-    console.log("\n======= Create Demo Sections =======")
-    console.log(
-        await prisma.section.createMany({
-            data: [
-                {
-                    slug: 'HomeIntro',
-                    name: 'Home Intro',
-                    body: {
-                        header: 'Pro. E pronto a tutto',
-                        image: '/crud/demo/sections/Immagine-home 2022-07-01 153057.png',
-                        text: 'MacBook Pro 13" è più veloce e potente che mai. Con il nuovissimo chip M2, un sistema di raffreddamento attivo e fino a 20 ore di autonomia, affronta con agilità anche i carichi di lavoro più impegnativi.',
-                    },
-                },
-                {
-                    slug: 'HomeHero',
-                    name: 'Home Hero',
-                    body: {
-                        header: 'Sistema più evoluto di sempre',
-                        image: '/crud/demo/sections/hero_1_static__feiuc1zaeiaa_large.jpg',
-                        text: 'Abbiamo riprogettato completamente l’architettura e ruotato gli obiettivi di 45 gradi per fare spazio al nostro sistema a doppia fotocamera più evoluto, con il sensore più grande di sempre sul grandangolo, e una nuova stabilizzazione ottica dell’immagine su sensore. E abbiamo anche aumentato la velocità dell’ultra-grandangolo.',
-                    },
-                },
-                {
-                    slug: 'HomeCollection',
-                    name: 'Home Collection',
-                    body: {
-                        header: 'Scopri i "nuovi" Ricondizionati',
-                        text: 'iPhone ricondizionati ufficiali apple. Ogni stagione, collaboriamo con designer di livello mondiale per creare una collezione ispirata al mondo naturale',
-                    },
-                },
-                {
-                    slug: 'HomeBottom',
-                    name: 'Home Bottom',
-                    body: {
-                        header: 'Con un chip esagerato',
-                        image: '/crud/demo/sections/immagine-footer-2022-07-01 153803.png',
-                        text: 'Con il nuovo iPad Air ti immergi in tutto quello che leggi, guardi o crei. Lo splendido display Liquid Retina da 10,9" ha un’ampia gamma cromatica P3, tecnologie evolute come True Tone, e il rivestimento antiriflesso.',
-                    },
-                },
-            ]
-        })
-    )
-
-
-    /*
-     |--------------------------------------------------------------------------
-     | Create Demo Pages
-     |------------------------------------------------------------------------*/
-    console.log("\n======= Create Demo Pages =======")
-    console.log(
-        await prisma.page.createMany({
-            data: [
-                {
-                    name: 'Privacy',
-                    body: '',
-                }, {
-                    name: 'Termini',
-                    body: '',
-                }, {
-                    name: 'Cookies',
-                    body: '',
-                }, {
-                    name: 'Supporto',
-                    body: '',
-                },
-            ]
-        })
-    )
-
 
 })()
 

@@ -18,18 +18,12 @@ export const getServerSideProps = PublicServerSideProps
 export default function CartIndex({set, opt}) {
 
     const {mutate} = useSWRConfig()
+
     const money = useMoney()
 
     const {t} = useTranslation();
-    const [open, setOpen] = useState(false)
 
-    const [carts, TotalPriceTax, PartialPrice, TotalPrice] = useCarts(opt)
-
-    const ChangeProductQuantity = (value, cartItem) => {
-        axios
-            .patch(`/api/json/carts/${cartItem.uuid}`, {bag: value})
-            .then(() => mutate('/api/json/carts'))
-    }
+    const [items, TotalPriceTax, PartialPrice, TotalPrice, ChangeQuantity] = useCarts(opt)
 
     return (
         <PublicLayout
@@ -39,22 +33,11 @@ export default function CartIndex({set, opt}) {
             className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{t('cart-head-title')}</h1>
 
-            {!carts?.items && (
-                <div className="w-full h-96 flex items-center justify-center flex-col">
-                    <p className="font-bold text-xl">
-                        Il tuo carrello sembra essere vuoto
-                    </p>
-                    <Link href="/">
-                        <a className="text-shop">Continua lo shopping</a>
-                    </Link>
-                </div>
-            )}
-
-            {carts?.items && (
+            {items.length > 0 ? (
                 <div className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
                     <section aria-labelledby="cart-heading" className="lg:col-span-7">
                         <ul role="list" className="border-t border-b border-gray-200 divide-y divide-gray-200">
-                            {carts?.items?.map((cartItem, idx) => (
+                            {items.map((cartItem, idx) => (
                                 <li key={idx} className="flex py-6 sm:py-10">
                                     <div className="flex-shrink-0">
 
@@ -78,12 +61,7 @@ export default function CartIndex({set, opt}) {
                                                         </Link>
                                                     </h3>
                                                 </div>
-                                                <div className="mt-1 flex text-sm">
-                                                    <p className="text-gray-500">{cartItem.color}</p>
-                                                    {cartItem.size ? (
-                                                        <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">{cartItem.size}</p>
-                                                    ) : null}
-                                                </div>
+
                                                 <p className="mt-1 text-md font-medium text-gray-900 flex gap-2">
                                                     <b>{money.format(cartItem.price)}</b>
                                                     <i>({opt.PriceInTax ? 'Tasse Incluse' : 'Tasse Escluse'})</i>
@@ -95,7 +73,7 @@ export default function CartIndex({set, opt}) {
                                                     Quantity, {cartItem.bag}
                                                 </label>
                                                 <select
-                                                    onChange={(event) => ChangeProductQuantity(event.target.value, cartItem)}
+                                                    onChange={(event) => ChangeQuantity(event.target.value, cartItem)}
                                                     defaultValue={cartItem.bag}
                                                     id={`quantity-${idx}`}
                                                     name={`quantity-${idx}`}
@@ -170,7 +148,17 @@ export default function CartIndex({set, opt}) {
                         </div>
                     </section>
                 </div>
+            ) : (
+                <div className="w-full h-96 flex items-center justify-center flex-col">
+                    <p className="font-bold text-xl">
+                        Il tuo carrello sembra essere vuoto
+                    </p>
+                    <Link href="/">
+                        <a className="text-shop">Continua lo shopping</a>
+                    </Link>
+                </div>
             )}
+
         </PublicLayout>
     )
 }
