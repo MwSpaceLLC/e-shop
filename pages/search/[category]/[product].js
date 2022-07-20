@@ -23,11 +23,13 @@ import InnerImageZoom from "react-inner-image-zoom";
 // This gets called on every request
 export const getServerSideProps = ProductServerSideProps
 
-export default function Product({set, product, category}) {
+export default function Product({set, opt, product, category}) {
 
     const {mutate} = useSWRConfig()
     const {t} = useTranslation();
     const money = useMoney()
+
+    const [productBag, setProductBag] = useState(product)
 
     const [open, setOpen] = useState(false)
     const [load, setLoad] = useState(false)
@@ -35,23 +37,23 @@ export default function Product({set, product, category}) {
     const [wishAdd, setWishAdd] = useState(false)
     const [wishRemove, setWishRemove] = useState(false)
 
-    const {data: products} = useSWR(`/api/json/products?category=${category.id}`, fetcher)
+    const {data: products} = useSWR(`/api/json/products?category=${category.id}&orderBy=createdAt&order=desc`, fetcher)
     const {data: wishlist} = useSWR(`/api/json/wishlists/${product.uuid}`, fetcher)
-    const {data: PriceInTax} = useSWR(`/api/json/options/PriceInTax`, fetcher)
+    // const {data: PriceInTax} = useSWR(`/api/json/options/PriceInTax`, fetcher)
 
     const MutateCarts = () => mutate('/api/json/carts').then(e => setOpen(true));
 
-    const AddProductCart = (override) => {
+    const AddProductCart = () => {
 
         setLoad(true)
 
-        axios.post('/api/json/carts', override || product).then(MutateCarts)
+        axios.post('/api/json/carts', product).then(MutateCarts)
             .catch(err => console.error(err))
             .finally(() => setLoad(false))
 
     }
 
-    const AddFromWishlist = () => {
+    const AddFromWishlist = (prd) => {
         setWishRemove(false)
 
         axios.post('/api/json/wishlists', product)
@@ -151,7 +153,8 @@ export default function Product({set, product, category}) {
                                         //     className="w-full h-full object-center object-cover sm:rounded-lg"
                                         // />
 
-                                        <InnerImageZoom className="w-full h-full object-center object-cover" src={product.thumbnail} zoomSrc={product.thumbnail} />
+                                        <InnerImageZoom className="w-full h-full object-center object-cover"
+                                                        src={product.thumbnail} zoomSrc={product.thumbnail}/>
 
                                     )}
                                 </Tab.Panel>
@@ -178,7 +181,7 @@ export default function Product({set, product, category}) {
                             <div className="mt-3">
                                 <h2 className="sr-only">Product information</h2>
                                 <p className="text-3xl text-gray-900 flex items-center gap-4">{money.format(product.price)}
-                                    <i className="text-sm">({PriceInTax?.enabled ? 'Tasse Incluse' : 'Tasse Escluse'})</i>
+                                    <i className="text-sm">({opt.PriceInTax ? 'Tasse Incluse' : 'Tasse Escluse'})</i>
                                 </p>
                             </div>
 
@@ -215,8 +218,8 @@ export default function Product({set, product, category}) {
 
                                 <div className="mt-10 flex sm:flex-col1">
                                     <button
-                                        onClick={AddProductCart}
                                         type="button"
+                                        onClick={() => AddProductCart(product)}
                                         className={(load ? 'animate-pulse' : '') + " max-w-xs flex-1 bg-shop border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-shop focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-shop sm:w-full"}
                                     >
                                         {load ? '⚪⚪⚪' : 'Aggiungi al carrello'}
@@ -301,47 +304,53 @@ export default function Product({set, product, category}) {
                         <div
                             className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
                             {category && product && products?.map((prd, idx) => prd.id !== product.id && (
-                                <Link key={idx} href={slugCategoryProduct(prd)}>
-                                    <a key={prd?.id}>
-                                        <div className="relative">
-                                            <div className="relative w-full h-72 rounded-lg overflow-hidden">
-                                                <img
-                                                    src={prd?.thumbnail}
-                                                    alt={prd?.name}
-                                                    className="w-full h-full object-center object-cover"
-                                                />
-                                            </div>
-                                            <div className="relative mt-4">
-                                                <h3 className="text-md h-20 border rounded-xl p-4 font-bold text-gray-900">{prd?.name}</h3>
-                                            </div>
-                                            <div
-                                                className="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
+                                <div key={idx} className="flex flex-col gap-6">
+                                    <Link href={slugCategoryProduct(prd)}>
+                                        <a key={prd.id}>
+                                            <div className="relative hover:underline">
+                                                <div className="relative w-full h-72 rounded-lg overflow-hidden">
+                                                    <img
+                                                        src={prd?.thumbnail}
+                                                        alt={prd?.name}
+                                                        className="w-full h-full object-center object-cover"
+                                                    />
+                                                </div>
+                                                <div className="relative mt-4">
+                                                    <h3 className="text-md h-20 p-4 font-bold text-gray-900">{prd?.name}</h3>
+                                                </div>
                                                 <div
-                                                    aria-hidden="true"
-                                                    className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
-                                                />
-                                                <p className="relative text-lg font-semibold text-white">{money.format(product?.price)}</p>
+                                                    className="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
+                                                    <div
+                                                        aria-hidden="true"
+                                                        className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
+                                                    />
+                                                    <p className="relative text-lg font-semibold text-white">{money.format(prd?.price)}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="mt-6">
-                                            <button
-                                                className="w-full relative flex bg-gray-100 border border-transparent rounded-md py-2 px-8 items-center justify-center text-sm font-medium text-gray-900 hover:bg-gray-200"
-                                            >
-                                                Aggiungi al carrello
-                                            </button>
-                                        </div>
-                                    </a>
-                                </Link>
+                                        </a>
+                                    </Link>
+
+                                    {/*<div className="mt-6">*/}
+                                    {/*    <button*/}
+                                    {/*        onClick={() => AddProductCart(prd)}*/}
+                                    {/*        type="button"*/}
+                                    {/*        className="w-full relative flex bg-gray-100 border border-transparent rounded-md py-2 px-8 items-center justify-center text-sm font-medium text-gray-900 hover:bg-gray-200"*/}
+                                    {/*    >*/}
+                                    {/*        Aggiungi al carrello*/}
+                                    {/*    </button>*/}
+                                    {/*</div>*/}
+                                </div>
+
                             ))}
                         </div>
                     </section>
                 </div>
 
-                <FlayOutCart product={product} open={open} setOpen={setOpen}/>
+                <FlayOutCart product={productBag} open={open} setOpen={setOpen}/>
 
-                <NotifyAddWishlist product={product} show={wishAdd} setShow={setWishAdd}/>
+                <NotifyAddWishlist product={productBag} show={wishAdd} setShow={setWishAdd}/>
 
-                <NotifyRemoveWishlist product={product} show={wishRemove} setShow={setWishRemove}/>
+                <NotifyRemoveWishlist product={productBag} show={wishRemove} setShow={setWishRemove}/>
             </main>
         </PublicLayout>
     )

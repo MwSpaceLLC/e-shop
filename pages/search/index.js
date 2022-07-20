@@ -31,7 +31,7 @@ export default function IndexSearch({set}) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
-    const {data: products} = useSWR(`/api/json/products?name=${name}&category=${inCategory.join(',')}`, fetcher)
+    const {data: products} = useSWR(`/api/json/products?name=${name}&category=${inCategory.join(',')}&orderBy=createdAt&order=desc`, fetcher)
     const {data: categories} = useSWR(`/api/json/categories`, fetcher)
 
     const sortOptions = [
@@ -286,30 +286,42 @@ export default function IndexSearch({set}) {
             </section>
 
             {/* Product grid */}
-            <section
-                aria-labelledby="products-heading"
-                className="max-w-2xl mx-auto pt-12 pb-16 px-4 sm:pt-16 sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8"
-            >
-                <div
-                    className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                    {products?.map((product, idx) => (
-                        <Link key={idx} href={slugCategoryProduct(product)}>
-                            <a className="group bg-gray-100 rounded-xl p-4">
-                                <div
-                                    className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
-                                    <img
-                                        src={product.thumbnail}
-                                        alt={product.name}
-                                        className="w-full h-full object-center object-cover group-hover:opacity-75"
-                                    />
-                                </div>
-                                <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                                <p className="mt-1 text-lg font-medium text-gray-900">{money.format(product.price)}</p>
-                            </a>
-                        </Link>
-                    ))}
+
+            {products?.length > 0?(
+                <section
+                    aria-labelledby="products-heading"
+                    className="max-w-2xl mx-auto pt-12 pb-16 px-4 sm:pt-16 sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8"
+                >
+                    <div
+                        className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                        {products?.map((product, idx) => (
+                            <Link key={idx} href={slugCategoryProduct(product)}>
+                                <a className="group bg-gray-100 rounded-xl p-4">
+                                    <div
+                                        className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+                                        <img
+                                            src={product.thumbnail}
+                                            alt={product.name}
+                                            className="w-full h-full object-center object-cover group-hover:opacity-75"
+                                        />
+                                    </div>
+                                    <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
+                                    <p className="mt-1 text-lg font-medium text-gray-900">{money.format(product.price)}</p>
+                                </a>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            ):(
+                <div className="w-full h-96 flex items-center justify-center flex-col">
+                    <p className="font-bold text-xl">
+                        La tua ricerca non ha prodotto alcun risultato.
+                    </p>
+                    <Link href="/">
+                        <a className="text-shop">Continua lo shopping</a>
+                    </Link>
                 </div>
-            </section>
+            )}
 
         </PublicLayout>
     )

@@ -12,6 +12,12 @@ export default function useCarts(opt = {}) {
             .then(() => mutate('/api/json/carts'))
     }
 
+    const DeleteProduct = () => {
+        axios
+            .delete(`/api/json/carts/${cartItem.uuid}`)
+            .then(() => mutate('/api/json/carts'))
+    }
+
     const TotalTax = carts?.items?.reduce((accumulator, item) => (+accumulator + +parseFloat(item.price) * item.bag) * (parseFloat(item.tax) / 100), 0);
 
     //TODO: check if work | remove or not price tax
@@ -26,5 +32,6 @@ export default function useCarts(opt = {}) {
         PartialPrice,
         TotalPrice,
         ChangeQuantity,
+        DeleteProduct,
     ]
 }
