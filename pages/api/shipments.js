@@ -1,8 +1,5 @@
 import {getAppSettings} from "../../lib/helpers";
-
-// import {Stat, Packlink} from "packlink-js";
-
-const {Packlink, Stat} = require("packlink-js")
+import {Carrier, Packlink, Stat} from "../../node_packages/packlink-js";
 
 export default async function handler(req, res) {
 
@@ -14,24 +11,23 @@ export default async function handler(req, res) {
 
     Packlink.setApiKey(ShopPackLinkApiKey);
 
-    // const packages = []
-    //
-    // const carriers = Carrier.quote(3)
-    // // const carriers = Carrier.ship(packages)
-    //
-    // carriers.from({
-    //     country: 'IT',
-    //     zip: '06073'
-    // })
-    //
-    // carriers.to({
-    //     country: 'IT',
-    //     zip: '06073'
-    // });
-
     try {
 
-        const stats = await Stat.all();
+        // const carriers = Carrier.quote(3)
+        //
+        // carriers.from({
+        //     country: 'IT',
+        //     zip: '20900'
+        // })
+        //
+        // carriers.to({
+        //     country: 'IT',
+        //     zip: '06073'
+        // });
+        //
+        // return res.json(await carriers.all())
+
+        const stats = await Stat.all()
 
         return res.json(stats)
 
