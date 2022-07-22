@@ -10,6 +10,7 @@ import useCarts from "../../hooks/useCarts";
 import Link from "next/link";
 import useMoney from "../../hooks/useMoney";
 import FlayOutShipment from "../../components/FlayOutShipment";
+import {ArrowLeftIcon} from "@heroicons/react/outline";
 
 const deliveryMethods = [
     {id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00'},
@@ -29,7 +30,7 @@ export default function Checkout({set, opt}) {
 
     const money = useMoney()
 
-    const [items, TotalTax, PartialPrice, TotalPrice, ChangeQuantity, DeleteProduct] = useCarts(opt)
+    const [items, TotalTax, PartialPrice, TotalPrice] = useCarts(opt)
 
     const [flyout, setFlyout] = useState(false)
     const [shipment, setShipment] = useState(0)
@@ -41,9 +42,19 @@ export default function Checkout({set, opt}) {
             <h2 className="sr-only">Checkout</h2>
 
             <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+
+                {/* Contact information */}
                 <div>
                     <div>
-                        <h2 className="text-lg font-medium text-gray-900">Contact information</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+
+                            <Link href="/cart">
+                                <a>
+                                    <ArrowLeftIcon className="w-8"/>
+                                </a>
+                            </Link>
+
+                            Informazioni di spedizione</h2>
 
                         <div className="mt-4">
                             <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
@@ -398,15 +409,6 @@ export default function Checkout({set, opt}) {
                                                 </h4>
                                             </div>
 
-                                            <div className="ml-4 flex-shrink-0 flow-root">
-                                                <button
-                                                    type="button"
-                                                    className="-m-2.5 bg-white p-2.5 flex items-center justify-center text-gray-400 hover:text-gray-500"
-                                                >
-                                                    <span className="sr-only">Remove</span>
-                                                    <TrashIcon className="h-5 w-5" aria-hidden="true"/>
-                                                </button>
-                                            </div>
                                         </div>
 
                                         <div className="flex-1 pt-2 flex items-end justify-between">
@@ -427,7 +429,8 @@ export default function Checkout({set, opt}) {
                                 <dt className="text-md">Spedizione</dt>
                                 <dd className="text-md font-medium text-gray-900">
                                     {shipment > 0 ? '' : (
-                                        <button onClick={() => setFlyout(true)} className="text-shop underline">calcola spedizione</button>
+                                        <button onClick={() => setFlyout(true)}
+                                                className="text-shop font-bold underline">calcola spedizione</button>
                                     )}
                                 </dd>
                             </div>

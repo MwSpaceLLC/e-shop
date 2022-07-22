@@ -12,12 +12,10 @@ export function LogoApp({className}) {
     return (
         <div className="w-full flex items-center justify-center">
             {ShopSeoIndexTitle && ShopLogo && ShopName && (
-                <Image
-                    quality={100}
+                <img
                     className={className}
                     src={ShopLogo.value}
-                    alt={ShopName.value + ' ' + ShopSeoIndexTitle.value}
-                    width={50} height={50}/>
+                    alt={ShopName.value + ' ' + ShopSeoIndexTitle.value}/>
             )}
         </div>
     )

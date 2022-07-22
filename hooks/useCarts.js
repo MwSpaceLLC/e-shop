@@ -12,7 +12,7 @@ export default function useCarts(opt = {}) {
             .then(() => mutate('/api/json/carts'))
     }
 
-    const DeleteProduct = () => {
+    const DeleteProduct = (cartItem) => {
         axios
             .delete(`/api/json/carts/${cartItem.uuid}`)
             .then(() => mutate('/api/json/carts'))

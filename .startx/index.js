@@ -67,22 +67,22 @@ const prisma = new PrismaClient({log: ['query']});
                     value: 'Free commerce platform based on NextJs',
                 }, {
                     key: 'ShopLogo',
-                    value: '/crud/demo/settings/logo-1080-hd.webp',
+                    value: '/crud/demo/settings/2.0/1080-logo.png',
                 }, {
                     key: 'ShopFavicon',
-                    value: '/crud/demo/settings/favicon/favicon.ico',
+                    value: '/crud/demo/settings/2.0/favicon/favicon.ico',
                 }, {
                     key: 'ShopFavicon16',
-                    value: '/crud/demo/settings/favicon/favicon-16x16.png',
+                    value: '/crud/demo/settings/2.0/favicon/favicon-16x16.png',
                 }, {
                     key: 'ShopFavicon32',
-                    value: '/crud/demo/settings/favicon/favicon-32x32.png',
+                    value: '/crud/demo/settings/2.0/favicon/favicon-32x32.png',
                 }, {
                     key: 'ShopAppleTouchIcon',
-                    value: '/crud/demo/settings/favicon/apple-touch-icon.png',
+                    value: '/crud/demo/settings/2.0/favicon/apple-touch-icon.png',
                 }, {
                     key: 'ShopWebManifest',
-                    value: '/crud/demo/settings/favicon/site.webmanifest',
+                    value: '/crud/demo/settings/2.0/favicon/site.webmanifest',
                 }, {
                     key: 'MainBackgroundImage',
                     value: '/crud/demo/settings/support-hero-large.jpg',

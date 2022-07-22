@@ -337,7 +337,7 @@ export default function PublicLayout({set, title, description, children, classNa
                                             <div className="hidden lg:flex-1 lg:flex lg:items-center">
                                                 <Link href="/">
                                                     <a>
-                                                        <LogoApp className="h-8 w-auto"/>
+                                                        <LogoApp className="w-16"/>
                                                     </a>
                                                 </Link>
                                             </div>

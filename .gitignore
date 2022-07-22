@@ -6,6 +6,8 @@ identifier.sqlite
 .idea
 package-lock.json
 
+/node_packages
+
 # dependencies
 /node_modules
 /.pnp

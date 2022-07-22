@@ -91,7 +91,7 @@ export default function IndexSearch({set}) {
 
             <div className="bg-white">
                 <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 flex justify-between">
-                    <div>
+                    <div className="md:block hidden">
                         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Ricerca un prodotto</h1>
                         <p className="mt-4 max-w-xl text-sm text-gray-700">
 
@@ -101,7 +101,7 @@ export default function IndexSearch({set}) {
                         </p>
                     </div>
 
-                    <div>
+                    <div className="md:w-auto w-full">
                         <label htmlFor="search" className="block text-sm font-medium text-gray-700">
                             Cerca un prodotto con il nome o codice
                         </label>
@@ -177,13 +177,13 @@ export default function IndexSearch({set}) {
                             </Transition>
                         </Menu>
 
-                        <button
-                            type="button"
-                            className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"
-                            onClick={() => setMobileFiltersOpen(true)}
-                        >
-                            Filtri
-                        </button>
+                        {/*<button*/}
+                        {/*    type="button"*/}
+                        {/*    className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"*/}
+                        {/*    onClick={() => setMobileFiltersOpen(true)}*/}
+                        {/*>*/}
+                        {/*    Filtri*/}
+                        {/*</button>*/}
 
                         <div className="hidden sm:block">
                             <div className="flow-root">
