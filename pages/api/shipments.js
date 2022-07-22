@@ -2,7 +2,14 @@ import {getAppSettings} from "../../lib/helpers";
 
 import Carrier from "../../node_packages/packlink-js/src/Models/Carrier.mjs";
 import Packlink from "../../node_packages/packlink-js/src/Packlink.mjs";
-import Stat from "../../node_packages/packlink-js/src/Models/Stat.mjs";
+import Stat from "packlink-js";
+
+// import Stat from "../../node_packages/packlink-js/src/Models/Stat.mjs";
+
+const stats = await Stat.all();
+
+return console.log(stats)
+
 
 export default async function handler(req, res) {
 
@@ -13,6 +20,8 @@ export default async function handler(req, res) {
      |------------------------------------------------------------------------*/
 
     Packlink.setApiKey(ShopPackLinkApiKey);
+
+
 
     // const packages = []
     //
